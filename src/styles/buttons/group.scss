@@ -1,0 +1,12 @@
+.buttons-group1 {
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    background-color: buttonface;
+    overflow: hidden;
+}
+
+.buttons-group1 button.button-white-gr1 + button.button-white-gr1 {
+    border-top: solid 1px #d8d8d8;
+}

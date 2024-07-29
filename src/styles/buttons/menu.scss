@@ -1,0 +1,31 @@
+.menu__item-button .mat-button-toggle-button {
+    height: 100%;
+}
+
+.menu__item-button .mat-button-toggle-label-content {
+    line-height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.collapse-menu-button {
+    width: 20px;
+    height: 20px;
+
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #e8e8ee;
+    border-radius: 50px;
+    background: none;
+
+    .mat-icon {
+        font-size: 22px;
+        color: #7d7d7d;
+        line-height: 22px;
+        width: 22px;
+        height: 22px;
+
+        transition: transform 150ms ease-in-out;
+    }
+}

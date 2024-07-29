@@ -1,0 +1,20 @@
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a.fix-link {
+    color: -webkit-link;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.dashed-link {
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 13px;
+    color: #448aff;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 2px;
+}

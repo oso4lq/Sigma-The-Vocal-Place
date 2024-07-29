@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import './styles/colors.scss';
+@import './styles/utilites.scss';
+@import './styles/scrollbar.scss';
+@import './styles/links.scss';
+@import './styles/dialog.scss';
+@import './styles/buttons/buttons.scss';
+@import './styles/inputs/inputs.scss';
+
+@font-face {
+    font-family: 'BlackerSansDisplayTrial';
+    src: '/src/assets/fonts/blacker-sans-display-trial-bold.ttf' format('truetype');
+    // src: url('https://fonts.cdnfonts.com/css/blacker-sans-display-trial') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

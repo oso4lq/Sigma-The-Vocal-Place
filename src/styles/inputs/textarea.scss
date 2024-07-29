@@ -1,0 +1,18 @@
+textarea.inp-textarea,
+textarea.inp-textarea.mat-input-element {
+    border: 1px solid rgb(232, 232, 238);
+    border-radius: 5px;
+    background: rgb(252, 252, 252);
+    padding: 8px 10px;
+    box-sizing: border-box;
+
+    font-family: Roboto, sans-serif;
+    font-size: 13px;
+    line-height: 135%;
+
+    color: black;
+
+    &:focus {
+        border: 1px solid var(--inp-primary-color);
+    }
+}

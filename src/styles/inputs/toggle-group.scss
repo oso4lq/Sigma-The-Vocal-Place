@@ -1,0 +1,13 @@
+.inp-button-group.mat-button-toggle-group {
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+
+    .mat-button-toggle-checked {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .mat-button-toggle-label-content {
+        line-height: 26px;
+    }
+}

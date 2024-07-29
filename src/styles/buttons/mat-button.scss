@@ -1,0 +1,34 @@
+.mat-button-toggle-focus-overlay {
+    display: none;
+}
+
+button[mat-button].mat-button.button-white-gr1,
+button[mat-button].mat-icon-button.button-white-gr1 {
+    padding: 0;
+    min-width: 35px;
+    width: 35px;
+    min-height: 35px;
+    max-height: 35px;
+    border-width: 0;
+    padding: 1px 7px 2px;
+    align-items: flex-start;
+    border-radius: 0;
+    text-align: center;
+    cursor: default;
+    color: buttontext;
+    background-color: white;
+    box-sizing: border-box;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    text-shadow: none;
+    display: inline-block;
+    margin: 0;
+    font: 400 17px system-ui;
+
+    .mat-button-wrapper {
+        font-size: 18px;
+    }
+}

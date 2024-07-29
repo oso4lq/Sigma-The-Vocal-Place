@@ -1,0 +1,28 @@
+// @import '../../../styles/buttons/buttons.scss';
+
+mat-toolbar {
+    background: var(--brand-color);
+    height: 120px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.sigma-font {
+    // font-family: 'BlackerSansDisplayTrial', sans-serif;
+    font-family: 'Blacker Sans Display Trial', sans-serif;
+    font-weight: bold;
+}
+
+.logo {
+    gap: 6px;
+
+    &__label {
+        font-size: 40px;
+    }
+
+    &__sublabel {
+        font-size: 24px;
+    }
+}

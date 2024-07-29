@@ -1,0 +1,57 @@
+mat-form-field.checkbox-field {
+    font-size: 14px;
+
+    .mat-form-field {
+        &-flex {
+            .mat-form-field-infix {
+                mat-checkbox.mat-checkbox {
+                    .mat-checkbox-layout {
+                        display: flex;
+                        align-items: center;
+                        white-space: normal;
+
+                        .mat-checkbox-label {
+                            line-height: 100%;
+                        }
+
+                        .mat-checkbox-inner-container {
+                            width: 14px;
+                            height: 14px;
+                            margin: 0 5px 0 0;
+
+                            .mat-checkbox-ripple {
+                                top: calc(50% - 13px);
+                                left: calc(50% - 13px);
+                                height: 26px;
+                                width: 26px;
+
+                                .mat-ripple-element {
+                                    height: 26px !important;
+                                    width: 26px !important;
+                                    top: 0 !important;
+                                    left: 0 !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+mat-checkbox {
+    font-size: 14px;
+
+    .mat-checkbox-inner-container {
+        width: 14px;
+        height: 14px;
+        margin: 0 5px 0 0;
+    }
+
+    .mat-checkbox-layout {
+        display: flex;
+        align-items: center;
+        white-space: normal;
+    }
+}

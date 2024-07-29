@@ -1,0 +1,25 @@
+::ng-deep .inp-radio-group {
+    .mat-radio-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .mat-radio-inner-circle {
+            width: 10px;
+            height: 10px;
+            left: unset;
+            top: unset;
+
+            transform: scale(1);
+            background-color: #7d7d7d;
+            opacity: 0.1;
+        }
+    }
+
+    .mat-radio-checked {
+        .mat-radio-inner-circle {
+            opacity: 1;
+            background-color: var(--primary-color);
+        }
+    }
+}
