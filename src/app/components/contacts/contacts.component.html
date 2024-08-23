@@ -1,22 +1,50 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>Contact Us</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+<div class="contacts">
+
+
+    <h2>Contact me</h2>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Contact me</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form>
+                <mat-form-field class="full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Your name">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Your email">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Message</mat-label>
+                    <textarea matInput placeholder="Your message"></textarea>
+                </mat-form-field>
+                <button mat-raised-button color="primary">Send</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+
+    <div class="contact-info">
+        <p>Email: <a href="mailto:info@sigmavocalplace.com">{{"info@sigmavocalplace.com"}}</a></p>
+        <p>Phone: (123) 456-7890</p>
+        <p>Address: 123 Vocal Lane, Music City</p>
+    </div>
+    <div class="contact-form">
         <form>
-            <mat-form-field class="full-width">
-                <mat-label>Name</mat-label>
-                <input matInput placeholder="Your name">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Your email">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <mat-label>Message</mat-label>
-                <textarea matInput placeholder="Your message"></textarea>
-            </mat-form-field>
-            <button mat-raised-button color="primary">Send</button>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Send</button>
         </form>
-    </mat-card-content>
-</mat-card>
+    </div>
+
+</div>

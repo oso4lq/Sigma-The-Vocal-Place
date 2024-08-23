@@ -17,9 +17,16 @@
 html,
 body {
     height: 100%;
+    background: var(--bright-brand-color);
 }
 
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.sigma-font {
+    font-family: 'Blacker Sans Display Trial', sans-serif;
+    font-weight: bold;
+}
+// "@angular/material/prebuilt-themes/magenta-violet.css",

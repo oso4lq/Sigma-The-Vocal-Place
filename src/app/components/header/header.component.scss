@@ -1,28 +1,52 @@
-// @import '../../../styles/buttons/buttons.scss';
-
 mat-toolbar {
-    background: var(--brand-color);
-    height: 120px;
-}
-
-.spacer {
-    flex: 1 1 auto;
-}
-
-.sigma-font {
-    // font-family: 'BlackerSansDisplayTrial', sans-serif;
-    font-family: 'Blacker Sans Display Trial', sans-serif;
-    font-weight: bold;
+    background: var(--brand-color) !important;
+    height: 110px !important;
+    padding: 0;
 }
 
 .logo {
-    gap: 6px;
+    margin-left: 24px;
+    cursor: pointer;
+    color: var(--light-color);
 
     &__label {
         font-size: 40px;
+        line-height: 40px;
     }
 
     &__sublabel {
         font-size: 24px;
+        line-height: 30px;
     }
+}
+
+.menu {
+    gap: 24px;
+    margin-right: 24px;
+
+    button {
+        width: 120px;
+        height: 70px;
+        max-height: none;
+        border-radius: 5px;
+    }
+}
+
+.piano-keys {
+    display: flex;
+}
+
+.white-key {
+    width: 30px;
+    height: 80px;
+    background-color: #fff;
+    border: 1px solid #000;
+}
+
+.black-key {
+    width: 20px;
+    height: 50px;
+    background-color: #000;
+    position: relative;
+    left: -11px;
 }

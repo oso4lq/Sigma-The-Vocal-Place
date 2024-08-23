@@ -2,8 +2,10 @@
     display: none;
 }
 
-button[mat-button].mat-button.button-white-gr1,
-button[mat-button].mat-icon-button.button-white-gr1 {
+// button[mat-button].mat-button.button-white-gr1,
+// button[mat-button].mat-icon-button.button-white-gr1 
+
+.mdc-button {
     padding: 0;
     min-width: 35px;
     width: 35px;

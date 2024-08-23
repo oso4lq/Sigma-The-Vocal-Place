@@ -1,6 +1,11 @@
-.main-wrapper::-webkit-scrollbar {
-    display: none;
+app-header {
+    position: fixed;
+    z-index: 10;
 }
+
+// .main-wrapper::-webkit-scrollbar {
+//     display: none;
+// }
 
 // :host {
 //     --bright-blue: oklch(51.01% 0.274 263.83);

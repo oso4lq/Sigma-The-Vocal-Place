@@ -1,12 +1,38 @@
-<mat-toolbar>
+<mat-toolbar class="flex-row center-row" style="justify-content: flex-start;">
+
+    <!-- add logo moving to the header when srolling down -->
+
     <div class="flex-col center-row logo sigma-font">
         <span class="logo__label">ΣΙΓΜΑ</span>
         <span class="logo__sublabel">the vocal place</span>
     </div>
 
-    <span class="spacer"></span>
-    <button mat-raised-button color="primary" routerLink="/">Home</button>
-    <button mat-raised-button routerLink="/about">About</button>
-    <button mat-raised-button routerLink="/services">Services</button>
-    <button mat-raised-button routerLink="/contact">Contact</button>
+    <div class="flex-row center-row menu">
+        <!-- <button mat-button mat-raised-button>Home</button> -->
+        <button mat-button mat-raised-button>About</button>
+        <button mat-button mat-raised-button>Contact</button>
+        <button mat-button mat-raised-button>Sign up for a class</button>
+        <button mat-icon-button>Account</button>
+    </div>
+
+    <div class="piano-keys">
+        <div class="white-key"></div>
+        <div class="white-key">
+            <div class="black-key"></div>
+        </div>
+        <div class="white-key">
+            <div class="black-key"></div>
+        </div>
+        <div class="white-key"></div>
+        <div class="white-key">
+            <div class="black-key"></div>
+        </div>
+        <div class="white-key">
+            <div class="black-key"></div>
+        </div>
+        <div class="white-key">
+            <div class="black-key"></div>
+        </div>
+    </div>
+
 </mat-toolbar>
