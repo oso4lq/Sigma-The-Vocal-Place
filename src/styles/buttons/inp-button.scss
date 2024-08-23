@@ -75,12 +75,12 @@
 }
 
 .mat-mdc-raised-button {
-    background-color: var(--light-select-color) !important;
-
+    background-color: var(--brand-color);
     color: #ffff;
+    transition: transform 0.5s ease-in-out !important;
 
     &:hover:not(.mat-button-disabled) {
-        background-color: var(--select-color) !important;
+        background-color: var(--shaded-brand-color) !important;
     }
 
     &:not([class*=mat-elevation-z]) {
@@ -96,5 +96,10 @@
             background: #2771ee;
             color: #fff;
         }
+    }
+
+    &.active {
+        transform: translateY(-10px);
+        background-color: var(--dark-brand-color) !important;
     }
 }

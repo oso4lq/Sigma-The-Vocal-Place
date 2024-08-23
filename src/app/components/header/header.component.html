@@ -1,18 +1,27 @@
-<mat-toolbar class="flex-row center-row" style="justify-content: flex-start;">
+<mat-toolbar class="flex-row center-row header">
 
-    <!-- add logo moving to the header when srolling down -->
-
-    <div class="flex-col center-row logo sigma-font">
+    <div class="flex-col center-row logo sigma-font" (click)="scrollToSection('home-section')">
         <span class="logo__label">ΣΙΓΜΑ</span>
         <span class="logo__sublabel">the vocal place</span>
     </div>
 
     <div class="flex-row center-row menu">
-        <!-- <button mat-button mat-raised-button>Home</button> -->
-        <button mat-button mat-raised-button>About</button>
-        <button mat-button mat-raised-button>Contact</button>
-        <button mat-button mat-raised-button>Sign up for a class</button>
-        <button mat-icon-button>Account</button>
+        <button id="home-button" mat-button mat-raised-button data-section="home-section"
+            (click)="scrollToSection('home-section')">
+            Home
+        </button>
+        <button id="about-button" mat-button mat-raised-button data-section="about-section"
+            (click)="scrollToSection('about-section')">
+            About
+        </button>
+        <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
+            (click)="scrollToSection('contacts-section')">
+            Contact
+        </button>
+        <button mat-button mat-raised-button disabled>
+            Sign up for a class
+        </button>
+        <button mat-icon-button disabled>Account</button>
     </div>
 
     <div class="piano-keys">

@@ -1,7 +1,23 @@
+:host {
+    display: block;
+}
+
 mat-toolbar {
     background: var(--brand-color) !important;
     height: 110px !important;
     padding: 0;
+
+    // transition: background-color 0.5s ease-in-out;
+    transition: background-color 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 1;
+
+    &.semi-transparent {
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
 }
 
 .logo {
@@ -22,18 +38,30 @@ mat-toolbar {
 
 .menu {
     gap: 24px;
-    margin-right: 24px;
+    height: 100%;
 
     button {
-        width: 120px;
-        height: 70px;
+        min-width: 120px;
+        height: 100%;
         max-height: none;
-        border-radius: 5px;
+        // border-radius: 5px;
+        border-radius: 0;
+    }
+
+    .highlighted {
+        background-color: var(--dark-brand-color);
+        transform: translateY(-10px);
+
+        &:hover {
+            background-color: var(--dark-brand-color) !important;
+        }
     }
 }
 
+
 .piano-keys {
     display: flex;
+    margin-right: 24px;
 }
 
 .white-key {
