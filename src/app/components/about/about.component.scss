@@ -81,14 +81,18 @@
   }
 
   &__header {
+    display: flex;
+    justify-content: center;
     background: rgba(0, 0, 0, 0.7);
     padding: 10px 20px;
+    font-size: 22px;
   }
 
   &__content {
     background: rgba(0, 0, 0, 0.5);
-    padding: 20px;
+    padding: 20px 40px 40px 40px;
     transition: background 0.3s ease;
+    font-size: 18px;
 
     span {
       display: block;
