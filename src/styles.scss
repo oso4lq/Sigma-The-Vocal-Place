@@ -29,4 +29,21 @@ body {
     font-family: 'Blacker Sans Display Trial', sans-serif;
     font-weight: bold;
 }
+
+.section {
+    height: 100vh;
+}
+
+.plug {
+    background-color: var(--brand-color);
+}
+
+h2 {
+    height: 110px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 // "@angular/material/prebuilt-themes/magenta-violet.css",

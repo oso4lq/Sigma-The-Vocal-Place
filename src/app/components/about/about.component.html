@@ -1,16 +1,17 @@
-<!-- 3 cards. each card has the default and the expanded content  -->
-<!-- the user can click the card or navigate by clicking the arrows -->
-<div class="about">
+<div class="flex-col section">
 
-    <h2>About my studio</h2>
+    <div class="flex-col plug">
+        <h2>About my studio</h2>
+    </div>
 
-    <div class="embla" #embla>
+    <div class="flex-col h-100 embla" #embla>
         <div class="embla__viewport h-100">
-            <div class="embla__container flex-row center-row">
-                <div *ngFor="let card of cards; let i = index" class="embla__slide card"
+            <div class="embla__container h-100 flex-row center-row">
+                <div *ngFor="let card of cards; let i = index" class="h-100 embla__slide card"
                     [class.selected]="selectedCardIndex === i" (click)="selectCard(i)">
-                    <mat-card class="card">
-                        <div class="card__background" [ngStyle]="{'background-image': 'url(' + card.image + ')'}"></div>
+                    <mat-card class="h-100 card">
+                        <div class="w-h-100 card__background"
+                            [ngStyle]="{'background-image': 'url(' + card.image + ')'}"></div>
                         <mat-card-header class="card__header">
                             <mat-card-title>{{ card.title }}</mat-card-title>
                         </mat-card-header>
@@ -27,29 +28,6 @@
         <button class="embla__next" (click)="nextImage()" [disabled]="selectedCardIndex > 1">next</button>
     </div>
 
-<!-- add links to the gallery -->
-
-    <span>я oпытный педагог пo эcтрадно-джaзoвому вoкалу для взрocлыx и дeтей, певица, aктриcа.
-        Преподаю вокал по авторской, лёгкой для восприятия, эффективной методике.
-        Вы получите первые результаты быстро!
-        Работаю с абсолютно любым уровнем.</span>
-
-    <span>Что вы получите на занятиях:
-        • постановка правильного вокального дыхания
-        • авторские распевки
-        • постановка голоса
-        • развитие музыкального слуха
-        • разучим Ваши любимые песни
-        • снятие мышечных зажимов
-        • подготовка к конкурсам, фестивалям, концертам
-        • разбор и анализ песни
-        • проработка сценического образа
-        ...и многое другое по Вашему запросу
-        Результат Вы почувствуете уже после первого занятия.</span>
-
-    <span>Стоимость разового занятия по вокалу - 2000 ₽
-        Также есть возможность заниматься по абонементам:
-        4 занятия по вокалу - 7000 ₽ (1750 ₽/занятие)
-        8 занятий по вокалу - 12 000 ₽ (1500 ₽/занятие)</span>
+    <!-- add links to the gallery -->
 
 </div>

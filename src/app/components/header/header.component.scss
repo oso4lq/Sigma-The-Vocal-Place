@@ -3,27 +3,31 @@
 }
 
 mat-toolbar {
-    background: var(--brand-color) !important;
+    // background: var(--brand-color) !important;
     height: 110px !important;
     padding: 0;
-
     // transition: background-color 0.5s ease-in-out;
     transition: background-color 0.5s ease-in-out, opacity 0.5s ease-in-out;
-    opacity: 1;
+    // opacity: 1;
+    align-items: flex-start;
+}
 
-    &.semi-transparent {
-        opacity: 0.5;
+.semi-transparent {
+    opacity: 0.5;
+    height: 55px !important;
 
-        &:hover {
-            opacity: 1;
-        }
+    &:hover {
+        opacity: 1;
     }
 }
 
 .logo {
-    margin-left: 24px;
-    cursor: pointer;
+    width: 200px;
+    background: var(--brand-color) !important;
     color: var(--light-color);
+    // padding: 0 24px;
+    cursor: pointer;
+    justify-content: center;
 
     &__label {
         font-size: 40px;
@@ -37,14 +41,18 @@ mat-toolbar {
 }
 
 .menu {
-    gap: 24px;
+    background: var(--brand-color) !important;
+    color: var(--light-color);
+
+    transition: background-color 0.5s ease-in-out, opacity 0.5s ease-in-out;
+
+    flex-grow: 1;
     height: 100%;
 
     button {
-        min-width: 120px;
+        flex-grow: 1;
         height: 100%;
         max-height: none;
-        // border-radius: 5px;
         border-radius: 0;
     }
 

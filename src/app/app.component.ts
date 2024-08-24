@@ -4,6 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
+import { ClassesComponent } from './components/classes/classes.component';
 
 
 // import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -17,6 +18,7 @@ import { ContactsComponent } from './components/contacts/contacts.component';
     HeaderComponent,
     HomeComponent,
     AboutComponent,
+    ClassesComponent,
     ContactsComponent,
     RouterOutlet,
 

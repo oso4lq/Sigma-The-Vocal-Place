@@ -1,6 +1,6 @@
 <mat-toolbar class="flex-row center-row header">
 
-    <div class="flex-col center-row logo sigma-font" (click)="scrollToSection('home-section')">
+    <div class="flex-col h-100 center-row logo sigma-font" (click)="scrollToSection('home-section')">
         <span class="logo__label">ΣΙΓΜΑ</span>
         <span class="logo__sublabel">the vocal place</span>
     </div>
@@ -14,17 +14,22 @@
             (click)="scrollToSection('about-section')">
             About
         </button>
+        <button id="classes-button" mat-button mat-raised-button data-section="classes-section"
+            (click)="scrollToSection('classes-section')">
+            Sign up for a class
+        </button>
         <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
             (click)="scrollToSection('contacts-section')">
             Contact
         </button>
-        <button mat-button mat-raised-button disabled>
-            Sign up for a class
-        </button>
-        <button mat-icon-button disabled>Account</button>
+        <button mat-icon-button>Account</button>
     </div>
 
-    <div class="piano-keys">
+    <div class="social-media">
+        <div></div>
+    </div>
+
+    <div class="piano-keys" style="display: none;">
         <div class="white-key"></div>
         <div class="white-key">
             <div class="black-key"></div>

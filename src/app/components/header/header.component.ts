@@ -13,24 +13,27 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
-  private sections: string[] = ['home-section', 'about-section', 'contacts-section'];
+  private sections: string[] = ['home-section', 'about-section', 'classes-section', 'contacts-section'];
   private currentSectionIndex: number = 0;
 
   constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
-    this.checkCurrentSection(); // Check section on initial load
-
-    window.addEventListener('wheel', this.onWheelScroll.bind(this));
+    // Check section on initial load
+    this.checkCurrentSection();
+    // Add the wheel event listener as non-passive
+    window.addEventListener('wheel', this.onWheelScroll.bind(this), { passive: false });
   }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    this.checkCurrentSection(); // Check section on scroll
+    // Check section on scroll
+    this.checkCurrentSection();
   }
 
   checkCurrentSection() {
-    const scrollPosition = window.pageYOffset + 150; // Offset for the header height
+    // Offset for the header height
+    const scrollPosition = window.pageYOffset + 110;
 
     this.sections.forEach((sectionId, index) => {
       const sectionElement = document.getElementById(sectionId);
@@ -40,6 +43,7 @@ export class HeaderComponent implements OnInit {
 
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
           this.currentSectionIndex = index;
+          // console.log('currentSectionIndex is', this.currentSectionIndex);
           this.highlightMenuButton(sectionId);
         }
       }
@@ -52,16 +56,21 @@ export class HeaderComponent implements OnInit {
       const sectionHeight = homeSection.offsetHeight;
 
       if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        this.renderer.addClass(document.body.querySelector('mat-toolbar'), 'semi-transparent');
+        // this.renderer.addClass(document.body.querySelector('mat-toolbar'), 'semi-transparent');
+        this.renderer.addClass(document.body.querySelector('.menu'), 'semi-transparent');
       } else {
-        this.renderer.removeClass(document.body.querySelector('mat-toolbar'), 'semi-transparent');
+        // this.renderer.removeClass(document.body.querySelector('mat-toolbar'), 'semi-transparent');
+        this.renderer.removeClass(document.body.querySelector('.menu'), 'semi-transparent');
       }
     }
   }
 
   onWheelScroll(event: WheelEvent) {
-    console.log('onWheelScroll', event);
-    console.log('event.deltaY', event.deltaY);
+    // console.log('event.deltaY', event.deltaY);
+
+    // Prevent the default scrolling behavior
+    event.preventDefault();
+
     if (event.deltaY > 0) {
       this.scrollToNextSection();
     } else if (event.deltaY < 0) {
@@ -70,33 +79,39 @@ export class HeaderComponent implements OnInit {
   }
 
   scrollToNextSection() {
-    console.log('scrollToNextSection');
-    console.log('currentSectionIndex', this.currentSectionIndex);
     if (this.currentSectionIndex < this.sections.length - 1) {
+      // console.log('scrollToNextSection');
+      // console.log('currentSectionIndex', this.currentSectionIndex);
       this.currentSectionIndex++;
+      // console.log('new currentSectionIndex', this.currentSectionIndex);
       this.scrollToSection(this.sections[this.currentSectionIndex]);
     }
   }
 
   scrollToPreviousSection() {
-    console.log('scrollToPreviousSection');
-    console.log('currentSectionIndex', this.currentSectionIndex);
     if (this.currentSectionIndex > 0) {
+      // console.log('scrollToPreviousSection');
+      // console.log('currentSectionIndex', this.currentSectionIndex);
       this.currentSectionIndex--;
       this.scrollToSection(this.sections[this.currentSectionIndex]);
     }
   }
 
   scrollToSection(sectionId: string) {
-    console.log('scrollToSection to sectionId', sectionId);
+    // console.log('scrollToSection to sectionId', sectionId);
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      // console.log('section', section);
+
+      // Enable smooth scrolling between the sections
+      section.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+
       this.highlightMenuButton(sectionId);
     }
   }
 
   highlightMenuButton(sectionId: string) {
+    // console.log('highlightMenuButton', sectionId);
     const buttons = document.querySelectorAll('.menu button');
     buttons.forEach(button => {
       this.renderer.removeClass(button, 'highlighted');
