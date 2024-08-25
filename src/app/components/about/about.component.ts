@@ -36,7 +36,7 @@ export class AboutComponent implements OnInit, AfterViewInit {
       // contentShort: 'Я, [Tutors Name], преподаватель вокала.',
       contentShort: 'Я, [Tutors Name], преподаватель вокала.',
       // contentLong: 'Я, [Tutors Name], имею за плечами более 5 лет опыта преподавания вокала with a background in classical and contemporary singing. Имею высшее музыкальное образование. Окончила кафедру эстрадно-джазового вокала факультета музыкального искусства эстрады СПбГИК.'
-      contentLong: 'Я, [Tutors Name], имею за плечами более 5 лет опыта преподавания вокала with a background in classical and contemporary singing. Имею высшее музыкальное образование. Окончила кафедру эстрадно-джазового вокала факультета музыкального искусства эстрады СПбГИК.'
+      contentLong: 'Я, [Tutors Name], имею за плечами более 5 лет опыта преподавания вокала. Имею высшее музыкальное образование. Окончила кафедру эстрадно-джазового вокала факультета музыкального искусства эстрады СПбГИК.'
     },
     {
       title: 'О студии',
