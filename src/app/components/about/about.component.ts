@@ -33,20 +33,26 @@ export class AboutComponent implements OnInit, AfterViewInit {
     {
       title: 'Обо мне',
       image: 'https://img42.rajce.idnes.cz/d4202/19/19234/19234587_7120b7f029e3a19a3efd09788a59d31b/images/cat_S_sing3_png.jpg?ver=0',
+      // contentShort: 'Я, [Tutors Name], преподаватель вокала.',
       contentShort: 'Я, [Tutors Name], преподаватель вокала.',
+      // contentLong: 'Я, [Tutors Name], имею за плечами более 5 лет опыта преподавания вокала with a background in classical and contemporary singing. Имею высшее музыкальное образование. Окончила кафедру эстрадно-джазового вокала факультета музыкального искусства эстрады СПбГИК.'
       contentLong: 'Я, [Tutors Name], имею за плечами более 5 лет опыта преподавания вокала with a background in classical and contemporary singing. Имею высшее музыкальное образование. Окончила кафедру эстрадно-джазового вокала факультета музыкального искусства эстрады СПбГИК.'
     },
     {
       title: 'О студии',
       image: 'https://img42.rajce.idnes.cz/d4202/19/19234/19234587_7120b7f029e3a19a3efd09788a59d31b/images/studio2_png.jpg?ver=0',
-      contentShort: 'ΣΙΓΜΑ was founded with the mission...',
-      contentLong: 'ΣΙΓΜΑ The Vocal Place was founded with the mission to provide top-notch vocal training to singers of all levels. My studio is a welcoming space where students can grow their skills and confidence.'
+      // contentShort: 'ΣΙΓΜΑ – the space for art.',
+      contentShort: 'ΣΙΓΜΑ – пространство для творчества.',
+      // contentLong: 'ΣΙΓΜΑ The Vocal Place was founded with the mission to provide top-notch vocal training to singers of all levels. My studio is a welcoming space where students can grow their skills and confidence.'
+      contentLong: 'Студия ΣΙΓΜΑ расположена в Московском районе Санкт-Петербурга. Это творческое пространство с уютной атмосферой, оснащённое необходимым оборудованием. Здесь вы сможете эффективно развивать свои навыки и способности.'
     },
     {
       title: 'Занятия',
       image: 'https://img42.rajce.idnes.cz/d4202/19/19234/19234587_7120b7f029e3a19a3efd09788a59d31b/images/lesson1_png.jpg?ver=0',
-      contentShort: 'Lessons for all levels.',
-      contentLong: 'We offer lessons for beginners, intermediates, and advanced singers. Whether you are just starting out or looking to refine your technique, we have a program for you.'
+      // contentShort: 'Classes for all levels.',
+      contentShort: 'Занятия для всех уровней.',
+      // contentLong: 'We offer lessons for beginners, intermediates, and advanced singers. Whether you are just starting out or looking to refine your technique, we have a program for you.'
+      contentLong: 'Независимо от того, начинаете ли вы или хотите усовершенствовать свою технику, в ΣΙΓΜΑ вы найдёте программу для себя. Я работаю с учениками любого уровня от начинающих до профессиональных певцов.'
     },
   ];
 
