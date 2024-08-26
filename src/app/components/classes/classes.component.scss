@@ -2,14 +2,19 @@
     display: grid;
     grid-template-columns: 6fr 4fr;
     grid-template-rows: 1fr;
-    gap: 5%;
+    // gap: 5%;
     padding: 0 5%;
+}
+
+.left-col {
+    margin-right: 20px;
 }
 
 .wrapper {
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
     padding: 20px;
+    justify-content: flex-start;
 }
 
 .cards {
@@ -57,6 +62,10 @@
     }
 }
 
+.right-col {
+    align-items: flex-start;
+}
+
 .price {
     max-width: 400px;
     margin-top: 40px;
@@ -72,12 +81,19 @@
         width: 300px;
         height: 60px;
         margin: 15px 0;
-        background: var(--light-select-color);
-        border: 5px solid var(--dark-alt-color);
+        background: linear-gradient(70deg, var(--light-brand-color), var(--light-alt-color) 110%);
+        border: none;
         border-radius: 30px;
-        color: var(--light-color);
-        font-size: 22px;
+        color: #fff;
+        font-size: 18px;
+        box-shadow: 0 0 8px var(--alt-color);
+        transition: transform 0.3s;
+
+        &:hover {
+            transform: scale(1.05);
+        }
     }
+
 
     &__list {
         font-size: 20px;
@@ -122,13 +138,23 @@
         margin-bottom: 15px;
     }
 
+    .btns {
+        justify-content: space-around;
+    }
+
     button {
         width: 150px;
         height: 50px;
-        background: var(--light-select-color);
-        border: 5px solid var(--dark-alt-color);
+        background: var(--light-brand-color);
+        border: none;
         border-radius: 25px;
-        color: var(--light-color);
+        color: #fff;
         font-size: 16px;
+        box-shadow: 0 0 4px var(--dark-brand-color);
+        transition: transform 0.3s;
+
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 }

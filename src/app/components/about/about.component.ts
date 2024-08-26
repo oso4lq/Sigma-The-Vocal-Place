@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import EmblaCarousel, { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel';
+import { MatIconModule } from '@angular/material/icon';
 
 // Define the interface or type for your card data
 interface Card {
@@ -16,112 +16,57 @@ interface Card {
   standalone: true,
   imports: [
     MatCardModule,
+    MatIconModule,
     CommonModule,
   ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
-export class AboutComponent implements OnInit, AfterViewInit {
-  @ViewChild('embla') emblaRef!: ElementRef;
-  private emblaCarousel!: EmblaCarouselType;
-  selectedCardIndex: number = 0;
+export class AboutComponent implements OnInit {
+  selectedCardIndex: number = 1;
 
   // Define your card data as an array of Card objects
   cards: Card[] = [
     {
       title: 'Обо мне',
       image: 'https://img42.rajce.idnes.cz/d4202/19/19234/19234587_7120b7f029e3a19a3efd09788a59d31b/images/cat_S_sing3_png.jpg?ver=0',
-      // contentShort: 'Я, [Tutors Name], преподаватель вокала.',
       contentShort: 'Я, [Tutors Name], преподаватель вокала.',
-      // contentLong: 'Я, [Tutors Name], имею за плечами более 5 лет опыта преподавания вокала with a background in classical and contemporary singing. Имею высшее музыкальное образование. Окончила кафедру эстрадно-джазового вокала факультета музыкального искусства эстрады СПбГИК.'
       contentLong: 'Я, [Tutors Name], имею за плечами более 5 лет опыта преподавания вокала. Имею высшее музыкальное образование. Окончила кафедру эстрадно-джазового вокала факультета музыкального искусства эстрады СПбГИК.'
     },
     {
       title: 'О студии',
       image: 'https://img42.rajce.idnes.cz/d4202/19/19234/19234587_7120b7f029e3a19a3efd09788a59d31b/images/studio2_png.jpg?ver=0',
-      // contentShort: 'ΣΙΓΜΑ – the space for art.',
       contentShort: 'ΣΙΓΜΑ – пространство для творчества.',
-      // contentLong: 'ΣΙΓΜΑ The Vocal Place was founded with the mission to provide top-notch vocal training to singers of all levels. My studio is a welcoming space where students can grow their skills and confidence.'
       contentLong: 'Студия ΣΙΓΜΑ расположена в Московском районе Санкт-Петербурга. Это творческое пространство с уютной атмосферой, оснащённое необходимым оборудованием. Здесь вы сможете эффективно развивать свои навыки и способности.'
     },
     {
       title: 'Занятия',
       image: 'https://img42.rajce.idnes.cz/d4202/19/19234/19234587_7120b7f029e3a19a3efd09788a59d31b/images/lesson1_png.jpg?ver=0',
-      // contentShort: 'Classes for all levels.',
       contentShort: 'Занятия для всех уровней.',
-      // contentLong: 'We offer lessons for beginners, intermediates, and advanced singers. Whether you are just starting out or looking to refine your technique, we have a program for you.'
       contentLong: 'Независимо от того, начинаете ли вы или хотите усовершенствовать свою технику, в ΣΙΓΜΑ вы найдёте программу для себя. Я работаю с учениками любого уровня от начинающих до профессиональных певцов.'
     },
   ];
 
-  ngAfterViewInit() {
-    if (this.cards && this.cards.length) { // Check if data is available
-      this.emblaCarousel = EmblaCarousel(this.emblaRef.nativeElement, {
-        loop: false,
-        containScroll: 'trimSnaps'
-      } as EmblaOptionsType);
+  constructor() { }
 
-      this.emblaCarousel.on('select', () => {
-        this.selectedCardIndex = this.emblaCarousel.selectedScrollSnap();
-        this.cdr.detectChanges();
-      });
-    } else {
-      console.error('Card data is missing or empty');
+  ngOnInit() { }
+
+  nextImage(event: Event) {
+    event.stopPropagation();
+    if (this.selectedCardIndex < this.cards.length - 1) {
+      this.selectedCardIndex++;
     }
   }
 
-  constructor(
-    private cdr: ChangeDetectorRef,
-    // private zone: NgZone,
-  ) {
-  }
-
-
-  ngOnInit() {
-    // this.initEmblaCarousel();
-  }
-
-  // ngAfterViewInit() {
-  // setTimeout(() => this.initEmblaCarousel());
-
-  // const emblaNode = document.querySelector('.embla') as HTMLElement;
-  // this.emblaCarousel = EmblaCarousel(emblaNode, { loop: false });
-  // this.emblaCarousel.on('select', this.onSelect.bind(this));
-  // }
-
-  ngOnDestroy() {
-    this.emblaCarousel?.destroy();
-  }
-
-  nextImage() {
-    console.log('next');
-    this.selectedCardIndex++;
-    this.emblaCarousel?.scrollNext();
-  }
-
-  prevImage() {
-    console.log('prev');
-    this.selectedCardIndex--;
-    this.emblaCarousel?.scrollPrev();
-  }
-
-  onSelect() {
-    this.selectedCardIndex = this.emblaCarousel.selectedScrollSnap();
+  prevImage(event: Event) {
+    event.stopPropagation();
+    if (this.selectedCardIndex > 0) {
+      this.selectedCardIndex--;
+    }
   }
 
   selectCard(index: number) {
     this.selectedCardIndex = index;
-    console.log('selected card', this.selectedCardIndex);
   }
-
-
-  // private initEmblaCarousel() {
-  //   const options: EmblaOptionsType = {
-  //     align: 'center',
-  //     containScroll: 'trimSnaps',
-  //     startIndex: this.selectedCardIndex,
-  //   };
-  // }
 }

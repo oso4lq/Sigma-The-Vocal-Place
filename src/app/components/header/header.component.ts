@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { SocialMediaComponent } from '../social-media/social-media.component';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     MatToolbarModule,
     MatButtonModule,
+    SocialMediaComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

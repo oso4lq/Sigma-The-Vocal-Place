@@ -54,6 +54,11 @@ mat-toolbar {
         max-height: none;
         border-radius: 0;
         font-size: 18px;
+        text-transform: uppercase;
+    }
+
+    .special {
+        background: var(--alt-color);
     }
 
     .highlighted {
@@ -66,22 +71,18 @@ mat-toolbar {
     }
 }
 
-.social {
-    // display: none;
+app-social-media {
     width: 200px;
     background: var(--brand-color) !important;
     color: var(--light-color);
-    justify-content: center;
-    gap: 20px;
 
-    &__item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 24px;
-        height: 24px;
-        border-radius: 4px;
-        border: 1px solid var(--light-color);
+    ::ng-deep .social {
+        gap: 10px;
+
+        &__item {
+            width: 40px !important;
+            height: 40px !important;
+        }
     }
 }
 

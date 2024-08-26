@@ -1,4 +1,4 @@
-<div class="section">
+<div class="flex-col section">
 
     <div class="flex-col plug">
         <h2>Contact me</h2>
@@ -6,40 +6,32 @@
 
     <div class="h-100 content">
 
-        <div class="contact-info">
+        <div class="flex-col wrapper">
             <h3>КОНТАКТЫ</h3>
 
-            <h4>Адрес:</h4>
-            <p>123 Vocal Lane, Music City</p>
+            <div class="flex-col">
+                <h4>Адрес:</h4>
+                <span>123 Vocal Lane, Music City</span>
 
-            <h4>Телефон:</h4>
-            <p>Phone: (123) 456-7890</p>
+                <h4>Телефон:</h4>
+                <span>+ 0 (123) 456-789</span>
 
-            <h4>Социальные сети:</h4>
+                <h4>e-mail:</h4>
+                <span><a href="mailto:info@sigmavocalplace.com">{{"info@sigmavocalplace.com"}}</a></span>
+            </div>
 
-            <h4>e-mail:</h4>
-            <p>Email: <a href="mailto:info@sigmavocalplace.com">{{"info@sigmavocalplace.com"}}</a></p>
+            <div class="flex-col social">
+                <h4><span class="sigma-font">ΣΙΓΜΑ</span> в социальных сетях:</h4>
+                <app-social-media></app-social-media>
+            </div>
+
         </div>
 
-        <!-- div maps -->
-        <app-mapycz></app-mapycz>
+        <div class="flex-col wrapper">
+            <app-mapycz class="w-h-100"></app-mapycz>
+        </div>
 
     </div>
 
+    <!-- <div class="footer">Website created by Osmium Tetroxide</div> -->
 </div>
-
-<!-- <form>
-    <mat-form-field class="full-width">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Your name">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="Your email">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-        <mat-label>Message</mat-label>
-        <textarea matInput placeholder="Your message"></textarea>
-    </mat-form-field>
-    <button mat-raised-button color="primary">Send</button>
-</form> -->
