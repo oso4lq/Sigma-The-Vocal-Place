@@ -3,7 +3,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
-// Define the interface or type for your card data
 interface Card {
   title: string;
   image: string;
@@ -26,7 +25,7 @@ interface Card {
 export class AboutComponent implements OnInit {
   selectedCardIndex: number = 1;
 
-  // Define your card data as an array of Card objects
+  // Define card data as an array of Card objects
   cards: Card[] = [
     {
       title: 'Обо мне',

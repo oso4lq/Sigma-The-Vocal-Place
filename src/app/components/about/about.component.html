@@ -23,11 +23,11 @@
             <!-- Arrows display on the edge cards -->
             <div *ngIf="(i === 0 || i === 2) && selectedCardIndex !== i && i === 0" class="arrow-layer"
                 (click)="prevImage($event)">
-                <mat-icon>arrow_back_ios</mat-icon>
+                <mat-icon>arrow_back_ios_new</mat-icon>
             </div>
             <div *ngIf="(i === 0 || i === 2) && selectedCardIndex !== i && i === 2" class="arrow-layer"
                 (click)="nextImage($event)">
-                <mat-icon>arrow_forward_ios</mat-icon>
+                <mat-icon>arrow_forward_ios_new</mat-icon>
             </div>
 
         </mat-card>

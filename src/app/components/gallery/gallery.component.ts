@@ -8,7 +8,7 @@ import EmblaCarousel, { EmblaCarouselType } from 'embla-carousel';
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.scss'
 })
-export class EmblaGalleryComponent implements AfterViewInit {
+export class GalleryComponent implements AfterViewInit {
   @ViewChild('embla') emblaRef!: ElementRef;
   private emblaCarousel!: EmblaCarouselType;
 
