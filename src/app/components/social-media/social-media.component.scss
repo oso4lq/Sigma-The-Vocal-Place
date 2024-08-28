@@ -1,0 +1,19 @@
+.social {
+    color: var(--light-color);
+    justify-content: center;
+    gap: 20px;
+
+    &__item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 0;
+        transition: transform 0.3s;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}

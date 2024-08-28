@@ -8,7 +8,7 @@
     <div class="flex-row center-row menu">
         <button id="home-button" mat-button mat-raised-button data-section="home-section"
             (click)="scrollToSection('home-section')">
-            ГЛАВНАЯ
+            Главная
         </button>
         <button id="about-button" mat-button mat-raised-button data-section="about-section"
             (click)="scrollToSection('about-section')">
@@ -16,23 +16,21 @@
         </button>
         <button id="classes-button" mat-button mat-raised-button data-section="classes-section"
             (click)="scrollToSection('classes-section')">
-            ЗАНЯТИЯ
+            Занятия
         </button>
         <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
             (click)="scrollToSection('contacts-section')">
-            КОНТАКТЫ
+            Контакты
+        </button>
+        <button mat-button mat-raised-button class="special">
+            Записаться
         </button>
         <button mat-icon-button>
-            АККАУНТ
+            Аккаунт
         </button>
     </div>
 
-    <div class="flex-row center-row h-100 social">
-        <div class="social__item">VK</div>
-        <div class="social__item">Tg</div>
-        <div class="social__item">In</div>
-        <div class="social__item">Fb</div>
-    </div>
+    <app-social-media class="h-100"></app-social-media>
 
     <div class="piano-keys" style="display: none;">
         <div class="white-key"></div>

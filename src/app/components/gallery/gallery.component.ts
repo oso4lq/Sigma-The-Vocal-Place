@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import EmblaCarousel, { EmblaCarouselType } from 'embla-carousel';
 
 @Component({
   selector: 'app-gallery',
@@ -7,6 +8,18 @@ import { Component } from '@angular/core';
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.scss'
 })
-export class GalleryComponent {
+export class GalleryComponent implements AfterViewInit {
+  @ViewChild('embla') emblaRef!: ElementRef;
+  private emblaCarousel!: EmblaCarouselType;
 
+  ngAfterViewInit() {
+    this.emblaCarousel = EmblaCarousel(this.emblaRef.nativeElement, {
+      loop: false,
+      containScroll: 'trimSnaps'
+    });
+  }
+
+  ngOnDestroy() {
+    this.emblaCarousel?.destroy();
+  }
 }
