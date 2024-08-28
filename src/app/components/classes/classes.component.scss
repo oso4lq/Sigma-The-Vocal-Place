@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: 6fr 4fr;
     grid-template-rows: 1fr;
-    // gap: 5%;
     padding: 0 5%;
 }
 
@@ -11,10 +10,11 @@
 }
 
 .wrapper {
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px;
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
-    padding: 20px;
-    justify-content: flex-start;
 }
 
 .cards {
@@ -33,25 +33,41 @@
     }
 }
 
+// Aligning cards based on their position in the grid
+.cards .card:nth-child(1),
+.cards .card:nth-child(3) {
+    justify-self: flex-end;
+}
+
+.cards .card:nth-child(2),
+.cards .card:nth-child(4) {
+    justify-self: flex-start;
+}
+
 .card {
-    border-radius: 20px;
+    justify-content: flex-start;
+    overflow: hidden;
+    min-width: 250px;
+    max-width: 300px;
+    min-height: 250px;
+    max-height: 300px;
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
-    max-height: 300px;
-    max-width: 300px;
+    border-radius: 20px;
 
     &__header {
-        font-size: 22px;
         margin-bottom: 8px;
+        font-size: 18px;
     }
 
     &__icon {
-        width: 60px;
-        height: 60px;
+        width: 20%;
+        max-width: 60px;
+        height: auto;
     }
 
     &__content {
-        font-size: 14px;
+        font-size: calc(12px + 0.1vw);
         color: var(--dark-alt-color);
         text-align: justify;
     }
@@ -89,7 +105,6 @@
         }
     }
 
-
     &__list {
         font-size: 20px;
         text-align: center;
@@ -97,9 +112,9 @@
     }
 
     &__table {
-        color: var(--dark-alt-color);
         width: 100%;
         border-spacing: 0 10px;
+        color: var(--dark-alt-color);
 
         td {
             padding: 8px 0;
@@ -150,6 +165,71 @@
 
         &:hover {
             transform: scale(1.05);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        height: unset;
+    }
+
+    .content {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(768px, 1fr));
+        gap: 40px;
+        padding: 0;
+        width: 100%;
+        margin-bottom: 40px;
+        align-items: center;
+        justify-items: center;
+        transition: grid-template-columns 0.3s ease;
+    }
+
+    .left-col {
+        margin-right: 0;
+
+        &__wrapper {
+            padding: 0 40px;
+        }
+    }
+
+    .right-col {
+        width: 100%;
+        align-items: center;
+        background: var(--light-color);
+        box-shadow: 0 0 4px var(--dark-alt-color);
+    }
+
+    .cards {
+        grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+        margin-bottom: 0;
+        justify-items: center;
+        transition: grid-template-columns 0.3s ease;
+        width: 100%;
+
+        &__title {
+            margin: 20px 0;
+            font-size: calc(22px + 0.5vw);
+
+            ::ng-deep .sigma-font {
+                font-size: calc(28px + 0.5vw);
+            }
+        }
+    }
+
+    .card {
+        min-height: unset;
+        max-height: unset;
+        min-width: unset;
+        max-width: unset;
+
+        &__header {
+            font-size: calc(18px + 0.5vw);
+        }
+
+        &__content {
+            font-size: calc(12px + 0.5vw);
         }
     }
 }

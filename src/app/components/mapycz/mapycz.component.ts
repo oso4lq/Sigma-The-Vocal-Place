@@ -27,9 +27,13 @@ export class MapyczComponent implements OnInit, AfterViewInit {
   private map!: Map;
   private tooltipOverlay!: Overlay;
 
+  // Mapy.cz API key
   private readonly apiKey = 'f1Y41Hii6PjydSj-pb72qQeh7CeGorKmmZkiPmStogI';
   // Use different viewport and marker coordinates?
   private readonly centerCoordinates = [30.3301773, 59.874018];
+
+  // TO DO for the mobile version:
+  // Suggest to open coordinates in a preferable maps app on clicking the marker 
 
   constructor() { }
 
@@ -101,7 +105,7 @@ export class MapyczComponent implements OnInit, AfterViewInit {
     this.tooltipOverlay = new Overlay({
       element: this.tooltipElement.nativeElement,
       // positioning: 'center-left',
-      stopEvent: false,
+      stopEvent: true,
       offset: [-125, -160], // Offset the tooltip
     });
 

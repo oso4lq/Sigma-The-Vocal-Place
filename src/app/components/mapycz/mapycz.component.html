@@ -1,11 +1,18 @@
 <!-- <p>mapycz works!</p> -->
-<div #mapContainer class="map-container"></div>
+
+<!-- Mapy CZ widget -->
+<!-- <div #mapContainer class="map-container"></div> -->
+
+<!-- Tooltip with address -->
 <div #tooltip class="tooltip">
     <div class="flex-row tooltip__wrapper">
         <div class="flex-col tooltip__content">
             <p>Вокальная студия <span class="sigma-font">ΣΙΓΜΑ</span></p>
-            <span>123 Vocal Lane, Music City123 Vocal Lane, Music City123 Vocal Lane, Music City</span>
+            <span>123 Vocal Lane, Music City</span>
         </div>
         <button class="flex-col tooltip__close" (click)="hideTooltip()"><mat-icon>close</mat-icon></button>
     </div>
 </div>
+
+<!-- TO DO -->
+<!-- Make tooltip positioning adjustable to its content size. -->

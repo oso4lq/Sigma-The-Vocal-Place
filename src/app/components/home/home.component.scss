@@ -11,6 +11,11 @@
 }
 
 .home-img {
+    z-index: 2;
+    // height: 500px;
+}
+
+.cover-img {
     position: absolute;
     top: 0;
     left: 0;

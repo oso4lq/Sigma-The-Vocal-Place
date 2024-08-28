@@ -8,6 +8,10 @@ mat-toolbar {
     align-items: flex-start;
 }
 
+.menu-icon {
+    display: none;
+}
+
 .semi-transparent {
     opacity: 0.5;
     height: 55px !important;
@@ -88,6 +92,86 @@ app-social-media {
         }
     }
 }
+
+.menu-dropdown {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    mat-toolbar {
+        justify-content: space-between;
+    }
+
+    .menu-icon {
+        display: flex;
+        background: var(--brand-color);
+        color: var(--light-color);
+        flex-grow: 1;
+
+        button {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            margin-left: 10px;
+        }
+
+        .mat-mdc-icon-button:hover:not(.mat-button-disabled) {
+            background-color: transparent;
+        }
+
+        mat-icon {
+            font-size: 40px;
+            width: 40px;
+        }
+    }
+
+    .logo {
+        margin: 0 auto;
+        width: unset;
+        flex-grow: 1;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    app-social-media {
+        width: unset;
+        flex-grow: 1;
+
+        ::ng-deep .social {
+            width: unset;
+            justify-content: flex-end;
+            margin-right: 20px;
+        }
+    }
+
+    .menu-dropdown {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        left: 0;
+        background: var(--light-brand-color);
+        color: var(--light-color);
+
+        z-index: 20;
+
+        button {
+            width: 100%;
+            justify-content: flex-start;
+            padding-left: 20px;
+        }
+    }
+}
+
+
+
+
+
+
 
 .piano-keys {
     display: flex;

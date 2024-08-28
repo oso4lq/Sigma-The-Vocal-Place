@@ -1,10 +1,20 @@
 <mat-toolbar class="flex-row center-row header">
 
+    <!-- Menu icon for mobile view -->
+    <div class="flex-row h-100 menu-icon">
+        <button mat-icon-button (click)="toggleMenu()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+
+    <!-- Sigma Logo -->
+    <!-- TODO: disable selecting in desktop like in typespeed -->
     <div class="flex-col h-100 center-row logo sigma-font" (click)="scrollToSection('home-section')">
         <span class="logo__label">ΣΙΓΜΑ</span>
         <span class="logo__sublabel">the vocal place</span>
     </div>
 
+    <!-- Desktop menu buttons -->
     <div class="flex-row center-row menu">
         <button id="home-button" mat-button mat-raised-button data-section="home-section"
             (click)="scrollToSection('home-section')">
@@ -30,6 +40,7 @@
         </button>
     </div>
 
+    <!-- Links to the social media -->
     <app-social-media class="h-100"></app-social-media>
 
     <div class="piano-keys" style="display: none;">
@@ -53,3 +64,22 @@
     </div>
 
 </mat-toolbar>
+
+<!-- Dropdown menu for mobile view -->
+<div *ngIf="isMenuOpen" class="h-100 menu-dropdown">
+    <button mat-button class="special">Записаться</button>
+
+    <button mat-button data-section="home-section" (click)="scrollToSection('home-section')">
+        Главная
+    </button>
+    <button mat-button data-section="about-section" (click)="scrollToSection('about-section')">
+        О ΣΙΓΜΑ
+    </button>
+    <button mat-button data-section="classes-section" (click)="scrollToSection('classes-section')">
+        Занятия
+    </button>
+    <button mat-button data-section="contacts-section" (click)="scrollToSection('contacts-section')">
+        Контакты
+    </button>
+    <button mat-icon-button>Аккаунт</button>
+</div>

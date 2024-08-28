@@ -15,8 +15,12 @@ export class ScrollingService {
   }
 
   private initScrollListeners(): void {
-    window.addEventListener('wheel', this.onWheelScroll.bind(this), { passive: false });
-    window.addEventListener('keydown', this.onKeyDown.bind(this));
+    // Disable jump-scrolling on mobile devices
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) {
+      window.addEventListener('wheel', this.onWheelScroll.bind(this), { passive: false });
+      window.addEventListener('keydown', this.onKeyDown.bind(this));
+    }
     window.addEventListener('scroll', this.onWindowScroll.bind(this));
   }
 

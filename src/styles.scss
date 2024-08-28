@@ -108,4 +108,19 @@ h2 {
     margin: 2px;
 }
 
+@media (max-width: 768px) {
+
+    app-header {
+        height: 100%;
+    }
+
+    .section {
+        // height: unset;
+    }
+
+    .plug {
+        display: none;
+    }
+}
+
 // "@angular/material/prebuilt-themes/magenta-violet.css",
