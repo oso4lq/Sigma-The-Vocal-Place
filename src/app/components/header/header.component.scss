@@ -100,20 +100,19 @@ app-social-media {
 @media (max-width: 768px) {
     mat-toolbar {
         justify-content: space-between;
+        background: var(--brand-color) !important;
     }
 
     .menu-icon {
+        width: 180px;
         display: flex;
-        background: var(--brand-color);
         color: var(--light-color);
-        flex-grow: 1;
 
         button {
             height: 100%;
             width: 100%;
             display: flex;
             justify-content: flex-start;
-            margin-left: 10px;
         }
 
         .mat-mdc-icon-button:hover:not(.mat-button-disabled) {
@@ -127,7 +126,6 @@ app-social-media {
     }
 
     .logo {
-        margin: 0 auto;
         width: unset;
         flex-grow: 1;
     }
@@ -138,12 +136,11 @@ app-social-media {
 
     app-social-media {
         width: unset;
-        flex-grow: 1;
 
         ::ng-deep .social {
             width: unset;
-            justify-content: flex-end;
             margin-right: 20px;
+            margin-left: 20px;
         }
     }
 
@@ -167,7 +164,11 @@ app-social-media {
     }
 }
 
-
+@media (max-width: 550px) {
+    .menu-icon {
+        width: unset;
+    }
+}
 
 
 

@@ -176,7 +176,7 @@
 
     .content {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(768px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
         gap: 40px;
         padding: 0;
         width: 100%;
@@ -190,7 +190,7 @@
         margin-right: 0;
 
         &__wrapper {
-            padding: 0 40px;
+            padding: 0 10%;
         }
     }
 
