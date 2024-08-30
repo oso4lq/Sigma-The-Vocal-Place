@@ -147,6 +147,7 @@ app-social-media {
     .menu-dropdown {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         position: absolute;
         top: 80px;
         right: 0;

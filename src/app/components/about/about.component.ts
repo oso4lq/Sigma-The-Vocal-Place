@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { GalleryComponent } from '../gallery/gallery.component';
+import { MobileService } from '../../services/mobile.service';
 
 export interface Card {
   title: string;
@@ -17,13 +19,16 @@ export interface Card {
     MatCardModule,
     MatIconModule,
     CommonModule,
+    GalleryComponent,
   ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent implements OnInit {
+  
   selectedCardIndex: number = 1;
+  isMobile: boolean = false;
 
   // Define card data as an array of Card objects
   cards: Card[] = [
@@ -47,10 +52,14 @@ export class AboutComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private mobileService: MobileService,
+  ) { }
 
-  ngOnInit() { }
-
+  ngOnInit() {
+    this.isMobile = this.mobileService.isMobile;
+  }
+  
   nextImage(event: Event) {
     event.stopPropagation();
     if (this.selectedCardIndex < this.cards.length - 1) {

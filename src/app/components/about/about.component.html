@@ -4,7 +4,8 @@
         <h2>About my studio</h2>
     </div>
 
-    <div class="wrapper h-100 flex-row center-row">
+    <!-- For Desktop Version -->
+    <div class="wrapper h-100 flex-row center-row" *ngIf="!isMobile">
 
         <!-- Card template -->
         <mat-card *ngFor="let card of cards; let i = index" class="h-100 card"
@@ -32,6 +33,9 @@
 
         </mat-card>
     </div>
+
+    <!-- For Mobile Version -->
+    <app-gallery *ngIf="isMobile" [slides]="cards"></app-gallery>
 
     <!-- TO DO -->
 

@@ -1,4 +1,5 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { MobileService } from './mobile.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +10,19 @@ export class ScrollingService {
   private currentSectionIndex: number = 0;
   private isScrolling: boolean = false;
 
-  constructor(rendererFactory: RendererFactory2) {
+  constructor(
+    private rendererFactory: RendererFactory2,
+    private mobileService: MobileService,
+  ) {
     this.renderer = rendererFactory.createRenderer(null, null);
     this.initScrollListeners();
   }
 
   private initScrollListeners(): void {
     // Disable jump-scrolling on mobile devices
-    const isMobile = window.innerWidth <= 768;
-    if (!isMobile) {
+    // const isMobile = window.innerWidth <= 768;
+    // if (!isMobile) {
+    if (!this.mobileService.isMobile) {
       window.addEventListener('wheel', this.onWheelScroll.bind(this), { passive: false });
       window.addEventListener('keydown', this.onKeyDown.bind(this));
     }
