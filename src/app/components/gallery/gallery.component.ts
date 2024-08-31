@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperOptions } from 'swiper/types';
+import { MobileService } from '../../services/mobile.service';
 
 @Component({
   selector: 'app-gallery',
@@ -40,8 +41,28 @@ export class GalleryComponent {
     },
   };
 
+  constructor(
+    private mobileService: MobileService,
+  ) { }
+
   ngAfterViewInit() {
     Swiper.use([Navigation, Pagination]);
-    new Swiper('.swiper-container', this.swiperConfig);
+    // new Swiper('.swiper-container', this.swiperConfig);
+    const swiperInstance = new Swiper('.swiper-container', this.swiperConfig);
+
+    // Disable swipe tracking when interacting with the gallery
+    swiperInstance.on('touchStart', () => {
+      this.mobileService.disableSwipeTracking();
+    });
+
+    // Re-enable swipe tracking when interaction ends
+    swiperInstance.on('touchEnd', () => {
+      // this.mobileService.enableSwipeTracking();
+      setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
+    });
+  }
+
+  ngOnDestroy() {
+    this.mobileService.enableSwipeTracking();
   }
 }

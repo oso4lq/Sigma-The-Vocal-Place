@@ -5,6 +5,7 @@ import { MobileService } from './mobile.service';
   providedIn: 'root'
 })
 export class ScrollingService {
+  
   private renderer: Renderer2;
   private sections: string[] = ['home-section', 'about-section', 'classes-section', 'contacts-section'];
   private currentSectionIndex: number = 0;
@@ -20,8 +21,6 @@ export class ScrollingService {
 
   private initScrollListeners(): void {
     // Disable jump-scrolling on mobile devices
-    // const isMobile = window.innerWidth <= 768;
-    // if (!isMobile) {
     if (!this.mobileService.isMobile) {
       window.addEventListener('wheel', this.onWheelScroll.bind(this), { passive: false });
       window.addEventListener('keydown', this.onKeyDown.bind(this));
@@ -40,7 +39,7 @@ export class ScrollingService {
   // Helper for checkCurrentSection for onWindowScroll
   // Highlight the button depending on the active section
   private highlightMenuButton(sectionId: string): void {
-    const buttons = document.querySelectorAll('.menu button');
+    const buttons = document.querySelectorAll('.menu button, .menu-dropdown button');
     buttons.forEach(button => {
       this.renderer.removeClass(button, 'highlighted');
       if (button.getAttribute('data-section') === sectionId) {

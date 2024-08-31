@@ -6,6 +6,7 @@ mat-toolbar {
     height: 80px !important;
     padding: 0;
     align-items: flex-start;
+    z-index: 21;
 }
 
 .menu-icon {
@@ -68,6 +69,7 @@ mat-toolbar {
     .highlighted {
         background-color: var(--dark-brand-color);
         transform: translateY(-10px);
+        transition: transform 0.3s ease;
 
         &:hover {
             background-color: var(--dark-brand-color) !important;
@@ -91,6 +93,10 @@ app-social-media {
             }
         }
     }
+}
+
+.dropdown-background {
+    display: none;
 }
 
 .menu-dropdown {
@@ -144,36 +150,108 @@ app-social-media {
         }
     }
 
+    .dropdown-background {
+        display: flex;
+        justify-content: flex-end;
+        position: fixed;
+        top: 80px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 19;
+        cursor: pointer;
+        height: calc(100% - 80px);
+    }
+
     .menu-dropdown {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        position: absolute;
+        position: fixed;
         top: 80px;
-        right: 0;
         left: 0;
+        height: inherit;
+        width: 75%;
         background: var(--light-brand-color);
         color: var(--light-color);
-
         z-index: 20;
 
         button {
+            display: flex;
             width: 100%;
             justify-content: flex-start;
             padding-left: 20px;
+            flex-grow: 1;
+            max-height: unset;
+            font-size: 20px !important;
+        }
+
+        .button-content {
+            gap: 10px;
+        }
+
+        .special {
+            background: var(--alt-color);
+            max-height: 75px;
+            justify-content: center;
+        }
+
+        .highlighted {
+            background-color: var(--dark-brand-color);
+            transform: translateX(-20px);
+            transition: transform 0.3s ease;
+
+            .button-content {
+                animation: icon-slide 0.3s ease-in-out forwards;
+            }
+
+            &:hover {
+                background-color: var(--dark-brand-color) !important;
+            }
+        }
+    }
+
+    .menu-icon.shake {
+        animation: shake 0.25s ease-in-out 0s 1 alternate forwards;
+    }
+
+    @keyframes shake {
+        0% {
+            transform: translateX(0);
+        }
+
+        20% {
+            transform: translateX(-5px);
+        }
+
+        40% {
+            transform: translateX(5px);
+        }
+
+        60% {
+            transform: translateX(-5px);
+        }
+
+        80% {
+            transform: translateX(5px);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes icon-slide {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(40px);
         }
     }
 }
-
-@media (max-width: 550px) {
-    .menu-icon {
-        width: unset;
-    }
-}
-
-
-
-
 
 .piano-keys {
     display: flex;

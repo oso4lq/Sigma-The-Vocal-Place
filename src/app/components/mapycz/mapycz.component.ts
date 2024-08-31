@@ -10,6 +10,7 @@ import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import { defaults as defaultControls, Control } from 'ol/control';
 import { MatIconModule } from '@angular/material/icon';
+import { MobileService } from '../../services/mobile.service';
 
 @Component({
   selector: 'app-mapycz',
@@ -21,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './mapycz.component.scss'
 })
 export class MapyczComponent implements OnInit, AfterViewInit {
+
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
   @ViewChild('tooltip', { static: false }) tooltipElement!: ElementRef;
 
@@ -35,7 +37,9 @@ export class MapyczComponent implements OnInit, AfterViewInit {
   // TO DO for the mobile version:
   // Suggest to open coordinates in a preferable maps app on clicking the marker 
 
-  constructor() { }
+  constructor(
+    private mobileService: MobileService,
+  ) { }
 
   ngOnInit(): void { }
 
@@ -44,6 +48,21 @@ export class MapyczComponent implements OnInit, AfterViewInit {
     this.addMarker();
     this.addTooltip();
     this.preventPageScrollOnMapInteraction();
+
+    // Disable swipe tracking when interacting with the map
+    this.mapContainer.nativeElement.addEventListener('touchstart', () => {
+      this.mobileService.disableSwipeTracking();
+    });
+
+    // Re-enable swipe tracking when interaction ends
+    this.mapContainer.nativeElement.addEventListener('touchend', () => {
+      // this.mobileService.enableSwipeTracking();
+      setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
+    });
+  }
+
+  ngOnDestroy() {
+    this.mobileService.enableSwipeTracking();
   }
 
   private initializeMap(): void {
