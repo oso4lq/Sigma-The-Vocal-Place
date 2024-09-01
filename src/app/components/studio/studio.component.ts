@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { GalleryComponent } from '../gallery/gallery.component';
 import Swiper from 'swiper';
+import { Autoplay } from 'swiper/modules';
 
 @Component({
   selector: 'app-studio',
@@ -18,7 +19,7 @@ import Swiper from 'swiper';
 export class StudioComponent {
 
   // Define images data as an array of Card objects
-  cards: Card[] = [
+  images: Card[] = [
     {
       id: 0,
       title: 'studio 2',
@@ -70,23 +71,37 @@ export class StudioComponent {
     },
   ]
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+  ) { }
 
   ngAfterViewInit() {
-    new Swiper('.swiper-container', {
-      slidesPerView: 1.1,
-      spaceBetween: 20,
-      freeMode: true,
-      grabCursor: true,
-      loop: false,
-      centeredSlides: true,
-      resistanceRatio: 0.5,
+    const swiper = new Swiper('.swiper-container', {
+      modules: [Autoplay],  // Add this line to include the Autoplay module
+      slidesPerView: 3,  // Number of slides visible at the same time in the viewport
+      spaceBetween: 20,  // Space (in px) between each slide
+      freeMode: true,  // Enables free scrolling without snapping to slides
+      grabCursor: true,  // Changes the cursor to a grab icon when hovering over the Swiper
+      loop: true,  // Enables infinite looping of slides
+      centeredSlides: false,  // Disables centering of slides; they align to the left
+      resistanceRatio: 0.5,  // Controls the resistance ratio during swiping to avoid dragging too far
+      speed: 1000,  // Increase speed for a smoother transition
+      autoplay: {
+        delay: 2000,  // Time delay (in ms) between automatic slide transitions
+        disableOnInteraction: true,  // Autoplay will not be disabled after user interactions (e.g., swiping)
+      },
+    });
+
+    swiper.on('slideChange', () => {
+      console.log('Slide changed');
     });
   }
 
   openGallery(index: number) {
     this.dialog.open(GalleryComponent, {
-      data: { slides: this.cards, initialSlide: index }
+      data: { slides: this.images, initialSlide: index },
+      width: '80%',
+      height: '80%',
     });
   }
 }

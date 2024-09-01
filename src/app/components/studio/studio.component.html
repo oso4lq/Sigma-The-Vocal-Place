@@ -7,12 +7,17 @@
     <div class="h-100 content">
 
         <div class="gallery-thumbs">
-            <h3>Фотогалерея студии</h3>
+            <!-- <h3>Фотогалерея студии</h3> -->
 
             <!-- place for the gallery with thumbnails made with Swiper.js -->
-            <!-- Each slide contains 2*1 thumbnails. Smooth scrolling with no jumps -->
             <!-- on click open the dialog with the gallery component on the photo clicked -->
-
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" *ngFor="let image of images; let i = index" (click)="openGallery(i)">
+                        <img [src]="image.image" [alt]="image.title" class="thumbnail-image">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="flex-col gallery-text">
