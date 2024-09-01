@@ -1,19 +1,118 @@
-.embla {
-    overflow: hidden;
-    width: 100%;
+.swiper-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
-.embla__viewport {
-    overflow: hidden;
-    width: 100%;
-}
+.card {
+  transition: flex 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  justify-content: flex-end;
+  color: var(--light-color);
 
-.embla__container {
+  &__background {
+    object-fit: cover;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+
+  &__header,
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__header {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    font-size: 22px;
+  }
+
+  &__content {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px 40px 40px 40px;
+    transition: background 0.3s ease;
+    font-size: 18px;
+    text-align: justify;
+
+    span {
+      display: block;
+    }
+  }
+
+  // For desktop version
+  .arrow-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
     display: flex;
-    user-select: none;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+
+    mat-icon {
+      color: var(--light-color);
+      opacity: 0.8;
+      transition: transform 0.3s, opacity 0.3s;
+      font-size: 40px;
+      height: 40px;
+      width: 40px;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.5);
+
+      mat-icon {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+  }
 }
 
-.embla__slide {
-    flex: 0 0 100%;
+// For mobile version
+.swiper-controls {
+  display: flex;
+  position: relative;
+  background: var(--brand-color);
+  justify-content: space-between;
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    position: unset;
+    margin: 0;
+    color: var(--light-color);
+    height: 28px;
     padding: 10px;
+    flex-grow: 1;
+    z-index: 5;
+  }
+
+  .swiper-button-next {
+    justify-content: flex-start;
+  }
+
+  .swiper-button-prev {
+    justify-content: flex-end;
+  }
+
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .swiper-pagination {
+    display: none;
+  }
 }

@@ -10,6 +10,7 @@ import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import { defaults as defaultControls, Control } from 'ol/control';
 import { MatIconModule } from '@angular/material/icon';
+import { MobileService } from '../../services/mobile.service';
 
 @Component({
   selector: 'app-mapycz',
@@ -21,17 +22,24 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './mapycz.component.scss'
 })
 export class MapyczComponent implements OnInit, AfterViewInit {
+
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
   @ViewChild('tooltip', { static: false }) tooltipElement!: ElementRef;
 
   private map!: Map;
   private tooltipOverlay!: Overlay;
 
+  // Mapy.cz API key
   private readonly apiKey = 'f1Y41Hii6PjydSj-pb72qQeh7CeGorKmmZkiPmStogI';
   // Use different viewport and marker coordinates?
   private readonly centerCoordinates = [30.3301773, 59.874018];
 
-  constructor() { }
+  // TO DO for the mobile version:
+  // Suggest to open coordinates in a preferable maps app on clicking the marker 
+
+  constructor(
+    private mobileService: MobileService,
+  ) { }
 
   ngOnInit(): void { }
 
@@ -40,6 +48,21 @@ export class MapyczComponent implements OnInit, AfterViewInit {
     this.addMarker();
     this.addTooltip();
     this.preventPageScrollOnMapInteraction();
+
+    // Disable swipe tracking when interacting with the map
+    this.mapContainer.nativeElement.addEventListener('touchstart', () => {
+      this.mobileService.disableSwipeTracking();
+    });
+
+    // Re-enable swipe tracking when interaction ends
+    this.mapContainer.nativeElement.addEventListener('touchend', () => {
+      // this.mobileService.enableSwipeTracking();
+      setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
+    });
+  }
+
+  ngOnDestroy() {
+    this.mobileService.enableSwipeTracking();
   }
 
   private initializeMap(): void {
@@ -95,13 +118,33 @@ export class MapyczComponent implements OnInit, AfterViewInit {
     });
 
     this.map.addLayer(markerLayer);
+
+    // Detect clicks on the marker
+    this.map.on('singleclick', (event) => {
+      const feature = this.map.forEachFeatureAtPixel(event.pixel, (feat) => feat);
+      if (feature === marker && this.mobileService.isMobile) {
+        this.openInMapsApp(this.centerCoordinates);
+      }
+    });
+  }
+
+  private openInMapsApp(coordinates: number[]): void {
+    const [longitude, latitude] = coordinates;
+    const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    const appleMapsUrl = `http://maps.apple.com/?ll=${latitude},${longitude}`;
+
+    // Check if it's an iOS device and open Apple Maps, otherwise open Google Maps
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const mapsUrl = isIOS ? appleMapsUrl : googleMapsUrl;
+
+    window.open(mapsUrl, '_blank');
   }
 
   private addTooltip(): void {
     this.tooltipOverlay = new Overlay({
       element: this.tooltipElement.nativeElement,
       // positioning: 'center-left',
-      stopEvent: false,
+      stopEvent: true,
       offset: [-125, -160], // Offset the tooltip
     });
 

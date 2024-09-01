@@ -1,22 +1,30 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { MobileService } from './mobile.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScrollingService {
+
   private renderer: Renderer2;
   private sections: string[] = ['home-section', 'about-section', 'classes-section', 'contacts-section'];
   private currentSectionIndex: number = 0;
   private isScrolling: boolean = false;
 
-  constructor(rendererFactory: RendererFactory2) {
+  constructor(
+    private rendererFactory: RendererFactory2,
+    private mobileService: MobileService,
+  ) {
     this.renderer = rendererFactory.createRenderer(null, null);
     this.initScrollListeners();
   }
 
   private initScrollListeners(): void {
-    window.addEventListener('wheel', this.onWheelScroll.bind(this), { passive: false });
-    window.addEventListener('keydown', this.onKeyDown.bind(this));
+    // Disable jump-scrolling on mobile devices
+    if (!this.mobileService.isMobile) {
+      window.addEventListener('wheel', this.onWheelScroll.bind(this), { passive: false });
+      window.addEventListener('keydown', this.onKeyDown.bind(this));
+    }
     window.addEventListener('scroll', this.onWindowScroll.bind(this));
   }
 
@@ -28,10 +36,9 @@ export class ScrollingService {
     this.handleHeaderTransparency();
   }
 
-  // Helper for checkCurrentSection for onWindowScroll
-  // Highlight the button depending on the active section
+  // Helper for checkCurrentSection for onWindowScroll: highlight the button (active section)
   private highlightMenuButton(sectionId: string): void {
-    const buttons = document.querySelectorAll('.menu button');
+    const buttons = document.querySelectorAll('.menu button, .menu-dropdown button');
     buttons.forEach(button => {
       this.renderer.removeClass(button, 'highlighted');
       if (button.getAttribute('data-section') === sectionId) {
@@ -42,6 +49,7 @@ export class ScrollingService {
 
   // Helper for onWindowScroll
   checkCurrentSection(): void {
+    console.log('checkCurrentSection');
     // Offset for the header height
     const scrollPosition = window.pageYOffset + 80;
 
@@ -63,6 +71,7 @@ export class ScrollingService {
   handleHeaderTransparency(): void {
     const homeSection = document.getElementById('home-section');
     const menu = document.body.querySelector('.menu');
+    const logo = document.body.querySelector('.logo');
 
     if (homeSection && menu) {
       // Offset for the header height
@@ -72,8 +81,16 @@ export class ScrollingService {
 
       if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
         this.renderer.addClass(menu, 'semi-transparent');
+        // Apply opacity to logo for mobile version
+        if (this.mobileService.isMobile && logo) {
+          this.renderer.setStyle(logo, 'opacity', '0');
+        }
       } else {
         this.renderer.removeClass(menu, 'semi-transparent');
+        // Remove opacity from logo for mobile version
+        if (this.mobileService.isMobile && logo) {
+          this.renderer.setStyle(logo, 'opacity', '1');
+        }
       }
     }
   }
@@ -139,5 +156,4 @@ export class ScrollingService {
       this.isScrolling = false;
     }
   }
-
 }

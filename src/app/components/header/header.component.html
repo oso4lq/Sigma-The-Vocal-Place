@@ -1,10 +1,20 @@
 <mat-toolbar class="flex-row center-row header">
 
+    <!-- Menu icon for mobile view -->
+    <div class="flex-row h-100 menu-icon" [class.shake]="isMenuOpen">
+        <button mat-icon-button (click)="toggleMenu()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+
+    <!-- Sigma Logo -->
+    <!-- TODO: disable selecting in desktop like in typespeed -->
     <div class="flex-col h-100 center-row logo sigma-font" (click)="scrollToSection('home-section')">
         <span class="logo__label">ΣΙΓΜΑ</span>
         <span class="logo__sublabel">the vocal place</span>
     </div>
 
+    <!-- Desktop menu buttons -->
     <div class="flex-row center-row menu">
         <button id="home-button" mat-button mat-raised-button data-section="home-section"
             (click)="scrollToSection('home-section')">
@@ -13,11 +23,20 @@
         <button id="about-button" mat-button mat-raised-button data-section="about-section"
             (click)="scrollToSection('about-section')">
             О ΣΙΓΜΑ
+            <!-- <mat-icon>arrow_drop_down</mat-icon> -->
         </button>
         <button id="classes-button" mat-button mat-raised-button data-section="classes-section"
             (click)="scrollToSection('classes-section')">
             Занятия
         </button>
+        <!-- <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
+            (click)="scrollToSection('contacts-section')">
+            Преподаватель
+        </button> -->
+        <!-- <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
+            (click)="scrollToSection('contacts-section')">
+            Галерея
+        </button> -->
         <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
             (click)="scrollToSection('contacts-section')">
             Контакты
@@ -25,13 +44,15 @@
         <button mat-button mat-raised-button class="special">
             Записаться
         </button>
-        <button mat-icon-button>
+        <!-- <button mat-icon-button>
             Аккаунт
-        </button>
+        </button> -->
     </div>
 
+    <!-- Links to the social media -->
     <app-social-media class="h-100"></app-social-media>
 
+    <!-- Piano keys -->
     <div class="piano-keys" style="display: none;">
         <div class="white-key"></div>
         <div class="white-key">
@@ -53,3 +74,25 @@
     </div>
 
 </mat-toolbar>
+
+<!-- Dropdown menu for mobile view -->
+<div class="dropdown-background" (click)="closeMenu()">
+    <div class="menu-dropdown" (click)="$event.stopPropagation()">
+        <button mat-button mat-raised-button class="special">Записаться</button>
+        <button mat-button mat-raised-button data-section="home-section" (click)="scrollToSection('home-section')">
+            <div class="flex-row center-row button-content"><mat-icon>home</mat-icon>Главная</div>
+        </button>
+        <button mat-button mat-raised-button data-section="about-section" (click)="scrollToSection('about-section')">
+            <div class="flex-row center-row button-content"><mat-icon>functions</mat-icon>О ΣΙΓΜΑ</div>
+        </button>
+        <button mat-button mat-raised-button data-section="classes-section"
+            (click)="scrollToSection('classes-section')">
+            <div class="flex-row center-row button-content"><mat-icon>music_note</mat-icon>Занятия</div>
+        </button>
+        <button mat-button mat-raised-button data-section="contacts-section"
+            (click)="scrollToSection('contacts-section')">
+            <div class="flex-row center-row button-content"><mat-icon>mail</mat-icon>Контакты</div>
+        </button>
+        <!-- <button mat-icon-button><mat-icon>account_circle</mat-icon>Аккаунт</button> -->
+    </div>
+</div>

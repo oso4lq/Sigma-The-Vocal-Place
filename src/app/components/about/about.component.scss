@@ -91,3 +91,20 @@
     }
   }
 }
+
+app-gallery {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .section {
+    // height: unset;
+    padding: 4px 0;
+  }
+
+  app-gallery {
+    display: block;
+    height: 100vh;
+    // padding: 10px 0;
+  }
+}

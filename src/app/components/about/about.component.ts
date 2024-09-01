@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { GalleryComponent } from '../gallery/gallery.component';
+import { MobileService } from '../../services/mobile.service';
 
-interface Card {
+export interface Card {
   title: string;
   image: string;
   contentShort: string;
@@ -17,24 +19,27 @@ interface Card {
     MatCardModule,
     MatIconModule,
     CommonModule,
+    GalleryComponent,
   ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent implements OnInit {
+  
   selectedCardIndex: number = 1;
+  isMobile: boolean = false;
 
   // Define card data as an array of Card objects
   cards: Card[] = [
     {
-      title: 'Обо мне',
+      title: 'Преподаватель',
       image: 'https://img42.rajce.idnes.cz/d4202/19/19234/19234587_7120b7f029e3a19a3efd09788a59d31b/images/cat_S_sing3_png.jpg?ver=0',
       contentShort: 'Я, [Tutors Name], преподаватель вокала.',
       contentLong: 'Я, [Tutors Name], имею за плечами более 5 лет опыта преподавания вокала. Имею высшее музыкальное образование. Окончила кафедру эстрадно-джазового вокала факультета музыкального искусства эстрады СПбГИК.'
     },
     {
-      title: 'О студии',
+      title: 'Студия',
       image: 'https://img42.rajce.idnes.cz/d4202/19/19234/19234587_7120b7f029e3a19a3efd09788a59d31b/images/studio2_png.jpg?ver=0',
       contentShort: 'ΣΙΓΜΑ – пространство для творчества.',
       contentLong: 'Студия ΣΙΓΜΑ расположена в Московском районе Санкт-Петербурга. Это творческое пространство с уютной атмосферой, оснащённое необходимым оборудованием. Здесь вы сможете эффективно развивать свои навыки и способности.'
@@ -47,10 +52,14 @@ export class AboutComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private mobileService: MobileService,
+  ) { }
 
-  ngOnInit() { }
-
+  ngOnInit() {
+    this.isMobile = this.mobileService.isMobile;
+  }
+  
   nextImage(event: Event) {
     event.stopPropagation();
     if (this.selectedCardIndex < this.cards.length - 1) {
