@@ -47,7 +47,6 @@ export class GalleryComponent {
 
   ngAfterViewInit() {
     Swiper.use([Navigation, Pagination]);
-    // new Swiper('.swiper-container', this.swiperConfig);
     const swiperInstance = new Swiper('.swiper-container', this.swiperConfig);
 
     // Disable swipe tracking when interacting with the gallery
@@ -57,7 +56,6 @@ export class GalleryComponent {
 
     // Re-enable swipe tracking when interaction ends
     swiperInstance.on('touchEnd', () => {
-      // this.mobileService.enableSwipeTracking();
       setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
     });
   }

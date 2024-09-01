@@ -12,9 +12,15 @@ export class MobileService {
   swipeLeft$ = new BehaviorSubject<boolean>(false);
   swipeRight$ = new BehaviorSubject<boolean>(false);
 
+  private swipeTrackingEnabled: boolean = true;
   private touchStartX: number = 0;
   private touchEndX: number = 0;
-  private swipeTrackingEnabled: boolean = true;
+  private touchStartY: number = 0;
+  private touchEndY: number = 0;
+  // Minimum distance for a valid horizontal swipe
+  private readonly minSwipeDeltaX = 50;
+  // Maximum Y-axis movement allowed for a valid horizontal swipe
+  private readonly maxSwipeDeltaY = 30;
 
   constructor() {
     fromEvent(window, 'resize').subscribe(() => {
@@ -29,12 +35,10 @@ export class MobileService {
   }
 
   disableSwipeTracking(): void {
-    console.log('disableSwipeTracking');
     this.swipeTrackingEnabled = false;
   }
 
   enableSwipeTracking(): void {
-    console.log('enableSwipeTracking');
     this.swipeTrackingEnabled = true;
   }
 
@@ -42,21 +46,31 @@ export class MobileService {
     window.addEventListener('touchstart', (event) => {
       if (!this.swipeTrackingEnabled) return;
       this.touchStartX = event.changedTouches[0].screenX;
+      this.touchStartY = event.changedTouches[0].screenY;
     });
 
     window.addEventListener('touchend', (event) => {
       if (!this.swipeTrackingEnabled) return;
       this.touchEndX = event.changedTouches[0].screenX;
+      this.touchEndY = event.changedTouches[0].screenY;
       this.handleSwipeGesture();
     });
   }
 
   private handleSwipeGesture(): void {
-    const swipeDistance = this.touchEndX - this.touchStartX;
-    console.log('handleSwipeGesture, ', swipeDistance);
-    if (swipeDistance < -50) {
+    const swipeDistanceX = this.touchEndX - this.touchStartX;
+    const swipeDistanceY = Math.abs(this.touchEndY - this.touchStartY); // Calculate absolute Y-axis distance
+
+    console.log('swipeDistanceX', swipeDistanceX);
+    console.log('swipeDistanceY', swipeDistanceY);
+    // If the Y-axis movement is greater than maxSwipeDeltaY, it's not a valid horizontal swipe
+    if (swipeDistanceY > this.maxSwipeDeltaY) {
+      return;
+    }
+
+    if (swipeDistanceX < -this.minSwipeDeltaX) {
       this.swipeLeft$.next(true);
-    } else if (swipeDistance > 50) {
+    } else if (swipeDistanceX > this.minSwipeDeltaX) {
       this.swipeRight$.next(true);
     }
   }

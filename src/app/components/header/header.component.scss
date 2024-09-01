@@ -29,6 +29,7 @@ mat-toolbar {
     color: var(--light-color);
     cursor: pointer;
     justify-content: center;
+    transition: opacity 0.5s ease-in-out;
 
     &__label {
         font-size: 40px;
@@ -151,17 +152,18 @@ app-social-media {
     }
 
     .dropdown-background {
-        display: flex;
+        display: none;
         justify-content: flex-end;
         position: fixed;
         top: 80px;
         right: 0;
         bottom: 0;
         left: 0;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0);
         z-index: 19;
         cursor: pointer;
         height: calc(100% - 80px);
+        transition: background 0.3s ease;
     }
 
     .menu-dropdown {
@@ -170,12 +172,14 @@ app-social-media {
         justify-content: space-between;
         position: fixed;
         top: 80px;
-        left: 0;
+        // left: 0;
+        left: -75%;
         height: inherit;
         width: 75%;
         background: var(--light-brand-color);
         color: var(--light-color);
         z-index: 20;
+        transition: left 0.3s ease;
 
         button {
             display: flex;
@@ -203,13 +207,25 @@ app-social-media {
             transition: transform 0.3s ease;
 
             .button-content {
-                animation: icon-slide 0.3s ease-in-out forwards;
+                animation: icon-slide 0.5s ease-in-out forwards;
             }
 
             &:hover {
                 background-color: var(--dark-brand-color) !important;
             }
         }
+    }
+
+    .dropdown-background.flex {
+        display: flex;
+    }
+
+    .dropdown-background.show {
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .menu-dropdown.show {
+        left: 0;
     }
 
     .menu-icon.shake {
@@ -250,6 +266,13 @@ app-social-media {
         to {
             transform: translateX(40px);
         }
+    }
+}
+
+@media (max-width: 500px) {
+
+    .menu-icon {
+        width: unset;
     }
 }
 

@@ -33,13 +33,13 @@ export class AboutComponent implements OnInit {
   // Define card data as an array of Card objects
   cards: Card[] = [
     {
-      title: 'Обо мне',
+      title: 'Преподаватель',
       image: 'https://img42.rajce.idnes.cz/d4202/19/19234/19234587_7120b7f029e3a19a3efd09788a59d31b/images/cat_S_sing3_png.jpg?ver=0',
       contentShort: 'Я, [Tutors Name], преподаватель вокала.',
       contentLong: 'Я, [Tutors Name], имею за плечами более 5 лет опыта преподавания вокала. Имею высшее музыкальное образование. Окончила кафедру эстрадно-джазового вокала факультета музыкального искусства эстрады СПбГИК.'
     },
     {
-      title: 'О студии',
+      title: 'Студия',
       image: 'https://img42.rajce.idnes.cz/d4202/19/19234/19234587_7120b7f029e3a19a3efd09788a59d31b/images/studio2_png.jpg?ver=0',
       contentShort: 'ΣΙΓΜΑ – пространство для творчества.',
       contentLong: 'Студия ΣΙΓΜΑ расположена в Московском районе Санкт-Петербурга. Это творческое пространство с уютной атмосферой, оснащённое необходимым оборудованием. Здесь вы сможете эффективно развивать свои навыки и способности.'

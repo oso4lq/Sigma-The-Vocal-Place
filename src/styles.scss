@@ -108,15 +108,17 @@ h2 {
     margin: 2px;
 }
 
+.no-scroll {
+    overflow: hidden;
+    height: 100%;
+    // position: fixed;
+    width: 100%;
+}
+
 @media (max-width: 768px) {
 
     app-header {
-        // height: 100%;
         height: auto;
-    }
-
-    .section {
-        // height: unset;
     }
 
     .plug {

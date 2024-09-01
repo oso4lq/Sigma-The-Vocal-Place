@@ -35,9 +35,9 @@ app-mapycz {
 }
 
 @media (max-width: 768px) {
-    .section {
-        height: unset;
-    }
+    // .section {
+    // height: unset;
+    // }
 
     .content {
         display: flex;
@@ -48,6 +48,7 @@ app-mapycz {
 
     .wrapper {
         padding: 0;
+        height: inherit;
     }
 
     .mapy-mobile {

@@ -118,6 +118,26 @@ export class MapyczComponent implements OnInit, AfterViewInit {
     });
 
     this.map.addLayer(markerLayer);
+
+    // Detect clicks on the marker
+    this.map.on('singleclick', (event) => {
+      const feature = this.map.forEachFeatureAtPixel(event.pixel, (feat) => feat);
+      if (feature === marker && this.mobileService.isMobile) {
+        this.openInMapsApp(this.centerCoordinates);
+      }
+    });
+  }
+
+  private openInMapsApp(coordinates: number[]): void {
+    const [longitude, latitude] = coordinates;
+    const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    const appleMapsUrl = `http://maps.apple.com/?ll=${latitude},${longitude}`;
+
+    // Check if it's an iOS device and open Apple Maps, otherwise open Google Maps
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const mapsUrl = isIOS ? appleMapsUrl : googleMapsUrl;
+
+    window.open(mapsUrl, '_blank');
   }
 
   private addTooltip(): void {

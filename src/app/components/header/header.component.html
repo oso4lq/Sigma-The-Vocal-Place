@@ -23,11 +23,20 @@
         <button id="about-button" mat-button mat-raised-button data-section="about-section"
             (click)="scrollToSection('about-section')">
             О ΣΙΓΜΑ
+            <!-- <mat-icon>arrow_drop_down</mat-icon> -->
         </button>
         <button id="classes-button" mat-button mat-raised-button data-section="classes-section"
             (click)="scrollToSection('classes-section')">
             Занятия
         </button>
+        <!-- <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
+            (click)="scrollToSection('contacts-section')">
+            Преподаватель
+        </button> -->
+        <!-- <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
+            (click)="scrollToSection('contacts-section')">
+            Галерея
+        </button> -->
         <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
             (click)="scrollToSection('contacts-section')">
             Контакты
@@ -35,9 +44,9 @@
         <button mat-button mat-raised-button class="special">
             Записаться
         </button>
-        <button mat-icon-button>
+        <!-- <button mat-icon-button>
             Аккаунт
-        </button>
+        </button> -->
     </div>
 
     <!-- Links to the social media -->
@@ -67,7 +76,7 @@
 </mat-toolbar>
 
 <!-- Dropdown menu for mobile view -->
-<div *ngIf="isMenuOpen" class="dropdown-background" (click)="closeMenu()">
+<div class="dropdown-background" (click)="closeMenu()">
     <div class="menu-dropdown" (click)="$event.stopPropagation()">
         <button mat-button mat-raised-button class="special">Записаться</button>
         <button mat-button mat-raised-button data-section="home-section" (click)="scrollToSection('home-section')">
