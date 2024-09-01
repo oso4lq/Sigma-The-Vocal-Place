@@ -80,18 +80,37 @@
     <div class="menu-dropdown" (click)="$event.stopPropagation()">
         <button mat-button mat-raised-button class="special">Записаться</button>
         <button mat-button mat-raised-button data-section="home-section" (click)="scrollToSection('home-section')">
-            <div class="flex-row center-row button-content"><mat-icon>home</mat-icon>Главная</div>
+            <div class="flex-row center-row button-content">
+                <mat-icon>home</mat-icon>Главная
+            </div>
         </button>
         <button mat-button mat-raised-button data-section="about-section" (click)="scrollToSection('about-section')">
-            <div class="flex-row center-row button-content"><mat-icon>functions</mat-icon>О ΣΙΓΜΑ</div>
+            <div class="flex-row center-row button-content">
+                <mat-icon>functions</mat-icon>О ΣΙΓΜΑ
+            </div>
         </button>
         <button mat-button mat-raised-button data-section="classes-section"
             (click)="scrollToSection('classes-section')">
-            <div class="flex-row center-row button-content"><mat-icon>music_note</mat-icon>Занятия</div>
+            <div class="flex-row center-row button-content">
+                <mat-icon>music_note</mat-icon>Занятия
+            </div>
+        </button>
+        <button mat-button mat-raised-button data-section="teacher-section"
+            (click)="scrollToSection('teacher-section')">
+            <div class="flex-row center-row button-content">
+                <mat-icon>school</mat-icon>Преподаватель
+            </div>
+        </button>
+        <button mat-button mat-raised-button data-section="studio-section" (click)="scrollToSection('studio-section')">
+            <div class="flex-row center-row button-content">
+                <mat-icon>mic</mat-icon>Студия
+            </div>
         </button>
         <button mat-button mat-raised-button data-section="contacts-section"
             (click)="scrollToSection('contacts-section')">
-            <div class="flex-row center-row button-content"><mat-icon>mail</mat-icon>Контакты</div>
+            <div class="flex-row center-row button-content">
+                <mat-icon>mail</mat-icon>Контакты
+            </div>
         </button>
         <!-- <button mat-icon-button><mat-icon>account_circle</mat-icon>Аккаунт</button> -->
     </div>

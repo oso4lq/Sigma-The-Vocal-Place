@@ -1,0 +1,89 @@
+// .center-col {
+//     justify-content: center;
+// }
+
+// .center-row {
+//     align-items: center;
+// }
+
+// .h-100 {
+//     height: 100%;
+// }
+
+// .w-100 {
+//     width: 100%;
+// }
+
+// .w-h-100 {
+//     width: 100%;
+//     height: 100%;
+// }
+
+// .section {
+//     height: 100vh;
+// }
+
+// .plug {
+//     background-color: var(--brand-color);
+//     color: var(--brand-color);
+// }
+
+// h2 {
+// height: 80px;
+// margin: 0;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// }
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    /* Adjusted to equal widths and auto for the right-col */
+    grid-template-rows: 1fr;
+    padding-left: 5%;
+    gap: 20px;
+}
+
+.left-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 40px 0;
+}
+
+.mid-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 0;
+
+    h2 {
+        height: unset;
+        margin-top: 0;
+    }
+}
+
+.right-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.diploma__img {
+    width: 100%;
+    object-fit: contain;
+    /* Ensure the diploma image fits within its column */
+}
+
+.img-action {
+    width: 100%;
+    /* Sized by the mid-col width */
+    object-fit: contain;
+}
+
+.img-cover {
+    height: calc(100vh - 80px);
+    object-fit: cover;
+    /* Ensure the image fits the height of the right-col */
+}

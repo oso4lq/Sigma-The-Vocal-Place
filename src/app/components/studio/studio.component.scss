@@ -1,0 +1,27 @@
+.content {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    height: 100%;
+
+    .gallery-thumbs {
+        grid-column: span 7;
+        border: 2px solid blue;
+    }
+
+    .gallery-text {
+        grid-column: span 5;
+        border: 2px solid blue;
+    }
+
+    .reviews-text {
+        grid-column: span 4;
+        border: 2px solid blue;
+    }
+
+    .reviews-tagcloud {
+        grid-column: span 8;
+        border: 2px solid blue;
+    }
+}

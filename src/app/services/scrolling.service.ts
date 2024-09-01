@@ -7,7 +7,14 @@ import { MobileService } from './mobile.service';
 export class ScrollingService {
 
   private renderer: Renderer2;
-  private sections: string[] = ['home-section', 'about-section', 'classes-section', 'contacts-section'];
+  private sections: string[] = [
+    'home-section', 
+    'about-section', 
+    'classes-section', 
+    'tutor-section',
+    'studio-section',
+    'contacts-section',
+  ];
   private currentSectionIndex: number = 0;
   private isScrolling: boolean = false;
 
