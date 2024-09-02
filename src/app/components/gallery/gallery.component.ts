@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { Card } from '../about/about.component';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperOptions } from 'swiper/types';
 import { MobileService } from '../../services/mobile.service';
+import { Card } from '../../interfaces/data.interface';
 
 @Component({
   selector: 'app-gallery',

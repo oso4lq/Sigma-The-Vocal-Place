@@ -42,11 +42,8 @@
             cursor: pointer;
             transition: transform 0.3s ease;
             aspect-ratio: 1 / 1;
-            max-width: 250px;
+            max-width: 240px;
             max-height: 200px;
-            // width: 100%;
-            // height: 100%;
-            // width: 200px !important;
 
             img {
                 object-fit: cover;
@@ -71,11 +68,54 @@
     .gallery-text {
         grid-column: span 6;
         border: 1px solid blue;
+        justify-content: flex-end;
+        margin-right: 10%;
+
+        h3 {
+            margin: 0;
+            margin-bottom: 8px;
+            font-size: calc(18px + 0.2vw);
+
+            .sigma-font {
+                font-size: calc(24px + 0.2vw);
+            }
+        }
+
+        h4 {
+            margin: 0;
+            margin-bottom: 20px;
+            font-size: calc(14px + 0.2vw);
+        }
+
+        span {
+            font-size: calc(12px + 0.2vw);
+            margin-bottom: 20px;
+        }
+
     }
 
     .reviews-text {
         grid-column: span 6;
         border: 1px solid blue;
+        justify-content: flex-start;
+        margin-left: 10%;
+
+        h3 {
+            margin: 20px 0;
+            // margin-top: 20px;
+            // margin-bottom: 20px;
+            font-size: calc(18px + 0.2vw);
+            text-align: end;
+        }
+
+        span,
+        li {
+            font-size: calc(12px + 0.2vw);
+
+            .sigma-font {
+                font-size: calc(20px + 0.2vw);
+            }
+        }
     }
 
 

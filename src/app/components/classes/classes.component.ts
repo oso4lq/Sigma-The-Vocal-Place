@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { Card } from '../about/about.component';
+import { Card } from '../../interfaces/data.interface';
 
 @Component({
   selector: 'app-classes',

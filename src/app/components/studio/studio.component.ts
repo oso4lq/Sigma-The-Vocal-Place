@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Card } from '../about/about.component';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { GalleryComponent } from '../gallery/gallery.component';
@@ -10,19 +9,7 @@ import { SwiperOptions } from 'swiper/types';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MobileService } from '../../services/mobile.service';
-// import { MobileService } from '../../../assets/img/icons/';
-
-export interface Review extends Card {
-  user: string;
-  source: Source;
-  rating: number;
-}
-
-interface Source {
-  id: number;
-  name: string;
-  logo: string;
-}
+import { Card, Review, Source } from '../../interfaces/data.interface';
 
 @Component({
   selector: 'app-studio',
@@ -130,33 +117,33 @@ export class StudioComponent {
     },
     {
       id: 1,
-      title: 'Эффективное обучение вокалу: результаты заметны уже после нескольких занятий!',
-      image: '',
-      contentShort: '',
-      contentLong: 'Я начал заниматься вокалом в этой школе около месяца назад и уже вижу значительные улучшения! Преподаватели обладают огромным опытом и знают, как помочь каждому ученику. Они уделяют внимание не только технике пения, но и развитию музыкального слуха, ритма и эмоциональной выразительности. Занятия проходят интересно и динамично, а комфортная атмосфера позволяет расслабиться и сосредоточиться на обучении. Рекомендую эту школу всем, кто хочет научиться петь красиво и уверенно!',
-      user: 'Иван Иванов',
-      source: this.sources[0],
-      rating: 4.8,
-    },
-    {
-      id: 2,
-      title: 'Вокальная школа мечты: развитие голоса и уверенность в себе!',
-      image: '',
-      contentShort: '',
-      contentLong: 'Я посещаю эту школу уже несколько месяцев и не могу не радоваться достигнутым результатам! Преподаватели здесь настоящие профессионалы своего дела, они помогают мне раскрыть свой потенциал и научиться петь красиво и уверенно. Занятия проходят регулярно, а разнообразие методик и подходов позволяет мне развиваться гармонично. Атмосфера на уроках тёплая и дружеская, что способствует быстрому усвоению материала. Рекомендую эту школу всем, кто хочет научиться петь и обрести уверенность в себе!',
-      user: 'Светлана Сидорова',
-      source: this.sources[1],
-      rating: 4.9,
-    },
-    {
-      id: 3,
       title: 'Вокальная школа — путь к успеху: прогресс заметен с каждым занятием!',
       image: '',
       contentShort: '',
       contentLong: 'Я занимаюсь в этой школе уже несколько месяцев и не перестаю удивляться прогрессу! Преподаватели здесь настоящие мастера своего дела, они помогают мне улучшить технику пения, расширить диапазон и развить музыкальный слух. Занятия проходят интересно и динамично, а комфортная атмосфера позволяет сосредоточиться на обучении. Рекомендую эту школу всем, кто хочет научиться петь красиво и стать успешным вокалистом!',
       user: 'Олег Михайлович',
-      source: this.sources[2],
+      source: this.sources[0],
       rating: 5,
+    },
+    {
+      id: 2,
+      title: 'Эффективное обучение вокалу: результаты заметны уже после нескольких занятий!',
+      image: '',
+      contentShort: '',
+      contentLong: 'Я начал заниматься вокалом в этой школе около месяца назад и уже вижу значительные улучшения! Преподаватели обладают огромным опытом и знают, как помочь каждому ученику. Они уделяют внимание не только технике пения, но и развитию музыкального слуха, ритма и эмоциональной выразительности. Занятия проходят интересно и динамично, а комфортная атмосфера позволяет расслабиться и сосредоточиться на обучении. Рекомендую эту школу всем, кто хочет научиться петь красиво и уверенно!',
+      user: 'Иван Иванов',
+      source: this.sources[1],
+      rating: 4.8,
+    },
+    {
+      id: 3,
+      title: 'Вокальная школа мечты: развитие голоса и уверенность в себе!',
+      image: '',
+      contentShort: '',
+      contentLong: 'Я посещаю эту школу уже несколько месяцев и не могу не радоваться достигнутым результатам! Преподаватели здесь настоящие профессионалы своего дела, они помогают мне раскрыть свой потенциал и научиться петь красиво и уверенно. Занятия проходят регулярно, а разнообразие методик и подходов позволяет мне развиваться гармонично. Атмосфера на уроках тёплая и дружеская, что способствует быстрому усвоению материала. Рекомендую эту школу всем, кто хочет научиться петь и обрести уверенность в себе!',
+      user: 'Светлана Сидорова',
+      source: this.sources[2],
+      rating: 4.9,
     },
     {
       id: 4,
@@ -176,7 +163,7 @@ export class StudioComponent {
     spaceBetween: 20,  // Space (in px) between each slide
     freeMode: true,  // Enables free scrolling without snapping to slides
     grabCursor: true,  // Changes the cursor to a grab icon when hovering over the Swiper
-    // loop: true,  // Enables infinite looping of slides
+    loop: false,  // Enables infinite looping of slides
     centeredSlides: true,  // Disables centering of slides; they align to the left
     initialSlide: 1,  // Start from the second review
     resistanceRatio: 0.5,  // Controls the resistance ratio during swiping to avoid dragging too far
@@ -192,7 +179,7 @@ export class StudioComponent {
     spaceBetween: 20,  // Space between each review box
     freeMode: false,  // Disable free mode to avoid overshooting
     grabCursor: true,
-    // loop: true,  // Disable looping to restrict scrolling beyond the first and last reviews
+    loop: false,  // Disable looping to restrict scrolling beyond the first and last reviews
     centeredSlides: true,
     initialSlide: 1,  // Start from the second review
     slideToClickedSlide: true, // Allow clicking on partial slides to navigate

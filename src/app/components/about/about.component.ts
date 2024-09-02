@@ -4,14 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { GalleryComponent } from '../gallery/gallery.component';
 import { MobileService } from '../../services/mobile.service';
-
-export interface Card {
-  id: number;
-  title: string;
-  image: string;
-  contentShort: string;
-  contentLong: string;
-}
+import { Card } from '../../interfaces/data.interface';
 
 @Component({
   selector: 'app-about',

@@ -8,23 +8,3 @@
     <p>"The atmosphere at Sigma Vocal Place is so encouraging. I always leave my lessons feeling more confident and
         inspired." - [Student Name]</p>
 </blockquote> -->
-
-<!-- *ngIf="preset === 'vertical'" -->
-<div class="swiper-container vertical-swiper">
-    <div class="swiper-slide vertical-slide" *ngFor="let slide of reviews">
-        <div class="vertical-header">
-            <ng-container *ngIf="slide.image; else placeholder">
-                <img [src]="slide.image" alt="user image">
-            </ng-container>
-            <ng-template #placeholder>
-                <mat-icon>person</mat-icon>
-            </ng-template>
-            <span class="user-name">{{ slide.user }}</span>
-            <img [src]="slide.source.logo" alt="source logo" class="source-logo">
-        </div>
-        <mat-divider></mat-divider>
-        <div class="vertical-content">
-            <span>{{ slide.contentLong }}</span>
-        </div>
-    </div>
-</div>
