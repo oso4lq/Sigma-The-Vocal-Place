@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GalleryComponent } from '../gallery/gallery.component';
 import Swiper from 'swiper';
 import { Autoplay } from 'swiper/modules';
+import { FeedbacksComponent } from '../feedbacks/feedbacks.component';
 
 @Component({
   selector: 'app-studio',
@@ -12,6 +13,7 @@ import { Autoplay } from 'swiper/modules';
   imports: [
     CommonModule,
     GalleryComponent,
+    FeedbacksComponent,
   ],
   templateUrl: './studio.component.html',
   styleUrl: './studio.component.scss'
@@ -98,10 +100,11 @@ export class StudioComponent {
   }
 
   openGallery(index: number) {
-    this.dialog.open(GalleryComponent, {
-      data: { slides: this.images, initialSlide: index },
-      width: '80%',
-      height: '80%',
-    });
+    console.log('clicked image number ', index);
+    // this.dialog.open(GalleryComponent, {
+    //   data: { slides: this.images, initialSlide: index },
+    //   width: '80%',
+    //   height: '80%',
+    // });
   }
 }
