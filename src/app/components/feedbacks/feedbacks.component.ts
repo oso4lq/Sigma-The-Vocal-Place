@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { Card } from '../about/about.component';
 import { GalleryComponent } from '../gallery/gallery.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import Swiper from 'swiper';
+import { SwiperOptions } from 'swiper/types';
+import { Navigation, Pagination } from 'swiper/modules';
 
 export interface Review extends Card {
   user: string;
@@ -18,7 +24,10 @@ interface Source {
   selector: 'app-feedbacks',
   standalone: true,
   imports: [
+    CommonModule,
     GalleryComponent,
+    MatDividerModule,
+    MatIconModule,
   ],
   templateUrl: './feedbacks.component.html',
   styleUrl: './feedbacks.component.scss'
@@ -98,4 +107,27 @@ export class FeedbacksComponent {
     },
   ]
 
+  swiperVerticalConfig: SwiperOptions = {
+    direction: 'vertical',
+    slidesPerView: 1,
+    spaceBetween: 20,
+    freeMode: true,
+    grabCursor: true,
+    loop: true,
+    centeredSlides: false,
+    resistanceRatio: 0.5,
+  };
+
+  // ngAfterViewInit() {
+  //   Swiper.use([Navigation, Pagination]);
+  //   const swiperInstance = new Swiper('.vertical-swiper', this.swiperConfigVertical);
+  // }
+
+  ngAfterViewInit() {
+    const swiperVertical = new Swiper('.vertical-swiper', this.swiperVerticalConfig);
+
+    swiperVertical.on('slideChange', () => {
+      console.log('Slide changed swiperVertical');
+    });
+  }
 }

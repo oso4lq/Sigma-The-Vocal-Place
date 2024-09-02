@@ -7,18 +7,17 @@
     <div class="h-100 content">
 
         <div class="gallery-thumbs">
-            <h3>Фотогалерея</h3>
-
-            <!-- place for the gallery with thumbnails made with Swiper.js -->
-            <!-- on click open the dialog with the gallery component on the photo clicked -->
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide" *ngFor="let image of images; let i = index" (click)="openGallery(i)">
+            <!-- <h3>Фотогалерея</h3> -->
+            <!-- place for the thumbs gallery Swiper.js -->
+            <div class="swiper-container swiper-thumbs">
+                <div class="swiper-wrapper thumbs-wrapper">
+                    <div class="swiper-slide thumbs-slide" *ngFor="let image of images; let i = index"
+                        (click)="openGallery(i)">
                         <img [src]="image.image" [alt]="image.title" class="thumbnail-image">
                     </div>
                 </div>
             </div>
-            <!-- <app-gallery [slides]="images" preset="thumbs"></app-gallery> -->
+
         </div>
 
         <div class="flex-col gallery-text">
@@ -44,7 +43,7 @@
         </div>
 
         <div class="flex-col reviews-text">
-            <h3>Отзывы</h3>
+            <h3>Что говорят студенты</h3>
             <span>
                 Более 100 учеников уже раскрыли свой талант вместе с <span class="sigma-font">ΣΙΓΜΑ</span>. Теперь ваша
                 очередь присоединиться к ним и начать свой путь к успеху!
@@ -58,8 +57,35 @@
             </span> -->
         </div>
 
-        <div class="reviews-tagcloud">
-            <app-feedbacks></app-feedbacks>
+        <div class="reviews-slides">
+            <div class="swiper-container swiper-reviews">
+                <div class="swiper-wrapper reviews-wrapper">
+                    <div class="swiper-slide reviews-slide" *ngFor="let slide of reviews">
+                        <div class="reviews-header" [ngClass]="{
+                            'avito': slide.source.id === 0,
+                            'google': slide.source.id === 1,
+                            'yandex': slide.source.id === 2,
+                            'profi': slide.source.id === 3
+                        }">
+                            <div class="flex-row" style="align-items: flex-end; gap: 10px;">
+                                <ng-container *ngIf="slide.image; else placeholder">
+                                    <img [src]="slide.image" alt="user image">
+                                </ng-container>
+                                <ng-template #placeholder>
+                                    <img src="https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_lud6rq.png"
+                                        alt="user no image" class="source-logo">
+                                </ng-template>
+                                <span class="user-name">{{ slide.user }}</span>
+                            </div>
+                            <img [src]="slide.source.logo" [alt]="slide.source.name" class="source-logo">
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="reviews-content">
+                            <span>{{ slide.contentLong }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
