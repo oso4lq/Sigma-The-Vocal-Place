@@ -8,7 +8,6 @@
     </div>
 
     <!-- Sigma Logo -->
-    <!-- TODO: disable selecting in desktop like in typespeed -->
     <div class="flex-col h-100 center-row logo sigma-font" (click)="scrollToSection('home-section')">
         <span class="logo__label">ΣΙΓΜΑ</span>
         <span class="logo__sublabel">the vocal place</span>
@@ -23,25 +22,28 @@
         <button id="about-button" mat-button mat-raised-button data-section="about-section"
             (click)="scrollToSection('about-section')">
             О ΣΙΓΜΑ
-            <!-- <mat-icon>arrow_drop_down</mat-icon> -->
         </button>
-        <button id="classes-button" mat-button mat-raised-button data-section="classes-section"
-            (click)="scrollToSection('classes-section')">
-            Занятия
+
+        <button id="swiper-button" mat-button mat-raised-button data-section="classes-section">
+            
+            <div class="swiper-container swiper-sections" [class.first-section]="swiperSectionID === 0"
+                [class.second-section]="swiperSectionID === 1" [class.third-section]="swiperSectionID === 2">
+                <div class="swiper-wrapper sections-wrapper">
+                    <p class="swiper-slide sections-slide" (click)="scrollToSection('classes-section')"
+                        id="classes-button">Занятия</p>
+                    <p class="swiper-slide sections-slide" (click)="scrollToSection('tutor-section')" id="tutor-button">
+                        Преподаватель</p>
+                    <p class="swiper-slide sections-slide" (click)="scrollToSection('studio-section')"
+                        id="studio-button">Студия</p>
+                </div>
+            </div>
         </button>
-        <!-- <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
-            (click)="scrollToSection('contacts-section')">
-            Преподаватель
-        </button> -->
-        <!-- <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
-            (click)="scrollToSection('contacts-section')">
-            Галерея
-        </button> -->
+
         <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
             (click)="scrollToSection('contacts-section')">
             Контакты
         </button>
-        <button mat-button mat-raised-button class="special">
+        <button mat-button mat-raised-button class="action-btn">
             Записаться
         </button>
         <!-- <button mat-icon-button>
@@ -78,7 +80,7 @@
 <!-- Dropdown menu for mobile view -->
 <div class="dropdown-background" (click)="closeMenu()">
     <div class="menu-dropdown" (click)="$event.stopPropagation()">
-        <button mat-button mat-raised-button class="special">Записаться</button>
+        <button mat-button mat-raised-button class="action-btn">Записаться</button>
         <button mat-button mat-raised-button data-section="home-section" (click)="scrollToSection('home-section')">
             <div class="flex-row center-row button-content">
                 <mat-icon>home</mat-icon>Главная
@@ -95,8 +97,7 @@
                 <mat-icon>music_note</mat-icon>Занятия
             </div>
         </button>
-        <button mat-button mat-raised-button data-section="teacher-section"
-            (click)="scrollToSection('teacher-section')">
+        <button mat-button mat-raised-button data-section="tutor-section" (click)="scrollToSection('tutor-section')">
             <div class="flex-row center-row button-content">
                 <mat-icon>school</mat-icon>Преподаватель
             </div>

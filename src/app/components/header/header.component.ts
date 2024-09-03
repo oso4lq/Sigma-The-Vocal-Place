@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MobileService } from '../../services/mobile.service';
 import { skip } from 'rxjs';
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
+import { SwiperOptions } from 'swiper/types';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +27,22 @@ import { skip } from 'rxjs';
 export class HeaderComponent implements OnInit {
 
   isMenuOpen = false;
+  swiperSections!: Swiper;
+  swiperSectionID: number = 0;
+
+  swiperSectionsConfig: SwiperOptions = {
+    direction: 'vertical',
+    slidesPerView: 1,
+    freeMode: false,
+    grabCursor: false,
+    loop: false,
+    centeredSlides: true,
+    initialSlide: 0,
+    slideToClickedSlide: false,
+    resistanceRatio: 0.5,
+    speed: 500,
+    autoHeight: true,
+  };
 
   constructor(
     private scrollingService: ScrollingService,
@@ -40,6 +59,35 @@ export class HeaderComponent implements OnInit {
       this.mobileService.swipeLeft$.pipe(skip(1)).subscribe(() => {
         if (this.isMenuOpen) this.toggleMenu();
       });
+    }
+
+    this.scrollingService.sectionIndex$.subscribe(index => {
+      this.updateSwiperSection(index);
+    });
+  }
+
+  ngAfterViewInit() {
+    Swiper.use([Navigation, Pagination]);
+
+    this.swiperSections = new Swiper('.swiper-sections', this.swiperSectionsConfig);
+
+    this.swiperSections.on('slideChange', () => {
+      console.log('Slide changed swiperSections');
+    });
+  }
+
+  // Display the current section name inside the #swiper-button
+  updateSwiperSection(index: number) {
+    if (this.swiperSections) {
+      console.log('swiper section ', index);
+      this.swiperSections.slideTo(index);
+      this.swiperSectionID = index;
+
+      // Update the custom property based on the current section index
+      const swiperButton = document.getElementById('swiper-button');
+      if (swiperButton) {
+        swiperButton.style.setProperty('--swiper-section-index', index.toString());
+      }
     }
   }
 
