@@ -1,0 +1,39 @@
+.vertical-swiper {
+    display: flex;
+    flex-direction: column;
+
+    .vertical-slide {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+        background: var(--light-color);
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        color: var(--dark-color);
+
+        .vertical-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .user-name {
+                font-weight: bold;
+                font-size: 18px;
+            }
+
+            .source-logo {
+                width: 40px;
+                height: 40px;
+                object-fit: contain;
+            }
+        }
+
+        .vertical-content {
+            margin-top: 10px;
+            font-size: 16px;
+            text-align: justify;
+        }
+    }
+}

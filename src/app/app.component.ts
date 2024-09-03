@@ -6,6 +6,8 @@ import { AboutComponent } from './components/about/about.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { ClassesComponent } from './components/classes/classes.component';
 import { ScrollingService } from './services/scrolling.service';
+import { StudioComponent } from './components/studio/studio.component';
+import { TutorComponent } from './components/tutor/tutor.component';
 
 
 // import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -20,6 +22,8 @@ import { ScrollingService } from './services/scrolling.service';
     HomeComponent,
     AboutComponent,
     ClassesComponent,
+    TutorComponent,
+    StudioComponent,
     ContactsComponent,
     RouterOutlet,
 
@@ -43,7 +47,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // Check section on app load
-    this.scrollingService.checkCurrentSection(); // Initialize the section check on 
+    this.scrollingService.checkCurrentSection(); 
     // Make header semi-transparent on the home section
     this.scrollingService.handleHeaderTransparency();
   }

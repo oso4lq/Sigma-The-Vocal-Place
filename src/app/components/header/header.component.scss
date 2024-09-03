@@ -42,29 +42,154 @@ mat-toolbar {
     }
 }
 
+
+// Desktop menu classes start
 .menu {
     background: var(--brand-color) !important;
     color: var(--light-color);
-
-    transition:
-        background-color 0.5s ease-in-out,
-        opacity 0.3s ease-in-out,
-        height 0.25s ease-in-out;
-
+    transition: background-color 0.5s ease-in-out, opacity 0.3s ease-in-out, height 0.25s ease-in-out;
     flex-grow: 1;
     height: 100%;
 
     button {
         flex-grow: 1;
-        height: 100%;
+        height: 100% !important;
         max-height: none;
         border-radius: 0;
         font-size: 18px;
         text-transform: uppercase;
+        padding: 0;
+
+        p {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #tutor-button {
+            font-size: calc(14px + 0.2vw);
+        }
     }
 
-    .special {
+    .swiper-sections {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .sections-wrapper {
+        height: unset !important;
+    }
+
+    // Special styles, animations
+    #swiper-button {
+        ::ng-deep .mdc-button__label {
+            height: 100%;
+            width: 100%;
+        }
+
+        .swiper-sections {
+            &:hover {
+                overflow: visible;
+            }
+        }
+
+        .sections-wrapper {
+            &:hover {
+                background: var(--brand-color);
+            }
+        }
+
+        .first-section,
+        .second-section,
+        .third-section {
+            &:hover {
+                // Apply consistent transitions to avoid jumping
+                transform: translateY(calc(var(--swiper-section-index, 0) * 80px));
+                transition: transform 0.5s ease, overflow 0.5s ease;
+            }
+        }
+
+        // Handle specific section states
+        &.first-section:hover {
+            transform: translateY(0);
+        }
+
+        &.second-section:hover {
+            transform: translateY(80px);
+        }
+
+        &.third-section:hover {
+            transform: translateY(160px);
+        }
+
+        .first-section {
+            &:hover {
+                #classes-button {
+                    background: var(--dark-brand-color);
+                }
+
+                #tutor-button {
+                    &:hover {
+                        background: var(--shaded-brand-color);
+                    }
+                }
+
+                #studio-button {
+                    &:hover {
+                        background: var(--shaded-brand-color);
+                    }
+                }
+            }
+        }
+
+        .second-section {
+            &:hover {
+                #tutor-button {
+                    background: var(--dark-brand-color);
+                }
+
+                #classes-button {
+                    &:hover {
+                        background: var(--shaded-brand-color);
+                    }
+                }
+
+                #studio-button {
+                    &:hover {
+                        background: var(--shaded-brand-color);
+                    }
+                }
+            }
+        }
+
+        .third-section {
+            &:hover {
+                #studio-button {
+                    background: var(--dark-brand-color);
+                }
+
+                #classes-button {
+                    &:hover {
+                        background: var(--shaded-brand-color);
+                    }
+                }
+
+                #tutor-button {
+                    &:hover {
+                        background: var(--shaded-brand-color);
+                    }
+                }
+            }
+        }
+    }
+
+    .action-btn {
         background: var(--alt-color);
+
+        &:hover {
+            background: var(--shaded-alt-color) !important;
+        }
     }
 
     .highlighted {
@@ -77,6 +202,9 @@ mat-toolbar {
         }
     }
 }
+
+// Desktop menu classes end
+
 
 app-social-media {
     width: 200px;
@@ -96,6 +224,8 @@ app-social-media {
     }
 }
 
+
+// Mobile menu classes
 .dropdown-background {
     display: none;
 }
@@ -151,6 +281,8 @@ app-social-media {
         }
     }
 
+
+    // Mobile menu classes
     .dropdown-background {
         display: none;
         justify-content: flex-end;
@@ -172,7 +304,6 @@ app-social-media {
         justify-content: space-between;
         position: fixed;
         top: 80px;
-        // left: 0;
         left: -75%;
         height: inherit;
         width: 75%;
@@ -195,10 +326,12 @@ app-social-media {
             gap: 10px;
         }
 
-        .special {
+        .action-btn {
             background: var(--alt-color);
-            max-height: 75px;
-            justify-content: center;
+
+            &:hover {
+                background: var(--shaded-alt-color) !important;
+            }
         }
 
         .highlighted {
@@ -274,24 +407,4 @@ app-social-media {
     .menu-icon {
         width: unset;
     }
-}
-
-.piano-keys {
-    display: flex;
-    margin-right: 24px;
-}
-
-.white-key {
-    width: 30px;
-    height: 80px;
-    background-color: #fff;
-    border: 1px solid #000;
-}
-
-.black-key {
-    width: 20px;
-    height: 50px;
-    background-color: #000;
-    position: relative;
-    left: -11px;
 }

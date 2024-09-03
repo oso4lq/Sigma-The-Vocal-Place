@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MobileService } from '../../services/mobile.service';
 import { skip } from 'rxjs';
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
+import { SwiperOptions } from 'swiper/types';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +27,22 @@ import { skip } from 'rxjs';
 export class HeaderComponent implements OnInit {
 
   isMenuOpen = false;
+  swiperSections!: Swiper;
+  swiperSectionID: number = 0;
+
+  swiperSectionsConfig: SwiperOptions = {
+    direction: 'vertical',
+    slidesPerView: 1,
+    freeMode: false,
+    grabCursor: false,
+    loop: false,
+    centeredSlides: true,
+    initialSlide: 0,
+    slideToClickedSlide: false,
+    resistanceRatio: 0.5,
+    speed: 500,
+    autoHeight: true,
+  };
 
   constructor(
     private scrollingService: ScrollingService,
@@ -41,10 +60,32 @@ export class HeaderComponent implements OnInit {
         if (this.isMenuOpen) this.toggleMenu();
       });
     }
+
+    this.scrollingService.sectionIndex$.subscribe(index => {
+      this.updateSwiperSection(index);
+    });
+  }
+
+  ngAfterViewInit() {
+    Swiper.use([Navigation, Pagination]);
+    this.swiperSections = new Swiper('.swiper-sections', this.swiperSectionsConfig);
+  }
+
+  // Display the current section name inside the #swiper-button
+  updateSwiperSection(index: number) {
+    if (this.swiperSections) {
+      this.swiperSections.slideTo(index);
+      this.swiperSectionID = index;
+
+      // Update the custom property based on the current section index
+      const swiperButton = document.getElementById('swiper-button');
+      if (swiperButton) {
+        swiperButton.style.setProperty('--swiper-section-index', index.toString());
+      }
+    }
   }
 
   scrollToSection(id: string) {
-    console.log('scrollToSection');
     if (this.mobileService.isMobile) {
       this.closeMenu(); // Close menu after selection
     }
@@ -52,7 +93,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleMenu() {
-    console.log('toggleMenu');
     this.isMenuOpen = !this.isMenuOpen;
     const logo = document.body.querySelector('.logo');
 
@@ -75,7 +115,6 @@ export class HeaderComponent implements OnInit {
   }
 
   closeMenu() {
-    console.log('closeMenu');
     this.isMenuOpen = false;
     // Disable scrolling the page
     this.renderer.removeClass(document.body, 'no-scroll');

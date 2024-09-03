@@ -4,16 +4,12 @@
         <h2>About my studio</h2>
     </div>
 
-    <!-- TO DO -->
-    <!-- In desktop. On card select, first card width expansion, then text expansion. -->
-    <!-- Add animation "text typing" -->
-     
     <!-- For Desktop Version -->
     <div class="wrapper h-100 flex-row center-row" *ngIf="!isMobile">
 
         <!-- Card template -->
-        <mat-card *ngFor="let card of cards; let i = index" class="h-100 card"
-            [class.selected]="selectedCardIndex === i" (click)="selectCard(i)">
+        <mat-card *ngFor="let card of cards" class="h-100 card" [class.selected]="selectedCardId === card.id"
+            (click)="selectCard(card.id)">
 
             <!-- Card text content -->
             <div class="w-h-100 card__background" [ngStyle]="{'background-image': 'url(' + card.image + ')'}"></div>
@@ -21,17 +17,15 @@
                 <mat-card-title>{{ card.title }}</mat-card-title>
             </mat-card-header>
             <mat-card-content class="card__content">
-                <span *ngIf="selectedCardIndex === i">{{ card.contentLong }}</span>
-                <span *ngIf="selectedCardIndex !== i">{{ card.contentShort }}</span>
+                <span *ngIf="selectedCardId === card.id">{{ card.contentLong }}</span>
+                <span *ngIf="selectedCardId !== card.id">{{ card.contentShort }}</span>
             </mat-card-content>
 
             <!-- Arrows display on the edge cards -->
-            <div *ngIf="(i === 0 || i === 2) && selectedCardIndex !== i && i === 0" class="arrow-layer"
-                (click)="prevImage($event)">
+            <div *ngIf="card.id === 0 && selectedCardId !== card.id" class="arrow-layer" (click)="prevImage($event)">
                 <mat-icon>arrow_back_ios_new</mat-icon>
             </div>
-            <div *ngIf="(i === 0 || i === 2) && selectedCardIndex !== i && i === 2" class="arrow-layer"
-                (click)="nextImage($event)">
+            <div *ngIf="card.id === 2 && selectedCardId !== card.id" class="arrow-layer" (click)="nextImage($event)">
                 <mat-icon>arrow_forward_ios_new</mat-icon>
             </div>
 
@@ -39,17 +33,15 @@
     </div>
 
     <!-- For Mobile Version -->
-    <app-gallery *ngIf="isMobile" [slides]="cards"></app-gallery>
+    <app-gallery *ngIf="isMobile" [slides]="cards" preset="gallery"></app-gallery>
 
     <!-- TO DO -->
 
-    <!-- Use the embla gallery component to display cards in the mobile version. -->
-    <!-- Create "Learn More" logic and comment it. -->
-
-    <!-- After approval: -->
-    <!-- 1. Add buttons "Learn More" to each card.  -->
-    <!-- 2. Create sections "teacher" and "studio". Classes section already exists. -->
-    <!-- 3. Order: Classes - Teacher - Studio -->
-    <!-- 4. Animate "Learn More" buttons to ScrollTo specific sections. -->
+    <!-- DONE 1. Use the gallery component to display cards in the mobile version. -->
+    <!-- DONE 2. Create sections "teacher" and "studio". Classes section already exists. -->
+    <!-- DONE 3. Order: Classes - Teacher - Studio -->
+    <!-- 4. Add buttons "Learn More" to each card.  -->
+    <!-- 5. Create "Learn More" logic. -->
+    <!-- 6. Animate "Learn More" buttons to ScrollTo specific sections. -->
 
 </div>

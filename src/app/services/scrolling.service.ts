@@ -1,5 +1,6 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { MobileService } from './mobile.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +8,19 @@ import { MobileService } from './mobile.service';
 export class ScrollingService {
 
   private renderer: Renderer2;
-  private sections: string[] = ['home-section', 'about-section', 'classes-section', 'contacts-section'];
+  private sections: string[] = [
+    'home-section',
+    'about-section',
+    'classes-section',
+    'tutor-section',
+    'studio-section',
+    'contacts-section',
+  ];
   private currentSectionIndex: number = 0;
   private isScrolling: boolean = false;
+
+  private sectionIndexSubject = new BehaviorSubject<number>(0);
+  sectionIndex$ = this.sectionIndexSubject.asObservable();
 
   constructor(
     private rendererFactory: RendererFactory2,
@@ -45,7 +56,24 @@ export class ScrollingService {
         this.renderer.addClass(button, 'highlighted');
       }
     });
+
+    if (sectionId === 'classes-section' || sectionId === 'tutor-section' || sectionId === 'studio-section') {
+      this.renderer.addClass(document.getElementById('swiper-button'), 'highlighted');
+      this.updateSwiperForSection(sectionId);
+    }
   }
+
+  private updateSwiperForSection(sectionId: string): void {
+    const sectionMapping: { [key: string]: number } = {
+      'classes-section': 0,
+      'tutor-section': 1,
+      'studio-section': 2
+    };
+
+    const index = sectionMapping[sectionId];
+    this.sectionIndexSubject.next(index);
+  }
+
 
   // Helper for onWindowScroll
   checkCurrentSection(): void {

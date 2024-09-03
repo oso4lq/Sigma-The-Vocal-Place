@@ -1,0 +1,108 @@
+<div class="flex-col section">
+
+    <div class="flex-col plug">
+        <h2></h2>
+    </div>
+
+    <div class="h-100 content">
+
+        <div class="gallery-thumbs">
+            <!-- place for the thumbs gallery Swiper.js -->
+            <div class="swiper-container swiper-thumbs">
+                <div class="swiper-wrapper thumbs-wrapper">
+                    <div class="swiper-slide thumbs-slide" *ngFor="let image of images; let i = index"
+                        (click)="openGallery(i)">
+                        <img [src]="image.image" [alt]="image.title" class="thumbnail-image">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flex-col gallery-text">
+            <h3>Студия <span class="sigma-font">ΣΙΓΜΑ</span></h3>
+            <h4>идеальное место для тех, кто хочет научиться петь и раскрыть свой творческий потенциал.</h4>
+            <!-- <h4>
+                <span>Студия </span><span class="sigma-font">ΣΙΓΜΑ</span> — идеальное место для тех, кто хочет научиться
+                петь и
+                раскрыть свой творческий потенциал.
+            </h4> -->
+            <!-- <span>
+                Я предлагаю индивидуальные занятия, на которых мы будем работать вместе, чтобы вы достигли успеха.
+            </span> -->
+            <!-- <span>
+                Я предоставляю индивидуальные занятия, где мы вместе работаем над вашим успехом.
+            </span> -->
+            <span>
+                Настрой и творческая атмосфера играют ключевую роль в обучении, и я уделяю особое внимание тому, чтобы в
+                студии царила дружелюбная среда, способствующая вашему расслаблению и концентрации. Интерьер студии,
+                оснащённый современным профессиональным оборудованием, вместе с уютным уголком для отдыха создают
+                уникальную атмосферу, способствующую комфортному и продуктивному обучению.
+            </span>
+        </div>
+
+        <div class="flex-col reviews-text">
+            <h3>Что говорят студенты:</h3>
+
+            <span style="text-align: center; margin-bottom: 10px;">[Top Picks from real reviews]</span>
+            <span>Присоединяйтесь к более чем 100 успешным ученикам и начните свой путь к музыкальному успеху!</span>
+            <span class="sigma-font"></span>
+            <ul>
+                <li>
+                    Персональные занятия, на которых мы будем работать вместе,
+                    чтобы вы достигли успеха
+                </li>
+                <li>
+                    Возможность развить вокальные способности и глубже погрузиться в мир музыки.
+                </li>
+                <li>
+                    ΣΙΓΜΑ — это не просто обучение, это ваш путь к раскрытию творческого потенциала.
+                </li>
+                <li>
+                    Вы откроете для себя новые грани музыки и пения
+                </li>
+            </ul>
+            <!-- <span>
+                Более 100 учеников уже раскрыли свой талант вместе с ΣΙΓΜΑ. Теперь ваша очередь присоединиться к ним и
+                начать свой путь к успеху! Я предлагаю индивидуальные занятия, на которых мы будем работать вместе,
+                чтобы вы достигли успеха. Не упустите возможность развить свои вокальные способности и погрузиться в мир
+                музыки. ΣΙΓΜΑ — это не просто обучение, это путь к реализации вашего творческого потенциала. С ΣΙΓΜΑ вы
+                откроете для себя мир музыки и пения!
+            </span> -->
+
+        </div>
+
+        <div class="reviews-slides">
+            <div class="swiper-container swiper-reviews">
+                <div class="swiper-wrapper reviews-wrapper">
+                    <div class="swiper-slide reviews-slide" *ngFor="let slide of reviews">
+                        <div class="reviews-header" [ngClass]="{
+                            'avito': slide.source.id === 0,
+                            'google': slide.source.id === 1,
+                            'yandex': slide.source.id === 2,
+                            'profi': slide.source.id === 3
+                        }">
+                            <div class="flex-row" style="align-items: flex-end; gap: 10px;">
+                                <ng-container *ngIf="slide.image; else placeholder">
+                                    <img [src]="slide.image" alt="user image">
+                                </ng-container>
+                                <ng-template #placeholder>
+                                    <img src="https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_lud6rq.png"
+                                        alt="user no image" class="source-logo">
+                                </ng-template>
+                                <span class="user-name">{{ slide.user }}</span>
+                            </div>
+                            <img [src]="slide.source.logo" [alt]="slide.source.name" class="source-logo">
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="reviews-content">
+                            <span>{{ slide.contentLong }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
