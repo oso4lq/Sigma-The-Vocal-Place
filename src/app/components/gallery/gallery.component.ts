@@ -52,13 +52,11 @@ export class GalleryComponent {
     // Disable swipe tracking when interacting with the gallery
     swiperGallery.on('touchStart', () => {
       this.mobileService.disableSwipeTracking();
-      console.log('disableSwipeTracking');
     });
 
     // Re-enable swipe tracking when interaction ends
     swiperGallery.on('touchEnd', () => {
       setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
-      console.log('enableSwipeTracking');
     });
   }
 

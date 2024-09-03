@@ -68,18 +68,12 @@ export class HeaderComponent implements OnInit {
 
   ngAfterViewInit() {
     Swiper.use([Navigation, Pagination]);
-
     this.swiperSections = new Swiper('.swiper-sections', this.swiperSectionsConfig);
-
-    this.swiperSections.on('slideChange', () => {
-      console.log('Slide changed swiperSections');
-    });
   }
 
   // Display the current section name inside the #swiper-button
   updateSwiperSection(index: number) {
     if (this.swiperSections) {
-      console.log('swiper section ', index);
       this.swiperSections.slideTo(index);
       this.swiperSectionID = index;
 
@@ -92,7 +86,6 @@ export class HeaderComponent implements OnInit {
   }
 
   scrollToSection(id: string) {
-    console.log('scrollToSection');
     if (this.mobileService.isMobile) {
       this.closeMenu(); // Close menu after selection
     }
@@ -100,7 +93,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleMenu() {
-    console.log('toggleMenu');
     this.isMenuOpen = !this.isMenuOpen;
     const logo = document.body.querySelector('.logo');
 
@@ -123,7 +115,6 @@ export class HeaderComponent implements OnInit {
   }
 
   closeMenu() {
-    console.log('closeMenu');
     this.isMenuOpen = false;
     // Disable scrolling the page
     this.renderer.removeClass(document.body, 'no-scroll');

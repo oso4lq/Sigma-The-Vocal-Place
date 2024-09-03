@@ -40,7 +40,6 @@ export class ClassesComponent {
     {
       id: 3,
       title: 'Раскройте себя',
-      // image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/icon_sing-868_qathwc.png',
       image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/icon_sing3_mywdng.png',
       contentShort: '',
       contentLong: 'Уроки вокала помогут вам раскрыть свой потенциал, обрести уверенность и получать удовольствие от процесса. Вы научитесь правильному дыханию, разовьёте свой музыкальный слух, устраните телесные зажимы. Поставив голос, вы будете звучать естественно и наслаждаться своим природным тембром.'

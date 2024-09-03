@@ -197,33 +197,27 @@ export class StudioComponent {
     const swiperThumbs = new Swiper('.swiper-thumbs', this.swiperThumbsConfig);
 
     swiperThumbs.on('slideChange', () => {
-      console.log('Slide changed swiperThumbs');
     });
     // Disable swipe tracking when interacting with the gallery
     swiperThumbs.on('touchStart', () => {
       this.mobileService.disableSwipeTracking();
-      console.log('disableSwipeTracking');
     });
     // Re-enable swipe tracking when interaction ends
     swiperThumbs.on('touchEnd', () => {
       setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
-      console.log('enableSwipeTracking');
     });
 
     const swiperReviews = new Swiper('.swiper-reviews', this.swiperReviewsConfig);
 
     swiperReviews.on('slideChange', () => {
-      console.log('Slide changed swiperReviews');
     });
     // Disable swipe tracking when interacting with the gallery
     swiperReviews.on('touchStart', () => {
       this.mobileService.disableSwipeTracking();
-      console.log('disableSwipeTracking');
     });
     // Re-enable swipe tracking when interaction ends
     swiperReviews.on('touchEnd', () => {
       setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
-      console.log('enableSwipeTracking');
     });
   }
 

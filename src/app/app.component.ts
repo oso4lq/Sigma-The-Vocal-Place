@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // Check section on app load
-    this.scrollingService.checkCurrentSection(); // Initialize the section check on 
+    this.scrollingService.checkCurrentSection(); 
     // Make header semi-transparent on the home section
     this.scrollingService.handleHeaderTransparency();
   }
