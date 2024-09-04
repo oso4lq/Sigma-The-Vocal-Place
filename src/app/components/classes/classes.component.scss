@@ -1,18 +1,17 @@
 .content {
     display: grid;
-    grid-template-columns: 6fr 4fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: repeat(12, 1fr);
     padding: 0 5%;
 }
 
 .left-col {
+    grid-column: span 7;
     margin: 2vh 20px 2vh 0;
 }
 
 .wrapper {
-    display: flex;
     justify-content: flex-start;
-    padding: 20px;
+    padding: 8vh 20px;
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
 }
@@ -26,8 +25,7 @@
     align-items: center;
 
     &__title {
-        margin: 0;
-        margin-bottom: 15px;
+        margin: 0 0 15px 0;
         font-size: 22px;
         font-weight: 600;
         line-height: 30px;
@@ -46,9 +44,6 @@
 }
 
 .card {
-    justify-content: flex-start;
-    overflow: hidden;
-    min-width: 250px;
     max-width: 300px;
     min-height: 250px;
     max-height: 300px;
@@ -105,12 +100,11 @@
 }
 
 .right-col {
-    align-items: flex-start;
+    grid-column: span 5;
 }
 
 .price {
     max-width: 400px;
-    margin-top: 40px;
     font-size: 16px;
 
     &__first {
@@ -120,7 +114,8 @@
     }
 
     button {
-        width: 300px;
+        width: 100%;
+        max-width: 300px;
         height: 60px;
         margin: 15px 0;
         background: linear-gradient(70deg, var(--light-brand-color), var(--light-alt-color) 110%);
@@ -206,8 +201,6 @@
     }
 
     .content {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
         gap: 20px;
         padding: 0;
         width: 100%;
@@ -217,6 +210,7 @@
     }
 
     .left-col {
+        grid-column: span 12;
         margin: 0;
 
         &__wrapper {
@@ -225,6 +219,7 @@
     }
 
     .right-col {
+        grid-column: span 12;
         width: 100%;
         align-items: center;
         background: var(--light-color);
@@ -239,8 +234,6 @@
         width: 100%;
 
         &__title {
-            // margin: 20px 0;
-            margin: 0;
             margin-bottom: 20px;
             font-size: calc(22px + 0.5vw);
 

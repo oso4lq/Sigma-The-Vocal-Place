@@ -78,8 +78,8 @@ body {
 }
 
 .plug {
-    background-color: var(--brand-color);
     color: var(--brand-color);
+    background: var(--bright-brand-color);
 }
 
 h2 {
@@ -162,10 +162,10 @@ h2 {
         height: auto;
     }
 
-    .plug {
-        // display: none;
-        background: var(--bright-brand-color);
-    }
+    // .plug {
+    // display: none;
+    //     background: var(--bright-brand-color);
+    // }
 }
 
 // "@angular/material/prebuilt-themes/magenta-violet.css",
