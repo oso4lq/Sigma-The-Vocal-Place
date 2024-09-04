@@ -1,63 +1,51 @@
 .content {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    // gap: 20px;
-    column-gap: 20px;
+    grid-template-rows: auto 1fr;
+    row-gap: 2vh; 
     height: 100%;
     padding: 0 5%;
+}
 
-    .gallery-thumbs {
-        grid-column: span 6;
-        border: 1px solid blue;
-        overflow: hidden;
+h3 {
+    height: 32px;
+}
+
+.gallery-thumbs {
+    grid-column: span 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+    
+    .swiper-thumbs {
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        margin-top: 2vh;
+        background-image: linear-gradient(to left, rgba(191, 173, 81, 0.5), transparent);
+        border-bottom-right-radius: 8px;
+    }
+
+    .thumbs-wrapper {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .thumbs-slide {
+        display: flex;
         justify-content: center;
+        align-items: center;
+        aspect-ratio: 1 / 1;
+        max-width: 250px;
+        max-height: 250px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
 
-        h3 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .swiper-thumbs {
-            display: flex;
-            flex-grow: 1;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            max-height: 250px;
-        }
-
-        .thumbs-wrapper {
-            display: flex;
-            align-items: center;
-            height: 100%;
-        }
-
-        .thumbs-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            aspect-ratio: 1 / 1;
-            max-width: 240px;
-            max-height: 200px;
-
-            img {
-                object-fit: cover;
-                border-radius: 8px;
-                width: 100%;
-                height: 100%;
-            }
-        }
-
-        .thumbs-slide:hover {
-            transform: scale(1.1);
-        }
-
-        .thumbnail-image {
+        img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -65,165 +53,264 @@
         }
     }
 
-    .gallery-text {
-        grid-column: span 6;
-        border: 1px solid blue;
-        justify-content: flex-end;
-        margin-right: 10%;
-
-        h3 {
-            margin: 0;
-            margin-bottom: 8px;
-            font-size: calc(18px + 0.2vw);
-
-            .sigma-font {
-                font-size: calc(24px + 0.2vw);
-            }
-        }
-
-        h4 {
-            margin: 0;
-            margin-bottom: 20px;
-            font-size: calc(14px + 0.2vw);
-        }
-
-        span {
-            font-size: calc(12px + 0.2vw);
-            margin-bottom: 20px;
-        }
-
+    .thumbs-slide:hover {
+        transform: scale(0.95);
     }
 
-    .reviews-text {
-        grid-column: span 6;
-        border: 1px solid blue;
-        justify-content: flex-start;
-        margin-left: 10%;
-
-        h3 {
-            margin: 20px 0;
-            // margin-top: 20px;
-            // margin-bottom: 20px;
-            font-size: calc(18px + 0.2vw);
-            text-align: end;
-        }
-
-        span,
-        li {
-            font-size: calc(12px + 0.2vw);
-
-            .sigma-font {
-                font-size: calc(20px + 0.2vw);
-            }
-        }
-    }
-
-
-
-
-
-
-    .reviews-slides {
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        grid-column: span 6;
-        border: 1px solid blue;
-        position: relative;
-        max-width: 760px;
-
-        button {
-            background: var(--brand-color);
-            color: var(--light-color);
-            border-radius: 50%;
-            height: 40px;
-            width: 40px;
-            margin: 0 10px;
-        }
-    }
-
-    .swiper-reviews {
-        flex-grow: 1;
-        // max-height: 300px;
-        overflow: hidden;
+    .thumbnail-image {
+        width: 100%;
         height: 100%;
-        display: flex;
-        align-items: center;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+}
 
-        .reviews-wrapper {
-            align-items: center;
-            height: unset;
+.gallery-text {
+    grid-column: span 7;
+    // display: flex; /* check to remove */
+    // flex-direction: column; /* check to remove */
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    &__title {
+        align-self: flex-start;
+        padding: 10px 0;
+        padding-top: 8px;
+        width: calc(100% - 80px);
+        margin-top: 2vh;
+        background: rgb(191, 173, 81, 0.5);
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+
+        h3 {
+            margin: 0 0 0 20px;
+            font-size: calc(18px + 0.2vw);
         }
 
-        .reviews-slide {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: var(--light-color);
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            color: var(--dark-color);
-            max-width: 500px;
+        .sigma-font {
+            font-size: calc(24px + 0.2vw);
         }
 
-        .reviews-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            // padding: 10px 40px 10px 30px;
-            padding: 10px 30px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-
-            .user-name {
-                font-weight: bold;
-                font-size: 18px;
-            }
-
-            .source-logo {
-                width: 40px;
-                height: 40px;
-                object-fit: contain;
-                border-radius: 5px;
-            }
-        }
-
-        .reviews-content {
-            margin: 10px 0;
-            // font-size: 14px;
-            font-size: calc(10px + 0.2vw);
-            text-align: justify;
-            padding: 0 20px;
+        &__slogan {
+            margin: 0 20px;
+            margin-top: 8px;
+            font-size: calc(12px + 0.2vw);
+            font-style: italic;
             color: var(--dark-alt-color);
+            text-align: justify;
+        }
+    }
+
+    &__description {
+        margin: 10px 80px 10px 20px;
+        font-size: calc(14px + 0.2vw);
+        text-align: justify;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0 20px;
+        margin-bottom: 10px;
+    }
+
+    li {
+        padding: 3px 0;
+        font-size: 16px;
+        line-height: 20px;
+        list-style-type: none;
+
+        &::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 10px;
+            background-color: var(--light-alt-color);
+            transform: rotate(45deg);
         }
 
-        // Colorize the slides depending on the Source
-        .avito {
-            background: linear-gradient(to right, rgba(3, 214, 94, 0.5), rgba(3, 214, 94, 0));
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--alt-color);
+        }
+    }
+}
+
+.reviews-text {
+    grid-column: span 6;
+    // display: flex; /* check to remove */
+    // flex-direction: column; /* check to remove */
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-bottom: 2vh;
+
+    &__title {
+        align-self: flex-end;
+        padding: 10px 0;
+        width: calc(100% - 80px);
+        background: rgb(191, 173, 81, 0.5);
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+
+        h3 {
+            margin: 0;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: calc(18px + 0.2vw);
         }
 
-        .yandex {
-            background: linear-gradient(to right, rgba(255, 0, 0, 0.4), rgba(255, 0, 0, 0));
+        .sigma-font {
+            font-size: calc(24px + 0.2vw);
+        }
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: space-between;
+        margin: 0;
+        padding: 10px 20px 0 20px;
+    }
+
+    li {
+        position: relative;
+        padding: 10px;
+        font-size: 16px;
+        line-height: 1.4;
+        background: rgb(148, 170, 115, 0.2);
+        border-left: 4px solid var(--light-alt-color);
+        border-radius: 5px;
+        list-style: none;
+
+        &::before {
+            content: '✓';
+            font-weight: bold;
+            color: var(--light-alt-color);
+            position: absolute;
+            left: -25px;
         }
 
-        .google {
-            background: linear-gradient(to right, rgba(66, 133, 244, 0.5), rgba(66, 133, 244, 0));
+        &:hover {
+            background: rgba(191, 173, 81, 0.4);
+            cursor: pointer;
+        }
+    }
+
+    span {
+        font-size: calc(12px + 0.2vw);
+        margin: 10px 0;
+    }
+
+    span,
+    li {
+        font-size: calc(12px + 0.2vw);
+
+        .sigma-font {
+            font-size: calc(20px + 0.2vw);
+        }
+    }
+}
+
+.reviews-slides {
+    grid-column: span 6;
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2vh;
+
+    button {
+        background: var(--brand-color);
+        color: var(--light-color);
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin: 0 10px;
+    }
+}
+
+.swiper-reviews {
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-image: linear-gradient(to right, rgba(191, 173, 81, 0.5), transparent);
+    border-bottom-left-radius: 8px;
+
+    .reviews-wrapper {
+        align-items: center;
+        height: unset;
+    }
+
+    .reviews-slide {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        max-width: 400px;
+        background: var(--light-color);
+        color: var(--dark-color);
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .reviews-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 30px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+
+        .user-name {
+            font-weight: bold;
+            font-size: 18px;
         }
 
-        .profi {
-            background: linear-gradient(to right, rgba(151, 50, 83, 0.5), rgba(66, 133, 244, 0));
+        .source-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 5px;
         }
+    }
 
-        // Unselected slide effects
-        .swiper-slide-prev {
-            opacity: 0.9;
-            // background: linear-gradient(to left, var(--light-color), rgba(0, 0, 0, 0));
-        }
+    .reviews-content {
+        margin: 10px 0;
+        font-size: calc(10px + 0.2vw);
+        text-align: justify;
+        padding: 0 20px;
+        color: var(--dark-alt-color);
+    }
 
-        .swiper-slide-next {
-            opacity: 0.9;
-            // background: linear-gradient(to right, var(--light-color), rgba(0, 0, 0, 0));
-        }
+    // Colorize the slides depending on the Source
+    .avito {
+        background: linear-gradient(to right, rgba(3, 214, 94, 0.5), rgba(3, 214, 94, 0));
+    }
+
+    .yandex {
+        background: linear-gradient(to right, rgba(255, 0, 0, 0.4), rgba(255, 0, 0, 0));
+    }
+
+    .google {
+        background: linear-gradient(to right, rgba(66, 133, 244, 0.5), rgba(66, 133, 244, 0));
+    }
+
+    .profi {
+        background: linear-gradient(to right, rgba(151, 50, 83, 0.5), rgba(66, 133, 244, 0));
+    }
+
+    // Slide transparency
+    .swiper-slide-prev {
+        opacity: 0.85;
+    }
+
+    .swiper-slide-next {
+        opacity: 0.85;
     }
 }
