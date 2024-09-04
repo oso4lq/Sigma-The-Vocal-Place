@@ -1,11 +1,10 @@
 <div class="flex-col section">
-
     <div class="flex-col plug">
-        <h2>About my studio</h2>
+        <h2></h2>
     </div>
 
     <!-- For Desktop Version -->
-    <div class="wrapper h-100 flex-row center-row" *ngIf="!isMobile">
+    <div class="wrapper h-100 flex-row center-row desktop" *ngIf="!isMobile">
 
         <!-- Card template -->
         <mat-card *ngFor="let card of cards" class="h-100 card" [class.selected]="selectedCardId === card.id"
@@ -13,7 +12,7 @@
 
             <!-- Card text content -->
             <div class="w-h-100 card__background" [ngStyle]="{'background-image': 'url(' + card.image + ')'}"></div>
-            <mat-card-header class="card__header">
+            <mat-card-header class="card__header center-row">
                 <mat-card-title>{{ card.title }}</mat-card-title>
             </mat-card-header>
             <mat-card-content class="card__content">
@@ -22,10 +21,12 @@
             </mat-card-content>
 
             <!-- Arrows display on the edge cards -->
-            <div *ngIf="card.id === 0 && selectedCardId !== card.id" class="arrow-layer" (click)="prevImage($event)">
+            <div *ngIf="card.id === 0 && selectedCardId !== card.id" class="arrow-layer center-all"
+                (click)="prevImage($event)">
                 <mat-icon>arrow_back_ios_new</mat-icon>
             </div>
-            <div *ngIf="card.id === 2 && selectedCardId !== card.id" class="arrow-layer" (click)="nextImage($event)">
+            <div *ngIf="card.id === 2 && selectedCardId !== card.id" class="arrow-layer center-all"
+                (click)="nextImage($event)">
                 <mat-icon>arrow_forward_ios_new</mat-icon>
             </div>
 
@@ -34,14 +35,4 @@
 
     <!-- For Mobile Version -->
     <app-gallery *ngIf="isMobile" [slides]="cards" preset="gallery"></app-gallery>
-
-    <!-- TO DO -->
-
-    <!-- DONE 1. Use the gallery component to display cards in the mobile version. -->
-    <!-- DONE 2. Create sections "teacher" and "studio". Classes section already exists. -->
-    <!-- DONE 3. Order: Classes - Teacher - Studio -->
-    <!-- 4. Add buttons "Learn More" to each card.  -->
-    <!-- 5. Create "Learn More" logic. -->
-    <!-- 6. Animate "Learn More" buttons to ScrollTo specific sections. -->
-
 </div>

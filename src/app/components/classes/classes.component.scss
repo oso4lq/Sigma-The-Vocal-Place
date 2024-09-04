@@ -1,18 +1,17 @@
 .content {
     display: grid;
-    grid-template-columns: 6fr 4fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: repeat(12, 1fr);
     padding: 0 5%;
 }
 
 .left-col {
-    margin-right: 20px;
+    grid-column: span 7;
+    margin: 2vh 20px 2vh 0;
 }
 
 .wrapper {
-    display: flex;
     justify-content: flex-start;
-    padding: 20px;
+    padding: 8vh 20px;
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
 }
@@ -26,9 +25,9 @@
     align-items: center;
 
     &__title {
-        margin: 15px 0;
+        margin: 0 0 15px 0;
         font-size: 22px;
-        font-weight: 500;
+        font-weight: 600;
         line-height: 30px;
     }
 }
@@ -45,19 +44,30 @@
 }
 
 .card {
-    justify-content: flex-start;
-    overflow: hidden;
-    min-width: 250px;
     max-width: 300px;
     min-height: 250px;
     max-height: 300px;
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
     border-radius: 20px;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 10px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        background: linear-gradient(to right, transparent 80%, var(--light-color));
+    }
 
     &__header {
         margin-bottom: 8px;
         font-size: 18px;
+        font-weight: 600;
     }
 
     &__icon {
@@ -73,13 +83,28 @@
     }
 }
 
+.card:nth-child(1)::before {
+    background: linear-gradient(to right, #FF6F61 0%, transparent 80%);
+}
+
+.card:nth-child(2)::before {
+    background: linear-gradient(to right, #9454C3 0%, transparent 80%);
+}
+
+.card:nth-child(3)::before {
+    background: linear-gradient(to right, #B0E0E6 0%, transparent 100%);
+}
+
+.card:nth-child(4)::before {
+    background: linear-gradient(to right, #7FFFD4 0%, transparent 100%);
+}
+
 .right-col {
-    align-items: flex-start;
+    grid-column: span 5;
 }
 
 .price {
     max-width: 400px;
-    margin-top: 40px;
     font-size: 16px;
 
     &__first {
@@ -89,7 +114,8 @@
     }
 
     button {
-        width: 300px;
+        width: 100%;
+        max-width: 300px;
         height: 60px;
         margin: 15px 0;
         background: linear-gradient(70deg, var(--light-brand-color), var(--light-alt-color) 110%);
@@ -175,19 +201,17 @@
     }
 
     .content {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
-        gap: 40px;
+        gap: 20px;
         padding: 0;
         width: 100%;
-        margin-bottom: 40px;
         align-items: center;
         justify-items: center;
         transition: grid-template-columns 0.3s ease;
     }
 
     .left-col {
-        margin-right: 0;
+        grid-column: span 12;
+        margin: 0;
 
         &__wrapper {
             padding: 0 10%;
@@ -195,6 +219,7 @@
     }
 
     .right-col {
+        grid-column: span 12;
         width: 100%;
         align-items: center;
         background: var(--light-color);
@@ -209,7 +234,7 @@
         width: 100%;
 
         &__title {
-            margin: 20px 0;
+            margin-bottom: 20px;
             font-size: calc(22px + 0.5vw);
 
             ::ng-deep .sigma-font {

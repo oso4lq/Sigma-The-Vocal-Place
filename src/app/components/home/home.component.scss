@@ -3,12 +3,11 @@
 }
 
 .home-content {
-    z-index: 2;
     padding: 20px;
     text-align: center;
     background: rgba(0, 0, 0, 0.5);
     color: var(--light-color);
-    align-items: center;
+    z-index: 2;
 
     .sigma-font {
         font-size: 60px;
@@ -54,10 +53,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
     object-fit: cover;
     background-position: center;
-
     z-index: 1;
     opacity: 1;
 }

@@ -159,7 +159,7 @@ export class StudioComponent {
 
   swiperThumbsConfig: SwiperOptions = {
     modules: [Autoplay],  // Add this line to include the Autoplay module
-    slidesPerView: 3,  // Number of slides visible at the same time in the viewport
+    slidesPerView: 'auto',  // Number of slides visible at the same time in the viewport
     spaceBetween: 20,  // Space (in px) between each slide
     freeMode: true,  // Enables free scrolling without snapping to slides
     grabCursor: true,  // Changes the cursor to a grab icon when hovering over the Swiper
@@ -175,7 +175,8 @@ export class StudioComponent {
   };
 
   swiperReviewsConfig: SwiperOptions = {
-    slidesPerView: 1.5,  // Display 1.5 reviews at a time
+    // slidesPerView: 1.5,  // Display 1.5 reviews at a time
+    slidesPerView: 'auto',  // Display 1.5 reviews at a time
     spaceBetween: 20,  // Space between each review box
     freeMode: false,  // Disable free mode to avoid overshooting
     grabCursor: true,
@@ -186,10 +187,16 @@ export class StudioComponent {
     resistanceRatio: 0.5,  // Controls the resistance ratio during swiping
   };
 
+  isMobile: boolean = false;
+
   constructor(
     private dialog: MatDialog,
     private mobileService: MobileService,
   ) { }
+
+  ngOnInit() {
+    this.isMobile = this.mobileService.isMobile;
+  }
 
   ngAfterViewInit() {
     Swiper.use([Navigation, Pagination]);

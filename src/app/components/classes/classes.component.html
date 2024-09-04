@@ -1,17 +1,16 @@
 <div class="flex-col section">
-
     <div class="flex-col plug">
-        <h2>Classes</h2>
+        <h2></h2>
     </div>
 
     <div class="h-100 content">
         <div class="flex-col center-col left-col">
             <div class="flex-col center-row h-100 left-col__wrapper">
-                <h3 class="cards__title">Почему <span class="sigma-font">ΣΙΓΜΑ</span> ?</h3>
+                <h3 class="cards__title didact-gothic-regular">Почему <span class="sigma-font">ΣΙΓΜΑ</span> ?</h3>
                 <div class="flex-col center-col w-h-100">
                     <div class="center-row cards">
                         <mat-card *ngFor="let card of cards" class="flex-col w-h-100 card">
-                            <mat-card-header class="flex-row center-row card__header">
+                            <mat-card-header class="flex-row center-row card__header didact-gothic-regular">
                                 <mat-card-title>{{ card.title }}</mat-card-title>
                                 <img [src]="card.image" alt="icon" class="card__icon">
                             </mat-card-header>
@@ -48,16 +47,6 @@
                             <td>12000 рублей <br> <span>1500 рублей за занятие</span></td>
                         </tr>
                     </table>
-                </div>
-
-                <!-- Remove these buttons? -->
-                <!-- Replace with box "benefits of the season pass"! -->
-                <div class="flex-col info">
-                    <span>Узнать больше:</span>
-                    <div class="flex-row center-row btns">
-                        <button mat-button mat-raised-button>о преподавателе</button>
-                        <button mat-button mat-raised-button>о студии</button>
-                    </div>
                 </div>
             </div>
         </div>

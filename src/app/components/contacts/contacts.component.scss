@@ -30,21 +30,18 @@
 }
 
 app-mapycz {
-    border: 1px solid blue;
+    // border: 1px solid blue;
     border-radius: 20px;
 }
 
 @media (max-width: 768px) {
     .content {
-        display: flex;
-        flex-direction: column;
         gap: 20px;
         padding: 0 10%;
     }
 
     .wrapper {
         padding: 0;
-        height: inherit;
     }
 
     .mapy-mobile {

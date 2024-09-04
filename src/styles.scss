@@ -7,13 +7,25 @@
 @import './styles/inputs/inputs.scss';
 @import '../node_modules/swiper/swiper-bundle.min.css';
 
-@font-face {
-    font-family: 'BlackerSansDisplayTrial';
-    src: '/src/assets/fonts/blacker-sans-display-trial-bold.ttf' format('truetype');
-    // src: url('https://fonts.cdnfonts.com/css/blacker-sans-display-trial') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+@import url('https://fonts.cdnfonts.com/css/blacker-sans-display-trial');
+@import url('https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+// @font-face {
+//     font-family: 'BlackerSansDisplayTrial';
+//     src: '/src/assets/fonts/blacker-sans-display-trial-bold.ttf' format('truetype');
+//     // src: url('https://fonts.cdnfonts.com/css/blacker-sans-display-trial') format('truetype');
+//     font-weight: bold;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: "Didact Gothic", sans-serif;
+//     src: '/src/assets/fonts/DidactGothic-Regular.ttf' format('truetype');
+//     // src: url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap') format('truetype');
+//     font-weight: 400;
+//     font-style: normal;
+// }
 
 html,
 body {
@@ -32,13 +44,42 @@ body {
     font-size: 28px;
 }
 
+.didact-gothic-regular {
+    font-family: "Didact Gothic", sans-serif;
+    font-style: normal;
+}
+
+.andika-regular {
+    font-family: "Andika", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.andika-bold {
+    font-family: "Andika", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.andika-regular-italic {
+    font-family: "Andika", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.andika-bold-italic {
+    font-family: "Andika", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+}
+
 .section {
     height: 100vh;
 }
 
 .plug {
-    background-color: var(--brand-color);
     color: var(--brand-color);
+    background: var(--bright-brand-color);
 }
 
 h2 {
@@ -121,9 +162,10 @@ h2 {
         height: auto;
     }
 
-    .plug {
-        display: none;
-    }
+    // .plug {
+    // display: none;
+    //     background: var(--bright-brand-color);
+    // }
 }
 
 // "@angular/material/prebuilt-themes/magenta-violet.css",
