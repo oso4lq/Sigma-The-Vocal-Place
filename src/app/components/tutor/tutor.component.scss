@@ -10,7 +10,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    // padding: 40px 0;
     padding: 2vh 0;
 }
 
@@ -42,7 +41,7 @@
     h3 {
         text-align: center;
         margin: 20px 0 10px 0;
-        font-size: 20px;
+        font-size: 22px;
     }
 
     span {
@@ -50,12 +49,16 @@
         display: flex;
         justify-content: center;
         text-align: center;
-        font-size: 18px;
+        font-size: 20px;
     }
 
     ul {
         margin-top: 10px;
         padding: 0;
+        font-size: 18px;
+        gap: 6px;
+        display: flex;
+        flex-direction: column;
     }
 
     &__pillar-top {
@@ -69,7 +72,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    // padding: 40px 0;
     padding: 2vh 0;
 
     ul {
@@ -157,9 +159,10 @@
 
 li {
     padding: 0 20px;
-    font-size: 16px;
+    // font-size: 16px;
     line-height: 20px;
     list-style-type: none;
+    text-align: justify;
 
     &::before {
         content: '';
@@ -182,6 +185,7 @@ li {
     background: rgb(148, 170, 115, 0.2);
     box-shadow: 0 0 4px var(--dark-alt-color);
     border-radius: 5px;
+    font-size: 18px;
 }
 
 .upper__display {
@@ -206,7 +210,7 @@ li {
 
         &__diploma {
             max-width: 350px;
-            margin: 5px 0;
+            margin: 10px 0 5px 0;
             border-radius: 5px;
         }
 
@@ -234,7 +238,7 @@ li {
                 justify-content: center;
                 border-radius: 5px;
                 max-width: 350px;
-                flex-grow: unset; // check to remove
+                flex-grow: unset;
             }
         }
     }

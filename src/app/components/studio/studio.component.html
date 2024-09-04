@@ -4,10 +4,9 @@
         <h2></h2>
     </div>
 
-    <div class="h-100 content">
-
+    <!-- Desktop version -->
+    <div class="h-100 content" *ngIf="!isMobile">
         <div class="gallery-thumbs">
-            <!-- place for the thumbs gallery Swiper.js -->
             <div class="swiper-container swiper-thumbs">
                 <div class="swiper-wrapper thumbs-wrapper">
                     <div class="swiper-slide thumbs-slide" *ngFor="let image of images; let i = index"
@@ -26,12 +25,13 @@
                 Настрой и творческая атмосфера играют ключевую роль в обучении. Я уделяю особое внимание тому, чтобы
                 создавать в студии комфортную среду для продуктивных занятий и вашего удовольствия.
             </span>
-            <ul class="didact-gothic-regular">
-                <li>новое профессиональное оборудование</li>
-                <li>пространство с разделением на учебную зону и уголок для отдыха</li>
-                <li>интерьер, создающий уют и стимулирующий творческую активность</li>
-                <li>грамотное освещение и ростовое зеркало для контроля за своим исполнением</li>
-                <li>удобное расположение</li>
+            <ul class="gallery-text__list didact-gothic-regular">
+                <li class="gallery-text__item">новое профессиональное оборудование</li>
+                <li class="gallery-text__item">пространство с разделением на учебную зону и уголок для отдыха</li>
+                <li class="gallery-text__item">интерьер, создающий уют и стимулирующий творческую активность</li>
+                <li class="gallery-text__item">грамотное освещение и ростовое зеркало для контроля за своим исполнением
+                </li>
+                <li class="gallery-text__item">удобное расположение</li>
             </ul>
         </div>
 
@@ -40,11 +40,11 @@
                 <h3>Что говорят студенты:</h3>
             </div>
             <!-- [Abstracts from real reviews] -->
-            <ul class="didact-gothic-regular">
-                <li>Индивидуальный подход, разнообразие техник</li>
-                <li>Возможность развить вокальные способности</li>
-                <li>Реализация творческого потенциала</li>
-                <li>Открытие для себя новых граней музыки и пения</li>
+            <ul class="reviews-text__list didact-gothic-regular">
+                <li class="reviews-text__item">Индивидуальный подход, разнообразие техник</li>
+                <li class="reviews-text__item">Возможность развить вокальные способности</li>
+                <li class="reviews-text__item">Реализация творческого потенциала</li>
+                <li class="reviews-text__item">Открытие для себя новых граней музыки и пения</li>
             </ul>
         </div>
 
@@ -78,6 +78,85 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Mobile version -->
+    <div class="flex-col center-row w-100 content-mobile" *ngIf="isMobile">
+
+        <div class="flex-col w-100">
+            <div class="flex-col gallery-text__title">
+                <h3>Студия <span class="sigma-font">ΣΙΓΜΑ</span></h3>
+            </div>
+            <div class="gallery-thumbs">
+                <div class="swiper-container swiper-thumbs">
+                    <div class="swiper-wrapper thumbs-wrapper">
+                        <div class="swiper-slide thumbs-slide" *ngFor="let image of images; let i = index"
+                            (click)="openGallery(i)">
+                            <img [src]="image.image" [alt]="image.title" class="thumbnail-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <span class="gallery-text__description didact-gothic-regular">
+            Настрой и творческая атмосфера играют ключевую роль в обучении. Я уделяю особое внимание тому, чтобы
+            создавать в студии комфортную среду для продуктивных занятий и вашего удовольствия.
+        </span>
+
+        <ul class="gallery-text__list didact-gothic-regular">
+            <li class="gallery-text__item">новое профессиональное оборудование</li>
+            <li class="gallery-text__item">пространство с разделением на учебную зону и уголок для отдыха</li>
+            <li class="gallery-text__item">интерьер, создающий уют и стимулирующий творческую активность</li>
+            <li class="gallery-text__item">грамотное освещение и ростовое зеркало для контроля за своим исполнением
+            </li>
+            <li class="gallery-text__item">удобное расположение</li>
+        </ul>
+
+        <div class="flex-col w-100">
+            <div class="flex-col reviews-text__title">
+                <h3>Что говорят студенты:</h3>
+            </div>
+            <div class="reviews-slides">
+                <div class="swiper-container swiper-reviews">
+                    <div class="swiper-wrapper reviews-wrapper">
+                        <div class="swiper-slide reviews-slide" *ngFor="let slide of reviews">
+                            <div class="reviews-header" [ngClass]="{
+                            'avito': slide.source.id === 0,
+                            'google': slide.source.id === 1,
+                            'yandex': slide.source.id === 2,
+                            'profi': slide.source.id === 3
+                        }">
+                                <div class="flex-row" style="align-items: flex-end; gap: 10px;">
+                                    <ng-container *ngIf="slide.image; else placeholder">
+                                        <img [src]="slide.image" alt="user image">
+                                    </ng-container>
+                                    <ng-template #placeholder>
+                                        <img src="https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_lud6rq.png"
+                                            alt="user no image" class="source-logo">
+                                    </ng-template>
+                                    <span class="user-name">{{ slide.user }}</span>
+                                </div>
+                                <img [src]="slide.source.logo" [alt]="slide.source.name" class="source-logo">
+                            </div>
+                            <mat-divider></mat-divider>
+                            <div class="reviews-content">
+                                <span>{{ slide.contentLong }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- [Abstracts from real reviews] -->
+        <ul class="reviews-text__list didact-gothic-regular">
+            <li class="reviews-text__item">Индивидуальный подход, разнообразие техник</li>
+            <li class="reviews-text__item">Возможность развить вокальные способности</li>
+            <li class="reviews-text__item">Реализация творческого потенциала</li>
+            <li class="reviews-text__item">Открытие для себя новых граней музыки и пения</li>
+        </ul>
+
     </div>
 </div>
 

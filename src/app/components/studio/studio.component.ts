@@ -187,10 +187,16 @@ export class StudioComponent {
     resistanceRatio: 0.5,  // Controls the resistance ratio during swiping
   };
 
+  isMobile: boolean = false;
+
   constructor(
     private dialog: MatDialog,
     private mobileService: MobileService,
   ) { }
+
+  ngOnInit() {
+    this.isMobile = this.mobileService.isMobile;
+  }
 
   ngAfterViewInit() {
     Swiper.use([Navigation, Pagination]);
