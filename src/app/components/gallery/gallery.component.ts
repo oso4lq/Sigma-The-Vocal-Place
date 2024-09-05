@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import Swiper from 'swiper';
@@ -24,6 +24,7 @@ export class GalleryComponent {
 
   slides: Card[] = [];
   initialSlide: number = 1;
+  swiperGallery!: Swiper;
 
   // Swiper Gallery settings
   swiperConfig: SwiperOptions = {
@@ -37,6 +38,26 @@ export class GalleryComponent {
     },
   };
 
+  // Listen for keyboard left/right to switch slides
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'ArrowRight') {
+      this.swiperGallery.slideNext();
+    } else if (event.key === 'ArrowLeft') {
+      this.swiperGallery.slidePrev();
+    }
+  }
+
+  // Listen for mouse scroll events to switch slides
+  @HostListener('window:wheel', ['$event'])
+  handleMouseWheelEvent(event: WheelEvent) {
+    if (event.deltaY > 0) {
+      this.swiperGallery.slideNext();
+    } else {
+      this.swiperGallery.slidePrev();
+    }
+  }
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { slides: Card[], initialSlide: number },
     private dialogRef: MatDialogRef<GalleryComponent>,
@@ -49,18 +70,18 @@ export class GalleryComponent {
   ngAfterViewInit() {
     Swiper.use([Navigation, Pagination]);
 
-    const swiperGallery = new Swiper('.swiper-gallery', {
+    this.swiperGallery = new Swiper('.swiper-gallery', {
       ...this.swiperConfig,
       initialSlide: this.initialSlide,
     });
 
     // Disable swipe tracking when interacting with the gallery
-    swiperGallery.on('touchStart', () => {
+    this.swiperGallery.on('touchStart', () => {
       this.mobileService.disableSwipeTracking();
     });
 
     // Re-enable swipe tracking when interaction ends
-    swiperGallery.on('touchEnd', () => {
+    this.swiperGallery.on('touchEnd', () => {
       setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
     });
   }

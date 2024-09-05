@@ -73,38 +73,38 @@
   }
 
   // For desktop version
-  .arrow-layer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease;
+  // .arrow-layer {
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   width: 100px;
+  //   height: 100px;
+  //   background: rgba(0, 0, 0, 0.4);
+  //   border-radius: 8px;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   transition: background 0.3s ease;
 
-    mat-icon {
-      color: var(--light-color);
-      opacity: 0.8;
-      transition: transform 0.3s, opacity 0.3s;
-      font-size: 40px;
-      height: 40px;
-      width: 40px;
-    }
+  //   mat-icon {
+  //     color: var(--light-color);
+  //     opacity: 0.8;
+  //     transition: transform 0.3s, opacity 0.3s;
+  //     font-size: 40px;
+  //     height: 40px;
+  //     width: 40px;
+  //   }
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.5);
+  //   &:hover {
+  //     background: rgba(0, 0, 0, 0.5);
 
-      mat-icon {
-        transform: scale(1.2);
-        opacity: 1;
-      }
-    }
-  }
+  //     mat-icon {
+  //       transform: scale(1.2);
+  //       opacity: 1;
+  //     }
+  //   }
+  // }
 }
 
 // For mobile version

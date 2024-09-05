@@ -20,13 +20,6 @@ export class TutorComponent {
       contentShort: '',
       contentLong: '',
     },
-    // {
-    //   id: 1,
-    //   title: 'Занятие с учеником',
-    //   image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/lesson3_yvbe9q.png',
-    //   contentShort: '',
-    //   contentLong: '',
-    // },
   ]
 
   tutorInAction: Card[] = [
