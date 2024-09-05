@@ -7,23 +7,22 @@
         <div class="flex-col center-col left-col">
             <div class="flex-col center-row h-100 left-col__wrapper">
                 <h3 class="cards__title didact-gothic-regular">Почему <span class="sigma-font">ΣΙΓΜΑ</span> ?</h3>
-                <div class="flex-col center-col w-h-100">
-                    <div class="center-row cards">
-                        <mat-card *ngFor="let card of cards" class="flex-col w-h-100 card">
-                            <mat-card-header class="flex-row center-row card__header didact-gothic-regular">
-                                <mat-card-title>{{ card.title }}</mat-card-title>
-                                <img [src]="card.image" alt="icon" class="card__icon">
-                            </mat-card-header>
-                            <mat-card-content class="card__content">
-                                <span>{{ card.contentLong }}</span>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
+                <div class="center-row cards">
+                    <mat-card *ngFor="let card of cards" class="flex-col w-h-100 card">
+                        <mat-card-header class="flex-row center-row card__header didact-gothic-regular">
+                            <mat-card-title>{{ card.title }}</mat-card-title>
+                            <img [src]="card.image" alt="icon" class="card__icon">
+                        </mat-card-header>
+                        <mat-card-content class="card__content">
+                            <span>{{ card.contentLong }}</span>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
             </div>
         </div>
 
-        <div class="flex-col right-col">
+        <!-- andika-bold ? -->
+        <div class="flex-col right-col didact-gothic-regular">
             <div class="flex-col h-100 wrapper">
                 <div class="flex-col center-row price">
                     <span class="price__first">

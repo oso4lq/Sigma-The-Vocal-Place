@@ -7,6 +7,7 @@
 .left-col {
     grid-column: span 7;
     margin: 2vh 20px 2vh 0;
+    align-items: flex-end;
 }
 
 .wrapper {
@@ -26,10 +27,14 @@
 
     &__title {
         margin: 0 0 15px 0;
-        font-size: 22px;
+        font-size: 28px;
         font-weight: 600;
         line-height: 30px;
     }
+}
+
+.sigma-font {
+    font-size: 32px;
 }
 
 // Aligning cards based on their position in the grid
@@ -49,19 +54,20 @@
     max-height: 300px;
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
-    border-radius: 20px;
+    border-radius: 8px;
     position: relative;
+    justify-content: flex-start;
 
     &::before {
         content: '';
         position: absolute;
-        top: 0;
+        bottom: 0;
         left: 0;
-        height: 100%;
-        width: 10px;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        background: linear-gradient(to right, transparent 80%, var(--light-color));
+        height: 10px;
+        width: 100%;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        background: linear-gradient(to top, transparent 80%, var(--light-color));
     }
 
     &__header {
@@ -84,23 +90,24 @@
 }
 
 .card:nth-child(1)::before {
-    background: linear-gradient(to right, #FF6F61 0%, transparent 80%);
+    background: linear-gradient(to top, #FF6F61 0%, transparent 80%);
 }
 
 .card:nth-child(2)::before {
-    background: linear-gradient(to right, #9454C3 0%, transparent 80%);
+    background: linear-gradient(to top, #9454C3 0%, transparent 80%);
 }
 
 .card:nth-child(3)::before {
-    background: linear-gradient(to right, #B0E0E6 0%, transparent 100%);
+    background: linear-gradient(to top, #B0E0E6 0%, transparent 100%);
 }
 
 .card:nth-child(4)::before {
-    background: linear-gradient(to right, #7FFFD4 0%, transparent 100%);
+    background: linear-gradient(to top, #7FFFD4 0%, transparent 100%);
 }
 
 .right-col {
     grid-column: span 5;
+    align-items: flex-start;
 }
 
 .price {
@@ -120,7 +127,7 @@
         margin: 15px 0;
         background: linear-gradient(70deg, var(--light-brand-color), var(--light-alt-color) 110%);
         border: none;
-        border-radius: 30px;
+        border-radius: 25px;
         color: #fff;
         font-size: 18px;
         box-shadow: 0 0 8px var(--alt-color);
@@ -223,7 +230,12 @@
         width: 100%;
         align-items: center;
         background: var(--light-color);
-        box-shadow: 0 0 4px var(--dark-alt-color);
+        background: rgb(240, 240, 240, 0.8);
+        margin-bottom: 4px;
+    }
+
+    .wrapper {
+        padding: 40px 20px;
     }
 
     .cards {
@@ -235,11 +247,6 @@
 
         &__title {
             margin-bottom: 20px;
-            font-size: calc(22px + 0.5vw);
-
-            ::ng-deep .sigma-font {
-                font-size: calc(28px + 0.5vw);
-            }
         }
     }
 

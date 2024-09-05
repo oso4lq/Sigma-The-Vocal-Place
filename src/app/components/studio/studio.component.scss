@@ -4,57 +4,30 @@
     grid-template-rows: auto 1fr;
     row-gap: 2vh;
     height: 100%;
-    padding: 0 5%;
-}
-
-h3 {
-    height: 32px;
 }
 
 .gallery-thumbs {
     grid-column: span 5;
-    display: flex;
-    flex-direction: column;
     justify-content: flex-start;
     overflow: hidden;
 
     .swiper-thumbs {
-        display: flex;
-        align-items: center;
         overflow: hidden;
-        width: 100%;
-        height: 100%;
         margin-top: 2vh;
         background-image: linear-gradient(to left, rgba(191, 173, 81, 0.5), transparent);
         border-bottom-right-radius: 8px;
     }
 
-    .thumbs-wrapper {
-        display: flex;
-        align-items: center;
-        height: 100%;
-    }
-
     .thumbs-slide {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         aspect-ratio: 1 / 1;
         max-width: 250px;
         max-height: 250px;
         cursor: pointer;
         transition: transform 0.3s ease;
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
+        &:hover {
+            transform: scale(0.95);
         }
-    }
-
-    .thumbs-slide:hover {
-        transform: scale(0.95);
     }
 
     .thumbnail-image {
@@ -67,10 +40,9 @@ h3 {
 
 .gallery-text {
     grid-column: span 7;
-    // display: flex; /* check to remove */
-    // flex-direction: column; /* check to remove */
     justify-content: flex-start;
     align-items: flex-start;
+    padding-right: 5%;
 
     &__title {
         align-self: flex-start;
@@ -83,21 +55,13 @@ h3 {
         border-bottom-right-radius: 15px;
 
         h3 {
+            height: 32px;
             margin: 0 0 0 20px;
-            font-size: calc(18px + 0.2vw);
+            font-size: 22px;
         }
 
         .sigma-font {
-            font-size: calc(24px + 0.2vw);
-        }
-
-        &__slogan {
-            margin: 0 20px;
-            margin-top: 8px;
-            font-size: calc(12px + 0.2vw);
-            font-style: italic;
-            color: var(--dark-alt-color);
-            text-align: justify;
+            font-size: 26px;
         }
     }
 
@@ -108,8 +72,6 @@ h3 {
     }
 
     &__list {
-        display: flex;
-        flex-direction: column;
         margin: 0;
         padding: 0 20px;
         margin-bottom: 10px;
@@ -139,11 +101,10 @@ h3 {
 
 .reviews-text {
     grid-column: span 6;
-    // display: flex; /* check to remove */
-    // flex-direction: column; /* check to remove */
     justify-content: flex-start;
     align-items: flex-end;
     margin-bottom: 2vh;
+    padding-left: 5%;
 
     &__title {
         align-self: flex-end;
@@ -154,24 +115,16 @@ h3 {
         border-bottom-left-radius: 15px;
 
         h3 {
+            height: 30px;
             margin: 0;
             margin-right: 20px;
-            display: flex;
-            align-items: center;
             justify-content: flex-end;
-            font-size: calc(18px + 0.2vw);
-        }
-
-        .sigma-font {
-            font-size: calc(24px + 0.2vw);
+            font-size: 22px;
         }
     }
 
     &__list {
-        display: flex;
-        flex-direction: column;
         flex-grow: 1;
-        justify-content: space-between;
         margin: 0;
         padding: 10px 20px 0 20px;
     }
@@ -204,40 +157,19 @@ h3 {
         font-size: calc(12px + 0.2vw);
         margin: 10px 0;
     }
-
-    span,
-    li {
-        font-size: calc(12px + 0.2vw);
-
-        .sigma-font {
-            font-size: calc(20px + 0.2vw);
-        }
-    }
 }
 
 .reviews-slides {
     grid-column: span 6;
-    display: flex;
     align-items: flex-start;
     position: relative;
     overflow: hidden;
     margin-bottom: 2vh;
-
-    button {
-        background: var(--brand-color);
-        color: var(--light-color);
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin: 0 10px;
-    }
 }
 
 .swiper-reviews {
     height: 100%;
     flex-grow: 1;
-    display: flex;
-    align-items: center;
     overflow: hidden;
     background-image: linear-gradient(to right, rgba(191, 173, 81, 0.5), transparent);
     border-bottom-left-radius: 8px;
@@ -248,9 +180,6 @@ h3 {
     }
 
     .reviews-slide {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         max-width: 400px;
         background: var(--light-color);
         color: var(--dark-color);
@@ -330,7 +259,7 @@ h3 {
 
     .content-mobile {
         display: flex;
-        gap: 10px;
+        gap: 20px;
     }
 
     .gallery-text {
@@ -352,7 +281,13 @@ h3 {
         }
 
         &__list {
+            display: flex;
+            flex-direction: column;
             margin: 0;
+        }
+
+        &__item {
+            font-size: 18px;
         }
     }
 
@@ -370,18 +305,26 @@ h3 {
         align-items: center;
 
         &__title {
-            text-align: center;
             width: calc(100% - 40px);
 
             h3 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 margin: 0;
                 justify-content: center;
             }
         }
 
         &__list {
+            display: flex;
+            flex-direction: column;
             padding: 0 20px 0 40px;
             gap: 6px;
+        }
+
+        &__item {
+            font-size: 18px;
         }
     }
 
