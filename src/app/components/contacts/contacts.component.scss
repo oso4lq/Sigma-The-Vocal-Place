@@ -30,24 +30,31 @@
 }
 
 app-mapycz {
-    // border: 1px solid blue;
+    border: 1px solid blue;
     border-radius: 20px;
 }
 
 @media (max-width: 768px) {
+    .section {
+        height: unset;
+    }
+
     .content {
+        display: flex;
+        flex-direction: column;
         gap: 20px;
         padding: 0 10%;
     }
 
     .wrapper {
         padding: 0;
+        gap: 20px;
+        margin-bottom: 40px;
     }
 
     .mapy-mobile {
         display: flex;
         aspect-ratio: 3 / 2;
-        margin: 20px 0;
     }
 
     .mapy-desktop {
@@ -55,13 +62,8 @@ app-mapycz {
     }
 
     .social-media {
-        flex-direction: row;
         flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
         gap: 20px;
-        margin: 20px 0;
-        margin-bottom: 40px;
 
         h4 {
             margin: 0;

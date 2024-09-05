@@ -6,11 +6,11 @@
 
     <!-- Desktop version -->
     <div class="h-100 content" *ngIf="!isMobile">
-        <div class="gallery-thumbs">
-            <div class="swiper-container swiper-thumbs">
-                <div class="swiper-wrapper thumbs-wrapper">
-                    <div class="swiper-slide thumbs-slide" *ngFor="let image of images; let i = index"
-                        (click)="openGallery(i)">
+        <div class="flex-col gallery-thumbs">
+            <div class="flex-row center-row w-h-100 swiper-container swiper-thumbs">
+                <div class="flex-row center-row h-100 swiper-wrapper thumbs-wrapper">
+                    <div class="flex-row center-all swiper-slide thumbs-slide"
+                        *ngFor="let image of images; let i = index" (click)="openGallery(i)">
                         <img [src]="image.image" [alt]="image.title" class="thumbnail-image">
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                 Настрой и творческая атмосфера играют ключевую роль в обучении. Я уделяю особое внимание тому, чтобы
                 создавать в студии комфортную среду для продуктивных занятий и вашего удовольствия.
             </span>
-            <ul class="gallery-text__list didact-gothic-regular">
+            <ul class="flex-col gallery-text__list didact-gothic-regular">
                 <li class="gallery-text__item">новое профессиональное оборудование</li>
                 <li class="gallery-text__item">пространство с разделением на учебную зону и уголок для отдыха</li>
                 <li class="gallery-text__item">интерьер, создающий уют и стимулирующий творческую активность</li>
@@ -36,11 +36,11 @@
         </div>
 
         <div class="flex-col reviews-text">
-            <div class="flex-col reviews-text__title">
-                <h3>Что говорят студенты:</h3>
+            <div class="flex-row center-row reviews-text__title">
+                <h3 class="flex-row center-row w-100">Что говорят студенты:</h3>
             </div>
             <!-- [Abstracts from real reviews] -->
-            <ul class="reviews-text__list didact-gothic-regular">
+            <ul class="flex-col reviews-text__list didact-gothic-regular">
                 <li class="reviews-text__item">Индивидуальный подход, разнообразие техник</li>
                 <li class="reviews-text__item">Возможность развить вокальные способности</li>
                 <li class="reviews-text__item">Реализация творческого потенциала</li>
@@ -48,10 +48,10 @@
             </ul>
         </div>
 
-        <div class="reviews-slides">
-            <div class="swiper-container swiper-reviews">
+        <div class="flex-row reviews-slides">
+            <div class="flex-row center-row swiper-container swiper-reviews">
                 <div class="swiper-wrapper reviews-wrapper">
-                    <div class="swiper-slide reviews-slide" *ngFor="let slide of reviews">
+                    <div class="flex-col swiper-slide reviews-slide" *ngFor="let slide of reviews">
                         <div class="reviews-header" [ngClass]="{
                             'avito': slide.source.id === 0,
                             'google': slide.source.id === 1,
@@ -164,33 +164,18 @@
 
 
 
+<!-- идеальное место для тех, кто хочет научиться петь и раскрыть свой творческий потенциал.
 
-<!-- <span class="gallery-text__slogan">идеальное место для тех, кто хочет научиться петь и раскрыть свой творческий
-                    потенциал.</span> -->
-<!-- <span>
-                Интерьер студии, оснащённый современным профессиональным оборудованием, вместе с уютным уголком для
-                отдыха создают уникальную атмосферу, способствующую комфортному и продуктивному обучению.
-            </span> -->
-<!-- <span>Присоединяйтесь к более чем 100 успешным ученикам и начните свой путь к музыкальному успеху!</span>
-            <span class="sigma-font"></span>
-            <ul>
-                <li>
-                    Персональные занятия, на которых мы будем работать вместе, чтобы вы достигли успеха
-                </li>
-                <li>
-                    Возможность развить вокальные способности и глубже погрузиться в мир музыки.
-                </li>
-                <li>
-                    ΣΙΓΜΑ — это не просто обучение, это ваш путь к раскрытию творческого потенциала.
-                </li>
-                <li>
-                    Вы откроете для себя новые грани музыки и пения.
-                </li>
-            </ul> -->
-<!-- <span>
-                Более 100 учеников уже раскрыли свой талант вместе с ΣΙΓΜΑ. Теперь ваша очередь присоединиться к ним и
-                начать свой путь к успеху! Я предлагаю индивидуальные занятия, на которых мы будем работать вместе,
-                чтобы вы достигли успеха. Не упустите возможность развить свои вокальные способности и погрузиться в мир
-                музыки. ΣΙΓΜΑ — это не просто обучение, это путь к реализации вашего творческого потенциала. С ΣΙΓΜΑ вы
-                откроете для себя мир музыки и пения!
-            </span> -->
+Интерьер студии, оснащённый современным профессиональным оборудованием, вместе с уютным уголком для
+отдыха создают уникальную атмосферу, способствующую комфортному и продуктивному обучению.
+Присоединяйтесь к более чем 100 успешным ученикам и начните свой путь к музыкальному успеху!
+Персональные занятия, на которых мы будем работать вместе, чтобы вы достигли успеха
+Возможность развить вокальные способности и глубже погрузиться в мир музыки.
+ΣΙΓΜΑ — это не просто обучение, это ваш путь к раскрытию творческого потенциала.
+Вы откроете для себя новые грани музыки и пения.
+
+Более 100 учеников уже раскрыли свой талант вместе с ΣΙΓΜΑ. Теперь ваша очередь присоединиться к ним и
+начать свой путь к успеху! Я предлагаю индивидуальные занятия, на которых мы будем работать вместе,
+чтобы вы достигли успеха. Не упустите возможность развить свои вокальные способности и погрузиться в мир
+музыки. ΣΙΓΜΑ — это не просто обучение, это путь к реализации вашего творческого потенциала. С ΣΙΓΜΑ вы
+откроете для себя мир музыки и пения! -->
