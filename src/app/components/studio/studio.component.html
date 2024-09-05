@@ -18,7 +18,7 @@
         </div>
 
         <div class="flex-col gallery-text">
-            <div class="flex-col gallery-text__title">
+            <div class="flex-col gallery-text__title andika-bold">
                 <h3>Студия <span class="sigma-font">ΣΙΓΜΑ</span></h3>
             </div>
             <span class="gallery-text__description didact-gothic-regular">
@@ -37,7 +37,7 @@
 
         <div class="flex-col reviews-text">
             <div class="flex-row center-row reviews-text__title">
-                <h3 class="flex-row center-row w-100">Что говорят студенты:</h3>
+                <h3 class="flex-row center-row w-100 andika-bold">Что говорят студенты:</h3>
             </div>
             <!-- [Abstracts from real reviews] -->
             <ul class="flex-col reviews-text__list didact-gothic-regular">
@@ -52,7 +52,7 @@
             <div class="flex-row center-row swiper-container swiper-reviews">
                 <div class="swiper-wrapper reviews-wrapper">
                     <div class="flex-col swiper-slide reviews-slide" *ngFor="let slide of reviews">
-                        <div class="reviews-header" [ngClass]="{
+                        <div class="reviews-header andika-bold" [ngClass]="{
                             'avito': slide.source.id === 0,
                             'google': slide.source.id === 1,
                             'yandex': slide.source.id === 2,

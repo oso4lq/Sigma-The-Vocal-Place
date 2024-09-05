@@ -4,11 +4,6 @@
     grid-template-rows: auto 1fr;
     row-gap: 2vh;
     height: 100%;
-    padding: 0 5%;
-}
-
-h3 {
-    height: 32px;
 }
 
 .gallery-thumbs {
@@ -47,6 +42,7 @@ h3 {
     grid-column: span 7;
     justify-content: flex-start;
     align-items: flex-start;
+    padding-right: 5%;
 
     &__title {
         align-self: flex-start;
@@ -59,12 +55,13 @@ h3 {
         border-bottom-right-radius: 15px;
 
         h3 {
+            height: 32px;
             margin: 0 0 0 20px;
-            font-size: calc(18px + 0.2vw);
+            font-size: 22px;
         }
 
         .sigma-font {
-            font-size: calc(24px + 0.2vw);
+            font-size: 26px;
         }
     }
 
@@ -107,6 +104,7 @@ h3 {
     justify-content: flex-start;
     align-items: flex-end;
     margin-bottom: 2vh;
+    padding-left: 5%;
 
     &__title {
         align-self: flex-end;
@@ -117,14 +115,11 @@ h3 {
         border-bottom-left-radius: 15px;
 
         h3 {
+            height: 30px;
             margin: 0;
             margin-right: 20px;
             justify-content: flex-end;
-            font-size: calc(18px + 0.2vw);
-        }
-
-        .sigma-font {
-            font-size: calc(24px + 0.2vw);
+            font-size: 22px;
         }
     }
 
@@ -161,15 +156,6 @@ h3 {
     span {
         font-size: calc(12px + 0.2vw);
         margin: 10px 0;
-    }
-
-    span,
-    li {
-        font-size: calc(12px + 0.2vw);
-
-        .sigma-font {
-            font-size: calc(20px + 0.2vw);
-        }
     }
 }
 

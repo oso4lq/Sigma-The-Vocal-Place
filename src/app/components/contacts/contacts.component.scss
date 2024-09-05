@@ -3,11 +3,12 @@
     grid-template-columns: 4fr 6fr;
     grid-template-rows: 1fr;
     gap: 5%;
-    padding: 0 15%;
+    padding: 2vh 5%;
 }
 
 .wrapper {
-    padding: 80px 0;
+    // padding: 80px 0;
+    gap: 40px;
 
     h3 {
         margin: 0;
@@ -22,6 +23,15 @@
         &:not(:first-child) {
             margin-top: 12px;
         }
+    }
+}
+
+.social-media {
+    // flex-wrap: wrap;
+    gap: 10px;
+
+    h4 {
+        margin: 0;
     }
 }
 
@@ -43,7 +53,7 @@ app-mapycz {
         display: flex;
         flex-direction: column;
         gap: 20px;
-        padding: 0 10%;
+        padding: 0 20px;
     }
 
     .wrapper {
@@ -59,14 +69,5 @@ app-mapycz {
 
     .mapy-desktop {
         display: none;
-    }
-
-    .social-media {
-        flex-wrap: wrap;
-        gap: 20px;
-
-        h4 {
-            margin: 0;
-        }
     }
 }
