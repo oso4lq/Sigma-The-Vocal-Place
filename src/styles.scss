@@ -156,16 +156,50 @@ h2 {
     width: 100%;
 }
 
+.custom-backdrop {
+    display: flex;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
+
+.cdk-global-overlay-wrapper {
+    display: flex;
+    position: fixed;
+    top: 0;
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+}
+
+.mdc-dialog__surface {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.mat-mdc-dialog-panel {
+    aspect-ratio: 3 / 2;
+    pointer-events: auto;
+
+}
+
+.image-viewer-dialog {}
+
 @media (max-width: 768px) {
 
     app-header {
         height: auto;
     }
 
-    // .plug {
-    // display: none;
-    //     background: var(--bright-brand-color);
-    // }
+    // .plug {}
+
+    .cdk-overlay-pane.mat-mdc-dialog-panel {
+        max-width: none !important;
+    }
 }
 
 // "@angular/material/prebuilt-themes/magenta-violet.css",

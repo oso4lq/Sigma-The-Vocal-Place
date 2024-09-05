@@ -6,8 +6,8 @@
     <!-- Desktop version -->
     <div class="h-100 content">
         <div class="flex-col center-row left-col education">
-            <img class="w-100 education__diploma" alt="diploma image"
-                src="https://res.cloudinary.com/dxunxtt1u/image/upload/diploma_tk8dre.png">
+            <img class="w-100 education__diploma" alt="diploma image" [src]="diplomaImg[0].image"
+                (click)="openGallery(diplomaImg, 0)">
             <div class="flex-col center-col education__text">
                 <h3 class="education__title">Образование</h3>
                 <span class="flex-row center-row education__unvrs">Санкт-Петербургский государственный институт
@@ -33,8 +33,8 @@
                 <li>Владею несколькими музыкальными инструментами: пианино, гитара, скрипка, укулеле, барабаны,
                     гармошка, варган.</li>
             </ul>
-            <img class="img-action" alt="tutor in action"
-                src="https://res.cloudinary.com/dxunxtt1u/image/upload/lesson3_yvbe9q.png">
+            <img class="img-action" alt="tutor in action" [src]="tutorInAction[0].image"
+                (click)="openGallery(tutorInAction, 0)">
         </div>
 
         <div class="flex-col center-all right-col">

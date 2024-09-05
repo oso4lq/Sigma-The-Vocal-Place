@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
 import { GalleryComponent } from '../gallery/gallery.component';
 import Swiper from 'swiper';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
@@ -10,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MobileService } from '../../services/mobile.service';
 import { Card, Review, Source } from '../../interfaces/data.interface';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-studio',
@@ -157,8 +157,8 @@ export class StudioComponent {
     },
   ]
 
+  // Swiper Thumbnails settings
   swiperThumbsConfig: SwiperOptions = {
-    modules: [Autoplay],  // Add this line to include the Autoplay module
     slidesPerView: 'auto',  // Number of slides visible at the same time in the viewport
     spaceBetween: 20,  // Space (in px) between each slide
     freeMode: true,  // Enables free scrolling without snapping to slides
@@ -167,31 +167,26 @@ export class StudioComponent {
     centeredSlides: true,  // Disables centering of slides; they align to the left
     initialSlide: 1,  // Start from the second review
     resistanceRatio: 0.5,  // Controls the resistance ratio during swiping to avoid dragging too far
-    // speed: 2000,  // Increase speed for a smoother transition
-    // autoplay: {
-    //   delay: 2000,  // Time delay (in ms) between automatic slide transitions
-    //   disableOnInteraction: true,  // Autoplay will not be disabled after user interactions (e.g., swiping)
-    // },
   };
 
+  // Swiper Reviews settings
   swiperReviewsConfig: SwiperOptions = {
-    // slidesPerView: 1.5,  // Display 1.5 reviews at a time
-    slidesPerView: 'auto',  // Display 1.5 reviews at a time
-    spaceBetween: 20,  // Space between each review box
-    freeMode: false,  // Disable free mode to avoid overshooting
+    slidesPerView: 'auto',
+    spaceBetween: 20,
+    freeMode: false,
     grabCursor: true,
-    loop: false,  // Disable looping to restrict scrolling beyond the first and last reviews
+    loop: false,
     centeredSlides: true,
-    initialSlide: 1,  // Start from the second review
-    slideToClickedSlide: true, // Allow clicking on partial slides to navigate
-    resistanceRatio: 0.5,  // Controls the resistance ratio during swiping
+    initialSlide: 1,
+    slideToClickedSlide: true,
+    resistanceRatio: 0.5,
   };
 
   isMobile: boolean = false;
 
   constructor(
-    private dialog: MatDialog,
     private mobileService: MobileService,
+    private parent: AppComponent,
   ) { }
 
   ngOnInit() {
@@ -202,7 +197,6 @@ export class StudioComponent {
     Swiper.use([Navigation, Pagination]);
 
     const swiperThumbs = new Swiper('.swiper-thumbs', this.swiperThumbsConfig);
-
     swiperThumbs.on('slideChange', () => {
     });
     // Disable swipe tracking when interacting with the gallery
@@ -215,7 +209,6 @@ export class StudioComponent {
     });
 
     const swiperReviews = new Swiper('.swiper-reviews', this.swiperReviewsConfig);
-
     swiperReviews.on('slideChange', () => {
     });
     // Disable swipe tracking when interacting with the gallery
@@ -229,11 +222,6 @@ export class StudioComponent {
   }
 
   openGallery(index: number) {
-    console.log('clicked image number ', index);
-    // this.dialog.open(GalleryComponent, {
-    //   data: { slides: this.images, initialSlide: index },
-    //   width: '80%',
-    //   height: '80%',
-    // });
+    this.parent.openImage(this.images, index);
   }
 }

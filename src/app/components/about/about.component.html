@@ -34,5 +34,21 @@
     </div>
 
     <!-- For Mobile Version -->
-    <app-gallery *ngIf="isMobile" [slides]="cards" preset="gallery"></app-gallery>
+    <div class="flex-col h-100 swiper-container swiper-about" *ngIf="isMobile">
+        <div class="swiper-wrapper">
+            <mat-card class="h-100 swiper-slide about-slide" *ngFor="let card of cards">
+                <img [src]="card.image" alt="icon" class="w-h-100 about-slide__background">
+                <mat-card-header class="flex-row center-col about-slide__header">
+                    <mat-card-title>{{ card.title }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="about-slide__content">
+                    <span>{{ card.contentLong }}</span>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="swiper-controls" *ngIf="isMobile">
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
 </div>
