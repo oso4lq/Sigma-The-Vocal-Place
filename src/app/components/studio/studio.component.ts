@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GalleryComponent } from '../gallery/gallery.component';
 import Swiper from 'swiper';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import { FeedbacksComponent } from '../feedbacks/feedbacks.component';
 import { SwiperOptions } from 'swiper/types';
 import { MatDividerModule } from '@angular/material/divider';

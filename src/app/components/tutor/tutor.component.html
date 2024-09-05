@@ -61,8 +61,8 @@
                         <li>Кафедра эстрадно-джазового вокала</li>
                     </ul>
                 </div>
-                <img class="w-100 education__diploma" alt="diploma image"
-                    src="https://res.cloudinary.com/dxunxtt1u/image/upload/diploma_tk8dre.png">
+                <img class="w-100 education__diploma" alt="diploma image" [src]="diplomaImg[0].image"
+                    (click)="openGallery(diplomaImg, 0)">
             </div>
             <div class="flex-row upper__img">
                 <img class="img-cover" alt="teacher image bckg-transparent"
@@ -89,8 +89,8 @@
         </div>
 
         <div class="flex-col center-all education__wrapper display">
-            <img class="education__diploma" alt="diploma image"
-                src="https://res.cloudinary.com/dxunxtt1u/image/upload/diploma_tk8dre.png">
+            <img class="education__diploma" alt="diploma image" [src]="diplomaImg[0].image"
+                (click)="openGallery(diplomaImg, 0)">
             <img class="education__pillar-top" alt=""
                 src="https://res.cloudinary.com/dxunxtt1u/image/upload/pillar-head_p9rfvj.png">
         </div>

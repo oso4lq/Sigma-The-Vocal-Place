@@ -30,10 +30,11 @@ import { GalleryComponent } from './components/gallery/gallery.component';
 })
 export class AppComponent implements OnInit {
   title = 'sigma-vocal-place';
+  isImageViewerOpen = false;
 
   constructor(
-    private dialog: MatDialog,
     private scrollingService: ScrollingService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -43,13 +44,24 @@ export class AppComponent implements OnInit {
     this.scrollingService.handleHeaderTransparency();
   }
 
+  // Image Viewer
   openImage(images: Card[], initialSlide: number) {
-    this.dialog.open(GalleryComponent, {
+    // Disable scrolling and opening menu when the image viewer is opened
+    this.scrollingService.restrictBodyScrolling(); 
+    this.isImageViewerOpen = true;
+
+    const dialogRef = this.dialog.open(GalleryComponent, {
       data: { slides: images, initialSlide: initialSlide },
       hasBackdrop: true,
       backdropClass: 'custom-backdrop',
       panelClass: 'image-viewer-dialog',
       disableClose: false,
+    });
+
+    // Enable scrolling and opening menu when the image viewer is closed
+    dialogRef.afterClosed().subscribe(() => {
+      this.isImageViewerOpen = false;
+      this.scrollingService.enableBodyScrolling();
     });
   }
 

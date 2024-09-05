@@ -10,6 +10,7 @@ import { skip } from 'rxjs';
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperOptions } from 'swiper/types';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-header',
@@ -47,6 +48,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private scrollingService: ScrollingService,
     private mobileService: MobileService,
+    private parent: AppComponent,
     private renderer: Renderer2,
   ) { }
 
@@ -93,12 +95,16 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-    const logo = document.body.querySelector('.logo');
+    // Prevent opening the menu if the image viewer is open
+    if (this.parent.isImageViewerOpen) {
+      return;
+    }
 
+    this.isMenuOpen = !this.isMenuOpen;
+    
     if (this.isMenuOpen) {
-      // Disable scrolling the page
-      this.renderer.addClass(document.body, 'no-scroll');
+      const logo = document.body.querySelector('.logo');
+      this.scrollingService.restrictBodyScrolling();
       // Make logo fully opaque
       this.renderer.setStyle(logo, 'opacity', '1');
       // Enable the backdrop div (flex)
@@ -116,8 +122,7 @@ export class HeaderComponent implements OnInit {
 
   closeMenu() {
     this.isMenuOpen = false;
-    // Disable scrolling the page
-    this.renderer.removeClass(document.body, 'no-scroll');
+    this.scrollingService.enableBodyScrolling();
     // Reset logo opacity based on section
     this.scrollingService.handleHeaderTransparency();
     // Remove the menu and the backdrop

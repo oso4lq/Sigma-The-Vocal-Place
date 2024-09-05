@@ -35,7 +35,7 @@
   color: var(--light-color);
 
   &__background {
-    object-fit: cover;
+    object-fit: contain;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -50,7 +50,11 @@
   }
 
   &__header {
-    background: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.7) 50%,
+        rgba(0, 0, 0, 0) 100%
+      );
     padding: 10px 20px;
     font-size: 22px;
   }

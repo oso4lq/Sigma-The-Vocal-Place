@@ -35,16 +35,12 @@ export class GalleryComponent {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
-    // pagination: {
-    //   el: '.swiper-pagination',
-    //   clickable: true
-    // },
   };
 
   constructor(
-    private mobileService: MobileService,
     @Inject(MAT_DIALOG_DATA) public data: { slides: Card[], initialSlide: number },
     private dialogRef: MatDialogRef<GalleryComponent>,
+    private mobileService: MobileService,
   ) {
     this.slides = data.slides;
     this.initialSlide = data.initialSlide;

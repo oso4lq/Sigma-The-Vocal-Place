@@ -36,6 +36,7 @@ export class ScrollingService {
       window.addEventListener('wheel', this.onWheelScroll.bind(this), { passive: false });
       window.addEventListener('keydown', this.onKeyDown.bind(this));
     }
+    // Track events when navigating the page
     window.addEventListener('scroll', this.onWindowScroll.bind(this));
   }
 
@@ -63,6 +64,8 @@ export class ScrollingService {
     }
   }
 
+  // Helper for highlightMenuButton for checkCurrentSection for onWindowScroll: 
+  // highlight the section inside the swiper button (active section)
   private updateSwiperForSection(sectionId: string): void {
     const sectionMapping: { [key: string]: number } = {
       'classes-section': 0,
@@ -183,5 +186,15 @@ export class ScrollingService {
     } else {
       this.isScrolling = false;
     }
+  }
+
+  // Disable scrolling the page
+  restrictBodyScrolling(): void {
+    this.renderer.addClass(document.body, 'no-scroll');
+  }
+
+  // Disable scrolling the page
+  enableBodyScrolling(): void {
+    this.renderer.removeClass(document.body, 'no-scroll');
   }
 }
