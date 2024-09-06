@@ -26,46 +26,64 @@
     <!-- NewbieState -->
     <ng-container *ngIf="formState === 'NewbieState'">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="back" (click)="goBackToStart()"><mat-icon>arrow_back_ios_new</mat-icon>Back</div>
 
-            <label for="name">Name</label>
-            <input type="text" formControlName="name" placeholder="Your name" />
+            <div class="back" (click)="goBackToStart()">
+                <mat-icon>arrow_back_ios_new</mat-icon>Back
+            </div>
 
-            <label for="phone">Phone</label>
-            <input type="text" formControlName="phone" placeholder="Your phone number" />
+            <label class="label" for="name">Name</label>
+            <input class="input" type="text" formControlName="name" placeholder="Your name" />
 
-            <label for="telegram">Telegram username</label>
-            <input type="text" formControlName="telegram" placeholder="Your Telegram username" />
+            <label class="label" for="phone">Phone</label>
+            <input class="input" type="text" formControlName="phone" placeholder="Your phone number" />
 
-            <label for="message">Message</label>
-            <textarea type="message" formControlName="message" placeholder="Your message"></textarea>
+            <label class="label" for="telegram">Telegram username</label>
+            <input class="input" type="text" formControlName="telegram" placeholder="Your Telegram username" />
+
+            <label class="label" for="message">Message</label>
+            <textarea class="textarea" type="message" formControlName="message" placeholder="Your message"></textarea>
 
             <div class="disclaimer">By clicking Submit you agree with the Privacy Terms</div>
             <button type="submit" class="submit-button">Submit</button>
+
         </form>
     </ng-container>
 
     <!-- ActiveSubState -->
     <ng-container *ngIf="formState === 'ActiveSubState'">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="back" (click)="goBackToStart()"><mat-icon>arrow_back_ios_new</mat-icon>Back</div>
 
-            <label for="name">Name</label>
-            <input type="text" formControlName="name" placeholder="Your name" readonly />
+            <div class="back" (click)="goBackToStart()">
+                <mat-icon>arrow_back_ios_new</mat-icon>Back
+            </div>
 
-            <label for="date">Date</label>
-            <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
+            <label class="label" for="name">Name</label>
+            <input class="input" type="text" formControlName="name" placeholder="Your name" readonly />
 
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <label class="label">Date and time</label>
+            <div class="flex-row date-time">
+                <mat-form-field>
+                    <mat-label>DD.MM.YYYY</mat-label>
+                    <input matInput [matDatepicker]="picker" disabled>
+                    <!-- formControlName="date" placeholder="Choose a date" -->
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false">
+                        <mat-datepicker-actions>
+                            <button mat-raised-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                </mat-form-field>
 
-            <label for="time">Time</label>
-            <input type="time" formControlName="time" placeholder="Choose a time" />
+                <!-- <label class="label" for="time">Time</label> -->
+                <input class="input input_time" type="time" formControlName="time" placeholder="Choose a time" />
+            </div>
 
-            <label for="message">Message</label>
-            <textarea type="message" formControlName="message" placeholder="Your message"></textarea>
+            <label class="label" for="message">Message</label>
+            <textarea class="textarea" type="message" formControlName="message" placeholder="Your message"></textarea>
 
             <button type="submit" class="submit-button">Submit</button>
+
         </form>
     </ng-container>
 

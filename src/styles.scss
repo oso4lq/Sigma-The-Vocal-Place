@@ -5,6 +5,7 @@
 @import './styles/dialog.scss';
 @import './styles/buttons/buttons.scss';
 @import './styles/inputs/inputs.scss';
+@import './styles/datepicker.scss';
 @import '../node_modules/swiper/swiper-bundle.min.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
@@ -193,6 +194,60 @@ h2 {
 
 .new-class-form-dialog {
     pointer-events: auto;
+}
+
+// datepicker
+.cdk-overlay-connected-position-bounding-box {
+    position: fixed;
+    pointer-events: none;
+    // top: -150px !important;
+    // left: 250px !important;
+    top: 120px !important;
+    left: 240px !important;
+    width: unset !important;
+}
+
+.mat-datepicker-content .mat-calendar {
+    height: fit-content !important;
+}
+
+.mat-calendar-controls {
+    margin: 10px !important;
+}
+
+.mat-calendar-period-button {
+    display: contents !important;
+}
+
+.mat-datepicker-toggle {
+    background-color: transparent !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}
+
+.mat-mdc-form-field-flex {
+    height: 40px;
+    align-items: center !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: 1px solid #ccc;
+    background: #fff !important;
+}
+
+.mat-datepicker-input {
+    padding: 0 10px !important;
+}
+
+.mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+    padding: 0;
+}
+
+.mdc-floating-label {
+    height: 20px !important;
+    top: 10px !important;
+    left: 10px !important;
 }
 
 @media (max-width: 768px) {

@@ -1,21 +1,41 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-new-class-form',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     MatIconModule,
     MatDividerModule,
+    MatButtonModule,
+
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+
     MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  providers: [
+    // NativeDateAdapter,
+    // MatDatepickerModule,
+    { provide: DateAdapter, useClass: NativeDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+    // { provide: MAT_DATE_LOCALE, useValue: 'eng-US' },
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+    // { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
   ],
   templateUrl: './new-class-form.component.html',
   styleUrl: './new-class-form.component.scss'
