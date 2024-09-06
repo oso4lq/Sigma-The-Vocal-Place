@@ -18,6 +18,7 @@ export class ScrollingService {
   ];
   private currentSectionIndex: number = 0;
   private isScrolling: boolean = false;
+  private isScrollingRestricted: boolean = false;
 
   private sectionIndexSubject = new BehaviorSubject<number>(0);
   sectionIndex$ = this.sectionIndexSubject.asObservable();
@@ -36,6 +37,7 @@ export class ScrollingService {
       window.addEventListener('wheel', this.onWheelScroll.bind(this), { passive: false });
       window.addEventListener('keydown', this.onKeyDown.bind(this));
     }
+    // Track events when navigating the page
     window.addEventListener('scroll', this.onWindowScroll.bind(this));
   }
 
@@ -63,6 +65,8 @@ export class ScrollingService {
     }
   }
 
+  // Helper for highlightMenuButton for checkCurrentSection for onWindowScroll: 
+  // highlight the section inside the swiper button (active section)
   private updateSwiperForSection(sectionId: string): void {
     const sectionMapping: { [key: string]: number } = {
       'classes-section': 0,
@@ -125,6 +129,12 @@ export class ScrollingService {
 
   // Listen mouse wheel up/down
   private onWheelScroll(event: WheelEvent): void {
+
+    // Restrict listening to the mouse when the Image Viewer is opened
+    if (this.isScrollingRestricted) {
+      return
+    }
+
     event.preventDefault();
     if (this.isScrolling) return;
     this.isScrolling = true;
@@ -138,6 +148,12 @@ export class ScrollingService {
 
   // Listen arrow up/down keys
   private onKeyDown(event: KeyboardEvent): void {
+
+    // Restrict listening to the keys when the Image Viewer is opened
+    if (this.isScrollingRestricted) {
+      return
+    }
+
     if (event.key === 'ArrowDown') {
       event.preventDefault();
       if (this.isScrolling) return;
@@ -151,7 +167,7 @@ export class ScrollingService {
     }
   }
 
-  // Helper for onWheelScroll/onKeyDown
+  // Helper for onWheelScroll/onKeyDown and is used throughout the App
   scrollToSection(sectionId: string): void {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -183,5 +199,17 @@ export class ScrollingService {
     } else {
       this.isScrolling = false;
     }
+  }
+
+  // Disable scrolling the page
+  restrictBodyScrolling(): void {
+    this.isScrollingRestricted = true;
+    this.renderer.addClass(document.body, 'no-scroll');
+  }
+
+  // Disable scrolling the page
+  enableBodyScrolling(): void {
+    this.isScrollingRestricted = false;
+    this.renderer.removeClass(document.body, 'no-scroll');
   }
 }

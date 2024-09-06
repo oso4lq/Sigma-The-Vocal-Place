@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import Swiper from 'swiper';
@@ -6,6 +6,8 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperOptions } from 'swiper/types';
 import { MobileService } from '../../services/mobile.service';
 import { Card } from '../../interfaces/data.interface';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-gallery',
@@ -13,54 +15,82 @@ import { Card } from '../../interfaces/data.interface';
   imports: [
     MatCardModule,
     CommonModule,
+    MatIconModule,
   ],
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.scss'
 })
 export class GalleryComponent {
 
-  @Input() slides: Card[] = [];
+  slides: Card[] = [];
+  initialSlide: number = 1;
+  swiperGallery!: Swiper;
 
+  // Swiper Gallery settings
   swiperConfig: SwiperOptions = {
-    slidesPerView: 1.1, // Show partial slides
-    centeredSlides: true, // Center the active slide
-    spaceBetween: 4, // Space between the slides
-    initialSlide: 1, // Start from slide number
-    slideToClickedSlide: true, // Allow clicking on partial slides to navigate
-
-    // Enables next and previous buttons for navigation
+    slidesPerView: 'auto',
+    centeredSlides: true,
+    spaceBetween: 4,
+    slideToClickedSlide: true,
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
-
-    // Adds pagination bullets
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true
-    },
   };
 
+  // Listen for keyboard left/right to switch slides
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'ArrowRight') {
+      this.swiperGallery.slideNext();
+    } else if (event.key === 'ArrowLeft') {
+      this.swiperGallery.slidePrev();
+    }
+  }
+
+  // Listen for mouse scroll events to switch slides
+  @HostListener('window:wheel', ['$event'])
+  handleMouseWheelEvent(event: WheelEvent) {
+    if (event.deltaY > 0) {
+      this.swiperGallery.slideNext();
+    } else {
+      this.swiperGallery.slidePrev();
+    }
+  }
+
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { slides: Card[], initialSlide: number },
+    private dialogRef: MatDialogRef<GalleryComponent>,
     private mobileService: MobileService,
-  ) { }
+  ) {
+    this.slides = data.slides;
+    this.initialSlide = data.initialSlide;
+  }
 
   ngAfterViewInit() {
     Swiper.use([Navigation, Pagination]);
-    const swiperGallery = new Swiper('.swiper-gallery', this.swiperConfig);
+
+    this.swiperGallery = new Swiper('.swiper-gallery', {
+      ...this.swiperConfig,
+      initialSlide: this.initialSlide,
+    });
 
     // Disable swipe tracking when interacting with the gallery
-    swiperGallery.on('touchStart', () => {
+    this.swiperGallery.on('touchStart', () => {
       this.mobileService.disableSwipeTracking();
     });
 
     // Re-enable swipe tracking when interaction ends
-    swiperGallery.on('touchEnd', () => {
+    this.swiperGallery.on('touchEnd', () => {
       setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
     });
   }
 
   ngOnDestroy() {
     this.mobileService.enableSwipeTracking();
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }

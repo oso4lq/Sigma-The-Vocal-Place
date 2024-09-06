@@ -6,6 +6,10 @@ import { GalleryComponent } from '../gallery/gallery.component';
 import { MobileService } from '../../services/mobile.service';
 import { Card } from '../../interfaces/data.interface';
 
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
+import { SwiperOptions } from 'swiper/types';
+
 @Component({
   selector: 'app-about',
   standalone: true,
@@ -49,12 +53,44 @@ export class AboutComponent implements OnInit {
     },
   ];
 
+  // Swiper About settings
+  swiperAboutConfig: SwiperOptions = {
+    slidesPerView: 1.1,
+    centeredSlides: true,
+    spaceBetween: 4,
+    initialSlide: 1,
+    slideToClickedSlide: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  };
+
   constructor(
     private mobileService: MobileService,
   ) { }
 
   ngOnInit() {
     this.isMobile = this.mobileService.isMobile;
+  }
+  
+  ngAfterViewInit() {
+    Swiper.use([Navigation, Pagination]);
+    const swiperAbout = new Swiper('.swiper-about', this.swiperAboutConfig);
+
+    // Disable swipe tracking when interacting with the gallery
+    swiperAbout.on('touchStart', () => {
+      this.mobileService.disableSwipeTracking();
+    });
+
+    // Re-enable swipe tracking when interaction ends
+    swiperAbout.on('touchEnd', () => {
+      setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
+    });
+  }
+
+  ngOnDestroy() {
+    this.mobileService.enableSwipeTracking();
   }
 
   nextImage(event: Event) {

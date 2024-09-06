@@ -58,11 +58,10 @@ export class MobileService {
   }
 
   private handleSwipeGesture(): void {
+    // Calculate absolute X-axis and Y-axis distances
     const swipeDistanceX = this.touchEndX - this.touchStartX;
-    const swipeDistanceY = Math.abs(this.touchEndY - this.touchStartY); // Calculate absolute Y-axis distance
+    const swipeDistanceY = Math.abs(this.touchEndY - this.touchStartY);
 
-    console.log('swipeDistanceX', swipeDistanceX);
-    console.log('swipeDistanceY', swipeDistanceY);
     // If the Y-axis movement is greater than maxSwipeDeltaY, it's not a valid horizontal swipe
     if (swipeDistanceY > this.maxSwipeDeltaY) {
       return;

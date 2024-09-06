@@ -2,6 +2,29 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--light-color);
+  z-index: 30;
+
+  mat-icon {
+    font-size: 40px;
+    height: 40px;
+    width: 40px;
+    opacity: 0.8;
+
+    transition: transform 0.3s, opacity 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  }
 }
 
 .card {
@@ -12,7 +35,7 @@
   color: var(--light-color);
 
   &__background {
-    object-fit: cover;
+    object-fit: contain;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -27,14 +50,19 @@
   }
 
   &__header {
-    background: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.7) 50%,
+        rgba(0, 0, 0, 0) 100%
+      );
     padding: 10px 20px;
     font-size: 22px;
   }
 
   &__content {
     background: rgba(0, 0, 0, 0.5);
-    padding: 20px 40px 40px 40px;
+    // padding: 20px 40px 40px 40px;
+    padding: 0;
     transition: background 0.3s ease;
     font-size: 18px;
     text-align: justify;
@@ -45,38 +73,38 @@
   }
 
   // For desktop version
-  .arrow-layer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease;
+  // .arrow-layer {
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   width: 100px;
+  //   height: 100px;
+  //   background: rgba(0, 0, 0, 0.4);
+  //   border-radius: 8px;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   transition: background 0.3s ease;
 
-    mat-icon {
-      color: var(--light-color);
-      opacity: 0.8;
-      transition: transform 0.3s, opacity 0.3s;
-      font-size: 40px;
-      height: 40px;
-      width: 40px;
-    }
+  //   mat-icon {
+  //     color: var(--light-color);
+  //     opacity: 0.8;
+  //     transition: transform 0.3s, opacity 0.3s;
+  //     font-size: 40px;
+  //     height: 40px;
+  //     width: 40px;
+  //   }
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.5);
+  //   &:hover {
+  //     background: rgba(0, 0, 0, 0.5);
 
-      mat-icon {
-        transform: scale(1.2);
-        opacity: 1;
-      }
-    }
-  }
+  //     mat-icon {
+  //       transform: scale(1.2);
+  //       opacity: 1;
+  //     }
+  //   }
+  // }
 }
 
 // For mobile version
@@ -95,6 +123,11 @@
     padding: 10px;
     flex-grow: 1;
     z-index: 5;
+    transition: background 0.25s ease;
+
+    &:hover {
+      background: var(--shaded-brand-color);
+    }
   }
 
   .swiper-button-next {
