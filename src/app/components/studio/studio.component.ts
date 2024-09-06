@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { GalleryComponent } from '../gallery/gallery.component';
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
-import { FeedbacksComponent } from '../feedbacks/feedbacks.component';
 import { SwiperOptions } from 'swiper/types';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,7 +16,6 @@ import { AppComponent } from '../../app.component';
   imports: [
     CommonModule,
     GalleryComponent,
-    FeedbacksComponent,
     MatDividerModule,
     MatIconModule,
   ],

@@ -11,6 +11,7 @@ import { TutorComponent } from './components/tutor/tutor.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Card } from './interfaces/data.interface';
 import { GalleryComponent } from './components/gallery/gallery.component';
+import { NewClassFormComponent } from './components/new-class-form/new-class-form.component';
 
 @Component({
   selector: 'app-root',
@@ -47,7 +48,7 @@ export class AppComponent implements OnInit {
   // Image Viewer
   openImage(images: Card[], initialSlide: number) {
     // Disable scrolling and opening menu when the image viewer is opened
-    this.scrollingService.restrictBodyScrolling(); 
+    this.scrollingService.restrictBodyScrolling();
     this.isImageViewerOpen = true;
 
     const dialogRef = this.dialog.open(GalleryComponent, {
@@ -55,6 +56,24 @@ export class AppComponent implements OnInit {
       hasBackdrop: true,
       backdropClass: 'custom-backdrop',
       panelClass: 'image-viewer-dialog',
+      disableClose: false,
+    });
+
+    // Enable scrolling and opening menu when the image viewer is closed
+    dialogRef.afterClosed().subscribe(() => {
+      this.isImageViewerOpen = false;
+      this.scrollingService.enableBodyScrolling();
+    });
+  }
+
+  openForm() {
+    this.scrollingService.restrictBodyScrolling();
+    this.isImageViewerOpen = true;
+
+    const dialogRef = this.dialog.open(NewClassFormComponent, {
+      hasBackdrop: true,
+      backdropClass: 'custom-backdrop',
+      panelClass: 'new-class-form-dialog',
       disableClose: false,
     });
 

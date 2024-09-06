@@ -42,7 +42,7 @@
             (click)="scrollToSection('contacts-section')">
             Контакты
         </button>
-        <button id="action-button" mat-button mat-raised-button class="action-btn">
+        <button id="action-button" mat-button mat-raised-button class="action-btn" (click)="openForm()">
             Записаться
         </button>
         <!-- <button mat-icon-button>
@@ -90,7 +90,7 @@
                 <mat-icon>mail</mat-icon>Контакты
             </div>
         </button>
-        <button mat-button mat-raised-button class="action-btn">Записаться</button>
+        <button mat-button mat-raised-button class="action-btn" (click)="openForm()">Записаться</button>
         <!-- <button mat-icon-button><mat-icon>account_circle</mat-icon>Аккаунт</button> -->
     </div>
 </div>

@@ -185,29 +185,45 @@ h2 {
     background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-.mat-mdc-dialog-panel {
+.image-viewer-dialog {
     aspect-ratio: 3 / 2;
     pointer-events: auto;
     width: 100%;
 }
 
-.image-viewer-dialog {}
+.new-class-form-dialog {
+    pointer-events: auto;
+}
 
 @media (max-width: 768px) {
-
     app-header {
         height: auto;
     }
 
-    // .plug {}
-
     .cdk-overlay-pane.mat-mdc-dialog-panel {
         max-width: none !important;
-        height: 100%;
+        display: flex;
+        align-items: center;
     }
 
-    .mat-mdc-dialog-panel {
-        aspect-ratio: 2 / 3;
+    .cdk-overlay-pane.mat-mdc-dialog-panel {
+        height: unset;
+    }
+
+    .mat-mdc-dialog-container {
+        width: unset;
+        height: unset;
+    }
+
+    .mat-mdc-dialog-inner-container {
+        height: unset;
+    }
+}
+
+@media (max-width: 600px) {
+    .cdk-overlay-pane.mat-mdc-dialog-panel {
+        width: 100%;
+        height: 100%;
     }
 }
 

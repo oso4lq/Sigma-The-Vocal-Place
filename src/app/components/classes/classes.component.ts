@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Card } from '../../interfaces/data.interface';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-classes',
@@ -46,4 +47,12 @@ export class ClassesComponent {
     }
   ];
 
+  constructor(
+    private parent: AppComponent,
+  ) { }
+
+  openForm() {
+    this.parent.openForm();
+  }
+  
 }

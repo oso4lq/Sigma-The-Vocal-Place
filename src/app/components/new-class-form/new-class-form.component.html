@@ -1,0 +1,96 @@
+<div class="newclass-form">
+    <div class="form-header">
+        <h2>New class</h2>
+        <div class="close" (click)="closeDialog()">
+            <mat-icon>close</mat-icon>
+        </div>
+    </div>
+
+    <!-- StartState -->
+    <ng-container *ngIf="formState === 'StartState'">
+        <div class="user-type-toggle">
+            <button class="toggle-btn toggle-btn_newbie" (click)="onUserTypeSelect('new')">
+                <img class="toggle-btn__img toggle-btn__img_newbie" alt="new user"
+                    src="https://res.cloudinary.com/dxunxtt1u/image/upload/cat_novice_xyjz3q.png" />
+                <span class="toggle-btn__text">I'm new</span>
+            </button>
+            <mat-divider [vertical]="true"></mat-divider>
+            <button class="toggle-btn toggle-btn_activesub" (click)="onUserTypeSelect('signed')">
+                <img class="toggle-btn__img toggle-btn__img_activesub" alt="existing user"
+                    src="https://res.cloudinary.com/dxunxtt1u/image/upload/cat_pro_nllrwi.png" />
+                <span class="toggle-btn__text">I've already signed up</span>
+            </button>
+        </div>
+    </ng-container>
+
+    <!-- NewbieState -->
+    <ng-container *ngIf="formState === 'NewbieState'">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="back" (click)="goBackToStart()"><mat-icon>arrow_back_ios_new</mat-icon>Back</div>
+
+            <label for="name">Name</label>
+            <input type="text" formControlName="name" placeholder="Your name" />
+
+            <label for="phone">Phone</label>
+            <input type="text" formControlName="phone" placeholder="Your phone number" />
+
+            <label for="telegram">Telegram username</label>
+            <input type="text" formControlName="telegram" placeholder="Your Telegram username" />
+
+            <label for="message">Message</label>
+            <textarea type="message" formControlName="message" placeholder="Your message"></textarea>
+
+            <div class="disclaimer">By clicking Submit you agree with the Privacy Terms</div>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </ng-container>
+
+    <!-- ActiveSubState -->
+    <ng-container *ngIf="formState === 'ActiveSubState'">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="back" (click)="goBackToStart()"><mat-icon>arrow_back_ios_new</mat-icon>Back</div>
+
+            <label for="name">Name</label>
+            <input type="text" formControlName="name" placeholder="Your name" readonly />
+
+            <label for="date">Date</label>
+            <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
+
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+
+            <label for="time">Time</label>
+            <input type="time" formControlName="time" placeholder="Choose a time" />
+
+            <label for="message">Message</label>
+            <textarea type="message" formControlName="message" placeholder="Your message"></textarea>
+
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </ng-container>
+
+    <!-- Error Box *ngIf="errorMessage" -->
+    <div class="error-box" *ngIf="formState === 'NewbieState' || formState === 'ActiveSubState'">
+        <span>{{ errorMessage }}</span>
+    </div>
+
+    <!-- SubmitState -->
+    <ng-container *ngIf="formState === 'SubmitState'">
+        <p class="submit__message" *ngIf="submitSuccess">
+            Your request was successful!<br>Please wait until I contact you.
+        </p>
+        <p class="submit__message" *ngIf="!submitSuccess">
+            There was an error submitting your request. Please try again.
+        </p>
+    </ng-container>
+
+    <!-- Telegram Bot -->
+    <div class="form-footer" *ngIf="formState !== 'SubmitState'">
+        <span class="form-footer__text">
+            Or sign up for a class via the
+        </span>
+        <span class="form-footer__bot">
+            Telegram bot
+        </span>
+    </div>
+</div>

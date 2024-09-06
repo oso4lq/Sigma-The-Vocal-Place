@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TagcloudComponent } from './tagcloud.component';
+import { NewClassFormComponent } from './new-class-form.component';
 
-describe('TagcloudComponent', () => {
-  let component: TagcloudComponent;
-  let fixture: ComponentFixture<TagcloudComponent>;
+describe('NewClassFormComponent', () => {
+  let component: NewClassFormComponent;
+  let fixture: ComponentFixture<NewClassFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TagcloudComponent]
+      imports: [NewClassFormComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TagcloudComponent);
+    fixture = TestBed.createComponent(NewClassFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

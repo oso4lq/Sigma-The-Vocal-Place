@@ -101,7 +101,7 @@ export class HeaderComponent implements OnInit {
     }
 
     this.isMenuOpen = !this.isMenuOpen;
-    
+
     if (this.isMenuOpen) {
       const logo = document.body.querySelector('.logo');
       this.scrollingService.restrictBodyScrolling();
@@ -131,4 +131,10 @@ export class HeaderComponent implements OnInit {
     // Wait till the end of the animation and disable the backdrop div (none)
     setTimeout(() => this.renderer.removeClass(document.querySelector('.dropdown-background'), 'flex'), 300);
   }
+
+  openForm() {
+    this.closeMenu();
+    this.parent.openForm();
+  }
+
 }
