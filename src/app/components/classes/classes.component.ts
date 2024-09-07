@@ -36,7 +36,7 @@ export class ClassesComponent {
     {
       id: 2,
       title: 'Осуществите свою мечту',
-      image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/icon_star_obdm8j.png',
+      image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/icon_star-824_enfepp.png',
       contentShort: '',
       contentLong: 'Начав заниматься вокалом, вы сможете исполнить любимую песню, развить свой уникальный стиль и звучание, научиться выступать перед аудиторией. Это уникальная возможность проявить творческие способности, преодолеть страх сцены и развить уверенность в себе.'
     },
@@ -56,5 +56,5 @@ export class ClassesComponent {
   openForm() {
     this.parent.openForm();
   }
-  
+
 }

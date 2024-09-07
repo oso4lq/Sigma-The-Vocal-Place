@@ -176,7 +176,18 @@ mat-label {
     margin-top: 10px;
     font-size: 12px;
     color: var(--dark-alt-color);
+
+    .privacy-terms {
+        text-decoration: underline;
+        cursor: pointer;
+        transition: font-weight 0.1s ease-in-out;
+    }
+
+    .privacy-terms:hover {
+        font-weight: bold;
+    }
 }
+
 
 .error-box {
     height: 24px;

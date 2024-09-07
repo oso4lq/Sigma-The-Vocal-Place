@@ -43,8 +43,12 @@
             <label class="label" for="message">Message</label>
             <textarea class="textarea" type="message" formControlName="message" placeholder="Your message"></textarea>
 
-            <div class="disclaimer">By clicking Submit you agree with the Privacy Terms</div>
-            <button mat-buttom mat-raised-button type="submit" class="submit-button">Submit</button>
+            <div class="disclaimer">
+                By clicking Submit you agree with the
+                <span routerLink="/privacy-policy" class="privacy-terms">Privacy Terms</span>
+            </div>
+
+            <button mat-button mat-raised-button type="submit" class="submit-button">Submit</button>
 
         </form>
     </ng-container>

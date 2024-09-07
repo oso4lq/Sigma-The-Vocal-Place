@@ -10,6 +10,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 enum FormState {
   Start = 'StartState',
@@ -31,6 +32,7 @@ enum FormState {
     MatInputModule,
     MatIconModule,
     CommonModule,
+    RouterModule,
     FormsModule,
   ],
   providers: [

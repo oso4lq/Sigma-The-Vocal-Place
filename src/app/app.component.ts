@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { ContactsComponent } from './components/contacts/contacts.component';
-import { ClassesComponent } from './components/classes/classes.component';
 import { ScrollingService } from './services/scrolling.service';
-import { StudioComponent } from './components/studio/studio.component';
-import { TutorComponent } from './components/tutor/tutor.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Card } from './interfaces/data.interface';
 import { GalleryComponent } from './components/gallery/gallery.component';
@@ -18,12 +12,6 @@ import { NewClassFormComponent } from './components/new-class-form/new-class-for
   standalone: true,
   imports: [
     HeaderComponent,
-    HomeComponent,
-    AboutComponent,
-    ClassesComponent,
-    TutorComponent,
-    StudioComponent,
-    ContactsComponent,
     RouterOutlet,
   ],
   templateUrl: './app.component.html',

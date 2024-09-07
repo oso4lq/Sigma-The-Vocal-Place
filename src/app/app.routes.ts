@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { MainComponent } from './components/main/main.component';
 
 export const routes: Routes = [
-    { path: '', component: AppComponent },
-    // { path: 'about', component: AboutComponent },
-    { path: '**', redirectTo: '' } // redirect to home for unknown paths
+    { path: '', component: MainComponent },
+    { path: 'privacy-policy', component: PrivacyPolicyComponent },
+    { path: '**', redirectTo: '' }
 ];

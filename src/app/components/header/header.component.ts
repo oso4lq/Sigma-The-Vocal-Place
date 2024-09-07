@@ -11,6 +11,7 @@ import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperOptions } from 'swiper/types';
 import { AppComponent } from '../../app.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,7 @@ import { AppComponent } from '../../app.component';
     MatButtonModule,
     MatIconModule,
     CommonModule,
+    RouterModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
