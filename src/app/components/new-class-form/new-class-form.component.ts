@@ -135,6 +135,7 @@ export class NewClassFormComponent {
   // Go back to the start state
   goBackToStart() {
     this.currentFormState = FormState.Start;
+    this.errorMessage = '';
 
     // Reset the newbieForm
     this.newbieForm.reset();
