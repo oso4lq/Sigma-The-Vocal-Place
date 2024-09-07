@@ -11,7 +11,7 @@
                 <div class="flex-row center-row h-100 swiper-wrapper thumbs-wrapper">
                     <div class="flex-row center-all swiper-slide thumbs-slide"
                         *ngFor="let image of images; let i = index" (click)="openGallery(i)">
-                        <img [src]="image.image" [alt]="image.title" class="thumbnail-image">
+                        <img [src]="image.image" [alt]="image.title" loading="lazy" class="thumbnail-image">
                     </div>
                 </div>
             </div>
@@ -60,15 +60,15 @@
                         }">
                             <div class="flex-row" style="align-items: flex-end; gap: 10px;">
                                 <ng-container *ngIf="slide.image; else placeholder">
-                                    <img [src]="slide.image" alt="user image">
+                                    <img [src]="slide.image" alt="user image" loading="lazy" >
                                 </ng-container>
                                 <ng-template #placeholder>
                                     <img src="https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_lud6rq.png"
-                                        alt="user no image" class="source-logo">
+                                        alt="user no image" loading="lazy" class="source-logo">
                                 </ng-template>
                                 <span class="user-name">{{ slide.user }}</span>
                             </div>
-                            <img [src]="slide.source.logo" [alt]="slide.source.name" class="source-logo">
+                            <img [src]="slide.source.logo" [alt]="slide.source.name" loading="lazy" class="source-logo">
                         </div>
                         <mat-divider></mat-divider>
                         <!-- roboto-font ? -->
@@ -93,7 +93,7 @@
                     <div class="swiper-wrapper thumbs-wrapper">
                         <div class="swiper-slide thumbs-slide" *ngFor="let image of images; let i = index"
                             (click)="openGallery(i)">
-                            <img [src]="image.image" [alt]="image.title" class="thumbnail-image">
+                            <img [src]="image.image" [alt]="image.title" loading="lazy" class="thumbnail-image">
                         </div>
                     </div>
                 </div>
@@ -130,15 +130,15 @@
                         }">
                                 <div class="flex-row" style="align-items: flex-end; gap: 10px;">
                                     <ng-container *ngIf="slide.image; else placeholder">
-                                        <img [src]="slide.image" alt="user image">
+                                        <img [src]="slide.image" alt="user image" loading="lazy" >
                                     </ng-container>
                                     <ng-template #placeholder>
                                         <img src="https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_lud6rq.png"
-                                            alt="user no image" class="source-logo">
+                                            alt="user no image" loading="lazy" class="source-logo">
                                     </ng-template>
                                     <span class="user-name">{{ slide.user }}</span>
                                 </div>
-                                <img [src]="slide.source.logo" [alt]="slide.source.name" class="source-logo">
+                                <img [src]="slide.source.logo" [alt]="slide.source.name" loading="lazy" class="source-logo">
                             </div>
                             <mat-divider></mat-divider>
                             <div class="reviews-content">

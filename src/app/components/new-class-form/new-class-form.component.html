@@ -10,13 +10,13 @@
     <ng-container *ngIf="currentFormState === 'StartState'">
         <div class="user-type-toggle">
             <button class="toggle-btn toggle-btn_newbie" (click)="onUserTypeSelect('new')">
-                <img class="toggle-btn__img toggle-btn__img_newbie" alt="new user"
+                <img class="toggle-btn__img toggle-btn__img_newbie" alt="new user" loading="lazy"
                     src="https://res.cloudinary.com/dxunxtt1u/image/upload/cat_novice_xyjz3q.png" />
                 <span class="toggle-btn__text">I'm new</span>
             </button>
             <mat-divider [vertical]="true"></mat-divider>
             <button class="toggle-btn toggle-btn_activesub" (click)="onUserTypeSelect('signed')">
-                <img class="toggle-btn__img toggle-btn__img_activesub" alt="existing user"
+                <img class="toggle-btn__img toggle-btn__img_activesub" alt="existing user" loading="lazy"
                     src="https://res.cloudinary.com/dxunxtt1u/image/upload/cat_pro_nllrwi.png" />
                 <span class="toggle-btn__text">I've already signed up</span>
             </button>

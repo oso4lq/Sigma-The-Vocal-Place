@@ -127,7 +127,7 @@ export class NewClassFormComponent {
   }
 
   // Show error message for 5 seconds
-  showErrorMessage(message: string) {
+  private showErrorMessage(message: string) {
     this.errorMessage = message;
     setTimeout(() => (this.errorMessage = ''), 5000);
   }
