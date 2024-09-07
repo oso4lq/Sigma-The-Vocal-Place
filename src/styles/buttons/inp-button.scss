@@ -20,10 +20,6 @@
         align-items: center;
         justify-content: center;
     }
-
-    // &.inp-button-medium {
-    //     min-height: 36px;
-    // }
 }
 
 .mat-mdc-stroked-button {
@@ -75,14 +71,18 @@
 }
 
 .mat-mdc-raised-button {
-    background-color: var(--brand-color);
-    color: #ffff;
+    background-color: var(--brand-color) !important;
+    color: var(--light-color) !important;
+    border: none !important;
+    cursor: pointer;
+    border-radius: 4px !important;
+    min-height: 40px;
+    font-family: "Didact Gothic", sans-serif;
+    font-style: normal;
+
     transition:
         background-color 0.25s ease-in-out,
-        // justify-content 0.5s ease-in-out,
-        transform 0.5s ease-in-out !important;
-    // justify-content 0.5s ease-in-out;
-    // transition: justify-content 0.5s ease-in-out !important;
+        transform 0.25s ease-in-out !important;
 
     mat-icon {
         transition: margin-left 0.25 ease-in-out;

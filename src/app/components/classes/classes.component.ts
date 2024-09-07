@@ -3,11 +3,13 @@ import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Card } from '../../interfaces/data.interface';
 import { AppComponent } from '../../app.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-classes',
   standalone: true,
   imports: [
+    MatButtonModule,
     MatCardModule,
     CommonModule,
   ],

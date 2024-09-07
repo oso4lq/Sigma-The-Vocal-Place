@@ -14,10 +14,10 @@ import { AppComponent } from '../../app.component';
   selector: 'app-studio',
   standalone: true,
   imports: [
-    CommonModule,
     GalleryComponent,
     MatDividerModule,
     MatIconModule,
+    CommonModule,
   ],
   templateUrl: './studio.component.html',
   styleUrl: './studio.component.scss'

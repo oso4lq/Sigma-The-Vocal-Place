@@ -1,7 +1,3 @@
-// :host {
-//     display: block;
-// }
-
 mat-toolbar {
     height: 80px !important;
     padding: 0;
@@ -55,10 +51,13 @@ mat-toolbar {
         flex-grow: 1;
         height: 100% !important;
         max-height: none;
-        border-radius: 0;
+        border-radius: 0 !important;
         font-size: 18px;
         text-transform: uppercase;
         padding: 0;
+        transition:
+            background-color 0.25s ease-in-out,
+            transform 0.5s ease-in-out !important;
 
         p {
             margin: 0;
@@ -72,7 +71,6 @@ mat-toolbar {
         }
 
         ::ng-deep .mdc-button__label {
-            // height: 100%;
             width: 100%;
         }
     }
@@ -84,6 +82,12 @@ mat-toolbar {
 
     .sections-wrapper {
         height: unset !important;
+    }
+
+    .sections-slide {
+        transition:
+            background-color 0.25s ease-in-out,
+            transform 0.5s ease-in-out !important;
     }
 
     // Special styles, animations
@@ -190,7 +194,7 @@ mat-toolbar {
     }
 
     .action-btn {
-        background: var(--alt-color);
+        background: var(--alt-color) !important;
 
         &:hover {
             background: var(--shaded-alt-color) !important;
@@ -198,7 +202,7 @@ mat-toolbar {
     }
 
     .highlighted {
-        background-color: var(--dark-brand-color);
+        background-color: var(--dark-brand-color) !important;
         transform: translateY(-10px);
         transition: transform 0.3s ease;
 
@@ -207,7 +211,6 @@ mat-toolbar {
         }
     }
 }
-
 // Desktop menu classes end
 
 
@@ -323,6 +326,8 @@ app-social-media {
             justify-content: flex-start;
             padding-left: 20px;
             flex-grow: 1;
+            background: var(--light-brand-color) !important;
+            border-radius: 0 !important;
             max-height: unset;
             font-size: 20px !important;
         }
@@ -332,7 +337,7 @@ app-social-media {
         }
 
         .action-btn {
-            background: var(--alt-color);
+            background: var(--alt-color) !important;
 
             &:hover {
                 background: var(--shaded-alt-color) !important;
@@ -340,7 +345,7 @@ app-social-media {
         }
 
         .highlighted {
-            background-color: var(--dark-brand-color);
+            background-color: var(--dark-brand-color) !important;
             transform: translateX(-20px);
             transition: transform 0.3s ease;
 

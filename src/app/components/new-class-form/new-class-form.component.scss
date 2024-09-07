@@ -169,19 +169,10 @@ mat-label {
 .submit-button {
     margin-top: 10px;
     padding: 10px;
-    background-color: var(--brand-color);
-    color: var(--light-color);
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-
-    &:hover {
-        background-color: var(--shaded-brand-color);
-    }
+    width: 100%;
 }
 
 .disclaimer {
-    // margin: 10px 0;
     margin-top: 10px;
     font-size: 12px;
     color: var(--dark-alt-color);

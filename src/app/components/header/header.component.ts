@@ -16,11 +16,11 @@ import { AppComponent } from '../../app.component';
   selector: 'app-header',
   standalone: true,
   imports: [
+    SocialMediaComponent,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     CommonModule,
-    SocialMediaComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

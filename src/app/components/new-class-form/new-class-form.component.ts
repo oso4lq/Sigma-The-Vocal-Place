@@ -36,7 +36,6 @@ enum FormState {
   providers: [
     { provide: DateAdapter, useClass: NativeDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
-    // { provide: MAT_DATE_LOCALE, useValue: 'eng-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
     // { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
   ],
@@ -136,8 +135,17 @@ export class NewClassFormComponent {
   // Go back to the start state
   goBackToStart() {
     this.currentFormState = FormState.Start;
+
+    // Reset the newbieForm
     this.newbieForm.reset();
-    this.activeSubForm.reset();
+
+    // Reset the activeSubForm
+    this.activeSubForm = this.fb.group({
+      name: ['John Doe', Validators.required],
+      date: ['', Validators.required],
+      time: ['', Validators.required],
+      message: [''],
+    });
   }
 
   // Close dialog
