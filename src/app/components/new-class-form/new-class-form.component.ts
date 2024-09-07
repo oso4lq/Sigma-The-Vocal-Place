@@ -11,26 +11,29 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/mat
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+enum FormState {
+  Start = 'StartState',
+  Newbie = 'NewbieState',
+  ActiveSub = 'ActiveSubState',
+  Submit = 'SubmitState'
+}
+
 @Component({
   selector: 'app-new-class-form',
   standalone: true,
   imports: [
-    CommonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatButtonModule,
-
-    FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-
     MatDatepickerModule,
     MatNativeDateModule,
+    MatFormFieldModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    CommonModule,
+    FormsModule,
   ],
   providers: [
-    // NativeDateAdapter,
-    // MatDatepickerModule,
     { provide: DateAdapter, useClass: NativeDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
     // { provide: MAT_DATE_LOCALE, useValue: 'eng-US' },
@@ -42,71 +45,102 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class NewClassFormComponent {
 
-  form: FormGroup;
-  formState: 'StartState' | 'NewbieState' | 'ActiveSubState' | 'SubmitState' = 'StartState';
+  newbieForm: FormGroup;
+  activeSubForm: FormGroup;
+  currentFormState: FormState = FormState.Start;
+  prevFormState: FormState | null = null;
   isSubmitted = false;
   submitSuccess = false;
   errorMessage = '';
 
   constructor(
     private dialogRef: MatDialogRef<NewClassFormComponent>,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
-    this.form = this.fb.group({
+    // Newbie form
+    this.newbieForm = this.fb.group({
       name: ['', Validators.required],
       phone: [''],
       telegram: [''],
-      date: [''],
-      time: [''],
+      message: [''],
+    });
+
+    // ActiveSub form
+    this.activeSubForm = this.fb.group({
+      name: ['John Doe', Validators.required],
+      date: ['', Validators.required],
+      time: ['', Validators.required],
       message: [''],
     });
   }
 
-  onUserTypeSelect(userType: string) {
-    if (userType === 'new') {
-      this.formState = 'NewbieState';
-    } else if (userType === 'signed') {
-      this.formState = 'ActiveSubState';
-      this.form.patchValue({ name: 'John Doe' }); // Set default value for signed up users
-    }
+  // Dynamically return the current form
+  get currentForm(): FormGroup {
+    return this.currentFormState === FormState.Newbie ? this.newbieForm : this.activeSubForm;
   }
 
-  onSubmit() {
-    const { name, phone, telegram } = this.form.value;
+  // Switch between form states
+  onUserTypeSelect(userType: string) {
+    this.prevFormState = userType === 'new' ? FormState.Newbie : FormState.ActiveSub;
+    this.currentFormState = this.prevFormState;
+  }
 
-    // Validate the "new" user form
-    if (this.formState === 'NewbieState') {
-      if (!name) {
+  // Form submission
+  onSubmit() {
+    console.log('Form submitted:', this.currentForm.value);
+
+    // Validate for NewbieState
+    if (this.currentFormState === FormState.Newbie) {
+      if (!this.newbieForm.get('name')?.value) {
         this.showErrorMessage('You must enter your name to submit the form');
         return;
       }
-      if (!phone && !telegram) {
+      if (!this.newbieForm.get('phone')?.value && !this.newbieForm.get('telegram')?.value) {
         this.showErrorMessage('You must enter at least one contact to submit the form');
         return;
       }
     }
 
-    // Validate the form
-    if (this.form.valid) {
-      this.isSubmitted = true;
-      this.submitSuccess = true; // Simulate success
-      this.formState = 'SubmitState';
+    // Validate for ActiveSubState
+    if (this.currentFormState === FormState.ActiveSub) {
+      const date = this.activeSubForm.get('date')?.value;
+      const time = this.activeSubForm.get('time')?.value;
+
+      // Check if date or time is missing
+      if (!date || !time) {
+        const missingFields = [];
+        if (!date) missingFields.push('date');
+        if (!time) missingFields.push('time');
+        this.showErrorMessage(`Please fill in the ${missingFields.join(' and ')}`);
+        return;
+      }
     }
 
-    // Close the dialog 5 seconds after submitting the form 
-    setTimeout(() => this.closeDialog(), 5000);
+    // If form is valid, switch to SubmitState
+    if (this.currentForm.valid) {
+      this.isSubmitted = true;
+      this.submitSuccess = true;
+      this.currentFormState = FormState.Submit;
+
+      // Close the dialog 5 seconds after submitting the form
+      setTimeout(() => this.closeDialog(), 5000);
+    }
   }
 
-  // Show the error message for 5 seconds
+  // Show error message for 5 seconds
   showErrorMessage(message: string) {
     this.errorMessage = message;
-    setTimeout(() => this.errorMessage = '', 5000);
+    setTimeout(() => (this.errorMessage = ''), 5000);
   }
 
+  // Go back to the start state
   goBackToStart() {
-    this.formState = 'StartState';
+    this.currentFormState = FormState.Start;
+    this.newbieForm.reset();
+    this.activeSubForm.reset();
   }
 
+  // Close dialog
   closeDialog(): void {
     this.dialogRef.close();
   }

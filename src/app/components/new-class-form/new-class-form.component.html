@@ -7,7 +7,7 @@
     </div>
 
     <!-- StartState -->
-    <ng-container *ngIf="formState === 'StartState'">
+    <ng-container *ngIf="currentFormState === 'StartState'">
         <div class="user-type-toggle">
             <button class="toggle-btn toggle-btn_newbie" (click)="onUserTypeSelect('new')">
                 <img class="toggle-btn__img toggle-btn__img_newbie" alt="new user"
@@ -24,8 +24,8 @@
     </ng-container>
 
     <!-- NewbieState -->
-    <ng-container *ngIf="formState === 'NewbieState'">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ng-container *ngIf="currentFormState === 'NewbieState'">
+        <form [formGroup]="newbieForm" (ngSubmit)="onSubmit()">
 
             <div class="back" (click)="goBackToStart()">
                 <mat-icon>arrow_back_ios_new</mat-icon>Back
@@ -50,8 +50,8 @@
     </ng-container>
 
     <!-- ActiveSubState -->
-    <ng-container *ngIf="formState === 'ActiveSubState'">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ng-container *ngIf="currentFormState === 'ActiveSubState'">
+        <form [formGroup]="activeSubForm" (ngSubmit)="onSubmit()">
 
             <div class="back" (click)="goBackToStart()">
                 <mat-icon>arrow_back_ios_new</mat-icon>Back
@@ -64,10 +64,14 @@
             <div class="flex-row date-time">
                 <mat-form-field>
                     <mat-label>DD.MM.YYYY</mat-label>
-                    <input matInput [matDatepicker]="picker" disabled>
+                    <!-- <input matInput [matDatepicker]="picker" disabled> -->
+                    <!-- <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date"> -->
+                    <!-- placeholder="Choose a date" -->
+                    <input matInput [matDatepicker]="picker" formControlName="date" readonly>
                     <!-- formControlName="date" placeholder="Choose a date" -->
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker disabled="false">
+                    <!-- <mat-datepicker #picker disabled="false"> -->
+                    <mat-datepicker #picker>
                         <mat-datepicker-actions>
                             <button mat-raised-button matDatepickerCancel>Cancel</button>
                             <button mat-raised-button matDatepickerApply>Apply</button>
@@ -88,14 +92,20 @@
     </ng-container>
 
     <!-- Error Box *ngIf="errorMessage" -->
-    <div class="error-box" *ngIf="formState === 'NewbieState' || formState === 'ActiveSubState'">
+    <div class="error-box" *ngIf="currentFormState === 'NewbieState' || currentFormState === 'ActiveSubState'">
         <span>{{ errorMessage }}</span>
     </div>
 
     <!-- SubmitState -->
-    <ng-container *ngIf="formState === 'SubmitState'">
+    <ng-container *ngIf="currentFormState === 'SubmitState'">
         <p class="submit__message" *ngIf="submitSuccess">
-            Your request was successful!<br>Please wait until I contact you.
+            Your request was successful!
+        </p>
+        <p class="submit__message" *ngIf="submitSuccess && prevFormState === 'NewbieState'">
+            Please wait until I contact you.
+        </p>
+        <p class="submit__message" *ngIf="submitSuccess && prevFormState === 'ActiveSubState'">
+            You've signed up for your next class with <span class="sigma-font">ΣΙΓΜΑ</span>
         </p>
         <p class="submit__message" *ngIf="!submitSuccess">
             There was an error submitting your request. Please try again.
@@ -103,7 +113,7 @@
     </ng-container>
 
     <!-- Telegram Bot -->
-    <div class="form-footer" *ngIf="formState !== 'SubmitState'">
+    <div class="form-footer" *ngIf="currentFormState !== 'SubmitState'">
         <span class="form-footer__text">
             Or sign up for a class via the
         </span>
