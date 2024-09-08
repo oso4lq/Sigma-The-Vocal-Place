@@ -50,7 +50,7 @@
                 <span (click)="closeDialogAndNavigate()" class="privacy-terms">политикой конфиденциальности</span>
             </div>
 
-            <button mat-button mat-raised-button type="submit" class="submit-button">Отправить</button>
+            <button mat-button mat-raised-button type="submit" class="submit__button">Отправить</button>
 
         </form>
     </ng-container>
@@ -103,7 +103,7 @@
             <textarea class="textarea" type="message" formControlName="message"
                 placeholder="Комментарий (необязательно)"></textarea>
 
-            <button mat-buttom mat-raised-button type="submit" class="submit-button">
+            <button mat-buttom mat-raised-button type="submit" class="submit__button">
                 Отправить
                 <!-- Submit -->
             </button>
@@ -112,12 +112,13 @@
     </ng-container>
 
     <!-- Error Box *ngIf="errorMessage" -->
-    <div class="flex-row center-all error-box" *ngIf="currentFormState === 'NewbieState' || currentFormState === 'ActiveSubState'">
+    <div class="flex-row center-all error-box"
+        *ngIf="currentFormState === 'NewbieState' || currentFormState === 'ActiveSubState'">
         <span>{{ errorMessage }}</span>
     </div>
 
     <!-- SubmitState -->
-    <ng-container *ngIf="currentFormState === 'SubmitState'">
+    <div class="flex-col center-all flex-grow submit" *ngIf="currentFormState === 'SubmitState'">
         <p class="submit__message" *ngIf="submitSuccess">
             Ваш запрос был отправлен!
             <!-- Your request was successful! -->
@@ -134,7 +135,7 @@
             Произошла ошибка во время отправления запроса. Пожалуйста, попробуйте снова.
             <!-- There was an error submitting your request. Please try again. -->
         </p>
-    </ng-container>
+    </div>
 
     <!-- Telegram Bot -->
     <div class="flex-col center-all form-footer" *ngIf="currentFormState !== 'SubmitState'">
