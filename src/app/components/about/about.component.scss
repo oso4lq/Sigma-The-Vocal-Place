@@ -17,6 +17,7 @@
   color: var(--light-color);
   justify-content: flex-end;
   transition: flex 0.3s ease;
+  flex-grow: 1;
 
   &.selected {
     flex: 0 0 300px;
@@ -41,14 +42,14 @@
   &__header {
     background: rgba(0, 0, 0, 0.7);
     padding: 10px 20px;
-    font-size: 22px;
+    font-size: 24px;
   }
 
   &__content {
     background: rgba(0, 0, 0, 0.5);
     padding: 20px 40px;
     transition: background 0.3s ease;
-    font-size: 18px;
+    font-size: 20px;
     text-align: justify;
 
     span {

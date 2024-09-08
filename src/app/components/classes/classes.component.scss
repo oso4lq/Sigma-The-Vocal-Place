@@ -82,7 +82,7 @@
     }
 
     &__content {
-        font-size: calc(12px + 0.1vw);
+        font-size: calc(10px + 0.25vw);
         color: var(--dark-alt-color);
         text-align: justify;
     }
@@ -126,7 +126,8 @@
         max-height: unset;
         margin: 15px 0;
         background: linear-gradient(70deg, var(--light-brand-color), var(--light-alt-color) 110%);
-        font-size: 18px;
+        color: #fff;
+        font-size: 22px;
         box-shadow: 0 0 8px var(--alt-color);
 
         &:hover {
@@ -146,7 +147,7 @@
 
         td {
             padding: 8px 0;
-            font-size: 16px;
+            font-size: 18px;
             border-bottom: 1px solid var(--dark-alt-color);
 
             span {

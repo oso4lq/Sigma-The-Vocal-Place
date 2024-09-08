@@ -1,4 +1,5 @@
 .newclass-form {
+    justify-content: flex-start;
     min-width: 400px;
     max-width: 400px;
     min-height: 400px;
@@ -37,13 +38,14 @@ h2 {
 
 .back {
     padding: 4px;
+    margin-bottom: 8px;
+    font-size: 18px;
     justify-content: flex-start;
     width: fit-content;
     gap: 10px;
     border-radius: 8px;
     transition: transform 0.3s ease;
     cursor: pointer;
-    margin-bottom: 8px;
 
     &:hover {
         transform: scale(1.1);
@@ -112,7 +114,7 @@ form {
     .input {
         padding: 10px;
         margin-top: 4px;
-        margin-bottom: 12px;
+        margin-bottom: 6px;
         border-radius: 4px;
         border: 1px solid #ccc;
 
@@ -170,7 +172,7 @@ mat-label {
 
 .submit {
     &__message {
-        font-size: 20px;
+        font-size: 22px;
     }
 }
 

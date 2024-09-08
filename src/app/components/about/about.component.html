@@ -7,7 +7,7 @@
     <div class="wrapper h-100 flex-row center-row desktop" *ngIf="!isMobile">
 
         <!-- Card template -->
-        <mat-card *ngFor="let card of cards" class="h-100 flex-grow card" [class.selected]="selectedCardId === card.id"
+        <mat-card *ngFor="let card of cards" class="h-100 card" [class.selected]="selectedCardId === card.id"
             (click)="selectCard(card.id)">
 
             <!-- Card text content -->

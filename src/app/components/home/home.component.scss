@@ -11,26 +11,28 @@
 
     .lower-line {
         font-size: 20px;
+        line-height: 16px;
     }
 
     h1 {
-        font-size: 32px;
+        font-size: 36px;
         margin: 0;
     }
 
     p {
-        font-size: 18px;
+        font-size: 20px;
         margin-bottom: 10px;
     }
 
     button {
         width: 100%;
-        max-width: 300px;
+        max-width: 350px;
         height: 50px;
         max-height: unset;
         margin: 15px 0;
         background: linear-gradient(70deg, var(--light-brand-color), var(--light-alt-color) 110%);
-        font-size: 18px;
+        color: #fff;
+        font-size: 22px;
         box-shadow: 0 0 8px var(--alt-color);
 
         &:hover {
