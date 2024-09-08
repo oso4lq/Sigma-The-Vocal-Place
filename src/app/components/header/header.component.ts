@@ -125,7 +125,7 @@ export class HeaderComponent implements OnInit {
 
   toggleMenu() {
     // Prevent opening the menu if the image viewer is open
-    if (this.parent.isImageViewerOpen) {
+    if (this.parent.isDialogOpen) {
       return;
     }
 

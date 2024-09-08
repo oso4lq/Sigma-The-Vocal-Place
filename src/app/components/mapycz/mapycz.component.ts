@@ -123,35 +123,8 @@ export class MapyczComponent implements OnInit, AfterViewInit {
     });
 
     this.map.addLayer(markerLayer);
-
-    // Detect clicks on the marker
-    // this.map.on('singleclick', (event) => {
-    //   const feature = this.map.forEachFeatureAtPixel(event.pixel, (feat) => feat);
-    //   if (feature === marker && this.mobileService.isMobile) {
-    //     this.openInMapsApp(this.centerCoordinates);
-    //   }
-    // });
   }
 
-  // openInMapsApp(coordinates: number[]): void {
-  //   const [longitude, latitude] = coordinates;
-  //   const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-  //   const appleMapsUrl = `http://maps.apple.com/?ll=${latitude},${longitude}`;
-
-  //   // Suggest appropriate map application based on the user's device
-  //   if (this.isMobile) {
-  //     if (this.isIOS) {
-  //       window.open(appleMapsUrl, '_blank');
-  //     } else if (this.isAndroid) {
-  //       window.open(googleMapsUrl, '_blank');
-  //     } else {
-  //       window.open(googleMapsUrl, '_blank'); // Fallback for other mobile devices
-  //     }
-  //   } else {
-  //     window.open(googleMapsUrl, '_blank'); // Default for desktop users
-  //   }
-  // }
-  
   openInMapsApp(coordinates: number[]): void {
     const [longitude, latitude] = coordinates;
     const geoUrl = `geo:${latitude},${longitude}`;
@@ -182,7 +155,6 @@ export class MapyczComponent implements OnInit, AfterViewInit {
   private addTooltip(): void {
     this.tooltipOverlay = new Overlay({
       element: this.tooltipElement.nativeElement,
-      // positioning: 'center-left',
       stopEvent: true,
       offset: [-142, -192], // Offset the tooltip
     });
