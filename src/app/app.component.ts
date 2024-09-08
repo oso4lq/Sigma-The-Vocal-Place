@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Card } from './interfaces/data.interface';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { NewClassFormComponent } from './components/new-class-form/new-class-form.component';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -23,58 +24,38 @@ export class AppComponent implements OnInit {
 
   constructor(
     private scrollingService: ScrollingService,
+    private route: ActivatedRoute,
     private dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    // Check section on app load
-    this.scrollingService.checkCurrentSection();
-    // Make header semi-transparent on the home section
-    this.scrollingService.handleHeaderTransparency();
-
     // Subscribe to router events to detect route changes
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const urlWithoutParams = event.url.split('?')[0];
 
-        const urlWithoutParams = event.url.split('?')[0]; // Remove query params for the comparison
-        const queryParams = this.route.snapshot.queryParams; // Get query params
-        const section = queryParams['section']; // Get the section parameter
+      if (urlWithoutParams === '/privacy-policy') {
+        // Disable jump-scrolling and reset header and buttons classes when outside the main page
+        this.scrollingService.setMainPage(false);
+        this.scrollingService.removeAllButtonHighlights();
+        this.scrollingService.resetHeaderTransparency();
+      }
 
-        if (urlWithoutParams === '/privacy-policy') {
+      if (urlWithoutParams === '/') {
+        // Re-enable jump-scrolling and scroll to the correct section
+        this.scrollingService.setMainPage(true);
 
-          // console.log('Navigated to privacy policy');
-          // Scroll to the top of the page ?
-          // setTimeout(() => {
-          //   window.scrollTo(0, 0);
-          // }, 100);
-
-          // Disable jump-scrolling and reset header and buttons classes when outside the main page
-          this.scrollingService.setMainPage(false);
-          this.scrollingService.removeAllButtonHighlights();
-          this.scrollingService.resetHeaderTransparency();
-        }
-
-        if (urlWithoutParams === '/') {
-          // console.log('Navigated to main page');
-          // Re-enable jump-scrolling and re-check the current section and transparency when returning to main
-          this.scrollingService.setMainPage(true);
-
-          this.scrollingService.checkCurrentSection();
-
-          // If there's a section in the query params, scroll to it
-          // if (section) {
-          //   const element = document.getElementById(section);
-          //   if (element) {
-          //     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          //   }
-          // } else {
-          //   this.scrollingService.checkCurrentSection();
-          // }
-
-          this.scrollingService.handleHeaderTransparency();
-        }
+        // Extract the query parameter section
+        this.route.queryParams.subscribe(params => {
+          const section = params['section'] || 'home-section';
+          this.scrollingService.scrollToSection(section);
+          setTimeout(() => {
+            this.scrollingService.checkCurrentSection();
+            this.scrollingService.handleHeaderTransparency();
+          }, 10);
+        });
       }
     });
   }

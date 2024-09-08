@@ -31,11 +31,11 @@ export class MapyczComponent implements OnInit, AfterViewInit {
 
   // Mapy.cz API key
   private readonly apiKey = 'f1Y41Hii6PjydSj-pb72qQeh7CeGorKmmZkiPmStogI';
-  // Use different viewport and marker coordinates?
-  private readonly centerCoordinates = [30.3301773, 59.874018];
+  // Viewport and marker coordinates
+  private readonly centerCoordinates = [30.3310239, 59.8739211];
 
   // TO DO for the mobile version:
-  // Suggest to open coordinates in a preferable maps app on clicking the marker 
+  // Suggest to open coordinates in a preferable maps app on clicking the marker
 
   constructor(
     private mobileService: MobileService,

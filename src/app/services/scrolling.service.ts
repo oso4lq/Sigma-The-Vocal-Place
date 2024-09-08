@@ -216,12 +216,12 @@ export class ScrollingService {
   scrollToSection(sectionId: string): void {
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-
+      setTimeout(() => {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+      }, 10);
       setTimeout(() => {
         this.isScrolling = false;
-      }, 500);
-
+      }, 500);  // Add a slight delay to ensure DOM is rendered before scrolling
       this.highlightMenuButton(sectionId);
     }
   }
