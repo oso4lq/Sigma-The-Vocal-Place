@@ -2,11 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Card } from '../../interfaces/data.interface';
+import { AppComponent } from '../../app.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-classes',
   standalone: true,
   imports: [
+    MatButtonModule,
     MatCardModule,
     CommonModule,
   ],
@@ -33,7 +36,7 @@ export class ClassesComponent {
     {
       id: 2,
       title: 'Осуществите свою мечту',
-      image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/icon_star_obdm8j.png',
+      image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/icon_star-824_enfepp.png',
       contentShort: '',
       contentLong: 'Начав заниматься вокалом, вы сможете исполнить любимую песню, развить свой уникальный стиль и звучание, научиться выступать перед аудиторией. Это уникальная возможность проявить творческие способности, преодолеть страх сцены и развить уверенность в себе.'
     },
@@ -45,5 +48,13 @@ export class ClassesComponent {
       contentLong: 'Уроки вокала помогут вам раскрыть свой потенциал, обрести уверенность и получать удовольствие от процесса. Вы научитесь правильному дыханию, разовьёте свой музыкальный слух, устраните телесные зажимы. Поставив голос, вы будете звучать естественно и наслаждаться своим природным тембром.'
     }
   ];
+
+  constructor(
+    private parent: AppComponent,
+  ) { }
+
+  openForm() {
+    this.parent.openForm();
+  }
 
 }

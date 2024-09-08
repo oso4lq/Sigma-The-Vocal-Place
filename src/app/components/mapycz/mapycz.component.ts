@@ -11,11 +11,13 @@ import VectorLayer from 'ol/layer/Vector';
 import { defaults as defaultControls, Control } from 'ol/control';
 import { MatIconModule } from '@angular/material/icon';
 import { MobileService } from '../../services/mobile.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-mapycz',
   standalone: true,
   imports: [
+    CommonModule,
     MatIconModule,
   ],
   templateUrl: './mapycz.component.html',
@@ -26,22 +28,26 @@ export class MapyczComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
   @ViewChild('tooltip', { static: false }) tooltipElement!: ElementRef;
 
+  isMobile = false;
+  isIOS = false;
+  isAndroid = false;
   private map!: Map;
   private tooltipOverlay!: Overlay;
 
   // Mapy.cz API key
   private readonly apiKey = 'f1Y41Hii6PjydSj-pb72qQeh7CeGorKmmZkiPmStogI';
-  // Use different viewport and marker coordinates?
-  private readonly centerCoordinates = [30.3301773, 59.874018];
-
-  // TO DO for the mobile version:
-  // Suggest to open coordinates in a preferable maps app on clicking the marker 
+  // Viewport and marker coordinates
+  readonly centerCoordinates = [30.3310239, 59.8739211];
 
   constructor(
     private mobileService: MobileService,
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.isMobile = this.mobileService.isMobile;
+    this.isIOS = this.detectIOS();
+    this.isAndroid = this.detectAndroid();
+  }
 
   ngAfterViewInit(): void {
     this.initializeMap();
@@ -56,7 +62,6 @@ export class MapyczComponent implements OnInit, AfterViewInit {
 
     // Re-enable swipe tracking when interaction ends
     this.mapContainer.nativeElement.addEventListener('touchend', () => {
-      // this.mobileService.enableSwipeTracking();
       setTimeout(() => this.mobileService.enableSwipeTracking(), 500);
     });
   }
@@ -120,24 +125,58 @@ export class MapyczComponent implements OnInit, AfterViewInit {
     this.map.addLayer(markerLayer);
 
     // Detect clicks on the marker
-    this.map.on('singleclick', (event) => {
-      const feature = this.map.forEachFeatureAtPixel(event.pixel, (feat) => feat);
-      if (feature === marker && this.mobileService.isMobile) {
-        this.openInMapsApp(this.centerCoordinates);
-      }
-    });
+    // this.map.on('singleclick', (event) => {
+    //   const feature = this.map.forEachFeatureAtPixel(event.pixel, (feat) => feat);
+    //   if (feature === marker && this.mobileService.isMobile) {
+    //     this.openInMapsApp(this.centerCoordinates);
+    //   }
+    // });
   }
 
-  private openInMapsApp(coordinates: number[]): void {
+  // openInMapsApp(coordinates: number[]): void {
+  //   const [longitude, latitude] = coordinates;
+  //   const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+  //   const appleMapsUrl = `http://maps.apple.com/?ll=${latitude},${longitude}`;
+
+  //   // Suggest appropriate map application based on the user's device
+  //   if (this.isMobile) {
+  //     if (this.isIOS) {
+  //       window.open(appleMapsUrl, '_blank');
+  //     } else if (this.isAndroid) {
+  //       window.open(googleMapsUrl, '_blank');
+  //     } else {
+  //       window.open(googleMapsUrl, '_blank'); // Fallback for other mobile devices
+  //     }
+  //   } else {
+  //     window.open(googleMapsUrl, '_blank'); // Default for desktop users
+  //   }
+  // }
+  
+  openInMapsApp(coordinates: number[]): void {
     const [longitude, latitude] = coordinates;
+    const geoUrl = `geo:${latitude},${longitude}`;
     const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-    const appleMapsUrl = `http://maps.apple.com/?ll=${latitude},${longitude}`;
 
-    // Check if it's an iOS device and open Apple Maps, otherwise open Google Maps
-    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const mapsUrl = isIOS ? appleMapsUrl : googleMapsUrl;
+    if (this.isMobile) {
+      if (this.isIOS || this.isAndroid) {
+        // Use the geo: scheme for both Android and iOS
+        window.location.href = geoUrl;
+      } else {
+        // For other mobile devices, fallback to Google Maps in the browser
+        window.open(googleMapsUrl, '_blank');
+      }
+    } else {
+      // For desktop users, fallback to Google Maps in the browser
+      window.open(googleMapsUrl, '_blank');
+    }
+  }
 
-    window.open(mapsUrl, '_blank');
+  private detectIOS(): boolean {
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  }
+
+  private detectAndroid(): boolean {
+    return /Android/i.test(navigator.userAgent);
   }
 
   private addTooltip(): void {
@@ -145,7 +184,7 @@ export class MapyczComponent implements OnInit, AfterViewInit {
       element: this.tooltipElement.nativeElement,
       // positioning: 'center-left',
       stopEvent: true,
-      offset: [-125, -160], // Offset the tooltip
+      offset: [-142, -192], // Offset the tooltip
     });
 
     this.map.addOverlay(this.tooltipOverlay);
@@ -178,7 +217,6 @@ export class MapyczComponent implements OnInit, AfterViewInit {
       });
     }
   }
-
 
   private preventPageScrollOnMapInteraction(): void {
     if (this.mapContainer) {

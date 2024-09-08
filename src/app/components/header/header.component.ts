@@ -11,16 +11,18 @@ import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperOptions } from 'swiper/types';
 import { AppComponent } from '../../app.component';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
+    SocialMediaComponent,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     CommonModule,
-    SocialMediaComponent,
+    RouterModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -50,6 +52,9 @@ export class HeaderComponent implements OnInit {
     private mobileService: MobileService,
     private parent: AppComponent,
     private renderer: Renderer2,
+
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -66,6 +71,30 @@ export class HeaderComponent implements OnInit {
     this.scrollingService.sectionIndex$.subscribe(index => {
       this.updateSwiperSection(index);
     });
+
+    // Listen for route changes and scroll to the section if applicable
+    this.router.events.subscribe(() => {
+      this.route.queryParams.subscribe(params => {
+        const section = params['section'];
+        if (section) {
+          this.scrollToSection(section);
+        }
+      });
+    });
+
+    // Listen for route changes and scroll to the section if applicable
+    // this.router.events.subscribe(() => {
+    //   this.route.queryParams.subscribe(params => {
+    //     const section = params['section'];
+    //     if (section) {
+    //       // Scroll to section based on the ID set in the component
+    //       const element = document.getElementById(section);
+    //       if (element) {
+    //         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    //       }
+    //     }
+    //   });
+    // });
   }
 
   ngAfterViewInit() {
@@ -76,13 +105,13 @@ export class HeaderComponent implements OnInit {
   // Display the current section name inside the #swiper-button
   updateSwiperSection(index: number) {
     if (this.swiperSections) {
-      this.swiperSections.slideTo(index);
+      this.swiperSections.slideTo(index - 1);
       this.swiperSectionID = index;
 
       // Update the custom property based on the current section index
       const swiperButton = document.getElementById('swiper-button');
       if (swiperButton) {
-        swiperButton.style.setProperty('--swiper-section-index', index.toString());
+        swiperButton.style.setProperty('--swiper-section-index', (index - 1).toString());
       }
     }
   }
@@ -101,7 +130,7 @@ export class HeaderComponent implements OnInit {
     }
 
     this.isMenuOpen = !this.isMenuOpen;
-    
+
     if (this.isMenuOpen) {
       const logo = document.body.querySelector('.logo');
       this.scrollingService.restrictBodyScrolling();
@@ -131,4 +160,10 @@ export class HeaderComponent implements OnInit {
     // Wait till the end of the animation and disable the backdrop div (none)
     setTimeout(() => this.renderer.removeClass(document.querySelector('.dropdown-background'), 'flex'), 300);
   }
+
+  openForm() {
+    this.closeMenu();
+    this.parent.openForm();
+  }
+
 }

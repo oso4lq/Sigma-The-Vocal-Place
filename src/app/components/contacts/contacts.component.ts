@@ -8,10 +8,10 @@ import { SocialMediaComponent } from '../social-media/social-media.component';
   selector: 'app-contacts',
   standalone: true,
   imports: [
+    SocialMediaComponent,
+    MapyczComponent,
     MatInputModule,
     MatCardModule,
-    MapyczComponent,
-    SocialMediaComponent,
   ],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss'

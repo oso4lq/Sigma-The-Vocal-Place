@@ -1,8 +1,8 @@
-<div class="flex-col swiper-container swiper-gallery didact-gothic-regular">
+<div class="flex-col swiper-container swiper-gallery">
     <div class="swiper-wrapper">
 
         <mat-card class="h-100 swiper-slide card" *ngFor="let slide of slides">
-            <img [src]="slide.image" alt="icon" class="w-h-100 card__background">
+            <img [src]="slide.image" alt="icon" loading="lazy" class="w-h-100 card__background">
             <mat-card-header class="flex-row center-col card__header">
                 <mat-card-title>{{ slide.title }}</mat-card-title>
             </mat-card-header>

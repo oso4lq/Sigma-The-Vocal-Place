@@ -5,6 +5,7 @@
 @import './styles/dialog.scss';
 @import './styles/buttons/buttons.scss';
 @import './styles/inputs/inputs.scss';
+@import './styles/datepicker.scss';
 @import '../node_modules/swiper/swiper-bundle.min.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
@@ -36,12 +37,17 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: "Didact Gothic", sans-serif;
 }
 
 .sigma-font {
     font-family: 'Blacker Sans Display Trial', sans-serif;
     font-weight: 600;
     font-size: 28px;
+}
+
+.roboto-font {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .didact-gothic-regular {
@@ -91,7 +97,7 @@ h2 {
 }
 
 .ol-viewport {
-    border-radius: 20px;
+    border-radius: 8px;
 }
 
 .ol-overlaycontainer-stopevent {
@@ -180,29 +186,101 @@ h2 {
     background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-.mat-mdc-dialog-panel {
+.image-viewer-dialog {
+    height: 80vh;
     aspect-ratio: 3 / 2;
     pointer-events: auto;
-    width: 100%;
+    // width: 100%;
 }
 
-.image-viewer-dialog {}
+.new-class-form-dialog {
+    pointer-events: auto;
+}
+
+// datepicker
+.cdk-overlay-connected-position-bounding-box {
+    position: fixed;
+    pointer-events: none;
+    // top: -150px !important;
+    // left: 250px !important;
+    // top: 120px !important;
+    // left: 240px !important;
+    width: unset !important;
+}
+
+.mat-datepicker-content .mat-calendar {
+    height: fit-content !important;
+}
+
+.mat-calendar-controls {
+    margin: 10px !important;
+}
+
+.mat-calendar-period-button {
+    display: contents !important;
+}
+
+.mat-datepicker-toggle {
+    background-color: transparent !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}
+
+.mat-mdc-form-field-flex {
+    height: 40px;
+    align-items: center !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: 1px solid #ccc;
+    background: #fff !important;
+}
+
+.mat-datepicker-input {
+    padding: 0 10px !important;
+}
+
+.mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+    padding: 0;
+}
+
+.mdc-floating-label {
+    height: 20px !important;
+    top: 10px !important;
+    left: 10px !important;
+}
 
 @media (max-width: 768px) {
-
     app-header {
         height: auto;
     }
 
-    // .plug {}
-
     .cdk-overlay-pane.mat-mdc-dialog-panel {
         max-width: none !important;
-        height: 100%;
+        display: flex;
+        align-items: center;
+        height: unset;
     }
 
-    .mat-mdc-dialog-panel {
-        aspect-ratio: 2 / 3;
+    .mat-mdc-dialog-container {
+        width: unset;
+        height: unset;
+    }
+
+    .mat-mdc-dialog-inner-container {
+        height: unset;
+    }
+
+    .image-viewer-dialog {
+        height: 100% !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .cdk-overlay-pane.mat-mdc-dialog-panel {
+        width: 100%;
+        height: 100%;
     }
 }
 

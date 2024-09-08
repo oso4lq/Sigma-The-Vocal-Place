@@ -16,7 +16,9 @@ export class ScrollingService {
     'studio-section',
     'contacts-section',
   ];
+
   private currentSectionIndex: number = 0;
+  private isMainPage: boolean = true;
   private isScrolling: boolean = false;
   private isScrollingRestricted: boolean = false;
 
@@ -69,21 +71,23 @@ export class ScrollingService {
   // highlight the section inside the swiper button (active section)
   private updateSwiperForSection(sectionId: string): void {
     const sectionMapping: { [key: string]: number } = {
-      'classes-section': 0,
-      'tutor-section': 1,
-      'studio-section': 2
+      'default': 0, // Default state for non-swiper sections
+      'classes-section': 1,
+      'tutor-section': 2,
+      'studio-section': 3
     };
-
-    const index = sectionMapping[sectionId];
+    // Default to 0 if no match
+    const index = sectionMapping[sectionId] || 0;
     this.sectionIndexSubject.next(index);
   }
 
-
   // Helper for onWindowScroll
+  // Check the current section and update the header elements
   checkCurrentSection(): void {
-    console.log('checkCurrentSection');
+    // console.log('checkCurrentSection');
     // Offset for the header height
     const scrollPosition = window.pageYOffset + 80;
+    let matchedSection = false;
 
     this.sections.forEach((sectionId, index) => {
       const sectionElement = document.getElementById(sectionId);
@@ -94,9 +98,21 @@ export class ScrollingService {
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
           this.currentSectionIndex = index;
           this.highlightMenuButton(sectionId);
+          matchedSection = true;
+
+          // Update the swiper state if we are in a swiper section
+          if (sectionId === 'classes-section' || sectionId === 'tutor-section' || sectionId === 'studio-section') {
+            this.updateSwiperForSection(sectionId);
+          } else {
+            this.updateSwiperForSection('default');  // Non-swiper sections
+          }
         }
       }
     });
+    // If no section matched, set the default swiper state
+    if (!matchedSection) {
+      this.updateSwiperForSection('default');
+    }
   }
 
   // Helper for onWindowScroll
@@ -127,11 +143,40 @@ export class ScrollingService {
     }
   }
 
+  // Remove all highlights from buttons when navigating to non-section pages
+  removeAllButtonHighlights(): void {
+    const buttons = document.querySelectorAll('.menu button, .menu-dropdown button');
+    buttons.forEach(button => {
+      this.renderer.removeClass(button, 'highlighted');
+    });
+    // Also remove highlight from the swiper button
+    this.renderer.removeClass(document.getElementById('swiper-button'), 'highlighted');
+  }
+
+  // Reset header transparency for non-section pages
+  resetHeaderTransparency(): void {
+    const menu = document.body.querySelector('.menu');
+    const logo = document.body.querySelector('.logo');
+
+    if (menu) {
+      this.renderer.removeClass(menu, 'semi-transparent');
+    }
+    // Ensure logo is fully opaque for mobile
+    if (this.mobileService.isMobile && logo) {
+      this.renderer.setStyle(logo, 'opacity', '1');
+    }
+  }
+
+  // Set whether the user is on the main page
+  setMainPage(isMain: boolean): void {
+    this.isMainPage = isMain;
+  }
+
   // Listen mouse wheel up/down
   private onWheelScroll(event: WheelEvent): void {
 
-    // Restrict listening to the mouse when the Image Viewer is opened
-    if (this.isScrollingRestricted) {
+    // Restrict listening to the mouse when outside the Main Page or the Image Viewer is opened
+    if (!this.isMainPage || this.isScrollingRestricted) {
       return
     }
 
@@ -149,8 +194,8 @@ export class ScrollingService {
   // Listen arrow up/down keys
   private onKeyDown(event: KeyboardEvent): void {
 
-    // Restrict listening to the keys when the Image Viewer is opened
-    if (this.isScrollingRestricted) {
+    // Restrict listening to the keys when outside the Main Page or the Image Viewer is opened
+    if (!this.isMainPage || this.isScrollingRestricted) {
       return
     }
 
@@ -171,12 +216,12 @@ export class ScrollingService {
   scrollToSection(sectionId: string): void {
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-
+      setTimeout(() => {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+      }, 10);
       setTimeout(() => {
         this.isScrolling = false;
-      }, 500);
-
+      }, 500);  // Add a slight delay to ensure DOM is rendered before scrolling
       this.highlightMenuButton(sectionId);
     }
   }

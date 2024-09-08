@@ -6,13 +6,14 @@
     <div class="h-100 content">
         <div class="flex-col center-col left-col">
             <div class="flex-col center-row h-100 left-col__wrapper">
-                <h3 class="cards__title didact-gothic-regular">Почему <span class="sigma-font">ΣΙΓΜΑ</span> ?</h3>
+                <h3 class="cards__title">Почему <span class="sigma-font">ΣΙΓΜΑ</span> ?</h3>
                 <div class="center-row cards">
                     <mat-card *ngFor="let card of cards" class="flex-col w-h-100 card">
-                        <mat-card-header class="flex-row center-row card__header didact-gothic-regular">
+                        <mat-card-header class="flex-row center-row card__header">
                             <mat-card-title>{{ card.title }}</mat-card-title>
                             <img [src]="card.image" alt="icon" class="card__icon">
                         </mat-card-header>
+                        <!-- roboto-font ? -->
                         <mat-card-content class="card__content">
                             <span>{{ card.contentLong }}</span>
                         </mat-card-content>
@@ -21,13 +22,13 @@
             </div>
         </div>
 
-        <div class="flex-col right-col didact-gothic-regular">
+        <div class="flex-col right-col">
             <div class="flex-col h-100 wrapper">
                 <div class="flex-col center-row price">
                     <span class="price__first">
                         Первое пробное занятие бесплатно!
                     </span>
-                    <button mat-button mat-raised-button>записаться</button>
+                    <button mat-button mat-raised-button (click)="openForm()">записаться</button>
                     <span class="price__list">
                         Прайс-лист:
                     </span>

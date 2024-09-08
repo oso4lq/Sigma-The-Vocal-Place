@@ -13,8 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-gallery',
   standalone: true,
   imports: [
-    MatCardModule,
     CommonModule,
+    MatCardModule,
     MatIconModule,
   ],
   templateUrl: './gallery.component.html',

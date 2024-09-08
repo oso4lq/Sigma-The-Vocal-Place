@@ -23,24 +23,46 @@
     pointer-events: auto;
 
     &__content {
-
         min-width: 150px;
-        max-width: 200px;
+        max-width: 230px;
     }
 
     p {
         margin: 0;
         margin-bottom: 8px;
-        font-size: 16px;
+        font-size: 20px;
 
         .sigma-font {
-            font-size: 22px;
+            font-size: 24px;
         }
     }
 
-    span {
-        font-size: 12px;
+    &__address {
+        font-size: 18px;
         white-space: normal;
+        margin-bottom: 2px;
+    }
+
+    &__city {
+        font-size: 14px;
+        white-space: normal;
+    }
+
+    &__open-map {
+        margin-top: 8px;
+        font-size: 14px;
+        align-self: end;
+    }
+
+    &__map-type {
+        font-size: 16px;
+        text-decoration: underline;
+        cursor: pointer;
+        transition: font-weight 0.1s ease-in-out;
+
+        &:hover {
+            font-weight: bold;
+        }
     }
 
     button {

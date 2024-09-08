@@ -1,4 +1,4 @@
-<div class="flex-col section didact-gothic-regular">
+<div class="flex-col section">
     <div class="flex-col plug">
         <h2></h2>
     </div>
@@ -6,7 +6,7 @@
     <!-- Desktop version -->
     <div class="h-100 content">
         <div class="flex-col center-row left-col education">
-            <img class="w-100 education__diploma" alt="diploma image" [src]="diplomaImg[0].image"
+            <img class="w-100 education__diploma" alt="diploma image" loading="lazy" [src]="diplomaImg[0].image"
                 (click)="openGallery(diplomaImg, 0)">
             <div class="flex-col center-col education__text">
                 <h3 class="education__title">Образование</h3>
@@ -17,7 +17,7 @@
                     <li>Кафедра эстрадно-джазового вокала</li>
                 </ul>
             </div>
-            <img class="education__pillar-top" alt=""
+            <img class="education__pillar-top" alt="" loading="lazy"
                 src="https://res.cloudinary.com/dxunxtt1u/image/upload/pillar-head_p9rfvj.png">
         </div>
 
@@ -33,12 +33,12 @@
                 <li>Владею несколькими музыкальными инструментами: пианино, гитара, скрипка, укулеле, барабаны,
                     гармошка, варган.</li>
             </ul>
-            <img class="img-action" alt="tutor in action" [src]="tutorInAction[0].image"
+            <img class="img-action" alt="tutor in action" loading="lazy" [src]="tutorInAction[0].image"
                 (click)="openGallery(tutorInAction, 0)">
         </div>
 
         <div class="flex-col center-all right-col">
-            <img class="img-cover" alt="teacher image bckg-transparent"
+            <img class="img-cover" alt="teacher image bckg-transparent" loading="lazy"
                 src="https://res.cloudinary.com/dxunxtt1u/image/upload/cat_S_sing3_blank_mirror_ktur4y.png">
         </div>
     </div>
@@ -61,11 +61,11 @@
                         <li>Кафедра эстрадно-джазового вокала</li>
                     </ul>
                 </div>
-                <img class="w-100 education__diploma" alt="diploma image" [src]="diplomaImg[0].image"
+                <img class="w-100 education__diploma" alt="diploma image" loading="lazy" [src]="diplomaImg[0].image"
                     (click)="openGallery(diplomaImg, 0)">
             </div>
             <div class="flex-row upper__img">
-                <img class="img-cover" alt="teacher image bckg-transparent"
+                <img class="img-cover" alt="teacher image bckg-transparent" loading="lazy"
                     src="https://res.cloudinary.com/dxunxtt1u/image/upload/cat_S_sing3_blank_mirror_ktur4y.png">
             </div>
         </div>
@@ -89,9 +89,9 @@
         </div>
 
         <div class="flex-col center-all education__wrapper display">
-            <img class="education__diploma" alt="diploma image" [src]="diplomaImg[0].image"
+            <img class="education__diploma" alt="diploma image" loading="lazy" [src]="diplomaImg[0].image"
                 (click)="openGallery(diplomaImg, 0)">
-            <img class="education__pillar-top" alt=""
+            <img class="education__pillar-top" alt="" loading="lazy"
                 src="https://res.cloudinary.com/dxunxtt1u/image/upload/pillar-head_p9rfvj.png">
         </div>
     </div>

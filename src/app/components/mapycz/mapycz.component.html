@@ -1,16 +1,26 @@
 <!-- Mapy CZ widget -->
-<!-- <div #mapContainer class="map-container"></div> -->
+<div #mapContainer class="map-container"></div>
 
 <!-- Tooltip with address -->
 <div #tooltip class="tooltip">
-    <div class="flex-row tooltip__wrapper">
-        <div class="flex-col tooltip__content">
-            <p>Вокальная студия <span class="sigma-font">ΣΙΓΜΑ</span></p>
-            <span>123 Vocal Lane, Music City</span>
+    <div class="flex-col tooltip__wrapper">
+
+        <div class="flex-row">
+            <div class="flex-col tooltip__content">
+                <p>Вокальная студия <span class="sigma-font">ΣΙΓΜΑ</span></p>
+                <span class="tooltip__address">Свеаборгская улица, 10</span>
+                <span class="tooltip__city">Санкт-Петербург, 196105</span>
+            </div>
+            <button class="flex-col tooltip__close" (click)="hideTooltip()"><mat-icon>close</mat-icon></button>
         </div>
-        <button class="flex-col tooltip__close" (click)="hideTooltip()"><mat-icon>close</mat-icon></button>
+
+        <!-- Display the appropriate map suggestion based on the device -->
+        <span class="tooltip__open-map" (click)="openInMapsApp(centerCoordinates)">
+            Открыть на
+            <span class="tooltip__map-type">
+                {{ isMobile ? (isIOS ? 'своей карте' : (isAndroid ? 'своей карте' : 'Google Maps')) : 'Google Maps' }}
+            </span>
+        </span>
+
     </div>
 </div>
-
-<!-- TO DO -->
-<!-- Make tooltip positioning adjustable to its content size. -->
