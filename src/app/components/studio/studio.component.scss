@@ -3,7 +3,6 @@
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto 1fr;
     row-gap: 2vh;
-    height: 100%;
 }
 
 .gallery-thumbs {
@@ -15,7 +14,7 @@
         overflow: hidden;
         margin-top: 2vh;
         background-image: linear-gradient(to left, rgba(191, 173, 81, 0.5), transparent);
-        border-bottom-right-radius: 8px;
+        border-bottom-right-radius: 4px;
     }
 
     .thumbs-slide {
@@ -31,10 +30,8 @@
     }
 
     .thumbnail-image {
-        width: 100%;
-        height: 100%;
         object-fit: cover;
-        border-radius: 8px;
+        border-radius: 4px;
     }
 }
 
@@ -51,8 +48,8 @@
         width: calc(100% - 80px);
         margin-top: 2vh;
         background: rgb(191, 173, 81, 0.5);
-        border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
 
         h3 {
             height: 32px;
@@ -111,8 +108,8 @@
         padding: 10px 0;
         width: calc(100% - 80px);
         background: rgb(191, 173, 81, 0.5);
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
 
         h3 {
             height: 30px;
@@ -136,7 +133,7 @@
         line-height: 1.4;
         background: #ddeec4;
         border-left: 4px solid var(--light-alt-color);
-        border-radius: 5px;
+        border-radius: 4px;
         list-style: none;
 
         &::before {
@@ -168,11 +165,10 @@
 }
 
 .swiper-reviews {
-    height: 100%;
     flex-grow: 1;
     overflow: hidden;
     background-image: linear-gradient(to right, rgba(191, 173, 81, 0.5), transparent);
-    border-bottom-left-radius: 8px;
+    border-bottom-left-radius: 4px;
 
     .reviews-wrapper {
         align-items: center;
@@ -183,18 +179,15 @@
         max-width: 400px;
         background: var(--light-color);
         color: var(--dark-color);
-        border-radius: 8px;
+        border-radius: 4px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     .reviews-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         gap: 10px;
         padding: 10px 30px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
 
         .user-name {
             font-weight: bold;
@@ -205,7 +198,7 @@
             width: 40px;
             height: 40px;
             object-fit: contain;
-            border-radius: 5px;
+            border-radius: 4px;
         }
     }
 

@@ -1,5 +1,5 @@
-<div class="newclass-form">
-    <div class="form-header">
+<div class="flex-col newclass-form">
+    <div class="flex-row center-row form-header">
         <h2>Новое занятие</h2>
         <div class="close" (click)="closeDialog()">
             <mat-icon>close</mat-icon>
@@ -8,40 +8,41 @@
 
     <!-- StartState -->
     <ng-container *ngIf="currentFormState === 'StartState'">
-        <div class="user-type-toggle">
-            <button class="toggle-btn toggle-btn_newbie" (click)="onUserTypeSelect('new')">
-                <img class="toggle-btn__img toggle-btn__img_newbie" alt="new user" loading="lazy"
+        <div class="flex-row user-type-toggle">
+            <button class="flex-col center-row toggle-btn toggle-btn_newbie" (click)="onUserTypeSelect('new')">
+                <img class="h-100 toggle-btn__img toggle-btn__img_newbie" alt="new user" loading="lazy"
                     src="https://res.cloudinary.com/dxunxtt1u/image/upload/cat_novice_xyjz3q.png" />
                 <span class="toggle-btn__text">Хочу начать</span>
             </button>
             <mat-divider [vertical]="true"></mat-divider>
-            <button class="toggle-btn toggle-btn_activesub" (click)="onUserTypeSelect('signed')">
-                <img class="toggle-btn__img toggle-btn__img_activesub" alt="existing user" loading="lazy"
+            <button class="flex-col center-row toggle-btn toggle-btn_activesub" (click)="onUserTypeSelect('signed')">
+                <img class="h-100 toggle-btn__img toggle-btn__img_activesub" alt="existing user" loading="lazy"
                     src="https://res.cloudinary.com/dxunxtt1u/image/upload/cat_pro_nllrwi.png" />
-                <span class="toggle-btn__text">Я уже занимаюсь</span>
+                <span class="toggle-btn__text">Уже занимаюсь</span>
             </button>
         </div>
     </ng-container>
 
     <!-- NewbieState -->
     <ng-container *ngIf="currentFormState === 'NewbieState'">
-        <form [formGroup]="newbieForm" (ngSubmit)="onSubmit()">
+        <form class="flex-col center-col" [formGroup]="newbieForm" (ngSubmit)="onSubmit()">
 
-            <div class="back" (click)="goBackToStart()">
+            <div class="flex-row center-row back" (click)="goBackToStart()">
                 <mat-icon>arrow_back_ios_new</mat-icon>Назад
             </div>
 
             <label class="label" for="name">Имя</label>
-            <input class="input" type="text" formControlName="name" placeholder="Your name" />
+            <input class="input" type="text" formControlName="name" placeholder="Ваше имя" />
 
             <label class="label" for="phone">Телефон</label>
-            <input class="input" type="text" formControlName="phone" placeholder="Your phone number" />
+            <input class="input" type="text" formControlName="phone" placeholder="Ваш телефон" />
 
             <label class="label" for="telegram">Telegram</label>
-            <input class="input" type="text" formControlName="telegram" placeholder="Your Telegram username" />
+            <input class="input" type="text" formControlName="telegram" placeholder="Ваш Telegram" />
 
             <label class="label" for="message">Комментарий</label>
-            <textarea class="textarea" type="message" formControlName="message" placeholder="Your message"></textarea>
+            <textarea class="textarea" type="message" formControlName="message"
+                placeholder="Комментарий (необязательно)"></textarea>
 
             <div class="disclaimer">
                 Нажимая Отправить, вы соглашаетесь с
@@ -56,14 +57,14 @@
 
     <!-- ActiveSubState -->
     <ng-container *ngIf="currentFormState === 'ActiveSubState'">
-        <form [formGroup]="activeSubForm" (ngSubmit)="onSubmit()">
+        <form class="flex-col center-col" [formGroup]="activeSubForm" (ngSubmit)="onSubmit()">
 
-            <div class="back" (click)="goBackToStart()">
+            <div class="flex-row center-row back" (click)="goBackToStart()">
                 <mat-icon>arrow_back_ios_new</mat-icon>Назад
             </div>
 
             <label class="label" for="name">Имя</label>
-            <input class="input" type="text" formControlName="name" placeholder="Your name" readonly />
+            <input class="input" type="text" formControlName="name" placeholder="Ваше имя" readonly />
 
             <label class="label">
                 Дата и время
@@ -92,14 +93,15 @@
                 </mat-form-field>
 
                 <!-- <label class="label" for="time">Time</label> -->
-                <input class="input input_time" type="time" formControlName="time" placeholder="Choose a time" />
+                <input class="input input_time" type="time" formControlName="time" placeholder="Время" />
             </div>
 
             <label class="label" for="message">
                 Комментарий
                 <!-- Message -->
             </label>
-            <textarea class="textarea" type="message" formControlName="message" placeholder="Your message"></textarea>
+            <textarea class="textarea" type="message" formControlName="message"
+                placeholder="Комментарий (необязательно)"></textarea>
 
             <button mat-buttom mat-raised-button type="submit" class="submit-button">
                 Отправить
@@ -110,7 +112,7 @@
     </ng-container>
 
     <!-- Error Box *ngIf="errorMessage" -->
-    <div class="error-box" *ngIf="currentFormState === 'NewbieState' || currentFormState === 'ActiveSubState'">
+    <div class="flex-row center-all error-box" *ngIf="currentFormState === 'NewbieState' || currentFormState === 'ActiveSubState'">
         <span>{{ errorMessage }}</span>
     </div>
 

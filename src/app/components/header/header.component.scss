@@ -28,13 +28,13 @@ mat-toolbar {
     transition: opacity 0.5s ease-in-out;
 
     &__label {
-        font-size: 40px;
+        font-size: 46px;
         line-height: 40px;
     }
 
     &__sublabel {
-        font-size: 17px;
-        line-height: 18px;
+        font-size: 16px;
+        line-height: 16px;
     }
 }
 
@@ -43,9 +43,10 @@ mat-toolbar {
 .menu {
     background: var(--brand-color) !important;
     color: var(--light-color);
-    transition: background-color 0.5s ease-in-out, opacity 0.3s ease-in-out, height 0.25s ease-in-out;
-    flex-grow: 1;
-    height: 100%;
+    transition:
+        background-color 0.5s ease-in-out,
+        opacity 0.3s ease-in-out,
+        height 0.25s ease-in-out;
 
     button {
         flex-grow: 1;
@@ -58,13 +59,6 @@ mat-toolbar {
         transition:
             background-color 0.25s ease-in-out,
             transform 0.5s ease-in-out !important;
-
-        p {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
 
         #tutor-button {
             font-size: calc(14px + 0.2vw);
@@ -85,6 +79,7 @@ mat-toolbar {
     }
 
     .sections-slide {
+        margin: 0;
         transition:
             background-color 0.25s ease-in-out,
             transform 0.5s ease-in-out !important;
@@ -218,9 +213,7 @@ mat-toolbar {
         }
     }
 }
-
 // Desktop menu classes end
-
 
 app-social-media {
     width: 200px;
@@ -239,7 +232,6 @@ app-social-media {
         }
     }
 }
-
 
 // Mobile menu classes
 .dropdown-background {
@@ -281,6 +273,16 @@ app-social-media {
     .logo {
         width: unset;
         flex-grow: 1;
+
+        &__label {
+            font-size: 40px;
+            line-height: 40px;
+        }
+
+        &__sublabel {
+            font-size: 15px;
+            line-height: 15px;
+        }
     }
 
     .menu {
@@ -296,7 +298,6 @@ app-social-media {
             margin-left: 20px;
         }
     }
-
 
     // Mobile menu classes
     .dropdown-background {
@@ -316,8 +317,6 @@ app-social-media {
 
     .menu-dropdown {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         position: fixed;
         top: 80px;
         left: -75%;

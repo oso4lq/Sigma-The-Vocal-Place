@@ -11,7 +11,7 @@
                 <div class="flex-row center-row h-100 swiper-wrapper thumbs-wrapper">
                     <div class="flex-row center-all swiper-slide thumbs-slide"
                         *ngFor="let image of images; let i = index" (click)="openGallery(i)">
-                        <img [src]="image.image" [alt]="image.title" loading="lazy" class="thumbnail-image">
+                        <img [src]="image.image" [alt]="image.title" loading="lazy" class="w-h-100 thumbnail-image">
                     </div>
                 </div>
             </div>
@@ -49,10 +49,10 @@
         </div>
 
         <div class="flex-row reviews-slides">
-            <div class="flex-row center-row swiper-container swiper-reviews">
+            <div class="flex-row center-row h-100 swiper-container swiper-reviews">
                 <div class="swiper-wrapper reviews-wrapper">
                     <div class="flex-col swiper-slide reviews-slide" *ngFor="let slide of reviews">
-                        <div class="reviews-header andika-bold" [ngClass]="{
+                        <div class="flex-row center-row reviews-header andika-bold" [ngClass]="{
                             'avito': slide.source.id === 0,
                             'google': slide.source.id === 1,
                             'yandex': slide.source.id === 2,
@@ -60,7 +60,7 @@
                         }">
                             <div class="flex-row" style="align-items: flex-end; gap: 10px;">
                                 <ng-container *ngIf="slide.image; else placeholder">
-                                    <img [src]="slide.image" alt="user image" loading="lazy" >
+                                    <img [src]="slide.image" alt="user image" loading="lazy">
                                 </ng-container>
                                 <ng-template #placeholder>
                                     <img src="https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_lud6rq.png"
@@ -93,7 +93,7 @@
                     <div class="swiper-wrapper thumbs-wrapper">
                         <div class="swiper-slide thumbs-slide" *ngFor="let image of images; let i = index"
                             (click)="openGallery(i)">
-                            <img [src]="image.image" [alt]="image.title" loading="lazy" class="thumbnail-image">
+                            <img [src]="image.image" [alt]="image.title" loading="lazy" class="w-h-100 thumbnail-image">
                         </div>
                     </div>
                 </div>
@@ -119,10 +119,10 @@
                 <h3>Что говорят студенты:</h3>
             </div>
             <div class="reviews-slides">
-                <div class="swiper-container swiper-reviews">
+                <div class="h-100 swiper-container swiper-reviews">
                     <div class="swiper-wrapper reviews-wrapper">
                         <div class="swiper-slide reviews-slide" *ngFor="let slide of reviews">
-                            <div class="reviews-header" [ngClass]="{
+                            <div class="flex-row center-row reviews-header andika-bold" [ngClass]="{
                             'avito': slide.source.id === 0,
                             'google': slide.source.id === 1,
                             'yandex': slide.source.id === 2,
@@ -130,7 +130,7 @@
                         }">
                                 <div class="flex-row" style="align-items: flex-end; gap: 10px;">
                                     <ng-container *ngIf="slide.image; else placeholder">
-                                        <img [src]="slide.image" alt="user image" loading="lazy" >
+                                        <img [src]="slide.image" alt="user image" loading="lazy">
                                     </ng-container>
                                     <ng-template #placeholder>
                                         <img src="https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_lud6rq.png"
@@ -138,7 +138,8 @@
                                     </ng-template>
                                     <span class="user-name">{{ slide.user }}</span>
                                 </div>
-                                <img [src]="slide.source.logo" [alt]="slide.source.name" loading="lazy" class="source-logo">
+                                <img [src]="slide.source.logo" [alt]="slide.source.name" loading="lazy"
+                                    class="source-logo">
                             </div>
                             <mat-divider></mat-divider>
                             <div class="reviews-content">

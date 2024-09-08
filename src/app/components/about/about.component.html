@@ -7,12 +7,12 @@
     <div class="wrapper h-100 flex-row center-row desktop" *ngIf="!isMobile">
 
         <!-- Card template -->
-        <mat-card *ngFor="let card of cards" class="h-100 card" [class.selected]="selectedCardId === card.id"
+        <mat-card *ngFor="let card of cards" class="h-100 flex-grow card" [class.selected]="selectedCardId === card.id"
             (click)="selectCard(card.id)">
 
             <!-- Card text content -->
             <div class="w-h-100 card__background" [ngStyle]="{'background-image': 'url(' + card.image + ')'}"></div>
-            <mat-card-header class="card__header center-row">
+            <mat-card-header class="card__header center-all">
                 <mat-card-title>{{ card.title }}</mat-card-title>
             </mat-card-header>
             <mat-card-content class="card__content">
@@ -21,11 +21,11 @@
             </mat-card-content>
 
             <!-- Arrows display on the edge cards -->
-            <div *ngIf="card.id === 0 && selectedCardId !== card.id" class="arrow-layer center-all"
+            <div *ngIf="card.id === 0 && selectedCardId !== card.id" class="flex-row center-all arrow-layer"
                 (click)="prevImage($event)">
                 <mat-icon>arrow_back_ios_new</mat-icon>
             </div>
-            <div *ngIf="card.id === 2 && selectedCardId !== card.id" class="arrow-layer center-all"
+            <div *ngIf="card.id === 2 && selectedCardId !== card.id" class="flex-row center-all arrow-layer "
                 (click)="nextImage($event)">
                 <mat-icon>arrow_forward_ios_new</mat-icon>
             </div>
@@ -34,7 +34,7 @@
     </div>
 
     <!-- For Mobile Version -->
-    <div class="flex-col h-100 swiper-container swiper-about" *ngIf="isMobile">
+    <div class="flex-col w-h-100 swiper-container swiper-about" *ngIf="isMobile">
         <div class="swiper-wrapper">
             <mat-card class="h-100 swiper-slide about-slide" *ngFor="let card of cards">
                 <img [src]="card.image" alt="icon" loading="lazy" class="w-h-100 about-slide__background">
