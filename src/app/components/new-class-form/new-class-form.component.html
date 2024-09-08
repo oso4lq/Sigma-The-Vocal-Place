@@ -45,7 +45,8 @@
 
             <div class="disclaimer">
                 By clicking Submit you agree with the
-                <span routerLink="/privacy-policy" class="privacy-terms">Privacy Terms</span>
+                <!-- <span routerLink="/privacy-policy" class="privacy-terms">Privacy Terms</span> -->
+                <span (click)="closeDialogAndNavigate()" class="privacy-terms">Privacy Terms</span>
             </div>
 
             <button mat-button mat-raised-button type="submit" class="submit-button">Submit</button>

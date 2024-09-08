@@ -8,34 +8,40 @@
     </div>
 
     <!-- Sigma Logo -->
-    <div routerLink="/" class="flex-col h-100 center-row logo sigma-font" (click)="scrollToSection('home-section')">
+    <!-- <div routerLink="/" class="flex-col h-100 center-row logo sigma-font" (click)="scrollToSection('home-section')"> -->
+    <div [routerLink]="['/']" [queryParams]="{ section: 'home-section' }"
+        class="flex-col h-100 center-row logo sigma-font">
         <span class="logo__label">ΣΙΓΜΑ</span>
         <span class="logo__sublabel">the vocal place</span>
     </div>
 
     <!-- Desktop menu buttons -->
     <div class="flex-row center-row menu andika-regular">
-        <button id="home-button" mat-button mat-raised-button data-section="home-section"
-            (click)="scrollToSection('home-section')">
+        <button [routerLink]="['/']" [queryParams]="{ section: 'home-section' }" id="home-button" mat-button
+            mat-raised-button data-section="home-section">
             Главная
         </button>
-        <button id="about-button" mat-button mat-raised-button data-section="about-section"
-            (click)="scrollToSection('about-section')">
+        <button [routerLink]="['/']" [queryParams]="{ section: 'about-section' }" id="about-button" mat-button
+            mat-raised-button data-section="about-section">
             О ΣΙΓΜΑ
         </button>
 
         <button id="swiper-button" mat-button mat-raised-button data-section="classes-section">
-            <div class="swiper-container swiper-sections" [class.first-section]="swiperSectionID === 0"
-                [class.second-section]="swiperSectionID === 1" [class.third-section]="swiperSectionID === 2">
+            <div class="swiper-container swiper-sections" [class.first-section]="swiperSectionID === 1"
+                [class.second-section]="swiperSectionID === 2" [class.third-section]="swiperSectionID === 3">
                 <div class="swiper-wrapper sections-wrapper">
-                    <p class="swiper-slide sections-slide" (click)="scrollToSection('classes-section')"
+                    <p [routerLink]="['/']" [queryParams]="{ section: 'classes-section' }"
+                        class="swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
                         id="classes-button">
                         Занятия
                     </p>
-                    <p class="swiper-slide sections-slide" (click)="scrollToSection('tutor-section')" id="tutor-button">
+                    <p [routerLink]="['/']" [queryParams]="{ section: 'tutor-section' }"
+                        class="swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
+                        id="tutor-button">
                         Преподаватель
                     </p>
-                    <p class="swiper-slide sections-slide" (click)="scrollToSection('studio-section')"
+                    <p [routerLink]="['/']" [queryParams]="{ section: 'studio-section' }"
+                        class="swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
                         id="studio-button">
                         Студия
                     </p>
@@ -43,8 +49,8 @@
             </div>
         </button>
 
-        <button id="contact-button" mat-button mat-raised-button data-section="contacts-section"
-            (click)="scrollToSection('contacts-section')">
+        <button [routerLink]="['/']" [queryParams]="{ section: 'contacts-section' }" id="contact-button" mat-button
+            mat-raised-button data-section="contacts-section">
             Контакты
         </button>
         <button id="action-button" mat-button mat-raised-button class="action-btn" (click)="openForm()">
@@ -63,34 +69,38 @@
 <!-- Dropdown menu for mobile view -->
 <div class="dropdown-background andika-regular" (click)="closeMenu()">
     <div class="menu-dropdown" (click)="$event.stopPropagation()">
-        <button mat-button mat-raised-button data-section="home-section" (click)="scrollToSection('home-section')">
+        <button [routerLink]="['/']" [queryParams]="{ section: 'home-section' }" mat-button mat-raised-button
+            data-section="home-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>home</mat-icon>Главная
             </div>
         </button>
-        <button mat-button mat-raised-button data-section="about-section" (click)="scrollToSection('about-section')">
+        <button [routerLink]="['/']" [queryParams]="{ section: 'about-section' }" mat-button mat-raised-button
+            data-section="about-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>functions</mat-icon>О ΣΙΓΜΑ
             </div>
         </button>
-        <button mat-button mat-raised-button data-section="classes-section"
-            (click)="scrollToSection('classes-section')">
+        <button [routerLink]="['/']" [queryParams]="{ section: 'classes-section' }" mat-button mat-raised-button
+            data-section="classes-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>music_note</mat-icon>Занятия
             </div>
         </button>
-        <button mat-button mat-raised-button data-section="tutor-section" (click)="scrollToSection('tutor-section')">
+        <button [routerLink]="['/']" [queryParams]="{ section: 'tutor-section' }" mat-button mat-raised-button
+            data-section="tutor-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>school</mat-icon>Преподаватель
             </div>
         </button>
-        <button mat-button mat-raised-button data-section="studio-section" (click)="scrollToSection('studio-section')">
+        <button [routerLink]="['/']" [queryParams]="{ section: 'studio-section' }" mat-button mat-raised-button
+            data-section="studio-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>mic</mat-icon>Студия
             </div>
         </button>
-        <button mat-button mat-raised-button data-section="contacts-section"
-            (click)="scrollToSection('contacts-section')">
+        <button [routerLink]="['/']" [queryParams]="{ section: 'contacts-section' }" mat-button mat-raised-button
+            data-section="contacts-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>mail</mat-icon>Контакты
             </div>

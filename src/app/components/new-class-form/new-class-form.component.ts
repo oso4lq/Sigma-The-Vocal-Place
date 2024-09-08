@@ -10,7 +10,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 enum FormState {
   Start = 'StartState',
@@ -32,7 +32,7 @@ enum FormState {
     MatInputModule,
     MatIconModule,
     CommonModule,
-    RouterModule,
+    // RouterModule,
     FormsModule,
   ],
   providers: [
@@ -56,7 +56,8 @@ export class NewClassFormComponent {
 
   constructor(
     private dialogRef: MatDialogRef<NewClassFormComponent>,
-    private fb: FormBuilder
+    private router: Router, // Inject the Router
+    private fb: FormBuilder,
   ) {
     // Newbie form
     this.newbieForm = this.fb.group({
@@ -154,5 +155,11 @@ export class NewClassFormComponent {
   // Close dialog
   closeDialog(): void {
     this.dialogRef.close();
+  }
+
+  // Close the dialog and navigate
+  closeDialogAndNavigate(): void {
+    this.dialogRef.close();
+    this.router.navigate(['/privacy-policy']);
   }
 }

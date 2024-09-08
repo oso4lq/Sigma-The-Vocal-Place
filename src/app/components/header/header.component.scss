@@ -92,6 +92,13 @@ mat-toolbar {
 
     // Special styles, animations
     #swiper-button {
+
+        .default-no-section {
+            &:hover {
+                background: var(--shaded-brand-color);
+            }
+        }
+
         ::ng-deep .mdc-button__label {
             height: 100%;
             width: 100%;
@@ -211,6 +218,7 @@ mat-toolbar {
         }
     }
 }
+
 // Desktop menu classes end
 
 
