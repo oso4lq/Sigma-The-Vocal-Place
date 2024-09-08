@@ -1,7 +1,4 @@
 .newclass-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     min-width: 400px;
     max-width: 400px;
     min-height: 400px;
@@ -11,16 +8,10 @@
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.form-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    h2 {
-        height: unset;
-        font-size: 24px;
-        margin: 12px 0;
-    }
+h2 {
+    height: unset;
+    font-size: 24px;
+    margin: 12px 0;
 }
 
 .close {
@@ -46,15 +37,14 @@
 
 .back {
     padding: 4px;
-    display: flex;
-    align-items: center;
+    margin-bottom: 8px;
+    font-size: 18px;
     justify-content: flex-start;
     width: fit-content;
     gap: 10px;
     border-radius: 8px;
     transition: transform 0.3s ease;
     cursor: pointer;
-    margin-bottom: 8px;
 
     &:hover {
         transform: scale(1.1);
@@ -62,15 +52,10 @@
 }
 
 .user-type-toggle {
-    display: flex;
-    justify-content: space-between;
     margin-bottom: 20px;
 }
 
 .toggle-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     cursor: pointer;
     flex: 1;
     border: none;
@@ -80,7 +65,6 @@
 
     &__img {
         object-fit: cover;
-        height: 100%;
         max-width: 100%;
         transition: filter 0.3s ease;
 
@@ -117,16 +101,7 @@
     }
 }
 
-.divider {
-    width: 1px;
-    background-color: #ccc;
-    margin: 0 10px;
-}
-
 form {
-    display: flex;
-    flex-direction: column;
-
     .label {
         font-weight: bold;
     }
@@ -138,7 +113,7 @@ form {
     .input {
         padding: 10px;
         margin-top: 4px;
-        margin-bottom: 12px;
+        margin-bottom: 6px;
         border-radius: 4px;
         border: 1px solid #ccc;
 
@@ -166,12 +141,6 @@ mat-label {
     font-size: 16px;
 }
 
-.submit-button {
-    margin-top: 10px;
-    padding: 10px;
-    width: 100%;
-}
-
 .disclaimer {
     margin-top: 10px;
     font-size: 12px;
@@ -192,13 +161,19 @@ mat-label {
 .error-box {
     height: 24px;
     color: var(--warn-color);
-    display: flex;
-    justify-content: center;
 }
 
 .submit {
+    padding: 0 20px;
+
+    &__button {
+        margin-top: 10px;
+        padding: 10px;
+        width: 100%;
+    }
+
     &__message {
-        font-size: 20px;
+        font-size: 22px;
     }
 }
 
@@ -231,9 +206,6 @@ mat-label {
 
 @media (max-width: 600px) {
     .newclass-form {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         min-width: unset;
         max-width: unset;
         height: 100%;

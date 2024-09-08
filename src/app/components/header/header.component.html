@@ -11,11 +11,11 @@
     <div [routerLink]="['/']" [queryParams]="{ section: 'home-section' }"
         class="flex-col h-100 center-row logo sigma-font">
         <span class="logo__label">ΣΙΓΜΑ</span>
-        <span class="logo__sublabel">the vocal place</span>
+        <span class="logo__sublabel">вокальное место</span>
     </div>
 
     <!-- Desktop menu buttons -->
-    <div class="flex-row center-row menu andika-regular">
+    <div class="flex-row center-row h-100 flex-grow menu andika-regular">
         <button [routerLink]="['/']" [queryParams]="{ section: 'home-section' }" id="home-button" mat-button
             mat-raised-button data-section="home-section">
             Главная
@@ -30,17 +30,17 @@
                 [class.second-section]="swiperSectionID === 2" [class.third-section]="swiperSectionID === 3">
                 <div class="swiper-wrapper sections-wrapper">
                     <p [routerLink]="['/']" [queryParams]="{ section: 'classes-section' }"
-                        class="swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
+                        class="flex-row center-all swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
                         id="classes-button">
                         Занятия
                     </p>
                     <p [routerLink]="['/']" [queryParams]="{ section: 'tutor-section' }"
-                        class="swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
+                        class="flex-row center-all swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
                         id="tutor-button">
                         Преподаватель
                     </p>
                     <p [routerLink]="['/']" [queryParams]="{ section: 'studio-section' }"
-                        class="swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
+                        class="flex-row center-all swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
                         id="studio-button">
                         Студия
                     </p>
@@ -67,7 +67,7 @@
 
 <!-- Dropdown menu for mobile view -->
 <div class="dropdown-background andika-regular" (click)="closeMenu()">
-    <div class="menu-dropdown" (click)="$event.stopPropagation()">
+    <div class="flex-col menu-dropdown" (click)="$event.stopPropagation()">
         <button [routerLink]="['/']" [queryParams]="{ section: 'home-section' }" mat-button mat-raised-button
             data-section="home-section">
             <div class="flex-row center-row button-content">

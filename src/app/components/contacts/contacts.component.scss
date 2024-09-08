@@ -7,7 +7,6 @@
 }
 
 .wrapper {
-    // padding: 80px 0;
     gap: 40px;
 
     h3 {
@@ -18,16 +17,23 @@
 
     h4 {
         margin: 12px 0 6px 0;
-        font-size: 18px;
+        font-size: 22px;
 
         &:not(:first-child) {
             margin-top: 12px;
         }
     }
+
+    span {
+        font-size: 18px;
+    }
+}
+
+.sigma-font {
+    font-size: 28px !important;
 }
 
 .social-media {
-    // flex-wrap: wrap;
     gap: 10px;
 
     h4 {

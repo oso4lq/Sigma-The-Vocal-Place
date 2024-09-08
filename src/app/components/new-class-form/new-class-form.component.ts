@@ -89,16 +89,17 @@ export class NewClassFormComponent {
 
   // Form submission
   onSubmit() {
-    console.log('Form submitted:', this.currentForm.value);
 
     // Validate for NewbieState
     if (this.currentFormState === FormState.Newbie) {
       if (!this.newbieForm.get('name')?.value) {
-        this.showErrorMessage('You must enter your name to submit the form');
+        // this.showErrorMessage('You must enter your name to submit the form');
+        this.showErrorMessage('Пожалуйста, введите имя');
         return;
       }
       if (!this.newbieForm.get('phone')?.value && !this.newbieForm.get('telegram')?.value) {
-        this.showErrorMessage('You must enter at least one contact to submit the form');
+        // this.showErrorMessage('You must enter at least one contact to submit the form');
+        this.showErrorMessage('Пожалуйста, укажите хотя бы один способ связи');
         return;
       }
     }
@@ -111,9 +112,9 @@ export class NewClassFormComponent {
       // Check if date or time is missing
       if (!date || !time) {
         const missingFields = [];
-        if (!date) missingFields.push('date');
-        if (!time) missingFields.push('time');
-        this.showErrorMessage(`Please fill in the ${missingFields.join(' and ')}`);
+        if (!date) missingFields.push('дату');
+        if (!time) missingFields.push('время');
+        this.showErrorMessage(`Пожалуйста, укажите ${missingFields.join(' и ')}`);
         return;
       }
     }
