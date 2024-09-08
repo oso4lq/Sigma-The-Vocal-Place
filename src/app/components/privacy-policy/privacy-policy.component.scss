@@ -32,16 +32,7 @@ mat-expansion-panel-header {
     border-radius: 0;
 }
 
-
-// mat-expansion-panel-content {
-//     background: var(--light-brand-color) !important;
-// }
-
 ::ng-deep .mat-expansion-panel-body {
     background: var(--light-color) !important;
     color: #000;
 }
-
-// mat-expansion-panel-content ng-trigger ng-trigger-bodyExpansion {
-//     background: var(--light-brand-color) !important;
-// }
