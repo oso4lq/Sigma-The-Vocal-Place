@@ -20,7 +20,7 @@ import { filter } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   title = 'sigma-vocal-place';
-  isImageViewerOpen = false;
+  isDialogOpen = false;
 
   constructor(
     private scrollingService: ScrollingService,
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
   openImage(images: Card[], initialSlide: number) {
     // Disable scrolling and opening menu when the image viewer is opened
     this.scrollingService.restrictBodyScrolling();
-    this.isImageViewerOpen = true;
+    this.isDialogOpen = true;
 
     const dialogRef = this.dialog.open(GalleryComponent, {
       data: { slides: images, initialSlide: initialSlide },
@@ -76,14 +76,14 @@ export class AppComponent implements OnInit {
 
     // Enable scrolling and opening menu when the image viewer is closed
     dialogRef.afterClosed().subscribe(() => {
-      this.isImageViewerOpen = false;
+      this.isDialogOpen = false;
       this.scrollingService.enableBodyScrolling();
     });
   }
 
   openForm() {
     this.scrollingService.restrictBodyScrolling();
-    this.isImageViewerOpen = true;
+    this.isDialogOpen = true;
 
     const dialogRef = this.dialog.open(NewClassFormComponent, {
       hasBackdrop: true,
@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
 
     // Enable scrolling and opening menu when the image viewer is closed
     dialogRef.afterClosed().subscribe(() => {
-      this.isImageViewerOpen = false;
+      this.isDialogOpen = false;
       this.scrollingService.enableBodyScrolling();
     });
   }
