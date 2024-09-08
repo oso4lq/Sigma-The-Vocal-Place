@@ -58,6 +58,15 @@ export class AppComponent implements OnInit {
         });
       }
     });
+
+
+    // Listen for the popstate event to close the dialog NEW
+    window.addEventListener('popstate', () => {
+      if (this.isDialogOpen) {
+        this.dialog.closeAll();
+      }
+    });
+    //NEWEND
   }
 
   // Image Viewer
@@ -65,6 +74,10 @@ export class AppComponent implements OnInit {
     // Disable scrolling and opening menu when the image viewer is opened
     this.scrollingService.restrictBodyScrolling();
     this.isDialogOpen = true;
+
+    // Push fake state
+    history.pushState(null, '', window.location.href);
+    //END
 
     const dialogRef = this.dialog.open(GalleryComponent, {
       data: { slides: images, initialSlide: initialSlide },
@@ -78,12 +91,21 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.isDialogOpen = false;
       this.scrollingService.enableBodyScrolling();
+
+
+      // Remove fake state after closing dialog
+      history.back();
+      //END
     });
   }
 
   openForm() {
     this.scrollingService.restrictBodyScrolling();
     this.isDialogOpen = true;
+
+    // Push fake state
+    history.pushState(null, '', window.location.href);
+    //END
 
     const dialogRef = this.dialog.open(NewClassFormComponent, {
       hasBackdrop: true,
@@ -96,7 +118,10 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.isDialogOpen = false;
       this.scrollingService.enableBodyScrolling();
+
+      // Remove fake state after closing dialog
+      history.back();
+      //END
     });
   }
-
 }

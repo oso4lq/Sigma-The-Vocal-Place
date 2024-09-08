@@ -194,7 +194,6 @@
         grid-column: span 12;
         width: 100%;
         align-items: center;
-        background: var(--light-color);
         background: rgb(240, 240, 240, 0.8);
     }
 
@@ -221,11 +220,11 @@
         max-width: unset;
 
         &__header {
-            font-size: calc(18px + 0.5vw);
+            font-size: 22px;
         }
 
         &__content {
-            font-size: calc(12px + 0.5vw);
+            font-size: 18px;
         }
     }
 }
