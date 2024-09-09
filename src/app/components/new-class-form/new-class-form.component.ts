@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 
-enum FormState {
+export enum FormState {
   Start = 'StartState',
   Newbie = 'NewbieState',
   ActiveSub = 'ActiveSubState',

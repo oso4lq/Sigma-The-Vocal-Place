@@ -58,15 +58,6 @@ export class AppComponent implements OnInit {
         });
       }
     });
-
-
-    // Listen for the popstate event to close the dialog NEW
-    window.addEventListener('popstate', () => {
-      if (this.isDialogOpen) {
-        this.dialog.closeAll();
-      }
-    });
-    //NEWEND
   }
 
   // Image Viewer
@@ -91,11 +82,6 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.isDialogOpen = false;
       this.scrollingService.enableBodyScrolling();
-
-
-      // Remove fake state after closing dialog
-      history.back();
-      //END
     });
   }
 
@@ -118,10 +104,6 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.isDialogOpen = false;
       this.scrollingService.enableBodyScrolling();
-
-      // Remove fake state after closing dialog
-      history.back();
-      //END
     });
   }
 }
