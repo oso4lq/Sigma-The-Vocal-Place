@@ -2,7 +2,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { SocialMediaComponent } from '../social-media/social-media.component';
-import { ScrollingService } from '../../services/scrolling.service';
+import { MainSections, ScrollingService } from '../../services/scrolling.service';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MobileService } from '../../services/mobile.service';
@@ -11,7 +11,7 @@ import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperOptions } from 'swiper/types';
 import { AppComponent } from '../../app.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -32,6 +32,14 @@ export class HeaderComponent implements OnInit {
   isMenuOpen = false;
   swiperSections!: Swiper;
   swiperSectionID: number = 0;
+  sections: MainSections[] = [
+    MainSections.Home,
+    MainSections.About,
+    MainSections.Classes,
+    MainSections.Tutor,
+    MainSections.Studio,
+    MainSections.Contacts,
+  ];
 
   swiperSectionsConfig: SwiperOptions = {
     direction: 'vertical',
@@ -52,9 +60,6 @@ export class HeaderComponent implements OnInit {
     private mobileService: MobileService,
     private parent: AppComponent,
     private renderer: Renderer2,
-
-    private router: Router,
-    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -71,30 +76,6 @@ export class HeaderComponent implements OnInit {
     this.scrollingService.sectionIndex$.subscribe(index => {
       this.updateSwiperSection(index);
     });
-
-    // Listen for route changes and scroll to the section if applicable
-    this.router.events.subscribe(() => {
-      this.route.queryParams.subscribe(params => {
-        const section = params['section'];
-        if (section) {
-          this.scrollToSection(section);
-        }
-      });
-    });
-
-    // Listen for route changes and scroll to the section if applicable
-    // this.router.events.subscribe(() => {
-    //   this.route.queryParams.subscribe(params => {
-    //     const section = params['section'];
-    //     if (section) {
-    //       // Scroll to section based on the ID set in the component
-    //       const element = document.getElementById(section);
-    //       if (element) {
-    //         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    //       }
-    //     }
-    //   });
-    // });
   }
 
   ngAfterViewInit() {
@@ -116,11 +97,11 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  scrollToSection(id: string) {
+  navigateToSection(section: MainSections) {
     if (this.mobileService.isMobile) {
       this.closeMenu(); // Close menu after selection
     }
-    this.scrollingService.scrollToSection(id);
+    this.parent.navigateToSection(section);
   }
 
   toggleMenu() {

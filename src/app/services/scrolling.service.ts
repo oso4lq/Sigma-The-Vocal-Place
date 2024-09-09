@@ -2,23 +2,32 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { MobileService } from './mobile.service';
 import { BehaviorSubject } from 'rxjs';
 
+export enum MainSections {
+  Home = 'home-section',
+  About = 'about-section',
+  Classes = 'classes-section',
+  Tutor = 'tutor-section',
+  Studio = 'studio-section',
+  Contacts = 'contacts-section',
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ScrollingService {
 
   private renderer: Renderer2;
-  private sections: string[] = [
-    'home-section',
-    'about-section',
-    'classes-section',
-    'tutor-section',
-    'studio-section',
-    'contacts-section',
+  private sections: MainSections[] = [
+    MainSections.Home,
+    MainSections.About,
+    MainSections.Classes,
+    MainSections.Tutor,
+    MainSections.Studio,
+    MainSections.Contacts,
   ];
 
   private currentSectionIndex: number = 0;
-  private isMainPage: boolean = true;
+  isMainPage: boolean = true;
   private isScrolling: boolean = false;
   private isScrollingRestricted: boolean = false;
 
@@ -213,16 +222,16 @@ export class ScrollingService {
   }
 
   // Helper for onWheelScroll/onKeyDown and is used throughout the App
-  scrollToSection(sectionId: string): void {
-    const section = document.getElementById(sectionId);
-    if (section) {
+  scrollToSection(section: MainSections): void {
+    const sectionElement = document.getElementById(section);
+    if (sectionElement) {
       setTimeout(() => {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+        sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
       }, 10);
       setTimeout(() => {
         this.isScrolling = false;
       }, 500);  // Add a slight delay to ensure DOM is rendered before scrolling
-      this.highlightMenuButton(sectionId);
+      this.highlightMenuButton(section);
     }
   }
 

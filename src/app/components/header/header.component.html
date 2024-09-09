@@ -8,20 +8,19 @@
     </div>
 
     <!-- Sigma Logo -->
-    <div [routerLink]="['/']" [queryParams]="{ section: 'home-section' }"
-        class="flex-col h-100 center-row logo sigma-font">
+    <div (click)="navigateToSection(sections[0])" class="flex-col h-100 center-row logo sigma-font">
         <span class="logo__label">ΣΙΓΜΑ</span>
         <span class="logo__sublabel">вокальное место</span>
     </div>
 
     <!-- Desktop menu buttons -->
     <div class="flex-row center-row h-100 flex-grow menu andika-regular">
-        <button [routerLink]="['/']" [queryParams]="{ section: 'home-section' }" id="home-button" mat-button
-            mat-raised-button data-section="home-section">
+        <button (click)="navigateToSection(sections[0])" id="home-button" mat-button mat-raised-button
+            data-section="home-section">
             Главная
         </button>
-        <button [routerLink]="['/']" [queryParams]="{ section: 'about-section' }" id="about-button" mat-button
-            mat-raised-button data-section="about-section">
+        <button (click)="navigateToSection(sections[1])" id="about-button" mat-button mat-raised-button
+            data-section="about-section">
             О ΣΙΓΜΑ
         </button>
 
@@ -29,27 +28,24 @@
             <div class="swiper-container swiper-sections" [class.first-section]="swiperSectionID === 1"
                 [class.second-section]="swiperSectionID === 2" [class.third-section]="swiperSectionID === 3">
                 <div class="swiper-wrapper sections-wrapper">
-                    <p [routerLink]="['/']" [queryParams]="{ section: 'classes-section' }"
-                        class="flex-row center-all swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
-                        id="classes-button">
+                    <p (click)="navigateToSection(sections[2])" class="flex-row center-all swiper-slide sections-slide"
+                        [class.default-no-section]="swiperSectionID === 0" id="classes-button">
                         Занятия
                     </p>
-                    <p [routerLink]="['/']" [queryParams]="{ section: 'tutor-section' }"
-                        class="flex-row center-all swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
-                        id="tutor-button">
+                    <p (click)="navigateToSection(sections[3])" class="flex-row center-all swiper-slide sections-slide"
+                        [class.default-no-section]="swiperSectionID === 0" id="tutor-button">
                         Преподаватель
                     </p>
-                    <p [routerLink]="['/']" [queryParams]="{ section: 'studio-section' }"
-                        class="flex-row center-all swiper-slide sections-slide" [class.default-no-section]="swiperSectionID === 0"
-                        id="studio-button">
+                    <p (click)="navigateToSection(sections[4])" class="flex-row center-all swiper-slide sections-slide"
+                        [class.default-no-section]="swiperSectionID === 0" id="studio-button">
                         Студия
                     </p>
                 </div>
             </div>
         </button>
 
-        <button [routerLink]="['/']" [queryParams]="{ section: 'contacts-section' }" id="contact-button" mat-button
-            mat-raised-button data-section="contacts-section">
+        <button (click)="navigateToSection(sections[5])" id="contact-button" mat-button mat-raised-button
+            data-section="contacts-section">
             Контакты
         </button>
         <button id="action-button" mat-button mat-raised-button class="action-btn" (click)="openForm()">
@@ -68,38 +64,32 @@
 <!-- Dropdown menu for mobile view -->
 <div class="dropdown-background andika-regular" (click)="closeMenu()">
     <div class="flex-col menu-dropdown" (click)="$event.stopPropagation()">
-        <button [routerLink]="['/']" [queryParams]="{ section: 'home-section' }" mat-button mat-raised-button
-            data-section="home-section">
+        <button (click)="navigateToSection(sections[0])" mat-button mat-raised-button data-section="home-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>home</mat-icon>Главная
             </div>
         </button>
-        <button [routerLink]="['/']" [queryParams]="{ section: 'about-section' }" mat-button mat-raised-button
-            data-section="about-section">
+        <button (click)="navigateToSection(sections[1])" mat-button mat-raised-button data-section="about-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>functions</mat-icon>О ΣΙΓΜΑ
             </div>
         </button>
-        <button [routerLink]="['/']" [queryParams]="{ section: 'classes-section' }" mat-button mat-raised-button
-            data-section="classes-section">
+        <button (click)="navigateToSection(sections[2])" mat-button mat-raised-button data-section="classes-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>music_note</mat-icon>Занятия
             </div>
         </button>
-        <button [routerLink]="['/']" [queryParams]="{ section: 'tutor-section' }" mat-button mat-raised-button
-            data-section="tutor-section">
+        <button (click)="navigateToSection(sections[3])" mat-button mat-raised-button data-section="tutor-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>school</mat-icon>Преподаватель
             </div>
         </button>
-        <button [routerLink]="['/']" [queryParams]="{ section: 'studio-section' }" mat-button mat-raised-button
-            data-section="studio-section">
+        <button (click)="navigateToSection(sections[4])" mat-button mat-raised-button data-section="studio-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>mic</mat-icon>Студия
             </div>
         </button>
-        <button [routerLink]="['/']" [queryParams]="{ section: 'contacts-section' }" mat-button mat-raised-button
-            data-section="contacts-section">
+        <button (click)="navigateToSection(sections[5])" mat-button mat-raised-button data-section="contacts-section">
             <div class="flex-row center-row button-content">
                 <mat-icon>mail</mat-icon>Контакты
             </div>

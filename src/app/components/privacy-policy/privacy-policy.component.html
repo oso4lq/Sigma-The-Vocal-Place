@@ -281,7 +281,7 @@
 
     </mat-expansion-panel>
 
-    <button [routerLink]="['/']" [queryParams]="{ section: 'home-section' }" id="home-button" mat-button
+    <button (click)="navigateToSection()" id="home-button" mat-button
         mat-raised-button data-section="home-section">
         Вернуться на главную страницу
     </button>
