@@ -1,63 +1,72 @@
-<mat-toolbar class="flex-row center-row header">
+<mat-toolbar class="flex-row center-row">
 
-    <!-- Menu icon for mobile view -->
-    <div class="flex-row h-100 menu-icon" [class.shake]="isMenuOpen">
-        <button mat-icon-button (click)="toggleMenu()">
-            <mat-icon>menu</mat-icon>
-        </button>
-    </div>
+    <div class="flex-row flex-grow grower"></div>
 
-    <!-- Sigma Logo -->
-    <div (click)="navigateToSection(sections[0])" class="flex-col h-100 center-row logo sigma-font">
-        <span class="logo__label">ΣΙΓΜΑ</span>
-        <span class="logo__sublabel">вокальное место</span>
-    </div>
+    <div class="flex-row wrapper">
+        <!-- Menu icon for mobile view -->
+        <div class="flex-row h-100 menu-icon" [class.shake]="isMenuOpen">
+            <button mat-icon-button (click)="toggleMenu()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
 
-    <!-- Desktop menu buttons -->
-    <div class="flex-row center-row h-100 flex-grow menu andika-regular">
-        <button (click)="navigateToSection(sections[0])" id="home-button" mat-button mat-raised-button
-            data-section="home-section">
-            Главная
-        </button>
-        <button (click)="navigateToSection(sections[1])" id="about-button" mat-button mat-raised-button
-            data-section="about-section">
-            О ΣΙΓΜΑ
-        </button>
+        <!-- Sigma Logo -->
+        <div (click)="navigateToSection(sections[0])" class="flex-col h-100 center-row logo sigma-font">
+            <span class="logo__label">ΣΙΓΜΑ</span>
+            <span class="logo__sublabel">вокальное место</span>
+        </div>
 
-        <button id="swiper-button" mat-button mat-raised-button data-section="classes-section">
-            <div class="swiper-container swiper-sections" [class.first-section]="swiperSectionID === 1"
-                [class.second-section]="swiperSectionID === 2" [class.third-section]="swiperSectionID === 3">
-                <div class="swiper-wrapper sections-wrapper">
-                    <p (click)="navigateToSection(sections[2])" class="flex-row center-all swiper-slide sections-slide"
-                        [class.default-no-section]="swiperSectionID === 0" id="classes-button">
-                        Занятия
-                    </p>
-                    <p (click)="navigateToSection(sections[3])" class="flex-row center-all swiper-slide sections-slide"
-                        [class.default-no-section]="swiperSectionID === 0" id="tutor-button">
-                        Преподаватель
-                    </p>
-                    <p (click)="navigateToSection(sections[4])" class="flex-row center-all swiper-slide sections-slide"
-                        [class.default-no-section]="swiperSectionID === 0" id="studio-button">
-                        Студия
-                    </p>
+        <!-- Desktop menu buttons -->
+        <div class="flex-row center-row h-100 flex-grow menu andika-regular">
+            <button (click)="navigateToSection(sections[0])" id="home-button" mat-button mat-raised-button
+                data-section="home-section">
+                Главная
+            </button>
+            <button (click)="navigateToSection(sections[1])" id="about-button" mat-button mat-raised-button
+                data-section="about-section">
+                О ΣΙΓΜΑ
+            </button>
+
+            <button id="swiper-button" mat-button mat-raised-button data-section="classes-section">
+                <div class="swiper-container swiper-sections" [class.first-section]="swiperSectionID === 1"
+                    [class.second-section]="swiperSectionID === 2" [class.third-section]="swiperSectionID === 3">
+                    <div class="swiper-wrapper sections-wrapper">
+                        <p (click)="navigateToSection(sections[2])"
+                            class="flex-row center-all swiper-slide sections-slide"
+                            [class.default-no-section]="swiperSectionID === 0" id="classes-button">
+                            Занятия
+                        </p>
+                        <p (click)="navigateToSection(sections[3])"
+                            class="flex-row center-all swiper-slide sections-slide"
+                            [class.default-no-section]="swiperSectionID === 0" id="tutor-button">
+                            Преподаватель
+                        </p>
+                        <p (click)="navigateToSection(sections[4])"
+                            class="flex-row center-all swiper-slide sections-slide"
+                            [class.default-no-section]="swiperSectionID === 0" id="studio-button">
+                            Студия
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </button>
+            </button>
 
-        <button (click)="navigateToSection(sections[5])" id="contact-button" mat-button mat-raised-button
-            data-section="contacts-section">
-            Контакты
-        </button>
-        <button id="action-button" mat-button mat-raised-button class="action-btn" (click)="openForm()">
-            Записаться
-        </button>
-        <!-- <button mat-icon-button>
+            <button (click)="navigateToSection(sections[5])" id="contact-button" mat-button mat-raised-button
+                data-section="contacts-section">
+                Контакты
+            </button>
+            <button id="action-button" mat-button mat-raised-button class="action-btn" (click)="openForm()">
+                Записаться
+            </button>
+            <!-- <button mat-icon-button>
             Аккаунт
         </button> -->
+        </div>
+
+        <!-- Links to the social media -->
+        <app-social-media class="h-100"></app-social-media>
     </div>
 
-    <!-- Links to the social media -->
-    <app-social-media class="h-100"></app-social-media>
+    <div class="flex-row flex-grow grower"></div>
 
 </mat-toolbar>
 

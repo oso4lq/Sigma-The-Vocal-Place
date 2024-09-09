@@ -1,18 +1,21 @@
+.main-wrapper {
+    padding: 0 5%;
+}
+
 .content {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    padding: 0 5%;
+    max-width: 1600px;
 }
 
 .left-col {
     grid-column: span 7;
     margin: 2vh 20px 2vh 0;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .wrapper {
     padding: 8vh 20px;
-    margin-bottom: 4px;
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
 }
@@ -32,6 +35,29 @@
     }
 }
 
+// .cards {
+//     display: grid;
+//     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); // Use auto-fill to create responsive columns
+//     grid-auto-rows: auto; // Ensure that rows adjust automatically
+//     gap: 20px; // Spacing between the cards
+//     margin-bottom: 20px;
+//     justify-items: center; // Center cards in their grid cells
+
+//     &__title {
+//         margin: 0 0 15px 0;
+//         font-size: 28px;
+//         font-weight: 600;
+//         line-height: 30px;
+//     }
+// }
+
+// @media screen and (max-width: 480px) {
+//     .cards {
+//         grid-template-columns: 1fr; // For very small screens, display 1 card per row
+//         grid-template-rows: repeat(4, auto); // Adjust rows for 4 cards
+//     }
+// }
+
 .sigma-font {
     font-size: 32px;
 }
@@ -48,9 +74,7 @@
 }
 
 .card {
-    max-width: 300px;
-    min-height: 250px;
-    max-height: 300px;
+    // min-height: 250px;
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
     border-radius: 4px;
@@ -71,7 +95,7 @@
 
     &__header {
         margin-bottom: 8px;
-        font-size: 18px;
+        font-size: 22px;
         font-weight: 600;
     }
 
@@ -106,7 +130,6 @@
 
 .right-col {
     grid-column: span 5;
-    align-items: flex-start;
 }
 
 .price {
@@ -172,6 +195,10 @@
         height: unset;
     }
 
+    .main-wrapper {
+        padding: 0
+    }
+
     .content {
         gap: 20px;
         padding: 0;
@@ -184,6 +211,7 @@
     .left-col {
         grid-column: span 12;
         margin: 0;
+        padding: 0 40px;
 
         &__wrapper {
             padding: 0 10%;
@@ -199,6 +227,7 @@
 
     .wrapper {
         padding: 40px 20px;
+        margin-bottom: 4px;
     }
 
     .cards {
