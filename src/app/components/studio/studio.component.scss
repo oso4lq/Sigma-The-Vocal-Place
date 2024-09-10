@@ -63,15 +63,17 @@
     }
 
     &__description {
-        margin: 10px 80px 10px 20px;
+        max-width: 600px;
+        margin: 10px 20px;
         font-size: calc(16px + 0.2vw);
         text-align: justify;
     }
 
     &__list {
-        margin: 0;
-        padding: 0 20px;
+        max-width: 600px;
+        margin: 0 20px;
         margin-bottom: 10px;
+        padding: 0;
     }
 
     &__item {
@@ -267,16 +269,16 @@
         }
 
         &__description {
-            max-width: 600px;
+            width: unset;
             font-size: 18px;
             margin: 0;
             padding: 0 20px;
         }
 
         &__list {
-            display: flex;
-            flex-direction: column;
+            width: unset;
             margin: 0;
+            padding: 0 20px;
         }
 
         &__item {

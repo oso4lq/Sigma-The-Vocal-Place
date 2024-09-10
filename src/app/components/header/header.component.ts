@@ -99,7 +99,7 @@ export class HeaderComponent implements OnInit {
 
   navigateToSection(section: MainSections) {
     if (this.mobileService.isMobile) {
-      this.closeMenu(); // Close menu after selection
+      this.closeMenu();
     }
     this.parent.navigateToSection(section);
   }

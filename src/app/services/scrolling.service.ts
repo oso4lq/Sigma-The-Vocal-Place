@@ -93,7 +93,6 @@ export class ScrollingService {
   // Helper for onWindowScroll
   // Check the current section and update the header elements
   checkCurrentSection(): void {
-    // console.log('checkCurrentSection');
     // Offset for the header height
     const scrollPosition = window.pageYOffset + 80;
     let matchedSection = false;

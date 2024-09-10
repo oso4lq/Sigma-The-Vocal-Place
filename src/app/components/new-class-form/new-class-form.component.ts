@@ -93,7 +93,7 @@ export class NewClassFormComponent {
     if (this.currentFormState === FormState.Newbie) {
       if (!this.newbieForm.get('name')?.value) {
         // this.showErrorMessage('You must enter your name to submit the form');
-        this.showErrorMessage('Пожалуйста, введите имя');
+        this.showErrorMessage('Пожалуйста, укажите имя');
         return;
       }
       if (!this.newbieForm.get('phone')?.value && !this.newbieForm.get('telegram')?.value) {
