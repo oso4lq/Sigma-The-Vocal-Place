@@ -1,18 +1,10 @@
 {
-    "HOME": "Home",
-    "ABOUT": "About",
-    "SERVICES": "Services",
-    "CONTACT": "Contact",
-    "WELCOME": "Welcome to Our Vocal Studio!",
-    "OFFER": "We offer the best vocal training in the city.",
-    "LEARN_MORE": "Learn more about our services and instructors.",
-    "OUR_SERVICES": "Our Services",
-    "ABOUT_STUDIO": "About Our Studio",
-    "CONTACT_US": "Contact Us",
-    "YOUR_NAME": "Your name",
-    "YOUR_EMAIL": "Your email",
-    "YOUR_MESSAGE": "Your message",
-    "SEND": "Send",
-    "the vocal place": "the vocal place"
-  }
-  
+  "HOME": "Home",
+  "ABOUT": "About",
+  "CLASSES": "Classes",
+  "TUTOR": "Tutor",
+  "STUDIO": "Studio",
+  "CONTACT": "Contact",
+  "SIGN UP": "Sign Up",
+  "the vocal place": "the vocal place"
+}

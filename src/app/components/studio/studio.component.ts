@@ -36,7 +36,7 @@ export class StudioComponent {
     {
       id: 1,
       title: 'lesson 1',
-      image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/lesson1_lsfjiy.png',
+      image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/lesson1_png_qw1opv.png',
       contentShort: '',
       contentLong: '',
     },
