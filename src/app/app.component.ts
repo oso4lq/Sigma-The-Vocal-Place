@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
-import { ScrollingService } from './services/scrolling.service';
+import { MainSections, ScrollingService } from './services/scrolling.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Card } from './interfaces/data.interface';
 import { GalleryComponent } from './components/gallery/gallery.component';
@@ -19,12 +19,12 @@ import { filter } from 'rxjs';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+
   title = 'sigma-vocal-place';
   isDialogOpen = false;
 
   constructor(
     private scrollingService: ScrollingService,
-    private route: ActivatedRoute,
     private dialog: MatDialog,
     private router: Router,
   ) { }
@@ -46,18 +46,25 @@ export class AppComponent implements OnInit {
       if (urlWithoutParams === '/') {
         // Re-enable jump-scrolling and scroll to the correct section
         this.scrollingService.setMainPage(true);
-
-        // Extract the query parameter section
-        this.route.queryParams.subscribe(params => {
-          const section = params['section'] || 'home-section';
-          this.scrollingService.scrollToSection(section);
-          setTimeout(() => {
-            this.scrollingService.checkCurrentSection();
-            this.scrollingService.handleHeaderTransparency();
-          }, 10);
-        });
+        setTimeout(() => {
+          this.scrollingService.checkCurrentSection();
+          this.scrollingService.handleHeaderTransparency();
+        }, 10);
       }
     });
+  }
+
+  // Navigate to the section from anywhere in the app
+  navigateToSection(section?: MainSections) {
+    const targetSection = section || MainSections.Home;
+
+    if (!this.scrollingService.isMainPage) {
+      this.router.navigate(['/']).then(() => {
+        this.scrollingService.scrollToSection(targetSection);
+      });
+    } else {
+      this.scrollingService.scrollToSection(targetSection);
+    }
   }
 
   // Image Viewer
@@ -65,6 +72,9 @@ export class AppComponent implements OnInit {
     // Disable scrolling and opening menu when the image viewer is opened
     this.scrollingService.restrictBodyScrolling();
     this.isDialogOpen = true;
+
+    // Push fake state to close the popup with the back button
+    history.pushState(null, '', window.location.href);
 
     const dialogRef = this.dialog.open(GalleryComponent, {
       data: { slides: images, initialSlide: initialSlide },
@@ -85,6 +95,9 @@ export class AppComponent implements OnInit {
     this.scrollingService.restrictBodyScrolling();
     this.isDialogOpen = true;
 
+    // Push fake state to close the popup with the back button
+    history.pushState(null, '', window.location.href);
+
     const dialogRef = this.dialog.open(NewClassFormComponent, {
       hasBackdrop: true,
       backdropClass: 'custom-backdrop',
@@ -98,5 +111,4 @@ export class AppComponent implements OnInit {
       this.scrollingService.enableBodyScrolling();
     });
   }
-
 }

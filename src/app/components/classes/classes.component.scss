@@ -1,18 +1,21 @@
+.main-wrapper {
+    padding: 0 5%;
+}
+
 .content {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    padding: 0 5%;
+    max-width: 1600px;
 }
 
 .left-col {
     grid-column: span 7;
     margin: 2vh 20px 2vh 0;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .wrapper {
     padding: 8vh 20px;
-    margin-bottom: 4px;
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
 }
@@ -26,14 +29,37 @@
 
     &__title {
         margin: 0 0 15px 0;
-        font-size: 28px;
+        font-size: calc(26px + 0.2vw);
         font-weight: 600;
         line-height: 30px;
     }
 }
 
+// .cards {
+//     display: grid;
+//     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); // Use auto-fill to create responsive columns
+//     grid-auto-rows: auto; // Ensure that rows adjust automatically
+//     gap: 20px; // Spacing between the cards
+//     margin-bottom: 20px;
+//     justify-items: center; // Center cards in their grid cells
+
+//     &__title {
+//         margin: 0 0 15px 0;
+//         font-size: 28px;
+//         font-weight: 600;
+//         line-height: 30px;
+//     }
+// }
+
+// @media screen and (max-width: 480px) {
+//     .cards {
+//         grid-template-columns: 1fr; // For very small screens, display 1 card per row
+//         grid-template-rows: repeat(4, auto); // Adjust rows for 4 cards
+//     }
+// }
+
 .sigma-font {
-    font-size: 32px;
+    font-size: calc(30px + 0.2vw);
 }
 
 // Aligning cards based on their position in the grid
@@ -48,9 +74,6 @@
 }
 
 .card {
-    max-width: 300px;
-    min-height: 250px;
-    max-height: 300px;
     background-color: var(--light-color);
     box-shadow: 0 0 4px var(--dark-alt-color);
     border-radius: 4px;
@@ -71,7 +94,7 @@
 
     &__header {
         margin-bottom: 8px;
-        font-size: 18px;
+        font-size: calc(20px + 0.1vw);
         font-weight: 600;
     }
 
@@ -82,7 +105,7 @@
     }
 
     &__content {
-        font-size: calc(10px + 0.25vw);
+        font-size: calc(12px + 0.1vw);
         color: var(--dark-alt-color);
         text-align: justify;
     }
@@ -106,7 +129,6 @@
 
 .right-col {
     grid-column: span 5;
-    align-items: flex-start;
 }
 
 .price {
@@ -115,7 +137,7 @@
 
     &__first {
         font-weight: 600;
-        font-size: 22px;
+        font-size: calc(20px + 0.1vw);
         text-align: center;
     }
 
@@ -126,7 +148,7 @@
         max-height: unset;
         margin: 15px 0;
         background: linear-gradient(70deg, var(--light-brand-color), var(--light-alt-color) 110%);
-        color: #fff;
+        color: #fff !important;
         font-size: 22px;
         box-shadow: 0 0 8px var(--alt-color);
 
@@ -136,7 +158,7 @@
     }
 
     &__list {
-        font-size: 20px;
+        font-size: calc(18px + 0.2vw);
         text-align: center;
         margin-bottom: 0;
     }
@@ -147,11 +169,11 @@
 
         td {
             padding: 8px 0;
-            font-size: 18px;
+            font-size: calc(16px + 0.2vw);
             border-bottom: 1px solid var(--dark-alt-color);
 
             span {
-                font-size: 13px;
+                font-size: calc(10px + 0.2vw);
             }
 
             &:first-child {
@@ -172,6 +194,10 @@
         height: unset;
     }
 
+    .main-wrapper {
+        padding: 0
+    }
+
     .content {
         gap: 20px;
         padding: 0;
@@ -184,6 +210,7 @@
     .left-col {
         grid-column: span 12;
         margin: 0;
+        padding: 0 40px;
 
         &__wrapper {
             padding: 0 10%;
@@ -194,12 +221,12 @@
         grid-column: span 12;
         width: 100%;
         align-items: center;
-        background: var(--light-color);
         background: rgb(240, 240, 240, 0.8);
     }
 
     .wrapper {
         padding: 40px 20px;
+        margin-bottom: 4px;
     }
 
     .cards {
@@ -211,7 +238,12 @@
 
         &__title {
             margin-bottom: 20px;
+            font-size: 28px;
         }
+    }
+
+    .sigma-font {
+        font-size: 32px;
     }
 
     .card {
@@ -221,11 +253,32 @@
         max-width: unset;
 
         &__header {
-            font-size: calc(18px + 0.5vw);
+            font-size: 22px;
         }
 
         &__content {
-            font-size: calc(12px + 0.5vw);
+            font-size: 18px;
+        }
+    }
+
+    .price {
+        &__first {
+            font-size: 22px;
+        }
+
+        &__list {
+            font-size: 20px;
+        }
+
+        &__table {
+            td {
+
+                font-size: 18px;
+            }
+
+            span {
+                font-size: 13px;
+            }
         }
     }
 }

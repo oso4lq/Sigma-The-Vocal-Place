@@ -10,9 +10,9 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
-enum FormState {
+export enum FormState {
   Start = 'StartState',
   Newbie = 'NewbieState',
   ActiveSub = 'ActiveSubState',
@@ -32,7 +32,6 @@ enum FormState {
     MatInputModule,
     MatIconModule,
     CommonModule,
-    // RouterModule,
     FormsModule,
   ],
   providers: [
@@ -56,8 +55,8 @@ export class NewClassFormComponent {
 
   constructor(
     private dialogRef: MatDialogRef<NewClassFormComponent>,
-    private router: Router, // Inject the Router
     private fb: FormBuilder,
+    private router: Router,
   ) {
     // Newbie form
     this.newbieForm = this.fb.group({
@@ -94,7 +93,7 @@ export class NewClassFormComponent {
     if (this.currentFormState === FormState.Newbie) {
       if (!this.newbieForm.get('name')?.value) {
         // this.showErrorMessage('You must enter your name to submit the form');
-        this.showErrorMessage('Пожалуйста, введите имя');
+        this.showErrorMessage('Пожалуйста, укажите имя');
         return;
       }
       if (!this.newbieForm.get('phone')?.value && !this.newbieForm.get('telegram')?.value) {
@@ -135,6 +134,20 @@ export class NewClassFormComponent {
     this.errorMessage = message;
     setTimeout(() => (this.errorMessage = ''), 5000);
   }
+
+
+  // Handle back button press
+  // UNRESOLVED LOGIC
+  handleBackButton() {
+    if (this.currentFormState === FormState.Newbie || this.currentFormState === FormState.ActiveSub) {
+      console.log('handleBackButton back');
+      this.goBackToStart(); // Switch back to StartState if in NewbieState or ActiveSubState
+    } else if (this.currentFormState === FormState.Start) {
+      console.log('handleBackButton close');
+      this.closeDialog(); // Close the dialog if in StartState
+    }
+  }
+
 
   // Go back to the start state
   goBackToStart() {

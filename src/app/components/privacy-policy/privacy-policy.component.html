@@ -1,7 +1,7 @@
 <div class="flex-col center-row privacy-terms-wrapper">
     <h1>Политика в отношении обработки персональных данных</h1>
     <p>
-        Приветствую на странице с описанием обработки ваших персональных данных в соответствии с требованиями
+        Приветствую на странице с описанием порядка обработки ваших персональных данных в соответствии с требованиями
         Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных».
     </p>
     <a target="_blank" href="https://tilda.cc/ru/privacy-generator/">
@@ -281,8 +281,7 @@
 
     </mat-expansion-panel>
 
-    <button [routerLink]="['/']" [queryParams]="{ section: 'home-section' }" id="home-button" mat-button
-        mat-raised-button data-section="home-section">
+    <button (click)="navigateToSection()" id="home-button" mat-button mat-raised-button data-section="home-section">
         Вернуться на главную страницу
     </button>
 

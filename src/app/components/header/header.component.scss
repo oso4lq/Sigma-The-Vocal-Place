@@ -3,6 +3,18 @@ mat-toolbar {
     padding: 0;
     align-items: flex-start;
     z-index: 21;
+    justify-content: center;
+
+    .grower {
+        background: var(--brand-color);
+        height: inherit;
+    }
+
+    .wrapper {
+        height: 80px;
+        width: 100%;
+        max-width: 1600px;
+    }
 }
 
 .menu-icon {
@@ -213,6 +225,7 @@ mat-toolbar {
         }
     }
 }
+
 // Desktop menu classes end
 
 app-social-media {

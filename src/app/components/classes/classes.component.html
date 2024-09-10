@@ -3,9 +3,9 @@
         <h2></h2>
     </div>
 
-    <div class="h-100 content">
-        <div class="flex-col center-col left-col">
-            <div class="flex-col center-row h-100 left-col__wrapper">
+    <div class="flex-row center-col flex-grow main-wrapper">
+        <div class="w-h-100 content">
+            <div class="flex-col center-col left-col">
                 <h3 class="cards__title">Почему <span class="sigma-font">ΣΙΓΜΑ</span> ?</h3>
                 <div class="flex-col center-col flex-grow">
                     <div class="center-row cards">
@@ -14,7 +14,6 @@
                                 <mat-card-title>{{ card.title }}</mat-card-title>
                                 <img [src]="card.image" alt="icon" class="card__icon">
                             </mat-card-header>
-                            <!-- roboto-font ? -->
                             <mat-card-content class="card__content">
                                 <span>{{ card.contentLong }}</span>
                             </mat-card-content>
@@ -22,32 +21,32 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="flex-col right-col">
-            <div class="flex-col center-col h-100 wrapper">
-                <div class="flex-col center-row price">
-                    <span class="price__first">
-                        Первое пробное занятие бесплатно!
-                    </span>
-                    <button mat-button mat-raised-button (click)="openForm()">записаться</button>
-                    <span class="price__list">
-                        Прайс-лист:
-                    </span>
-                    <table class="w-100 price__table">
-                        <tr>
-                            <td>Разовое занятие</td>
-                            <td>2000 рублей</td>
-                        </tr>
-                        <tr>
-                            <td>Абонемент на 4 занятия</td>
-                            <td>7000 рублей <br> <span>1750 рублей за занятие</span></td>
-                        </tr>
-                        <tr>
-                            <td>Абонемент на 8 занятий</td>
-                            <td>12000 рублей <br> <span>1500 рублей за занятие</span></td>
-                        </tr>
-                    </table>
+            <div class="flex-col center-row right-col">
+                <div class="flex-col center-col h-100 wrapper">
+                    <div class="flex-col center-row price">
+                        <span class="price__first">
+                            Первое пробное занятие бесплатно!
+                        </span>
+                        <button mat-button mat-raised-button (click)="openForm()">записаться</button>
+                        <span class="price__list">
+                            Прайс-лист:
+                        </span>
+                        <table class="w-100 price__table">
+                            <tr>
+                                <td>Разовое занятие</td>
+                                <td>2000 рублей</td>
+                            </tr>
+                            <tr>
+                                <td>Абонемент на 4 занятия</td>
+                                <td>7000 рублей <br> <span>1750 рублей за занятие</span></td>
+                            </tr>
+                            <tr>
+                                <td>Абонемент на 8 занятий</td>
+                                <td>12000 рублей <br> <span>1500 рублей за занятие</span></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
