@@ -7,6 +7,7 @@ import { Card } from './interfaces/data.interface';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { NewClassFormComponent } from './components/new-class-form/new-class-form.component';
 import { filter } from 'rxjs';
+import { LoginComponent } from './components/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,8 @@ export class AppComponent implements OnInit {
     ).subscribe((event: NavigationEnd) => {
       const urlWithoutParams = event.url.split('?')[0];
 
-      if (urlWithoutParams === '/privacy-policy') {
+      // if (urlWithoutParams === '/privacy-policy') {
+      if (urlWithoutParams !== '/') {
         // Disable jump-scrolling and reset header and buttons classes when outside the main page
         this.scrollingService.setMainPage(false);
         this.scrollingService.removeAllButtonHighlights();
@@ -99,6 +101,27 @@ export class AppComponent implements OnInit {
     history.pushState(null, '', window.location.href);
 
     const dialogRef = this.dialog.open(NewClassFormComponent, {
+      hasBackdrop: true,
+      backdropClass: 'custom-backdrop',
+      panelClass: 'new-class-form-dialog',
+      disableClose: false,
+    });
+
+    // Enable scrolling and opening menu when the image viewer is closed
+    dialogRef.afterClosed().subscribe(() => {
+      this.isDialogOpen = false;
+      this.scrollingService.enableBodyScrolling();
+    });
+  }
+
+  openLogin() {
+    this.scrollingService.restrictBodyScrolling();
+    this.isDialogOpen = true;
+
+    // Push fake state to close the popup with the back button
+    history.pushState(null, '', window.location.href);
+
+    const dialogRef = this.dialog.open(LoginComponent, {
       hasBackdrop: true,
       backdropClass: 'custom-backdrop',
       panelClass: 'new-class-form-dialog',

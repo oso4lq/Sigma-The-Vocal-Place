@@ -147,4 +147,9 @@ export class HeaderComponent implements OnInit {
     this.parent.openForm();
   }
 
+  openLogin() {
+    this.closeMenu();
+    this.parent.openLogin();
+  }
+
 }

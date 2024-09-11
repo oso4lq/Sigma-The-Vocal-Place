@@ -17,3 +17,21 @@ export interface Source {
     name: string;
     logo: string;
 }
+
+export interface User {
+    id: number;
+    isadmin: boolean;
+    name: string;
+    img: string;
+    mail: string;
+    telegram: string;
+    phone: string;
+    seaspass: number; // amount of classes left in the season pass
+    classes: [];
+}
+
+export interface Booking {
+    id: number;
+    status: 'confirmed' | "cancelled" | "pending" | "executed";
+    date: string;
+}

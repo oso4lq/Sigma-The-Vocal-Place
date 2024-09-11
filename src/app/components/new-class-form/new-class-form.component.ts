@@ -12,11 +12,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 
-export enum FormState {
+enum FormClassState {
   Start = 'StartState',
   Newbie = 'NewbieState',
   ActiveSub = 'ActiveSubState',
-  Submit = 'SubmitState'
+  Submit = 'SubmitState',
 }
 
 @Component({
@@ -47,11 +47,14 @@ export class NewClassFormComponent {
 
   newbieForm: FormGroup;
   activeSubForm: FormGroup;
-  currentFormState: FormState = FormState.Start;
-  prevFormState: FormState | null = null;
-  isSubmitted = false;
-  submitSuccess = false;
+  currentFormState: FormClassState = FormClassState.Start;
+  prevFormState: FormClassState | null = null;
   errorMessage = '';
+  
+  // isSubmitted for waiting for responce
+  isSubmitted = false;
+  // submitSuccess for received positive responce
+  submitSuccess = false;
 
   constructor(
     private dialogRef: MatDialogRef<NewClassFormComponent>,
@@ -77,12 +80,12 @@ export class NewClassFormComponent {
 
   // Dynamically return the current form
   get currentForm(): FormGroup {
-    return this.currentFormState === FormState.Newbie ? this.newbieForm : this.activeSubForm;
+    return this.currentFormState === FormClassState.Newbie ? this.newbieForm : this.activeSubForm;
   }
 
   // Switch between form states
   onUserTypeSelect(userType: string) {
-    this.prevFormState = userType === 'new' ? FormState.Newbie : FormState.ActiveSub;
+    this.prevFormState = userType === 'new' ? FormClassState.Newbie : FormClassState.ActiveSub;
     this.currentFormState = this.prevFormState;
   }
 
@@ -90,7 +93,7 @@ export class NewClassFormComponent {
   onSubmit() {
 
     // Validate for NewbieState
-    if (this.currentFormState === FormState.Newbie) {
+    if (this.currentFormState === FormClassState.Newbie) {
       if (!this.newbieForm.get('name')?.value) {
         // this.showErrorMessage('You must enter your name to submit the form');
         this.showErrorMessage('Пожалуйста, укажите имя');
@@ -104,7 +107,7 @@ export class NewClassFormComponent {
     }
 
     // Validate for ActiveSubState
-    if (this.currentFormState === FormState.ActiveSub) {
+    if (this.currentFormState === FormClassState.ActiveSub) {
       const date = this.activeSubForm.get('date')?.value;
       const time = this.activeSubForm.get('time')?.value;
 
@@ -122,7 +125,7 @@ export class NewClassFormComponent {
     if (this.currentForm.valid) {
       this.isSubmitted = true;
       this.submitSuccess = true;
-      this.currentFormState = FormState.Submit;
+      this.currentFormState = FormClassState.Submit;
 
       // Close the dialog 5 seconds after submitting the form
       setTimeout(() => this.closeDialog(), 5000);
@@ -139,10 +142,10 @@ export class NewClassFormComponent {
   // Handle back button press
   // UNRESOLVED LOGIC
   handleBackButton() {
-    if (this.currentFormState === FormState.Newbie || this.currentFormState === FormState.ActiveSub) {
+    if (this.currentFormState === FormClassState.Newbie || this.currentFormState === FormClassState.ActiveSub) {
       console.log('handleBackButton back');
       this.goBackToStart(); // Switch back to StartState if in NewbieState or ActiveSubState
-    } else if (this.currentFormState === FormState.Start) {
+    } else if (this.currentFormState === FormClassState.Start) {
       console.log('handleBackButton close');
       this.closeDialog(); // Close the dialog if in StartState
     }
@@ -151,7 +154,7 @@ export class NewClassFormComponent {
 
   // Go back to the start state
   goBackToStart() {
-    this.currentFormState = FormState.Start;
+    this.currentFormState = FormClassState.Start;
     this.errorMessage = '';
 
     // Reset the newbieForm

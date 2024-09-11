@@ -1,0 +1,68 @@
+<div class="flex-col internal-page-wrapper">
+    <h1>Личный кабинет</h1>
+
+    <!-- User info row: userpic and name -->
+    <div class="flex-row user-info">
+        <img [src]="user.img || imgDefault" alt="Userpic" class="userpic" />
+        <h2>{{ user.name }}</h2>
+    </div>
+
+    <!-- Divider -->
+    <mat-divider></mat-divider>
+
+    <app-admin-console *ngIf="user.isadmin"></app-admin-console>
+
+    <div class="flex-col w-100 content-wrapper">
+
+        <!-- Personal details with edit button -->
+        <div class="my-details">
+            <div class="close" (click)="toggleEdit()">
+                <mat-icon>{{ isEditing ? 'done_all' : 'edit' }}</mat-icon>
+            </div>
+
+            <!-- Email (Top-left sector) -->
+            <div class="flex-row center-row contact-info email">
+                <label class="label">e-mail:</label>
+                <input class="input" type="text" [(ngModel)]="user.mail" [readonly]="!isEditing" />
+            </div>
+
+            <!-- Empty (Top-right sector) -->
+            <div class="empty-sector"></div>
+
+            <!-- Telegram (Bottom-left sector) -->
+            <div class="flex-row center-row contact-info telegram">
+                <label class="label">telegram:</label>
+                <input class="input" type="text" [(ngModel)]="user.telegram" [readonly]="!isEditing" />
+            </div>
+
+            <!-- Phone (Bottom-right sector) -->
+            <div class="flex-row center-row contact-info phone">
+                <label class="label">phone:</label>
+                <input class="input" type="text" [(ngModel)]="user.phone" [readonly]="!isEditing" />
+            </div>
+        </div>
+
+        <!-- Season Pass -->
+        <p *ngIf="user.seaspass > 0">
+            <ng-container *ngIf="user.seaspass === 1">
+                <strong>Абонемент:</strong> осталось {{ user.seaspass }} занятие
+            </ng-container>
+            <ng-container *ngIf="user.seaspass !== 1 && user.seaspass < 5">
+                <strong>Абонемент:</strong> осталось {{ user.seaspass }} занятия
+            </ng-container>
+            <ng-container *ngIf="user.seaspass > 4">
+                <strong>Абонемент:</strong> осталось {{ user.seaspass }} занятий
+            </ng-container>
+        </p>
+        <p *ngIf="!user.seaspass || user.seaspass === 0">
+            <strong>Абонемент:</strong> Чтобы приобрести абонемент, свяжитесь с преподавателем.
+        </p>
+
+        <!-- My classes section -->
+        <div class="flex-row center-row my-classes">
+            <p><strong>Мои занятия:</strong></p>
+            <div class="flex-col center-all flex-grow my-classes__list">[Plug for class logic]</div>
+            <button mat-raised-button (click)="refreshClasses()">обновить</button>
+        </div>
+    </div>
+</div>

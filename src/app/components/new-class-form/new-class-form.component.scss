@@ -60,7 +60,7 @@ h2 {
     flex: 1;
     border: none;
     padding: 0;
-    background: #d7d695;
+    background: var(--bright-alt-color);
     transition: background 0.3s ease;
 
     &__img {
