@@ -2,9 +2,14 @@
     <h1>Личный кабинет</h1>
 
     <!-- User info row: userpic and name -->
-    <div class="flex-row user-info">
-        <img [src]="user.img || imgDefault" alt="Userpic" class="userpic" />
-        <h2>{{ user.name }}</h2>
+    <div class="flex-row center-row user-info">
+        <div class="flex-row center-row contact-info">
+            <img [src]="user.img || imgDefault" alt="Userpic" class="userpic" />
+            <h2>{{ user.name }}</h2>
+        </div>
+        <div class="flex-row utility-btn utility-btn_logout" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+        </div>
     </div>
 
     <!-- Divider -->
@@ -12,53 +17,49 @@
 
     <app-admin-console *ngIf="user.isadmin"></app-admin-console>
 
+    <!-- admin & user section -->
     <div class="flex-col w-100 content-wrapper">
 
         <!-- Personal details with edit button -->
         <div class="my-details">
-            <div class="close" (click)="toggleEdit()">
+            <div class="utility-btn utility-btn_details" (click)="toggleEdit()">
                 <mat-icon>{{ isEditing ? 'done_all' : 'edit' }}</mat-icon>
             </div>
-
             <!-- Email (Top-left sector) -->
             <div class="flex-row center-row contact-info email">
                 <label class="label">e-mail:</label>
-                <input class="input" type="text" [(ngModel)]="user.mail" [readonly]="!isEditing" />
+                <input class="input" type="text" [(ngModel)]="user.mail" [readonly]="!isEditing"
+                    [ngClass]="{ 'editable': isEditing }" />
             </div>
-
             <!-- Empty (Top-right sector) -->
             <div class="empty-sector"></div>
-
             <!-- Telegram (Bottom-left sector) -->
             <div class="flex-row center-row contact-info telegram">
                 <label class="label">telegram:</label>
-                <input class="input" type="text" [(ngModel)]="user.telegram" [readonly]="!isEditing" />
+                <input class="input" type="text" [(ngModel)]="user.telegram" [readonly]="!isEditing"
+                    [ngClass]="{ 'editable': isEditing }" />
             </div>
-
             <!-- Phone (Bottom-right sector) -->
             <div class="flex-row center-row contact-info phone">
                 <label class="label">phone:</label>
-                <input class="input" type="text" [(ngModel)]="user.phone" [readonly]="!isEditing" />
+                <input class="input" type="text" [(ngModel)]="user.phone" [readonly]="!isEditing"
+                    [ngClass]="{ 'editable': isEditing }" />
             </div>
         </div>
 
-        <!-- Season Pass -->
-        <p *ngIf="user.seaspass > 0">
-            <ng-container *ngIf="user.seaspass === 1">
-                <strong>Абонемент:</strong> осталось {{ user.seaspass }} занятие
-            </ng-container>
-            <ng-container *ngIf="user.seaspass !== 1 && user.seaspass < 5">
-                <strong>Абонемент:</strong> осталось {{ user.seaspass }} занятия
-            </ng-container>
-            <ng-container *ngIf="user.seaspass > 4">
-                <strong>Абонемент:</strong> осталось {{ user.seaspass }} занятий
-            </ng-container>
-        </p>
-        <p *ngIf="!user.seaspass || user.seaspass === 0">
-            <strong>Абонемент:</strong> Чтобы приобрести абонемент, свяжитесь с преподавателем.
-        </p>
+        <!-- Season pass info and make a new class -->
+        <div class="flex-row center-row seaspass">
+            <!-- Season Pass -->
+            <p>
+                <strong>Абонемент:</strong>
+                {{ user.seaspass > 0 ? getSeasonPassText(user.seaspass)
+                : 'Чтобы приобрести абонемент, свяжитесь с преподавателем.' }}
+            </p>
+            <!-- Sign up for a new class button -->
+            <button mat-raised-button (click)="openForm()">новое занятие</button>
+        </div>
 
-        <!-- My classes section -->
+        <!-- Classes signed up for -->
         <div class="flex-row center-row my-classes">
             <p><strong>Мои занятия:</strong></p>
             <div class="flex-col center-all flex-grow my-classes__list">[Plug for class logic]</div>

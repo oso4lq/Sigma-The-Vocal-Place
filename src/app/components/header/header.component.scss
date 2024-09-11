@@ -224,6 +224,13 @@ mat-toolbar {
             background-color: var(--dark-brand-color) !important;
         }
     }
+
+    #account-button {
+        width: 80px !important;
+        flex-grow: unset;
+        // color: var(--bright-alt-color);
+        // border: 1px solid var(--bright-alt-color);
+    }
 }
 
 // Desktop menu classes end
@@ -375,6 +382,19 @@ app-social-media {
 
             &:hover {
                 background-color: var(--dark-brand-color) !important;
+            }
+        }
+
+        #account-button {
+            width: 33%;
+            min-width: 150px;
+            background-color: var(--bright-alt-color) !important;
+            color: var(--dark-alt-color) !important;
+
+            mat-icon {
+                font-size: 32px;
+                width: 32px;
+                height: inherit;
             }
         }
     }

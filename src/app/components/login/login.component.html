@@ -1,13 +1,13 @@
 <div class="flex-col newclass-form">
     <div class="flex-row center-row form-header">
         <h2>Войти</h2>
-        <div class="close" (click)="closeDialog()">
+        <div class="utility-btn" (click)="closeDialog()">
             <mat-icon>close</mat-icon>
         </div>
     </div>
 
     <ng-container *ngIf="currentFormState === 'LoginState'">
-        <form class="flex-col center-col" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form class="flex-col flex-grow center-col" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <label class="label" for="login">Логин</label>
             <input class="input" type="text" formControlName="login" placeholder="Логин" />
 
@@ -18,7 +18,7 @@
             <input type="checkbox" formControlName="success" />
 
             <button mat-button mat-raised-button type="submit" class="submit__button">Отправить</button>
-            
+
             <div class="flex-row center-all error-box">
                 <span>{{ errorMessage }}</span>
             </div>

@@ -11,8 +11,6 @@
 }
 
 .user-info {
-    align-items: center;
-    justify-content: flex-start;
     gap: 20px;
 
     .userpic {
@@ -22,8 +20,9 @@
     }
 
     h2 {
-        font-size: 24px;
+        font-size: 28px;
         margin: 0;
+        margin-left: 10px;
     }
 }
 
@@ -84,24 +83,43 @@ p {
         border-radius: 4px;
         border: 1px solid var(--light-color);
         background: var(--bright-brand-color);
-        font-size: 18px;
+        color: var(--dark-alt-color);
+        font-size: 16px;
+    }
+
+    .editable {
+        background: var(--light-color);
+        color: #000;
     }
 }
 
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+.utility-btn {
     cursor: pointer;
 
     mat-icon {
         font-size: 24px;
         opacity: 0.8;
-        transition: transform 0.3s, opacity 0.3s;
+        transition:
+            transform 0.3s,
+            opacity 0.3s;
 
         &:hover {
             transform: scale(1.1);
             opacity: 1;
+        }
+    }
+
+    &_details {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    &_logout {
+        mat-icon {
+            font-size: 40px;
+            height: 40px;
+            width: 40px;
         }
     }
 }
@@ -109,6 +127,20 @@ p {
 .contact-info {
     justify-content: flex-start;
     gap: 10px;
+}
+
+.seaspass {
+    button {
+        flex-grow: unset;
+        width: 200px !important;
+        background: linear-gradient(70deg, var(--light-brand-color), var(--light-alt-color) 110%);
+        color: #fff !important;
+        box-shadow: 0 0 8px var(--alt-color);
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
 }
 
 .my-classes {

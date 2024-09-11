@@ -57,8 +57,8 @@
             <button id="action-button" mat-button mat-raised-button class="action-btn" (click)="openForm()">
                 Записаться
             </button>
-            <button mat-icon-button (click)="openLogin()">
-                Аккаунт
+            <button id="account-button" mat-icon-button (click)="openLogin()">
+                <mat-icon>login</mat-icon>
             </button>
         </div>
 
@@ -103,7 +103,12 @@
                 <mat-icon>mail</mat-icon>Контакты
             </div>
         </button>
-        <button mat-button mat-raised-button class="action-btn" (click)="openForm()">Записаться</button>
-        <!-- <button mat-icon-button><mat-icon>account_circle</mat-icon>Аккаунт</button> -->
+        <div class="flex-row flex-grow">
+            <button id="account-button" mat-button mat-raised-button (click)="openLogin()">
+                <mat-icon>login</mat-icon> Войти
+            </button>
+            <button mat-button mat-raised-button class="action-btn" (click)="openForm()">Записаться</button>
+        </div>
+        <!-- <button mat-button mat-raised-button class="action-btn" (click)="openForm()">Записаться</button> -->
     </div>
 </div>

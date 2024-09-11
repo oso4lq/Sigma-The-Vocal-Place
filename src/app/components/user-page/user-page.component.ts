@@ -44,7 +44,7 @@ export class UserPageComponent {
     mail: "",
     telegram: "@osmium_tetroxide",
     phone: "+12345",
-    seaspass: 4,
+    seaspass: 0,
     classes: [],
   };
 
@@ -74,6 +74,11 @@ export class UserPageComponent {
     }
   }
 
+  logout() {
+    // Placeholder logic for handling logout
+    console.log("logout will be ready soon");
+  }
+
   openForm() {
     this.parent.openForm();
   }
@@ -81,5 +86,12 @@ export class UserPageComponent {
   refreshClasses() {
     // Placeholder logic for refreshing classes
     console.log("Refreshing classes...");
+  }
+
+  getSeasonPassText(seaspass: number): string {
+    if (seaspass === 1) return `осталось ${seaspass} занятие`;
+    if (seaspass > 1 && seaspass < 5) return `осталось ${seaspass} занятия`;
+    if (seaspass >= 5) return `осталось ${seaspass} занятий`;
+    return `Чтобы приобрести абонемент, свяжитесь с преподавателем.`;
   }
 }
