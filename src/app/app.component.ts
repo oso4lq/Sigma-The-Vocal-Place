@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { MainSections, ScrollingService } from './services/scrolling.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Card } from './interfaces/data.interface';
+import { Card, User } from './interfaces/data.interface';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { NewClassFormComponent } from './components/new-class-form/new-class-form.component';
 import { filter } from 'rxjs';
 import { LoginComponent } from './components/login/login.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -26,9 +27,13 @@ export class AppComponent implements OnInit {
 
   constructor(
     private scrollingService: ScrollingService,
+    private authService: AuthService,
     private dialog: MatDialog,
     private router: Router,
   ) { }
+
+  // Computed signal to track the current user
+  currentUser = computed(() => this.authService.currentUserSig());
 
   ngOnInit() {
     // Subscribe to router events to detect route changes
@@ -37,7 +42,14 @@ export class AppComponent implements OnInit {
     ).subscribe((event: NavigationEnd) => {
       const urlWithoutParams = event.url.split('?')[0];
 
-      // if (urlWithoutParams === '/privacy-policy') {
+      console.log('currentUser', this.currentUser());
+
+      if (urlWithoutParams === '/user' && !this.currentUser()) {
+        // Redirect to login if trying to access user page without authentication
+        this.router.navigate(['/']);
+        this.openLogin();  // Open login dialog if user is not authenticated
+      }
+
       if (urlWithoutParams !== '/') {
         // Disable jump-scrolling and reset header and buttons classes when outside the main page
         this.scrollingService.setMainPage(false);
@@ -54,6 +66,25 @@ export class AppComponent implements OnInit {
         }, 10);
       }
     });
+
+    // this.authService.user$.subscribe((user: User) => {
+    //   if (user) {
+    //     this.authService.currentUserSig.set({
+    //       id: user.id,
+    //       isadmin: user.isadmin,
+    //       name: user.name,
+    //       img: user.img,
+    //       email: user.email,
+    //       telegram: user.telegram,
+    //       phone: user.phone,
+    //       seaspass: user.seaspass,
+    //       classes: user.classes,
+    //     })
+    //   } else {
+    //     this.authService.currentUserSig.set(null);
+    //   }
+    //   console.log(this.authService.currentUserSig());
+    // })
   }
 
   // Navigate to the section from anywhere in the app

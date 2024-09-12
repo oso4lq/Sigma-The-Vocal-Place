@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 enum FormLoginState {
   Login = 'LoginState',
@@ -38,7 +39,7 @@ export class LoginComponent {
 
   loginForm: FormGroup;
   currentFormState: FormLoginState = FormLoginState.Login;
-  errorMessage = '';
+  errorMessage: string | null = null;
 
   // isSubmitted for waiting for response
   isSubmitted = false;
@@ -50,21 +51,22 @@ export class LoginComponent {
 
   constructor(
     private dialogRef: MatDialogRef<LoginComponent>,
+    private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
   ) {
     this.loginForm = this.fb.group({
       login: ['', Validators.required],
       password: ['', Validators.required],
-      success: [], // Bind checkbox for development purposes
     });
   }
+
+  // currentUser = computed(() => this.authService.currentUserSig());
 
   // Form submission
   onSubmit() {
     const login = this.loginForm.get('login')?.value;
     const password = this.loginForm.get('password')?.value;
-    this.isSuccessful = this.loginForm.get('success')?.value; // Checkbox for development purposes
 
     if (!login || !password) {
       const missingFields = [];
@@ -79,19 +81,40 @@ export class LoginComponent {
       this.isSubmitted = true;
       this.currentFormState = FormLoginState.Submit;
 
-      if (this.isSuccessful) {
-        setTimeout(() => {
-          this.submitSuccess = true;
-          this.currentFormState = FormLoginState.Success;
-          setTimeout(() => this.closeDialogAndNavigate(), 1000);
-        }, 3000);
-      } else {
-        setTimeout(() => {
-          this.submitSuccess = false;
-          this.currentFormState = FormLoginState.Error;
-          setTimeout(() => this.closeDialog(), 3000);
-        }, 3000);
-      }
+      // new auth logic needs adjusting
+      this.authService
+        .login(login, password)
+        .subscribe({
+          next: () => {
+            console.log('successful login');
+            this.currentFormState = FormLoginState.Success;
+            // console.log('currentUser', this.currentUser);
+            setTimeout(() => this.closeDialogAndNavigate(), 300);  // Navigate after success
+          },
+          error: (err) => {
+            console.log('error while login');
+            this.currentFormState = FormLoginState.Error;
+            this.errorMessage = 'Error occurred: ' + err.code;
+            setTimeout(() => this.closeDialog(), 3000);  // Close dialog after error
+          }
+        })
+      // new auth logic end
+
+      // old logic
+      // if (this.isSuccessful) {
+      //   setTimeout(() => {
+      //     this.submitSuccess = true;
+      //     this.currentFormState = FormLoginState.Success;
+      //     setTimeout(() => this.closeDialogAndNavigate(), 1000);
+      //   }, 3000);
+      // } else {
+      //   setTimeout(() => {
+      //     this.submitSuccess = false;
+      //     this.currentFormState = FormLoginState.Error;
+      //     setTimeout(() => this.closeDialog(), 3000);
+      //   }, 3000);
+      // }
+      // old logic end
     }
   }
 

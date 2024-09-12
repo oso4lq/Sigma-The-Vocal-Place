@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AdminConsoleComponent } from '../admin-console/admin-console.component';
 import { ClassesFirebaseService } from '../../services/classes-firebase.service';
 import { ClassesService } from '../../services/classes.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-user-page',
@@ -44,7 +45,7 @@ export class UserPageComponent implements OnInit {
     isadmin: true,
     name: "Osmium Tetroxide",
     img: "https://res.cloudinary.com/dxunxtt1u/image/upload/kotvochkakh_ue5xir.jpg",
-    mail: "",
+    email: "",
     telegram: "@osmium_tetroxide",
     phone: "+12345",
     seaspass: 1,
@@ -56,7 +57,7 @@ export class UserPageComponent implements OnInit {
     isadmin: false,
     name: "John Doe",
     img: "",
-    mail: "john.doe@mail.mail",
+    email: "john.doe@mail.mail",
     telegram: "",
     phone: "",
     seaspass: 0,
@@ -66,12 +67,14 @@ export class UserPageComponent implements OnInit {
   user = this.mockingAdmin;
 
   constructor(
-    private parent: AppComponent,
     private classesService: ClassesService,
+    private authService: AuthService,
+    private parent: AppComponent,
     // private classesFirebaseService: ClassesFirebaseService,
   ) { }
 
-  classes: any = computed(() => this.classesService.classesSig());
+  currentUser: any = computed(() => this.authService.currentUserSig()); // track the current user
+  classes: any = computed(() => this.classesService.classesSig()); // track the classes array
 
   ngOnInit(): void {
     this.classesService.loadClasses();
@@ -96,8 +99,9 @@ export class UserPageComponent implements OnInit {
   }
 
   logout() {
-    // Placeholder logic for handling logout
-    console.log("logout will be ready soon");
+    // console.log("logout will be ready soon");
+    console.log('log out user on user page');
+    this.authService.logout();
   }
 
   openForm() {

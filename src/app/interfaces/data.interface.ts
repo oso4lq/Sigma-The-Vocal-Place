@@ -23,11 +23,11 @@ export interface User {
     isadmin: boolean;
     name: string;
     img: string;
-    mail: string;
+    email: string;
     telegram: string;
     phone: string;
     seaspass: number; // amount of classes left in the season pass
-    classes: [];
+    classes: []; // array with classes ids created by this user
 }
 
 export interface Class {
@@ -35,5 +35,5 @@ export interface Class {
     status: 'confirmed' | "cancelled" | "pending" | "executed";
     startdate: string;
     enddate: string;
-    userid: string | number;
+    // userid: string | number;
 }

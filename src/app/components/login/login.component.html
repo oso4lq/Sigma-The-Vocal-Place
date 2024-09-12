@@ -14,8 +14,8 @@
             <label class="label" for="password">Пароль</label>
             <input class="input" type="password" formControlName="password" placeholder="Пароль" />
 
-            <label class="label" for="success">Успешность запроса</label>
-            <input type="checkbox" formControlName="success" />
+            <!-- <label class="label" for="success">Успешность запроса</label>
+            <input type="checkbox" formControlName="success" /> -->
 
             <button mat-button mat-raised-button type="submit" class="submit__button">Отправить</button>
 
@@ -29,7 +29,7 @@
     <div class="flex-col center-all flex-grow submit" *ngIf="currentFormState !== 'LoginState'">
         <mat-spinner *ngIf="currentFormState === 'SubmitState'"></mat-spinner>
 
-        <p class="submit__message" *ngIf="currentFormState === 'SuccessState'">Ваш запрос был отправлен!</p>
+        <p class="submit__message" *ngIf="currentFormState === 'SuccessState'">Перенаправляем на страницу личного кабинета.</p>
 
         <p class="submit__message" *ngIf="currentFormState === 'ErrorState'">
             Произошла ошибка во время отправления запроса. Пожалуйста, попробуйте снова.

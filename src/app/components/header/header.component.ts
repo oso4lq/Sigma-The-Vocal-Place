@@ -12,6 +12,8 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperOptions } from 'swiper/types';
 import { AppComponent } from '../../app.component';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../interfaces/data.interface';
 
 @Component({
   selector: 'app-header',
@@ -58,6 +60,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private scrollingService: ScrollingService,
     private mobileService: MobileService,
+    private authService: AuthService,
     private parent: AppComponent,
     private renderer: Renderer2,
   ) { }
@@ -76,6 +79,22 @@ export class HeaderComponent implements OnInit {
     this.scrollingService.sectionIndex$.subscribe(index => {
       this.updateSwiperSection(index);
     });
+
+    // this.authService.user$.subscribe((user: User) => {
+    //   if (user) {
+    //     this.authService.currentUserSig.set({
+    //       id: user.id,
+    //       isadmin: user.isadmin,
+    //       name: user.name,
+    //       img: user.img,
+    //       email: user.email,
+    //       telegram: user.telegram,
+    //       phone: user.phone,
+    //       seaspass: user.seaspass,
+    //       classes: user.classes,
+    //     })
+    //   }
+    // })
   }
 
   ngAfterViewInit() {
