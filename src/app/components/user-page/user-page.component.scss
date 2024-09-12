@@ -24,11 +24,12 @@
         margin: 0;
         margin-left: 10px;
     }
+
+    &__divider {
+        margin: 16px 0;
+    }
 }
 
-mat-divider {
-    margin: 16px 0;
-}
 
 p {
     font-size: 18px;
@@ -43,7 +44,7 @@ p {
 .my-details {
     padding: 10px;
     background: var(--bright-alt-color);
-    border-radius: 8px;
+    border-radius: 4px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -111,8 +112,8 @@ p {
 
     &_details {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 8px;
+        right: 8px;
     }
 
     &_logout {
@@ -145,13 +146,50 @@ p {
 
 .my-classes {
     gap: 20px;
+    align-items: flex-start;
 
     &__list {
-        background: var(--bright-alt-color);
+        gap: 10px;
     }
 
     button {
         flex-grow: unset;
         width: 100px !important;
+    }
+
+    &__item {
+        border-radius: 4px;
+        position: relative;
+    }
+
+    &__status {
+        padding: 4px 20px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        background: var(--bright-alt-color);
+        color: var(--light-color);
+
+        &_confirmed {
+            background-image: linear-gradient(to right, var(--light-brand-color), transparent);
+        }
+
+        &_cancelled {
+            background-image: linear-gradient(to right, var(--warn-color), transparent);
+        }
+
+        &_pending {
+            background-image: linear-gradient(to right, var(--alt-color), transparent);
+        }
+
+        &_executed {
+            background-image: linear-gradient(to right, var(--gray-color), transparent);
+        }
+    }
+
+    &__time {
+        padding: 4px 20px;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        background: var(--bright-alt-color);
     }
 }

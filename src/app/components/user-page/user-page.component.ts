@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { User } from '../../interfaces/data.interface';
+import { Component, computed, OnInit } from '@angular/core';
+import { Class, User } from '../../interfaces/data.interface';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { AdminConsoleComponent } from '../admin-console/admin-console.component';
+import { ClassesFirebaseService } from '../../services/classes-firebase.service';
+import { ClassesService } from '../../services/classes.service';
 
 @Component({
   selector: 'app-user-page',
@@ -29,9 +31,10 @@ import { AdminConsoleComponent } from '../admin-console/admin-console.component'
   templateUrl: './user-page.component.html',
   styleUrl: './user-page.component.scss'
 })
-export class UserPageComponent {
+export class UserPageComponent implements OnInit {
 
   isEditing = false; // Track whether inputs are editable
+  // classes: Class[] = [];
 
   // default user image
   imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
@@ -44,7 +47,7 @@ export class UserPageComponent {
     mail: "",
     telegram: "@osmium_tetroxide",
     phone: "+12345",
-    seaspass: 0,
+    seaspass: 1,
     classes: [],
   };
 
@@ -64,7 +67,21 @@ export class UserPageComponent {
 
   constructor(
     private parent: AppComponent,
+    private classesService: ClassesService,
+    // private classesFirebaseService: ClassesFirebaseService,
   ) { }
+
+  classes: any = computed(() => this.classesService.classesSig());
+
+  ngOnInit(): void {
+    this.classesService.loadClasses();
+  }
+
+  refreshClasses() {
+    // Optionally reload classes from Firebase
+    console.log("Refreshing classes...");
+    this.classesService.loadClasses();
+  }
 
   toggleEdit() {
     this.isEditing = !this.isEditing;
@@ -74,6 +91,10 @@ export class UserPageComponent {
     }
   }
 
+  editClass() {
+    console.log('Editing class will be ready soon');
+  }
+
   logout() {
     // Placeholder logic for handling logout
     console.log("logout will be ready soon");
@@ -81,11 +102,6 @@ export class UserPageComponent {
 
   openForm() {
     this.parent.openForm();
-  }
-
-  refreshClasses() {
-    // Placeholder logic for refreshing classes
-    console.log("Refreshing classes...");
   }
 
   getSeasonPassText(seaspass: number): string {

@@ -19,7 +19,7 @@ export interface Source {
 }
 
 export interface User {
-    id: number;
+    id: string | number;
     isadmin: boolean;
     name: string;
     img: string;
@@ -30,8 +30,10 @@ export interface User {
     classes: [];
 }
 
-export interface Booking {
-    id: number;
+export interface Class {
+    id: string | number;
     status: 'confirmed' | "cancelled" | "pending" | "executed";
-    date: string;
+    startdate: string;
+    enddate: string;
+    userid: string | number;
 }

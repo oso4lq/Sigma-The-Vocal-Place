@@ -32,7 +32,8 @@ mat-toolbar {
 }
 
 .logo {
-    width: 200px;
+    // width: 200px;
+    width: 180px;
     background: var(--brand-color) !important;
     color: var(--light-color);
     cursor: pointer;
@@ -228,15 +229,13 @@ mat-toolbar {
     #account-button {
         width: 80px !important;
         flex-grow: unset;
-        // color: var(--bright-alt-color);
-        // border: 1px solid var(--bright-alt-color);
     }
 }
-
 // Desktop menu classes end
 
 app-social-media {
-    width: 200px;
+    // width: 200px;
+    width: 180px;
     background: var(--brand-color) !important;
 
     ::ng-deep .social {
