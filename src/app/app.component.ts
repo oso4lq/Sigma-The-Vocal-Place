@@ -3,7 +3,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { MainSections, ScrollingService } from './services/scrolling.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Card, User } from './interfaces/data.interface';
+import { Card } from './interfaces/data.interface';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { NewClassFormComponent } from './components/new-class-form/new-class-form.component';
 import { filter } from 'rxjs';
@@ -33,7 +33,8 @@ export class AppComponent implements OnInit {
   ) { }
 
   // Computed signal to track the current user
-  currentUser = computed(() => this.authService.currentUserSig());
+  currentUser: any = computed(() => this.authService.currentUserSig());
+  currentUserData: any = computed(() => this.authService.currentUserDataSig());
 
   ngOnInit() {
     // Subscribe to router events to detect route changes
@@ -43,6 +44,7 @@ export class AppComponent implements OnInit {
       const urlWithoutParams = event.url.split('?')[0];
 
       console.log('currentUser', this.currentUser());
+      console.log('currentUserData', this.currentUserData());
 
       if (urlWithoutParams === '/user' && !this.currentUser()) {
         // Redirect to login if trying to access user page without authentication
@@ -67,24 +69,6 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // this.authService.user$.subscribe((user: User) => {
-    //   if (user) {
-    //     this.authService.currentUserSig.set({
-    //       id: user.id,
-    //       isadmin: user.isadmin,
-    //       name: user.name,
-    //       img: user.img,
-    //       email: user.email,
-    //       telegram: user.telegram,
-    //       phone: user.phone,
-    //       seaspass: user.seaspass,
-    //       classes: user.classes,
-    //     })
-    //   } else {
-    //     this.authService.currentUserSig.set(null);
-    //   }
-    //   console.log(this.authService.currentUserSig());
-    // })
   }
 
   // Navigate to the section from anywhere in the app

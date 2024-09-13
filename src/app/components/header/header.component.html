@@ -57,8 +57,9 @@
             <button id="action-button" mat-button mat-raised-button class="action-btn" (click)="openForm()">
                 Записаться
             </button>
-            <button id="account-button" mat-icon-button (click)="openLogin()">
-                <mat-icon>login</mat-icon>
+            <button id="account-button" mat-icon-button (click)="handleLogin()">
+                <mat-icon *ngIf="!currentUserData()">login</mat-icon>
+                <img *ngIf="currentUserData()" [src]="currentUserData().img" alt="userpic">
             </button>
         </div>
 
@@ -104,11 +105,13 @@
             </div>
         </button>
         <div class="flex-row flex-grow">
-            <button id="account-button" mat-button mat-raised-button (click)="openLogin()">
-                <mat-icon>login</mat-icon> Войти
+            <button id="account-button" mat-button mat-raised-button (click)="handleLogin()">
+                <div class="flex-row center-row button-content">
+                    <ng-container *ngIf="!currentUserData()"><mat-icon>login</mat-icon> Войти</ng-container>
+                    <ng-container *ngIf="currentUserData()"><mat-icon>account_circle</mat-icon> Аккаунт</ng-container>
+                </div>
             </button>
             <button mat-button mat-raised-button class="action-btn" (click)="openForm()">Записаться</button>
         </div>
-        <!-- <button mat-button mat-raised-button class="action-btn" (click)="openForm()">Записаться</button> -->
     </div>
 </div>

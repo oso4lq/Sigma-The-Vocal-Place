@@ -10,9 +10,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { AdminConsoleComponent } from '../admin-console/admin-console.component';
-import { ClassesFirebaseService } from '../../services/classes-firebase.service';
 import { ClassesService } from '../../services/classes.service';
 import { AuthService } from '../../services/auth.service';
+import { UsersFirebaseService } from '../../services/users-firebase.service';
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-page',
@@ -35,53 +37,27 @@ import { AuthService } from '../../services/auth.service';
 export class UserPageComponent implements OnInit {
 
   isEditing = false; // Track whether inputs are editable
-  // classes: Class[] = [];
-
-  // default user image
+  userData: User | null = null; // Store the fetched user data
   imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
-
-  mockingAdmin: User = {
-    id: 0,
-    isadmin: true,
-    name: "Osmium Tetroxide",
-    img: "https://res.cloudinary.com/dxunxtt1u/image/upload/kotvochkakh_ue5xir.jpg",
-    email: "",
-    telegram: "@osmium_tetroxide",
-    phone: "+12345",
-    seaspass: 1,
-    classes: [],
-  };
-
-  mockingUser: User = {
-    id: 1,
-    isadmin: false,
-    name: "John Doe",
-    img: "",
-    email: "john.doe@mail.mail",
-    telegram: "",
-    phone: "",
-    seaspass: 0,
-    classes: [],
-  }
-
-  user = this.mockingAdmin;
 
   constructor(
     private classesService: ClassesService,
     private authService: AuthService,
     private parent: AppComponent,
-    // private classesFirebaseService: ClassesFirebaseService,
+    private router: Router,
   ) { }
 
   currentUser: any = computed(() => this.authService.currentUserSig()); // track the current user
+  currentUserData: any = computed(() => this.authService.currentUserDataSig()); // track the current user data
   classes: any = computed(() => this.classesService.classesSig()); // track the classes array
 
   ngOnInit(): void {
     this.classesService.loadClasses();
+    this.userData = this.currentUserData();
+    console.log(this.userData);
   }
 
   refreshClasses() {
-    // Optionally reload classes from Firebase
     console.log("Refreshing classes...");
     this.classesService.loadClasses();
   }
@@ -90,7 +66,7 @@ export class UserPageComponent implements OnInit {
     this.isEditing = !this.isEditing;
     if (!this.isEditing) {
       // Mock sending data to the server
-      console.log("Sending updated details to the server:", this.user);
+      console.log("Sending updated details to the server:", this.userData);
     }
   }
 
@@ -99,9 +75,9 @@ export class UserPageComponent implements OnInit {
   }
 
   logout() {
-    // console.log("logout will be ready soon");
     console.log('log out user on user page');
     this.authService.logout();
+    // this.router.navigate(['/']);
   }
 
   openForm() {

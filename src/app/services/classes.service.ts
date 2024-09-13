@@ -6,6 +6,7 @@ import { ClassesFirebaseService } from './classes-firebase.service';
   providedIn: 'root'
 })
 export class ClassesService {
+  
   // Signal to hold the classes list
   classesSig = signal<Class[]>([]);
 

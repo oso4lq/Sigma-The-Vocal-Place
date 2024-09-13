@@ -1,91 +1,94 @@
 <div class="flex-col internal-page-wrapper">
     <h1>Личный кабинет</h1>
 
-    <!-- User info row: userpic and name -->
-    <div class="flex-row center-row user-info">
-        <div class="flex-row center-row contact-info">
-            <img [src]="user.img || imgDefault" alt="Userpic" class="userpic" />
-            <h2>{{ user.name }}</h2>
-        </div>
-        <div class="flex-row utility-btn utility-btn_logout" (click)="logout()">
-            <mat-icon>logout</mat-icon>
-        </div>
-    </div>
-
-    <!-- Divider -->
-    <mat-divider class="user-info__divider"></mat-divider>
-
-    <!-- <app-admin-console *ngIf="user.isadmin"></app-admin-console> -->
-
-    <!-- admin & user section -->
-    <div class="flex-col w-100 content-wrapper">
-
-        <!-- Personal details with edit button -->
-        <div class="my-details">
-            <div class="utility-btn utility-btn_details" (click)="toggleEdit()">
-                <mat-icon>{{ isEditing ? 'done_all' : 'edit' }}</mat-icon>
+    <!-- Check if user exists before rendering the form -->
+    <ng-container *ngIf="userData">
+        <!-- User info row: userpic and name -->
+        <div class="flex-row center-row user-info">
+            <div class="flex-row center-row contact-info">
+                <img [src]="userData.img || imgDefault" alt="Userpic" class="userpic" />
+                <h2>{{ userData.name }}</h2>
             </div>
-            <!-- Email (Top-left sector) -->
-            <div class="flex-row center-row contact-info email">
-                <label class="label">e-mail:</label>
-                <input class="input" type="text" [(ngModel)]="user.email" [readonly]="!isEditing"
-                    [ngClass]="{ 'editable': isEditing }" />
-            </div>
-            <!-- Empty (Top-right sector) -->
-            <div class="empty-sector"></div>
-            <!-- Telegram (Bottom-left sector) -->
-            <div class="flex-row center-row contact-info telegram">
-                <label class="label">telegram:</label>
-                <input class="input" type="text" [(ngModel)]="user.telegram" [readonly]="!isEditing"
-                    [ngClass]="{ 'editable': isEditing }" />
-            </div>
-            <!-- Phone (Bottom-right sector) -->
-            <div class="flex-row center-row contact-info phone">
-                <label class="label">phone:</label>
-                <input class="input" type="text" [(ngModel)]="user.phone" [readonly]="!isEditing"
-                    [ngClass]="{ 'editable': isEditing }" />
+            <div class="flex-row utility-btn utility-btn_logout" (click)="logout()">
+                <mat-icon>logout</mat-icon>
             </div>
         </div>
 
-        <!-- Season pass info and make a new class -->
-        <div class="flex-row center-row seaspass">
-            <!-- Season Pass -->
-            <p>
-                <strong>Абонемент:</strong>
-                {{ user.seaspass > 0 ? getSeasonPassText(user.seaspass)
-                : 'Чтобы приобрести абонемент, свяжитесь с преподавателем.' }}
-            </p>
-            <!-- Sign up for a new class button -->
-            <button mat-raised-button (click)="openForm()">новое занятие</button>
-        </div>
+        <!-- Divider -->
+        <mat-divider class="user-info__divider"></mat-divider>
 
-        <!-- Classes signed up for -->
-        <div class="flex-row my-classes">
-            <p><strong>Мои занятия:</strong></p>
-            <div class="flex-col center-all flex-grow my-classes__list">
+        <!-- <app-admin-console *ngIf="user.isadmin"></app-admin-console> -->
 
-                <!-- Loaded classes list - later add filter by user -->
-                <div *ngFor="let class of classes()" class="w-100 my-classes__item">
-                    <div class="utility-btn utility-btn_details" (click)="editClass()">
-                        <mat-icon>edit</mat-icon>
-                    </div>
-                    <p [ngClass]="{
+        <!-- admin & user section -->
+        <div class="flex-col w-100 content-wrapper">
+
+            <!-- Personal details with edit button -->
+            <div class="my-details">
+                <div class="utility-btn utility-btn_details" (click)="toggleEdit()">
+                    <mat-icon>{{ isEditing ? 'done_all' : 'edit' }}</mat-icon>
+                </div>
+                <!-- Email (Top-left sector) -->
+                <div class="flex-row center-row contact-info email">
+                    <label class="label">e-mail:</label>
+                    <input class="input" type="text" [(ngModel)]="userData.email" [readonly]="!isEditing"
+                        [ngClass]="{ 'editable': isEditing }" />
+                </div>
+                <!-- Empty (Top-right sector) -->
+                <div class="empty-sector"></div>
+                <!-- Telegram (Bottom-left sector) -->
+                <div class="flex-row center-row contact-info telegram">
+                    <label class="label">telegram:</label>
+                    <input class="input" type="text" [(ngModel)]="userData.telegram" [readonly]="!isEditing"
+                        [ngClass]="{ 'editable': isEditing }" />
+                </div>
+                <!-- Phone (Bottom-right sector) -->
+                <div class="flex-row center-row contact-info phone">
+                    <label class="label">phone:</label>
+                    <input class="input" type="text" [(ngModel)]="userData.phone" [readonly]="!isEditing"
+                        [ngClass]="{ 'editable': isEditing }" />
+                </div>
+            </div>
+
+            <!-- Season pass info and make a new class -->
+            <div class="flex-row center-row seaspass">
+                <!-- Season Pass -->
+                <p>
+                    <strong>Абонемент:</strong>
+                    {{ userData.seaspass > 0 ? getSeasonPassText(userData.seaspass)
+                    : 'Чтобы приобрести абонемент, свяжитесь с преподавателем.' }}
+                </p>
+                <!-- Sign up for a new class button -->
+                <button mat-raised-button (click)="openForm()">новое занятие</button>
+            </div>
+
+            <!-- Classes signed up for -->
+            <div class="flex-row my-classes">
+                <p><strong>Мои занятия:</strong></p>
+                <div class="flex-col center-all flex-grow my-classes__list">
+
+                    <!-- Loaded classes list - later add filter by user -->
+                    <div *ngFor="let class of classes()" class="w-100 my-classes__item">
+                        <div class="utility-btn utility-btn_details" (click)="editClass()">
+                            <mat-icon>edit</mat-icon>
+                        </div>
+                        <p [ngClass]="{
                         'my-classes__status_confirmed': class.status === 'confirmed',
                         'my-classes__status_cancelled': class.status === 'cancelled',
                         'my-classes__status_pending': class.status === 'pending',
                         'my-classes__status_executed': class.status === 'executed'
                     }" class="my-classes__status">
-                        Status: {{ class.status }}
-                    </p>
-                    <mat-divider></mat-divider>
-                    <div class="flex-row my-classes__time">
-                        <p>Date: {{ class.startdate | date:'dd.MM.yyyy' }}</p>
-                        <p>Time: {{ class.startdate | date:'HH:mm' }} - {{ class.enddate | date:'HH:mm' }}</p>
+                            Status: {{ class.status }}
+                        </p>
+                        <mat-divider></mat-divider>
+                        <div class="flex-row my-classes__time">
+                            <p>Date: {{ class.startdate | date:'dd.MM.yyyy' }}</p>
+                            <p>Time: {{ class.startdate | date:'HH:mm' }} - {{ class.enddate | date:'HH:mm' }}</p>
+                        </div>
                     </div>
-                </div>
 
+                </div>
+                <button mat-raised-button (click)="refreshClasses()">обновить</button>
             </div>
-            <button mat-raised-button (click)="refreshClasses()">обновить</button>
         </div>
-    </div>
+    </ng-container>
 </div>

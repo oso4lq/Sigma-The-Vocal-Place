@@ -229,8 +229,25 @@ mat-toolbar {
     #account-button {
         width: 80px !important;
         flex-grow: unset;
+        padding: 8px;
+
+        img {
+            border-radius: 50%;
+            height: inherit;
+            aspect-ratio: 1 / 1;
+            transition: filter 0.3s ease;
+        }
+
+        &:hover {
+            background-color: var(--brand-color) !important;
+
+            img {
+                filter: brightness(0.75);
+            }
+        }
     }
 }
+
 // Desktop menu classes end
 
 app-social-media {
@@ -394,6 +411,10 @@ app-social-media {
                 font-size: 32px;
                 width: 32px;
                 height: inherit;
+            }
+
+            &:hover {
+                background-color: var(--light-alt-color) !important;
             }
         }
     }

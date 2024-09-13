@@ -35,5 +35,4 @@ export interface Class {
     status: 'confirmed' | "cancelled" | "pending" | "executed";
     startdate: string;
     enddate: string;
-    // userid: string | number;
 }

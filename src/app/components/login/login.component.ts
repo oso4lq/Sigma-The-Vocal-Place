@@ -61,7 +61,7 @@ export class LoginComponent {
     });
   }
 
-  // currentUser = computed(() => this.authService.currentUserSig());
+  currentUser = computed(() => this.authService.currentUserSig());
 
   // Form submission
   onSubmit() {
@@ -88,7 +88,7 @@ export class LoginComponent {
           next: () => {
             console.log('successful login');
             this.currentFormState = FormLoginState.Success;
-            // console.log('currentUser', this.currentUser);
+            console.log('currentUser', this.currentUser());
             setTimeout(() => this.closeDialogAndNavigate(), 300);  // Navigate after success
           },
           error: (err) => {
@@ -98,23 +98,6 @@ export class LoginComponent {
             setTimeout(() => this.closeDialog(), 3000);  // Close dialog after error
           }
         })
-      // new auth logic end
-
-      // old logic
-      // if (this.isSuccessful) {
-      //   setTimeout(() => {
-      //     this.submitSuccess = true;
-      //     this.currentFormState = FormLoginState.Success;
-      //     setTimeout(() => this.closeDialogAndNavigate(), 1000);
-      //   }, 3000);
-      // } else {
-      //   setTimeout(() => {
-      //     this.submitSuccess = false;
-      //     this.currentFormState = FormLoginState.Error;
-      //     setTimeout(() => this.closeDialog(), 3000);
-      //   }, 3000);
-      // }
-      // old logic end
     }
   }
 

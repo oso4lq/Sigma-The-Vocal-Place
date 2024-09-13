@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, computed, OnInit, Renderer2 } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { SocialMediaComponent } from '../social-media/social-media.component';
@@ -11,9 +11,8 @@ import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperOptions } from 'swiper/types';
 import { AppComponent } from '../../app.component';
-import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { User } from '../../interfaces/data.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +23,6 @@ import { User } from '../../interfaces/data.interface';
     MatButtonModule,
     MatIconModule,
     CommonModule,
-    RouterModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -63,7 +61,10 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private parent: AppComponent,
     private renderer: Renderer2,
+    private router: Router,
   ) { }
+
+  currentUserData: any = computed(() => this.authService.currentUserDataSig()); // track the current user data
 
   ngOnInit() {
     if (this.mobileService.isMobile) {
@@ -80,21 +81,7 @@ export class HeaderComponent implements OnInit {
       this.updateSwiperSection(index);
     });
 
-    // this.authService.user$.subscribe((user: User) => {
-    //   if (user) {
-    //     this.authService.currentUserSig.set({
-    //       id: user.id,
-    //       isadmin: user.isadmin,
-    //       name: user.name,
-    //       img: user.img,
-    //       email: user.email,
-    //       telegram: user.telegram,
-    //       phone: user.phone,
-    //       seaspass: user.seaspass,
-    //       classes: user.classes,
-    //     })
-    //   }
-    // })
+    console.log('Header initialized, userData:', this.currentUserData());
   }
 
   ngAfterViewInit() {
@@ -166,9 +153,13 @@ export class HeaderComponent implements OnInit {
     this.parent.openForm();
   }
 
-  openLogin() {
-    this.closeMenu();
-    this.parent.openLogin();
+  handleLogin() {
+    if (this.currentUserData()) {
+      this.router.navigate(['/user']);
+    } else {
+      this.closeMenu();
+      this.parent.openLogin();
+    }
   }
 
 }
