@@ -46,9 +46,6 @@ export class LoginComponent {
   // submitSuccess for received positive response
   submitSuccess = false;
 
-  // isSuccessful var is for development purposes, bound to checkbox
-  isSuccessful = false;
-
   constructor(
     private dialogRef: MatDialogRef<LoginComponent>,
     private authService: AuthService,
@@ -81,21 +78,17 @@ export class LoginComponent {
       this.isSubmitted = true;
       this.currentFormState = FormLoginState.Submit;
 
-      // new auth logic needs adjusting
       this.authService
         .login(login, password)
         .subscribe({
           next: () => {
-            // console.log('successful login');
             this.currentFormState = FormLoginState.Success;
-            // console.log('currentUser', this.currentUser());
-            setTimeout(() => this.closeDialogAndNavigate(), 300);  // Navigate after success
+            setTimeout(() => this.closeDialogAndNavigate(), 300);
           },
           error: (err) => {
-            // console.log('error while login');
             this.currentFormState = FormLoginState.Error;
             this.errorMessage = 'Error occurred: ' + err.code;
-            setTimeout(() => this.closeDialog(), 3000);  // Close dialog after error
+            setTimeout(() => this.closeDialog(), 3000);
           }
         })
     }

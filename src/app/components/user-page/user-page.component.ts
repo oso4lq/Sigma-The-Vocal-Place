@@ -3,7 +3,6 @@ import { Class, User } from '../../interfaces/data.interface';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { AppComponent } from '../../app.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,8 +12,6 @@ import { AdminConsoleComponent } from '../admin-console/admin-console.component'
 import { ClassesService } from '../../services/classes.service';
 import { AuthService } from '../../services/auth.service';
 import { UsersFirebaseService } from '../../services/users-firebase.service';
-import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
 import { DialogService } from '../../services/dialog.service';
 
 @Component({
@@ -46,7 +43,6 @@ export class UserPageComponent implements OnInit {
     private classesService: ClassesService,
     private dialogService: DialogService,
     private authService: AuthService,
-    private parent: AppComponent,
   ) { }
 
   currentUser: any = computed(() => this.authService.currentUserSig()); // track the current user
@@ -76,12 +72,11 @@ export class UserPageComponent implements OnInit {
   ngOnInit(): void {
     this.classesService.loadClasses();
     this.userData = this.currentUserData();
-    // console.log(this.userData);
   }
 
   refreshClasses() {
     console.log("Refreshing classes...");
-    
+
     // Refresh the currentUserData signal to check updates in classes[]
     this.authService.monitorAuthState();
 

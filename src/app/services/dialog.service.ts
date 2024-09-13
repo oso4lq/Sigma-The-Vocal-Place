@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ScrollingService } from './scrolling.service';
-import { AuthService } from './auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Card } from '../interfaces/data.interface';
 import { GalleryComponent } from '../components/gallery/gallery.component';
@@ -16,19 +15,26 @@ export class DialogService {
 
   constructor(
     private scrollingService: ScrollingService,
-    // private authService: AuthService,
     private dialog: MatDialog,
-    // private router: Router,
   ) { }
+
+  initiateDialog() {
+    this.isDialogOpen = true;
+    // Disable scrolling and opening menu when the image viewer is opened
+    this.scrollingService.restrictBodyScrolling();
+    // Push fake state to close the popup with the back button
+    history.pushState(null, '', window.location.href);
+  }
+
+  // Enable scrolling and opening menu when the image viewer is closed
+  killDialog() {
+    this.isDialogOpen = false;
+    this.scrollingService.enableBodyScrolling();
+  }
 
   // Image Viewer
   openImage(images: Card[], initialSlide: number) {
-    // Disable scrolling and opening menu when the image viewer is opened
-    this.scrollingService.restrictBodyScrolling();
-    this.isDialogOpen = true;
-
-    // Push fake state to close the popup with the back button
-    history.pushState(null, '', window.location.href);
+    this.initiateDialog();
 
     const dialogRef = this.dialog.open(GalleryComponent, {
       data: { slides: images, initialSlide: initialSlide },
@@ -38,19 +44,14 @@ export class DialogService {
       disableClose: false,
     });
 
-    // Enable scrolling and opening menu when the image viewer is closed
     dialogRef.afterClosed().subscribe(() => {
-      this.isDialogOpen = false;
-      this.scrollingService.enableBodyScrolling();
+      this.killDialog();
     });
   }
 
+  // New Class Form
   openForm() {
-    this.scrollingService.restrictBodyScrolling();
-    this.isDialogOpen = true;
-
-    // Push fake state to close the popup with the back button
-    history.pushState(null, '', window.location.href);
+    this.initiateDialog();
 
     const dialogRef = this.dialog.open(NewClassFormComponent, {
       hasBackdrop: true,
@@ -59,19 +60,14 @@ export class DialogService {
       disableClose: false,
     });
 
-    // Enable scrolling and opening menu when the image viewer is closed
     dialogRef.afterClosed().subscribe(() => {
-      this.isDialogOpen = false;
-      this.scrollingService.enableBodyScrolling();
+      this.killDialog();
     });
   }
 
+  // Login Form
   openLogin() {
-    this.scrollingService.restrictBodyScrolling();
-    this.isDialogOpen = true;
-
-    // Push fake state to close the popup with the back button
-    history.pushState(null, '', window.location.href);
+    this.initiateDialog();
 
     const dialogRef = this.dialog.open(LoginComponent, {
       hasBackdrop: true,
@@ -80,10 +76,8 @@ export class DialogService {
       disableClose: false,
     });
 
-    // Enable scrolling and opening menu when the image viewer is closed
     dialogRef.afterClosed().subscribe(() => {
-      this.isDialogOpen = false;
-      this.scrollingService.enableBodyScrolling();
+      this.killDialog();
     });
   }
 }

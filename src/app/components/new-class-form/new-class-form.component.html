@@ -118,27 +118,29 @@
     </div>
 
     <!-- SubmitState -->
-    <div class="flex-col center-all flex-grow submit" *ngIf="currentFormState === 'SubmitState'">
-        <p class="submit__message" *ngIf="submitSuccess">
-            Ваш запрос был отправлен!
-            <!-- Your request was successful! -->
+    <div class="flex-col center-all flex-grow submit"
+        *ngIf="currentFormState !== 'StartState' && currentFormState !== 'NewbieState' && currentFormState !== 'ActiveSubState'">
+        <mat-spinner *ngIf="currentFormState === 'SubmitState'"></mat-spinner>
+        <p class="submit__message" *ngIf="currentFormState === 'SuccessState'">
+            Ваше занятие зарегистрировано!
         </p>
-        <p class="submit__message" *ngIf="submitSuccess && prevFormState === 'NewbieState'">
+        <p class="submit__message" *ngIf="currentFormState === 'SuccessState' && prevFormState === 'NewbieState'">
             Пожалуйста, подождите, пока я свяжусь с вами.
             <!-- Please wait until I contact you. -->
         </p>
-        <p class="submit__message" *ngIf="submitSuccess && prevFormState === 'ActiveSubState'">
+        <p class="submit__message" *ngIf="currentFormState === 'SuccessState' && prevFormState === 'ActiveSubState'">
             Вы успешно записались на следующее занятие в <span class="sigma-font">ΣΙΓΜΑ</span>
             <!-- You've signed up for your next class with <span class="sigma-font">ΣΙΓΜΑ</span> -->
         </p>
-        <p class="submit__message" *ngIf="!submitSuccess">
+        <p class="submit__message" *ngIf="currentFormState === 'ErrorState'">
             Произошла ошибка во время отправления запроса. Пожалуйста, попробуйте снова.
             <!-- There was an error submitting your request. Please try again. -->
         </p>
     </div>
 
     <!-- Telegram Bot -->
-    <div class="flex-col center-all form-footer" *ngIf="currentFormState !== 'SubmitState'">
+    <div class="flex-col center-all form-footer"
+        *ngIf="currentFormState !== 'SubmitState' && currentFormState !== 'SuccessState' && currentFormState !== 'ErrorState'">
         <span class="form-footer__text">
             Или запишитесь на занятие через
             <!-- Or sign up for a class via the -->

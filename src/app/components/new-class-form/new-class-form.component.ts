@@ -7,25 +7,31 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { AppComponent } from '../../app.component';
 import { AuthService } from '../../services/auth.service';
 import { DialogService } from '../../services/dialog.service';
+import { Class } from '../../interfaces/data.interface';
+import { ClassesService } from '../../services/classes.service';
+import { UsersFirebaseService } from '../../services/users-firebase.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 enum FormClassState {
   Start = 'StartState',
   Newbie = 'NewbieState',
   ActiveSub = 'ActiveSubState',
   Submit = 'SubmitState',
+  Success = 'SuccessState',
+  Error = 'ErrorState',
 }
 
 @Component({
   selector: 'app-new-class-form',
   standalone: true,
   imports: [
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -41,7 +47,6 @@ enum FormClassState {
     { provide: DateAdapter, useClass: NativeDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
-    // { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
   ],
   templateUrl: './new-class-form.component.html',
   styleUrl: './new-class-form.component.scss'
@@ -54,13 +59,10 @@ export class NewClassFormComponent implements OnInit {
   prevFormState: FormClassState | null = null;
   errorMessage = '';
 
-  // isSubmitted for waiting for responce
-  isSubmitted = false;
-  // submitSuccess for received positive responce
-  submitSuccess = false;
-
   constructor(
     private dialogRef: MatDialogRef<NewClassFormComponent>,
+    private usersFirebaseService: UsersFirebaseService,
+    private classesService: ClassesService,
     private dialogService: DialogService,
     private authService: AuthService,
     private fb: FormBuilder,
@@ -84,17 +86,15 @@ export class NewClassFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Check if the user is authenticated
+    // Check if user is authenticated and optionally populate the form
     const userData = this.authService.currentUserDataSig();
     console.log('userData', userData);
     if (userData) {
-      // User is authenticated, go straight to ActiveSubState
       this.currentFormState = FormClassState.ActiveSub;
       this.activeSubForm.patchValue({
-        name: userData.name, // Auto-fill the user's name
+        name: userData.name,
       });
     } else {
-      // User is not authenticated, start in StartState
       this.currentFormState = FormClassState.Start;
     }
   }
@@ -104,74 +104,102 @@ export class NewClassFormComponent implements OnInit {
     return this.currentFormState === FormClassState.Newbie ? this.newbieForm : this.activeSubForm;
   }
 
-  // Switch between form states
+  // Switch between form states, validate if the user is authenticated
   onUserTypeSelect(userType: string) {
-
-    // this.prevFormState = userType === 'new' ? FormClassState.Newbie : FormClassState.ActiveSub;
-    // this.currentFormState = this.prevFormState;
-
     if (userType === 'new') {
-      this.prevFormState = FormClassState.Newbie;
+      this.prevFormState = this.currentFormState;
       this.currentFormState = FormClassState.Newbie;
     } else if (userType === 'signed') {
       const userData = this.authService.currentUserDataSig();
-
       if (userData) {
-        // User is authenticated, go to ActiveSubState
-        this.prevFormState = FormClassState.ActiveSub;
+        this.prevFormState = this.currentFormState;
         this.currentFormState = FormClassState.ActiveSub;
         this.activeSubForm.patchValue({
-          name: userData.name, // Auto-fill the user's name
+          name: userData.name,
         });
       } else {
-        // User is not authenticated, close this dialog and open login form
         this.closeDialog();
-        this.dialogService.openLogin(); // Open the login form
+        this.dialogService.openLogin();
       }
     }
   }
 
-  // Form submission
-  onSubmit() {
+  async onSubmit() {
+    if (this.validateForm()) {
+      await this.createNewClass();
+    }
+  }
 
-    // Validate for NewbieState
+  private validateForm(): boolean {
     if (this.currentFormState === FormClassState.Newbie) {
       if (!this.newbieForm.get('name')?.value) {
-        // this.showErrorMessage('You must enter your name to submit the form');
         this.showErrorMessage('Пожалуйста, укажите имя');
-        return;
+        return false;
       }
       if (!this.newbieForm.get('phone')?.value && !this.newbieForm.get('telegram')?.value) {
-        // this.showErrorMessage('You must enter at least one contact to submit the form');
         this.showErrorMessage('Пожалуйста, укажите хотя бы один способ связи');
-        return;
+        return false;
       }
     }
 
-    // Validate for ActiveSubState
     if (this.currentFormState === FormClassState.ActiveSub) {
       const date = this.activeSubForm.get('date')?.value;
       const time = this.activeSubForm.get('time')?.value;
 
-      // Check if date or time is missing
       if (!date || !time) {
         const missingFields = [];
         if (!date) missingFields.push('дату');
         if (!time) missingFields.push('время');
         this.showErrorMessage(`Пожалуйста, укажите ${missingFields.join(' и ')}`);
-        return;
+        return false;
       }
     }
+    return true;
+  }
 
-    // If form is valid, switch to SubmitState
-    if (this.currentForm.valid) {
-      this.isSubmitted = true;
-      this.submitSuccess = true;
+  async createNewClass() {
+    const { date, time } = this.activeSubForm.value;
+    try {
+      this.prevFormState = this.currentFormState;
       this.currentFormState = FormClassState.Submit;
 
-      // Close the dialog 5 seconds after submitting the form
+      const userData = this.authService.currentUserDataSig();
+      if (!userData) throw new Error('User not authenticated');
+
+      // Create new class object
+      const newClass: Class = {
+        id: '', // Firestore will auto-generate the ID
+        status: 'pending',
+        startdate: this.generateISODateTime(date, time),
+        enddate: this.generateISODateTime(date, time, 1) // Add 1 hour to the end date
+      };
+
+      // Add new class and retrieve the document reference with auto-generated ID
+      const docRef = await this.classesService.addClass(newClass);
+
+      // @ts-ignore populate the userData.classes[] with recently created newClass.ID
+      userData.classes = [...(userData.classes || []), docRef.id];
+
+      // Update Firestore with the new userData
+      await this.usersFirebaseService.updateUser(userData);
+
+      // Switch state to successful and close the dialog
+      this.currentFormState = FormClassState.Success;
+      this.router.navigate(['/user']);
+      setTimeout(() => this.closeDialog(), 5000);
+    } catch (error) {
+      this.currentFormState = FormClassState.Error;
+      this.showErrorMessage('Error while submitting the form. Please try again.');
       setTimeout(() => this.closeDialog(), 5000);
     }
+  }
+
+  // Generate ISO8601 date string
+  private generateISODateTime(date: Date, time: string, hourOffset: number = 0): string {
+    const [hours, minutes] = time.split(':').map(Number);
+    const dateTime = new Date(date);
+    dateTime.setHours(hours + hourOffset, minutes);
+    return dateTime.toISOString();
   }
 
   // Show error message for 5 seconds
@@ -179,20 +207,6 @@ export class NewClassFormComponent implements OnInit {
     this.errorMessage = message;
     setTimeout(() => (this.errorMessage = ''), 5000);
   }
-
-
-  // Handle back button press
-  // UNRESOLVED LOGIC
-  handleBackButton() {
-    if (this.currentFormState === FormClassState.Newbie || this.currentFormState === FormClassState.ActiveSub) {
-      console.log('handleBackButton back');
-      this.goBackToStart(); // Switch back to StartState if in NewbieState or ActiveSubState
-    } else if (this.currentFormState === FormClassState.Start) {
-      console.log('handleBackButton close');
-      this.closeDialog(); // Close the dialog if in StartState
-    }
-  }
-
 
   // Go back to the start state
   goBackToStart() {
@@ -204,7 +218,6 @@ export class NewClassFormComponent implements OnInit {
 
     // Reset the activeSubForm
     this.activeSubForm = this.fb.group({
-      // name: ['John Doe', Validators.required],
       name: ['', Validators.required],
       date: ['', Validators.required],
       time: ['', Validators.required],

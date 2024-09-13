@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { addDoc, collectionData, deleteDoc, doc, Firestore, updateDoc } from '@angular/fire/firestore';
-import { collection } from 'firebase/firestore';
+import { collection, DocumentReference } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { Class } from '../interfaces/data.interface';
 
@@ -19,9 +19,9 @@ export class ClassesFirebaseService {
     }) as Observable<Class[]>;
   }
 
-  // Add a new class to Firebase
-  addClass(newClass: Class): Promise<void> {
-    return addDoc(this.classesCollection, newClass).then(() => { });
+  // Add a new class to Firebase and return the document reference
+  addClass(newClass: Class): Promise<DocumentReference> {
+    return addDoc(this.classesCollection, newClass);
   }
 
   // Update an existing class in Firebase
