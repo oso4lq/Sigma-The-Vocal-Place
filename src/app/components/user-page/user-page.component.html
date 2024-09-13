@@ -67,7 +67,7 @@
                 <div class="flex-col center-all flex-grow my-classes__list">
 
                     <!-- Loaded classes list - later add filter by user -->
-                    <div *ngFor="let class of classes()" class="w-100 my-classes__item">
+                    <div *ngFor="let class of filteredClasses()" class="w-100 my-classes__item">
                         <div class="utility-btn utility-btn_details" (click)="editClass()">
                             <mat-icon>edit</mat-icon>
                         </div>

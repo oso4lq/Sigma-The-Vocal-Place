@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   // Monitor Firebase Authentication state
-  private monitorAuthState(): void {
+  monitorAuthState(): void {
     onAuthStateChanged(this.firebaseAuth, (firebaseUser) => {
 
       // If authenticated user found, set user and userData
@@ -55,9 +55,9 @@ export class AuthService {
   }
 
   setUserDataNull() {
-    console.log('user setting null');
+    // console.log('user setting null');
     this.currentUserSig.set(null);
-    console.log('userData setting null');
+    // console.log('userData setting null');
     this.currentUserDataSig.set(null);
 
     // Unsubscribe from the Firestore user data subscription

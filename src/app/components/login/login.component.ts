@@ -86,13 +86,13 @@ export class LoginComponent {
         .login(login, password)
         .subscribe({
           next: () => {
-            console.log('successful login');
+            // console.log('successful login');
             this.currentFormState = FormLoginState.Success;
-            console.log('currentUser', this.currentUser());
+            // console.log('currentUser', this.currentUser());
             setTimeout(() => this.closeDialogAndNavigate(), 300);  // Navigate after success
           },
           error: (err) => {
-            console.log('error while login');
+            // console.log('error while login');
             this.currentFormState = FormLoginState.Error;
             this.errorMessage = 'Error occurred: ' + err.code;
             setTimeout(() => this.closeDialog(), 3000);  // Close dialog after error

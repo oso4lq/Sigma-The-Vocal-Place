@@ -41,15 +41,36 @@ export class UserPageComponent implements OnInit {
   imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
 
   constructor(
+    private usersFirebaseService: UsersFirebaseService,
     private classesService: ClassesService,
     private authService: AuthService,
     private parent: AppComponent,
-    private router: Router,
   ) { }
 
   currentUser: any = computed(() => this.authService.currentUserSig()); // track the current user
   currentUserData: any = computed(() => this.authService.currentUserDataSig()); // track the current user data
   classes: any = computed(() => this.classesService.classesSig()); // track the classes array
+
+  // Filtered and sorted classes that match the user's registered classes
+  filteredClasses = computed(() => {
+    if (!this.userData || !this.userData.classes) return [];
+
+    // Filter classes by user's class IDs
+    // const userClassIds = this.userData.classes; // Extract user's class IDs
+    const userClassIds = this.userData.classes.map((id: string | number) => String(id));
+
+    // Match the available classes with the user's class IDs
+    const matchedClasses = this.classes().filter((classItem: Class) =>
+      userClassIds.includes(String(classItem.id))
+    );
+
+    // Sort the classes by the start date (nearest date first)
+    return matchedClasses.sort((a: Class, b: Class) => {
+      const dateA = new Date(a.startdate).getTime();
+      const dateB = new Date(b.startdate).getTime();
+      return dateA - dateB; // Sort by ascending date (nearest first)
+    });
+  });
 
   ngOnInit(): void {
     this.classesService.loadClasses();
@@ -59,14 +80,31 @@ export class UserPageComponent implements OnInit {
 
   refreshClasses() {
     console.log("Refreshing classes...");
-    this.classesService.loadClasses();
+    
+    // Refresh the currentUserData signal to check updates in classes[]
+    this.authService.monitorAuthState();
+
+    // Refresh the classes
+    const newUserData = this.authService.currentUserDataSig();
+    if (newUserData) {
+      this.userData = newUserData;
+      this.classesService.loadClasses();
+    }
   }
 
   toggleEdit() {
     this.isEditing = !this.isEditing;
-    if (!this.isEditing) {
-      // Mock sending data to the server
-      console.log("Sending updated details to the server:", this.userData);
+
+    // If the user is not in edit mode anymore, submit the data to Firebase
+    if (!this.isEditing && this.userData) {
+      console.log("Updating user details on the server:", this.userData);
+
+      // Call the updateUser method from UsersFirebaseService
+      this.usersFirebaseService.updateUser(this.userData).then(() => {
+        console.log('User data successfully updated in Firestore');
+      }).catch(error => {
+        console.error('Error updating user data:', error);
+      });
     }
   }
 
@@ -75,9 +113,7 @@ export class UserPageComponent implements OnInit {
   }
 
   logout() {
-    console.log('log out user on user page');
     this.authService.logout();
-    // this.router.navigate(['/']);
   }
 
   openForm() {
