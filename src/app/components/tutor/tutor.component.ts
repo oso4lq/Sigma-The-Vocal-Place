@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AppComponent } from '../../app.component';
 import { Card } from '../../interfaces/data.interface';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-tutor',
@@ -33,10 +33,10 @@ export class TutorComponent {
   ]
 
   constructor(
-    private parent: AppComponent,
+    private dialogService: DialogService,
   ) { }
 
   openGallery(array: Card[], index: number) {
-    this.parent.openImage(array, index);
+    this.dialogService.openImage(array, index);
   }
 }

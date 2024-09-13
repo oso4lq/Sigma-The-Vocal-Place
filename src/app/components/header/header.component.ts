@@ -13,6 +13,7 @@ import { SwiperOptions } from 'swiper/types';
 import { AppComponent } from '../../app.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-header',
@@ -58,6 +59,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private scrollingService: ScrollingService,
     private mobileService: MobileService,
+    private dialogService: DialogService,
     private authService: AuthService,
     private parent: AppComponent,
     private renderer: Renderer2,
@@ -112,7 +114,7 @@ export class HeaderComponent implements OnInit {
 
   toggleMenu() {
     // Prevent opening the menu if the image viewer is open
-    if (this.parent.isDialogOpen) {
+    if (this.dialogService.isDialogOpen) {
       return;
     }
 
@@ -150,7 +152,7 @@ export class HeaderComponent implements OnInit {
 
   openForm() {
     this.closeMenu();
-    this.parent.openForm();
+    this.dialogService.openForm();
   }
 
   handleLogin() {
@@ -158,7 +160,7 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/user']);
     } else {
       this.closeMenu();
-      this.parent.openLogin();
+      this.dialogService.openLogin();
     }
   }
 

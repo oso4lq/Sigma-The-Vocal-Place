@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -11,6 +11,9 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/mat
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { AppComponent } from '../../app.component';
+import { AuthService } from '../../services/auth.service';
+import { DialogService } from '../../services/dialog.service';
 
 enum FormClassState {
   Start = 'StartState',
@@ -43,14 +46,14 @@ enum FormClassState {
   templateUrl: './new-class-form.component.html',
   styleUrl: './new-class-form.component.scss'
 })
-export class NewClassFormComponent {
+export class NewClassFormComponent implements OnInit {
 
   newbieForm: FormGroup;
   activeSubForm: FormGroup;
   currentFormState: FormClassState = FormClassState.Start;
   prevFormState: FormClassState | null = null;
   errorMessage = '';
-  
+
   // isSubmitted for waiting for responce
   isSubmitted = false;
   // submitSuccess for received positive responce
@@ -58,6 +61,8 @@ export class NewClassFormComponent {
 
   constructor(
     private dialogRef: MatDialogRef<NewClassFormComponent>,
+    private dialogService: DialogService,
+    private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
   ) {
@@ -71,11 +76,27 @@ export class NewClassFormComponent {
 
     // ActiveSub form
     this.activeSubForm = this.fb.group({
-      name: ['John Doe', Validators.required],
+      name: ['', Validators.required], // Will be updated with user's name if authenticated
       date: ['', Validators.required],
       time: ['', Validators.required],
       message: [''],
     });
+  }
+
+  ngOnInit(): void {
+    // Check if the user is authenticated
+    const userData = this.authService.currentUserDataSig();
+    console.log('userData', userData);
+    if (userData) {
+      // User is authenticated, go straight to ActiveSubState
+      this.currentFormState = FormClassState.ActiveSub;
+      this.activeSubForm.patchValue({
+        name: userData.name, // Auto-fill the user's name
+      });
+    } else {
+      // User is not authenticated, start in StartState
+      this.currentFormState = FormClassState.Start;
+    }
   }
 
   // Dynamically return the current form
@@ -85,8 +106,29 @@ export class NewClassFormComponent {
 
   // Switch between form states
   onUserTypeSelect(userType: string) {
-    this.prevFormState = userType === 'new' ? FormClassState.Newbie : FormClassState.ActiveSub;
-    this.currentFormState = this.prevFormState;
+
+    // this.prevFormState = userType === 'new' ? FormClassState.Newbie : FormClassState.ActiveSub;
+    // this.currentFormState = this.prevFormState;
+
+    if (userType === 'new') {
+      this.prevFormState = FormClassState.Newbie;
+      this.currentFormState = FormClassState.Newbie;
+    } else if (userType === 'signed') {
+      const userData = this.authService.currentUserDataSig();
+
+      if (userData) {
+        // User is authenticated, go to ActiveSubState
+        this.prevFormState = FormClassState.ActiveSub;
+        this.currentFormState = FormClassState.ActiveSub;
+        this.activeSubForm.patchValue({
+          name: userData.name, // Auto-fill the user's name
+        });
+      } else {
+        // User is not authenticated, close this dialog and open login form
+        this.closeDialog();
+        this.dialogService.openLogin(); // Open the login form
+      }
+    }
   }
 
   // Form submission
@@ -162,7 +204,8 @@ export class NewClassFormComponent {
 
     // Reset the activeSubForm
     this.activeSubForm = this.fb.group({
-      name: ['John Doe', Validators.required],
+      // name: ['John Doe', Validators.required],
+      name: ['', Validators.required],
       date: ['', Validators.required],
       time: ['', Validators.required],
       message: [''],

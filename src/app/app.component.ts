@@ -2,13 +2,9 @@ import { Component, computed, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { MainSections, ScrollingService } from './services/scrolling.service';
-import { MatDialog } from '@angular/material/dialog';
-import { Card } from './interfaces/data.interface';
-import { GalleryComponent } from './components/gallery/gallery.component';
-import { NewClassFormComponent } from './components/new-class-form/new-class-form.component';
 import { filter } from 'rxjs';
-import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
+import { DialogService } from './services/dialog.service';
 
 @Component({
   selector: 'app-root',
@@ -23,12 +19,11 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
 
   title = 'sigma-vocal-place';
-  isDialogOpen = false;
 
   constructor(
     private scrollingService: ScrollingService,
+    private dialogService: DialogService,
     private authService: AuthService,
-    private dialog: MatDialog,
     private router: Router,
   ) { }
 
@@ -49,7 +44,7 @@ export class AppComponent implements OnInit {
       if (urlWithoutParams === '/user' && !this.currentUser()) {
         // Redirect to login if trying to access user page without authentication
         this.router.navigate(['/']);
-        this.openLogin();  // Open login dialog if user is not authenticated
+        this.dialogService.openLogin();  // Open login dialog if user is not authenticated
       }
 
       if (urlWithoutParams !== '/') {
@@ -68,7 +63,6 @@ export class AppComponent implements OnInit {
         }, 10);
       }
     });
-
   }
 
   // Navigate to the section from anywhere in the app
@@ -84,69 +78,4 @@ export class AppComponent implements OnInit {
     }
   }
 
-  // Image Viewer
-  openImage(images: Card[], initialSlide: number) {
-    // Disable scrolling and opening menu when the image viewer is opened
-    this.scrollingService.restrictBodyScrolling();
-    this.isDialogOpen = true;
-
-    // Push fake state to close the popup with the back button
-    history.pushState(null, '', window.location.href);
-
-    const dialogRef = this.dialog.open(GalleryComponent, {
-      data: { slides: images, initialSlide: initialSlide },
-      hasBackdrop: true,
-      backdropClass: 'custom-backdrop',
-      panelClass: 'image-viewer-dialog',
-      disableClose: false,
-    });
-
-    // Enable scrolling and opening menu when the image viewer is closed
-    dialogRef.afterClosed().subscribe(() => {
-      this.isDialogOpen = false;
-      this.scrollingService.enableBodyScrolling();
-    });
-  }
-
-  openForm() {
-    this.scrollingService.restrictBodyScrolling();
-    this.isDialogOpen = true;
-
-    // Push fake state to close the popup with the back button
-    history.pushState(null, '', window.location.href);
-
-    const dialogRef = this.dialog.open(NewClassFormComponent, {
-      hasBackdrop: true,
-      backdropClass: 'custom-backdrop',
-      panelClass: 'new-class-form-dialog',
-      disableClose: false,
-    });
-
-    // Enable scrolling and opening menu when the image viewer is closed
-    dialogRef.afterClosed().subscribe(() => {
-      this.isDialogOpen = false;
-      this.scrollingService.enableBodyScrolling();
-    });
-  }
-
-  openLogin() {
-    this.scrollingService.restrictBodyScrolling();
-    this.isDialogOpen = true;
-
-    // Push fake state to close the popup with the back button
-    history.pushState(null, '', window.location.href);
-
-    const dialogRef = this.dialog.open(LoginComponent, {
-      hasBackdrop: true,
-      backdropClass: 'custom-backdrop',
-      panelClass: 'new-class-form-dialog',
-      disableClose: false,
-    });
-
-    // Enable scrolling and opening menu when the image viewer is closed
-    dialogRef.afterClosed().subscribe(() => {
-      this.isDialogOpen = false;
-      this.scrollingService.enableBodyScrolling();
-    });
-  }
 }

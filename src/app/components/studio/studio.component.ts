@@ -8,7 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MobileService } from '../../services/mobile.service';
 import { Card, Review, Source } from '../../interfaces/data.interface';
-import { AppComponent } from '../../app.component';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-studio',
@@ -184,7 +184,7 @@ export class StudioComponent {
 
   constructor(
     private mobileService: MobileService,
-    private parent: AppComponent,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit() {
@@ -220,6 +220,6 @@ export class StudioComponent {
   }
 
   openGallery(index: number) {
-    this.parent.openImage(this.images, index);
+    this.dialogService.openImage(this.images, index);
   }
 }

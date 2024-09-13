@@ -15,6 +15,7 @@ import { AuthService } from '../../services/auth.service';
 import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-user-page',
@@ -43,6 +44,7 @@ export class UserPageComponent implements OnInit {
   constructor(
     private usersFirebaseService: UsersFirebaseService,
     private classesService: ClassesService,
+    private dialogService: DialogService,
     private authService: AuthService,
     private parent: AppComponent,
   ) { }
@@ -56,7 +58,6 @@ export class UserPageComponent implements OnInit {
     if (!this.userData || !this.userData.classes) return [];
 
     // Filter classes by user's class IDs
-    // const userClassIds = this.userData.classes; // Extract user's class IDs
     const userClassIds = this.userData.classes.map((id: string | number) => String(id));
 
     // Match the available classes with the user's class IDs
@@ -68,14 +69,14 @@ export class UserPageComponent implements OnInit {
     return matchedClasses.sort((a: Class, b: Class) => {
       const dateA = new Date(a.startdate).getTime();
       const dateB = new Date(b.startdate).getTime();
-      return dateA - dateB; // Sort by ascending date (nearest first)
+      return dateA - dateB;
     });
   });
 
   ngOnInit(): void {
     this.classesService.loadClasses();
     this.userData = this.currentUserData();
-    console.log(this.userData);
+    // console.log(this.userData);
   }
 
   refreshClasses() {
@@ -117,7 +118,7 @@ export class UserPageComponent implements OnInit {
   }
 
   openForm() {
-    this.parent.openForm();
+    this.dialogService.openForm();
   }
 
   getSeasonPassText(seaspass: number): string {
