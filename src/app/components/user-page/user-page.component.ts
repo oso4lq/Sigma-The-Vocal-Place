@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { DialogService } from '../../services/dialog.service';
 import { User } from 'firebase/auth';
+import moment from 'moment';
 
 @Component({
   selector: 'app-user-page',
@@ -60,8 +61,15 @@ export class UserPageComponent implements OnInit {
       userClassIds.includes(String(classItem.id))
     );
 
+    // Filter out classes that have already ended
+    const currentMoment = moment();
+    const upcomingClasses = matchedClasses.filter((classItem: Class) => {
+      const endDate = moment(classItem.enddate);
+      return endDate.isAfter(currentMoment);
+    });
+
     // Sort the classes by the start date (nearest date first)
-    return matchedClasses.sort((a: Class, b: Class) => {
+    return upcomingClasses.sort((a: Class, b: Class) => {
       const dateA = new Date(a.startdate).getTime();
       const dateB = new Date(b.startdate).getTime();
       return dateA - dateB;
