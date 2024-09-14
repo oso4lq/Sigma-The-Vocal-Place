@@ -35,8 +35,8 @@ export interface User {
 export interface Class {
     id: string | number;
     status: 'confirmed' | "cancelled" | "pending" | "executed";
-    startdate: string; // ISO8601 string
-    enddate: string; // ISO8601 string
+    startdate: string; // ISO8601 UTC string
+    enddate: string; // ISO8601 UTC string
 }
 
 export interface TimelineSlot {

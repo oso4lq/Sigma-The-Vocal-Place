@@ -3,6 +3,7 @@
 
     <!-- Check if user exists before rendering the form -->
     <ng-container *ngIf="currentUserData()">
+
         <!-- User info row: userpic and name -->
         <div class="flex-row center-row user-info">
             <div class="flex-row center-row contact-info">
@@ -17,9 +18,10 @@
         <!-- Divider -->
         <mat-divider class="user-info__divider"></mat-divider>
 
+        <!-- admin section -->
         <!-- <app-admin-console *ngIf="user.isadmin"></app-admin-console> -->
 
-        <!-- admin & user section -->
+        <!-- user section, available for admin too -->
         <div class="flex-col w-100 content-wrapper">
 
             <!-- Personal details with edit button -->
@@ -27,6 +29,8 @@
                 <div class="utility-btn utility-btn_details" (click)="toggleEdit()">
                     <mat-icon>{{ isEditing ? 'done_all' : 'edit' }}</mat-icon>
                 </div>
+                <!-- Title for mobile -->
+                <p class="contacts-title">Контакты</p>
                 <!-- Email (Top-left sector) -->
                 <div class="flex-row center-row contact-info email">
                     <label class="label">e-mail:</label>

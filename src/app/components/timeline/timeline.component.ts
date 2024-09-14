@@ -27,14 +27,12 @@ export class TimelineComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['classes'] || changes['selectedDate']) {
-      console.log('changed', changes['classes'], 'or', changes['selectedDate']);
       this.generateTimeline();
     }
   }
 
   // Generate time slots for the selected date based on the received classes[]
   private generateTimeline() {
-    console.log('generating timeline with ', this.classes, this.selectedDate);
     this.timeSlots = this.createTimeSlots(this.classes, this.selectedDate);
   }
 
@@ -77,7 +75,6 @@ export class TimelineComponent implements OnInit, OnChanges {
   }
 
   onSlotClicked(timeSlot: TimelineSlot) {
-    console.log('timeSlot clicked', timeSlot);
     this.slotClicked.emit(timeSlot);
   }
 }

@@ -18,7 +18,7 @@ export class ClassesService {
   // Fetch the classes from Firebase and set them in the signal
   loadClasses(): void {
     this.classesFirebaseService.getClasses().subscribe((classes: Class[]) => {
-      console.log('classes ', classes);
+      console.log('loadClasses ', classes);
       this.classesSig.set(classes);
     })
   }

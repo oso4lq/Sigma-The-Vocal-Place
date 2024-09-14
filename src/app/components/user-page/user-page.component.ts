@@ -75,8 +75,6 @@ export class UserPageComponent implements OnInit {
   }
 
   refreshClasses() {
-    console.log("Refreshing classes...");
-
     // Refresh the currentUserData signal to check updates in classes[]
     this.authService.monitorAuthState();
 

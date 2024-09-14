@@ -14,10 +14,10 @@ import { DialogService } from '../../services/dialog.service';
   selector: 'app-studio',
   standalone: true,
   imports: [
-    GalleryComponent,
     MatDividerModule,
     MatIconModule,
     CommonModule,
+    GalleryComponent,
   ],
   templateUrl: './studio.component.html',
   styleUrl: './studio.component.scss'

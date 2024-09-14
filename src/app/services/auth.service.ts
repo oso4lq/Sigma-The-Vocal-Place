@@ -29,11 +29,9 @@ export class AuthService {
 
       // If authenticated user found, set user and userData
       if (firebaseUser) {
-        // console.log('onAuthStateChanged setting firebaseUser', firebaseUser);
         this.currentUserSig.set(firebaseUser);
 
         if (firebaseUser.uid) {
-          // console.log('setting firebaseUserData for uid: ', firebaseUser.uid);
 
           // Unsubscribe from any previous subscription
           if (this.userDataSubscription) {
@@ -54,9 +52,7 @@ export class AuthService {
   }
 
   setUserDataNull() {
-    // console.log('user setting null');
     this.currentUserSig.set(null);
-    // console.log('userData setting null');
     this.currentUserDataSig.set(null);
 
     // Unsubscribe from the Firestore user data subscription
@@ -77,7 +73,6 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<void> {
-    // console.log('log in user');
     const promise = signInWithEmailAndPassword(
       this.firebaseAuth,
       email,
@@ -88,7 +83,6 @@ export class AuthService {
   }
 
   logout(): Observable<void> {
-    // console.log('log out user');
     const promise = signOut(this.firebaseAuth).then(() => {
       this.setUserDataNull();
       this.router.navigate(['/']);

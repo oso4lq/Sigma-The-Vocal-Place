@@ -105,11 +105,7 @@ export class NewClassFormComponent implements OnInit {
   ngOnInit(): void {
     // Check if user is authenticated and optionally populate the form
     const userData = this.authService.currentUserDataSig();
-    console.log('userData', userData);
     if (userData) {
-
-      // ! fetch the whole classes[] array logic to be placed here
-
       this.currentFormState = FormClassState.ActiveSub;
       this.activeSubForm.patchValue({
         name: userData.name,
@@ -117,15 +113,6 @@ export class NewClassFormComponent implements OnInit {
     } else {
       this.currentFormState = FormClassState.Start;
     }
-
-    // // Fetch all classes
-    // this.classesService.loadClasses();
-
-    // // Subscribe to classes changes
-    // effect(() => {
-    //   const allClasses = this.classes(); // Using computed signal
-    //   this.filterClassesForDate(this.selectedDate, allClasses);
-    // });
   }
 
   // Dynamically return the current form
@@ -141,9 +128,6 @@ export class NewClassFormComponent implements OnInit {
     } else if (userType === 'signed') {
       const userData = this.authService.currentUserDataSig();
       if (userData) {
-
-        // ! fetch the whole classes[] array logic to be placed here
-
         this.prevFormState = this.currentFormState;
         this.currentFormState = FormClassState.ActiveSub;
         this.activeSubForm.patchValue({
@@ -162,8 +146,8 @@ export class NewClassFormComponent implements OnInit {
     const date = event.value ? moment(event.value) : moment();
     this.selectedDate = date;
 
-    // Update the date in the form
-    this.activeSubForm.patchValue({ date: date.toDate(), time: '' }); // Clear time
+    // Update the date in the form (Clear time)
+    this.activeSubForm.patchValue({ date: date.toDate(), time: '' });
 
     // Fetch classes for the selected date
     const allClasses = this.classes();
@@ -172,7 +156,6 @@ export class NewClassFormComponent implements OnInit {
 
   // Filter classes for the selected date
   filterClassesForDate(date: Moment, allClasses: Class[]) {
-    console.log('filterClassesForDate with', date, allClasses);
     this.classesForSelectedDate = allClasses.filter(cls => {
       const clsDate = moment(cls.startdate);
       return clsDate.isSame(date, 'day');
@@ -187,7 +170,7 @@ export class NewClassFormComponent implements OnInit {
       this.errorMessage = '';
     } else {
       // Show error message
-      this.showErrorMessage('Это время недоступно'); // "This slot is not available"
+      this.showErrorMessage('Это время недоступно');
       // Clear time input
       this.activeSubForm.patchValue({ time: '' });
     }
