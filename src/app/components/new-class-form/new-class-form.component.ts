@@ -19,6 +19,8 @@ import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import moment, { Moment } from 'moment';
 import { TimelineComponent } from '../timeline/timeline.component';
+import { ClassesFirebaseService } from '../../services/classes-firebase.service';
+import { collection, doc, writeBatch } from '@angular/fire/firestore';
 
 enum FormClassState {
   Start = 'StartState',
@@ -69,6 +71,7 @@ export class NewClassFormComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<NewClassFormComponent>,
+    private classesFirebaseService: ClassesFirebaseService,
     private usersFirebaseService: UsersFirebaseService,
     private classesService: ClassesService,
     private dialogService: DialogService,
@@ -218,6 +221,14 @@ export class NewClassFormComponent implements OnInit {
       const userData = this.authService.currentUserDataSig();
       if (!userData) throw new Error('User not authenticated');
 
+      // Check if the user has membership points
+      let isMembershipUsed = false;
+      if (userData.membership && userData.membership > 0) {
+        // Decrement membership points
+        userData.membership -= 1;
+        isMembershipUsed = true;
+      }
+
       // Create new class object
       const newClass: Class = {
         id: '', // Firestore will auto-generate the ID
@@ -225,27 +236,43 @@ export class NewClassFormComponent implements OnInit {
         startdate: this.generateISODateTime(date, time),
         enddate: this.generateISODateTime(date, time, 1), // Add 1 hour to the end date
 
-        // Check if the user had membership points. If yes, set true
-        isMembershipUsed: false,
+        isMembershipUsed: isMembershipUsed,
+        userId: userData.id, // Link the class to the user
       };
 
-      // Add new class and retrieve the document reference with auto-generated ID
-      const docRef = await this.classesService.addClass(newClass);
+      // Create a batch
+      const batch = writeBatch(this.classesFirebaseService.firestore);
 
-      // @ts-ignore populate the userData.classes[] with recently created newClass.ID
-      userData.classes = [...(userData.classes || []), docRef.id];
+      // Create a new document reference for the class
+      const classDocRef = doc(collection(this.classesFirebaseService.firestore, 'classes'));
+      newClass.id = classDocRef.id;
 
-      // Update Firestore with the new userData
-      await this.usersFirebaseService.updateUser(userData);
+      // Add the class to the batch
+      batch.set(classDocRef, newClass);
+
+      // @ts-ignore Update user's classes array with the new class ID
+      userData.classes = [...(userData.classes || []), classDocRef.id];
+
+      // Prepare the user document reference
+      const userDocRef = doc(this.usersFirebaseService.firestore, `users/${userData.id}`);
+
+      // Update user data in the batch
+      batch.update(userDocRef, {
+        membership: userData.membership,
+        classes: userData.classes,
+      });
+
+      // Commit the batch
+      await batch.commit();
 
       // Switch state to successful and close the dialog
       this.currentFormState = FormClassState.Success;
       this.router.navigate(['/user']);
-      setTimeout(() => this.closeDialog(), 5000);
+      setTimeout(() => this.closeDialog(), 3000);
     } catch (error) {
       this.currentFormState = FormClassState.Error;
       this.showErrorMessage('Error while submitting the form. Please try again.');
-      setTimeout(() => this.closeDialog(), 5000);
+      setTimeout(() => this.closeDialog(), 3000);
     }
   }
 

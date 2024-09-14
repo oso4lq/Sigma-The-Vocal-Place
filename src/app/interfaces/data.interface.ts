@@ -37,7 +37,8 @@ export interface Class {
     status: 'confirmed' | "cancelled" | "pending" | "executed";
     startdate: string; // ISO8601 UTC string
     enddate: string; // ISO8601 UTC string
-    isMembershipUsed: boolean;
+    isMembershipUsed: boolean; // if this class was booked using a membership point
+    userId: string | number; // link the class to the user
 }
 
 export interface TimelineSlot {
