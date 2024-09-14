@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, OnInit } from '@angular/core';
+import { Component, computed, effect, OnInit, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { DialogService } from '../../services/dialog.service';
-import { Class, TimelineSlot } from '../../interfaces/data.interface';
+import { Class, ClassStatus, TimelineSlot } from '../../interfaces/data.interface';
 import { ClassesService } from '../../services/classes.service';
 import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -66,7 +66,7 @@ export class NewClassFormComponent implements OnInit {
 
   // New properties
   selectedDate: Moment = moment(); // Initialize with current date
-  classes: any = computed(() => this.classesService.classesSig()); // Track the classes array
+  classes: Signal<Class[]>  = computed(() => this.classesService.classesSig()); // Track the classes array
   classesForSelectedDate: Class[] = []; // Contain the classes[] for the selected date
 
   constructor(
@@ -232,10 +232,9 @@ export class NewClassFormComponent implements OnInit {
       // Create new class object
       const newClass: Class = {
         id: '', // Firestore will auto-generate the ID
-        status: 'pending',
+        status: ClassStatus.Pending,
         startdate: this.generateISODateTime(date, time),
         enddate: this.generateISODateTime(date, time, 1), // Add 1 hour to the end date
-
         isMembershipUsed: isMembershipUsed,
         userId: userData.id, // Link the class to the user
       };
@@ -250,7 +249,7 @@ export class NewClassFormComponent implements OnInit {
       // Add the class to the batch
       batch.set(classDocRef, newClass);
 
-      // @ts-ignore Update user's classes array with the new class ID
+      // Update user's classes array with the new class ID
       userData.classes = [...(userData.classes || []), classDocRef.id];
 
       // Prepare the user document reference
@@ -268,11 +267,11 @@ export class NewClassFormComponent implements OnInit {
       // Switch state to successful and close the dialog
       this.currentFormState = FormClassState.Success;
       this.router.navigate(['/user']);
-      setTimeout(() => this.closeDialog(), 3000);
+      setTimeout(() => this.closeDialog(), 5000);
     } catch (error) {
       this.currentFormState = FormClassState.Error;
-      this.showErrorMessage('Error while submitting the form. Please try again.');
-      setTimeout(() => this.closeDialog(), 3000);
+      this.showErrorMessage('Произошла ошибка во время отправления запроса. Пожалуйста, попробуйте снова.');
+      setTimeout(() => this.closeDialog(), 5000);
     }
   }
 

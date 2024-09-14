@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminConsoleComponent } from './admin-console.component';
+import { CancelClassComponent } from './cancel-class.component';
 
-describe('AdminConsoleComponent', () => {
-  let component: AdminConsoleComponent;
-  let fixture: ComponentFixture<AdminConsoleComponent>;
+describe('CancelClassComponent', () => {
+  let component: CancelClassComponent;
+  let fixture: ComponentFixture<CancelClassComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminConsoleComponent]
+      imports: [CancelClassComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminConsoleComponent);
+    fixture = TestBed.createComponent(CancelClassComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

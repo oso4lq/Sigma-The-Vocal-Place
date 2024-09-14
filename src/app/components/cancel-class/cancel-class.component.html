@@ -1,0 +1,21 @@
+<div class="flex-col newclass-form">
+    <div class="flex-row center-row form-header">
+        <h2>Отмена занятия</h2>
+        <div class="utility-btn" (click)="closeDialog()">
+            <mat-icon>close</mat-icon>
+        </div>
+    </div>
+
+    <mat-dialog-content>
+        <p>Вы уверены, что хотите отменить занятие?</p>
+        <div class="flex-row flex-grow class-to-cancel">
+            {{ classItem.startdate | date:'dd.MM.yyyy HH:mm' }} - {{ classItem.enddate | date:'HH:mm' }}
+        </div>
+        <p>{{ message }}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button (click)="closeDialog()">Назад</button>
+        <button mat-raised-button color="warn" (click)="confirmCancel()">Подтвердить</button>
+    </mat-dialog-actions>
+
+</div>

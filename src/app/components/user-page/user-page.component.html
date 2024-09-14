@@ -2,13 +2,13 @@
     <h1>Личный кабинет</h1>
 
     <!-- Check if user exists before rendering the form -->
-    <ng-container *ngIf="currentUserData()">
+    <ng-container *ngIf="currentUserData() as userData">
 
         <!-- User info row: userpic and name -->
         <div class="flex-row center-row user-info">
             <div class="flex-row center-row contact-info">
-                <img [src]="currentUserData().img || imgDefault" alt="Userpic" class="userpic" />
-                <h2>{{ currentUserData().name }}</h2>
+                <img [src]="userData.img || imgDefault" alt="Userpic" class="userpic" />
+                <h2>{{ userData.name }}</h2>
             </div>
             <div class="flex-row utility-btn utility-btn_logout" (click)="logout()">
                 <mat-icon>logout</mat-icon>
@@ -34,7 +34,7 @@
                 <!-- Email (Top-left sector) -->
                 <div class="flex-row center-row contact-info email">
                     <label class="label">e-mail:</label>
-                    <input class="input" type="text" [(ngModel)]="currentUserData().email" [readonly]="!isEditing"
+                    <input class="input" type="text" [(ngModel)]="userData.email" [readonly]="!isEditing"
                         [ngClass]="{ 'editable': isEditing }" />
                 </div>
                 <!-- Empty (Top-right sector) -->
@@ -42,13 +42,13 @@
                 <!-- Telegram (Bottom-left sector) -->
                 <div class="flex-row center-row contact-info telegram">
                     <label class="label">telegram:</label>
-                    <input class="input" type="text" [(ngModel)]="currentUserData().telegram" [readonly]="!isEditing"
+                    <input class="input" type="text" [(ngModel)]="userData.telegram" [readonly]="!isEditing"
                         [ngClass]="{ 'editable': isEditing }" />
                 </div>
                 <!-- Phone (Bottom-right sector) -->
                 <div class="flex-row center-row contact-info phone">
                     <label class="label">phone:</label>
-                    <input class="input" type="text" [(ngModel)]="currentUserData().phone" [readonly]="!isEditing"
+                    <input class="input" type="text" [(ngModel)]="userData.phone" [readonly]="!isEditing"
                         [ngClass]="{ 'editable': isEditing }" />
                 </div>
             </div>
@@ -58,7 +58,7 @@
                 <!-- Membership points -->
                 <p>
                     <strong>Абонемент:</strong>
-                    {{ currentUserData().membership > 0 ? getMembershipText(currentUserData().membership)
+                    {{ userData.membership > 0 ? getMembershipText(userData.membership)
                     : 'Чтобы приобрести абонемент, свяжитесь с преподавателем.' }}
                 </p>
                 <!-- Sign up for a new class button -->
@@ -71,8 +71,8 @@
                 <!-- Loaded classes list filtered by user and date -->
                 <div class="flex-col center-all flex-grow my-classes__list my-classes__list_desktop">
                     <div *ngFor="let class of filteredClasses()" class="w-100 my-classes__item">
-                        <div class="utility-btn utility-btn_details" (click)="editClass()">
-                            <mat-icon>edit</mat-icon>
+                        <div class="utility-btn utility-btn_details" (click)="cancelClass(class)">
+                            <mat-icon>cancel</mat-icon>
                         </div>
                         <p [ngClass]="{
                         'my-classes__status_confirmed': class.status === 'confirmed',
@@ -80,12 +80,12 @@
                         'my-classes__status_pending': class.status === 'pending',
                         'my-classes__status_executed': class.status === 'executed'
                         }" class="my-classes__status">
-                            Status: {{ class.status }}
+                            Статус: {{ class.status }}
                         </p>
                         <mat-divider></mat-divider>
                         <div class="flex-row my-classes__time">
-                            <p>Date: {{ class.startdate | date:'dd.MM.yyyy' }}</p>
-                            <p>Time: {{ class.startdate | date:'HH:mm' }} - {{ class.enddate | date:'HH:mm' }}</p>
+                            <p>Дата: {{ class.startdate | date:'dd.MM.yyyy' }}</p>
+                            <p>Время: {{ class.startdate | date:'HH:mm' }} - {{ class.enddate | date:'HH:mm' }}</p>
                         </div>
                     </div>
                 </div>
@@ -94,8 +94,8 @@
             <!-- Loaded classes list filtered by user and date -->
             <div class="flex-col center-all flex-grow my-classes__list my-classes__list_mobile">
                 <div *ngFor="let class of filteredClasses()" class="w-100 my-classes__item">
-                    <div class="utility-btn utility-btn_details" (click)="editClass()">
-                        <mat-icon>edit</mat-icon>
+                    <div class="utility-btn utility-btn_details" (click)="cancelClass(class)">
+                        <mat-icon>cancel</mat-icon>
                     </div>
                     <p [ngClass]="{
                     'my-classes__status_confirmed': class.status === 'confirmed',

@@ -20,7 +20,7 @@ export interface Source {
     logo: string;
 }
 
-export interface User {
+export interface UserData {
     id: string | number;
     isadmin: boolean;
     name: string;
@@ -29,12 +29,19 @@ export interface User {
     telegram: string;
     phone: string;
     membership: number; // amount of classes left
-    classes: []; // array with classes ids created by this user
+    classes?: string[]; // array with classes ids created by this user
 }
+
+export enum ClassStatus {
+    Pending = 'pending',
+    Confirmed = 'confirmed',
+    Cancelled = 'cancelled',
+    Executed = 'executed',
+  }
 
 export interface Class {
     id: string | number;
-    status: 'confirmed' | "cancelled" | "pending" | "executed";
+    status: ClassStatus;
     startdate: string; // ISO8601 UTC string
     enddate: string; // ISO8601 UTC string
     isMembershipUsed: boolean; // if this class was booked using a membership point

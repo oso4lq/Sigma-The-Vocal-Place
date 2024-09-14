@@ -1,10 +1,12 @@
-import { Component, computed, OnInit } from '@angular/core';
+import { Component, computed, OnInit, Signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { MainSections, ScrollingService } from './services/scrolling.service';
 import { filter } from 'rxjs';
 import { AuthService } from './services/auth.service';
 import { DialogService } from './services/dialog.service';
+import { UserData } from './interfaces/data.interface';
+import { User } from 'firebase/auth';
 
 @Component({
   selector: 'app-root',
@@ -28,8 +30,8 @@ export class AppComponent implements OnInit {
   ) { }
 
   // Computed signal to track the current user
-  currentUser: any = computed(() => this.authService.currentUserSig());
-  currentUserData: any = computed(() => this.authService.currentUserDataSig());
+  currentUser: Signal<User | null | undefined> = computed(() => this.authService.currentUserSig());
+  currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig());
 
   ngOnInit() {
     // Subscribe to router events to detect route changes

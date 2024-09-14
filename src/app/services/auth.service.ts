@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile, user } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile, User, user } from '@angular/fire/auth';
 import { from, Observable, Subscription } from 'rxjs';
-import { User } from '../interfaces/data.interface';
+import { UserData } from '../interfaces/data.interface';
 import { UsersFirebaseService } from './users-firebase.service';
 import { Router } from '@angular/router';
 
@@ -12,8 +12,8 @@ export class AuthService {
 
   firebaseAuth = inject(Auth);
   user$ = user(this.firebaseAuth);
-  currentUserSig = signal<any | null | undefined>(undefined);  // Stores the user from Auth
-  currentUserDataSig = signal<User | null>(null);  // Stores the user data from Firestore
+  currentUserSig = signal<User | null | undefined>(undefined);  // Stores the user from Auth
+  currentUserDataSig = signal<UserData | null>(null);  // Stores the user data from Firestore
   private userDataSubscription: Subscription | null = null;  // Store the subscription to user data
 
   constructor(

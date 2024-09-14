@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, Renderer2 } from '@angular/core';
+import { Component, computed, OnInit, Renderer2, Signal } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { SocialMediaComponent } from '../social-media/social-media.component';
@@ -14,6 +14,7 @@ import { AppComponent } from '../../app.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
+import { UserData } from '../../interfaces/data.interface';
 
 @Component({
   selector: 'app-header',
@@ -66,7 +67,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
   ) { }
 
-  currentUserData: any = computed(() => this.authService.currentUserDataSig()); // track the current user data
+  currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
 
   ngOnInit() {
     if (this.mobileService.isMobile) {

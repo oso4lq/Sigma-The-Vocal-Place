@@ -1,5 +1,5 @@
-import { Component, computed, OnInit } from '@angular/core';
-import { Class, User } from '../../interfaces/data.interface';
+import { Component, computed, OnInit, Signal } from '@angular/core';
+import { Class, UserData } from '../../interfaces/data.interface';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -8,11 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { AdminConsoleComponent } from '../admin-console/admin-console.component';
 import { ClassesService } from '../../services/classes.service';
 import { AuthService } from '../../services/auth.service';
 import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { DialogService } from '../../services/dialog.service';
+import { User } from 'firebase/auth';
 
 @Component({
   selector: 'app-user-page',
@@ -27,7 +27,6 @@ import { DialogService } from '../../services/dialog.service';
     MatIconModule,
     CommonModule,
     FormsModule,
-    AdminConsoleComponent,
   ],
   templateUrl: './user-page.component.html',
   styleUrl: './user-page.component.scss'
@@ -35,7 +34,7 @@ import { DialogService } from '../../services/dialog.service';
 export class UserPageComponent implements OnInit {
 
   isEditing = false; // Track whether inputs are editable
-  userData: User | null = null; // Store the fetched user data
+  userData: UserData | null = null; // Store the fetched user data
   imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
 
   constructor(
@@ -45,9 +44,9 @@ export class UserPageComponent implements OnInit {
     private authService: AuthService,
   ) { }
 
-  currentUser: any = computed(() => this.authService.currentUserSig()); // track the current user
-  currentUserData: any = computed(() => this.authService.currentUserDataSig()); // track the current user data
-  classes: any = computed(() => this.classesService.classesSig()); // track the classes array
+  currentUser: Signal<User | null | undefined> = computed(() => this.authService.currentUserSig()); // track the current user
+  currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
+  classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // track the classes array
 
   // Filtered and sorted classes that match the user's registered classes
   filteredClasses = computed(() => {
@@ -102,8 +101,9 @@ export class UserPageComponent implements OnInit {
     }
   }
 
-  editClass() {
-    console.log('Editing class will be ready soon');
+  cancelClass(classItem: Class) {
+    console.log('Cancel class');
+    this.dialogService.openCancelClassDialog(classItem);
   }
 
   logout() {

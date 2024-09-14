@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, updateDoc } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import { Observable } from 'rxjs';
-import { User } from '../interfaces/data.interface';
+import { UserData } from '../interfaces/data.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,25 +13,25 @@ export class UsersFirebaseService {
   usersCollection = collection(this.firestore, 'users');
 
   // Get the list of users from Firebase
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<UserData[]> {
     return collectionData(this.usersCollection, {
       idField: 'id',
-    }) as Observable<User[]>;
+    }) as Observable<UserData[]>;
   }
 
   // Get a specific user by userId
-  getUserById(userId: string | number): Observable<User> {
+  getUserById(userId: string | number): Observable<UserData> {
     const userDoc = doc(this.firestore, `users/${userId}`);
-    return docData(userDoc, { idField: 'id' }) as Observable<User>;
+    return docData(userDoc, { idField: 'id' }) as Observable<UserData>;
   }
 
   // Add a new user to Firebase
-  addUser(newUser: User): Promise<void> {
+  addUser(newUser: UserData): Promise<void> {
     return addDoc(this.usersCollection, newUser).then(() => { });
   }
 
   // Update an existing user in Firebase
-  updateUser(updatedUser: User): Promise<void> {
+  updateUser(updatedUser: UserData): Promise<void> {
     const userDoc = doc(this.firestore, `users/${updatedUser.id}`);
     return updateDoc(userDoc, { ...updatedUser });
   }

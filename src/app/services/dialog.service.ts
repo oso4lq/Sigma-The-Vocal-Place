@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ScrollingService } from './scrolling.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Card } from '../interfaces/data.interface';
+import { Card, Class } from '../interfaces/data.interface';
 import { GalleryComponent } from '../components/gallery/gallery.component';
 import { NewClassFormComponent } from '../components/new-class-form/new-class-form.component';
 import { LoginComponent } from '../components/login/login.component';
+import { CancelClassComponent } from '../components/cancel-class/cancel-class.component';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +79,26 @@ export class DialogService {
 
     dialogRef.afterClosed().subscribe(() => {
       this.killDialog();
+    });
+  }
+
+  // Method to open the CancelClass dialog
+  openCancelClassDialog(classItem: Class): void {
+    this.initiateDialog();
+
+    const dialogRef = this.dialog.open(CancelClassComponent, {
+      data: { classItem: classItem },
+      hasBackdrop: true,
+      backdropClass: 'custom-backdrop',
+      panelClass: 'new-class-form-dialog',
+      disableClose: false,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.killDialog();
+      if (result && result.success) {
+        // Optionally refresh data or show a success message
+      }
     });
   }
 }

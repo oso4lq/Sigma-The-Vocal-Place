@@ -59,7 +59,7 @@
             </button>
             <button id="account-button" mat-icon-button (click)="handleLogin()">
                 <mat-icon *ngIf="!currentUserData()">login</mat-icon>
-                <img *ngIf="currentUserData()" [src]="currentUserData().img" alt="userpic">
+                <img *ngIf="currentUserData() as userData" [src]="userData.img" alt="userpic">
             </button>
         </div>
 
