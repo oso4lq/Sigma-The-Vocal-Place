@@ -223,7 +223,10 @@ export class NewClassFormComponent implements OnInit {
         id: '', // Firestore will auto-generate the ID
         status: 'pending',
         startdate: this.generateISODateTime(date, time),
-        enddate: this.generateISODateTime(date, time, 1) // Add 1 hour to the end date
+        enddate: this.generateISODateTime(date, time, 1), // Add 1 hour to the end date
+
+        // Check if the user had membership points. If yes, set true
+        isMembershipUsed: false,
       };
 
       // Add new class and retrieve the document reference with auto-generated ID

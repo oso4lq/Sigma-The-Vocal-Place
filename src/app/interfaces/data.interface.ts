@@ -28,7 +28,7 @@ export interface User {
     email: string;
     telegram: string;
     phone: string;
-    seaspass: number; // amount of classes left in the season pass
+    membership: number; // amount of classes left
     classes: []; // array with classes ids created by this user
 }
 
@@ -37,6 +37,7 @@ export interface Class {
     status: 'confirmed' | "cancelled" | "pending" | "executed";
     startdate: string; // ISO8601 UTC string
     enddate: string; // ISO8601 UTC string
+    isMembershipUsed: boolean;
 }
 
 export interface TimelineSlot {

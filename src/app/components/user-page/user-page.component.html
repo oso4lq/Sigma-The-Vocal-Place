@@ -53,12 +53,12 @@
                 </div>
             </div>
 
-            <!-- Season pass info and make a new class -->
-            <div class="flex-row center-row seaspass">
-                <!-- Season Pass -->
+            <!-- Membership info and make a new class -->
+            <div class="flex-row center-row membership">
+                <!-- Membership points -->
                 <p>
                     <strong>Абонемент:</strong>
-                    {{ currentUserData().seaspass > 0 ? getSeasonPassText(currentUserData().seaspass)
+                    {{ currentUserData().membership > 0 ? getMembershipText(currentUserData().membership)
                     : 'Чтобы приобрести абонемент, свяжитесь с преподавателем.' }}
                 </p>
                 <!-- Sign up for a new class button -->

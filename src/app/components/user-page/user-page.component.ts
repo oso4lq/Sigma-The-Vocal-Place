@@ -114,10 +114,10 @@ export class UserPageComponent implements OnInit {
     this.dialogService.openForm();
   }
 
-  getSeasonPassText(seaspass: number): string {
-    if (seaspass === 1) return `осталось ${seaspass} занятие`;
-    if (seaspass > 1 && seaspass < 5) return `осталось ${seaspass} занятия`;
-    if (seaspass >= 5) return `осталось ${seaspass} занятий`;
+  getMembershipText(membership: number): string {
+    if (membership === 1) return `осталось ${membership} занятие`;
+    if (membership > 1 && membership < 5) return `осталось ${membership} занятия`;
+    if (membership >= 5) return `осталось ${membership} занятий`;
     return `Чтобы приобрести абонемент, свяжитесь с преподавателем.`;
   }
 }
