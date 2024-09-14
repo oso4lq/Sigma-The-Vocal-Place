@@ -8,7 +8,6 @@
     padding: 5px 8px;
     line-height: 100%;
 
-    min-width: 75px;
     font-weight: 500;
     font-size: 13px;
     text-align: center;
@@ -90,17 +89,6 @@
     &:not([class*=mat-elevation-z]) {
         box-shadow: none;
     }
-
-    // &.secondary {
-    //     background-color: #fff;
-    //     border: 1px solid #CAD7ED;
-    //     color: #8098BF;
-
-    //     &:hover {
-    //         background: #2771ee;
-    //         color: #fff;
-    //     }
-    // }
 
     &.active {
         transform: translateY(-10px);

@@ -1,12 +1,13 @@
 <div class="flex-row timeline">
-
+    <!-- {{'count-' + timeSlots.length}}  -->
     <div *ngFor='let timeSlot of timeSlots' (click)='onSlotClicked(timeSlot)' #timeSlot
-        class="flex-col center-row timeline__box w-100 {{'count-' + timeSlots.length}} {{timeSlot.status}}">
+        class="flex-col center-row timeline__box w-100 {{timeSlot.status}}">
         <div class='timeline__circle'>
         </div>
         <div class='flex-col timeline__text-group'>
             <span class='timeline__status'>
-                {{timeSlot.status}}
+                <!-- {{ timeSlot.status }} -->
+                {{ timeSlot.status === 'free' ? 'Свободно' : 'Занято' }}
             </span>
             <span class='timeline__time'>
                 {{ timeSlot.startTime.format('HH:mm') }} &minus;

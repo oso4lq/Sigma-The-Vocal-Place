@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, effect, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -13,10 +13,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { DialogService } from '../../services/dialog.service';
-import { Class } from '../../interfaces/data.interface';
+import { Class, TimelineSlot } from '../../interfaces/data.interface';
 import { ClassesService } from '../../services/classes.service';
 import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import moment, { Moment } from 'moment';
+import { TimelineComponent } from '../timeline/timeline.component';
 
 enum FormClassState {
   Start = 'StartState',
@@ -42,6 +44,7 @@ enum FormClassState {
     MatIconModule,
     CommonModule,
     FormsModule,
+    TimelineComponent,
   ],
   providers: [
     { provide: DateAdapter, useClass: NativeDateAdapter },
@@ -58,6 +61,11 @@ export class NewClassFormComponent implements OnInit {
   currentFormState: FormClassState = FormClassState.Start;
   prevFormState: FormClassState | null = null;
   errorMessage = '';
+
+  // New properties
+  selectedDate: Moment = moment(); // Initialize with current date
+  classes: any = computed(() => this.classesService.classesSig()); // Track the classes array
+  classesForSelectedDate: Class[] = []; // Contain the classes[] for the selected date
 
   constructor(
     private dialogRef: MatDialogRef<NewClassFormComponent>,
@@ -79,9 +87,18 @@ export class NewClassFormComponent implements OnInit {
     // ActiveSub form
     this.activeSubForm = this.fb.group({
       name: ['', Validators.required], // Will be updated with user's name if authenticated
-      date: ['', Validators.required],
+      date: [this.selectedDate.toDate(), Validators.required], // Initialize with current date
       time: ['', Validators.required],
       message: [''],
+    });
+
+    // Fetch all classes
+    this.classesService.loadClasses();
+
+    // Subscribe to classes changes
+    effect(() => {
+      const allClasses = this.classes(); // Using computed signal
+      this.filterClassesForDate(this.selectedDate, allClasses);
     });
   }
 
@@ -90,6 +107,9 @@ export class NewClassFormComponent implements OnInit {
     const userData = this.authService.currentUserDataSig();
     console.log('userData', userData);
     if (userData) {
+
+      // ! fetch the whole classes[] array logic to be placed here
+
       this.currentFormState = FormClassState.ActiveSub;
       this.activeSubForm.patchValue({
         name: userData.name,
@@ -97,6 +117,15 @@ export class NewClassFormComponent implements OnInit {
     } else {
       this.currentFormState = FormClassState.Start;
     }
+
+    // // Fetch all classes
+    // this.classesService.loadClasses();
+
+    // // Subscribe to classes changes
+    // effect(() => {
+    //   const allClasses = this.classes(); // Using computed signal
+    //   this.filterClassesForDate(this.selectedDate, allClasses);
+    // });
   }
 
   // Dynamically return the current form
@@ -112,15 +141,55 @@ export class NewClassFormComponent implements OnInit {
     } else if (userType === 'signed') {
       const userData = this.authService.currentUserDataSig();
       if (userData) {
+
+        // ! fetch the whole classes[] array logic to be placed here
+
         this.prevFormState = this.currentFormState;
         this.currentFormState = FormClassState.ActiveSub;
         this.activeSubForm.patchValue({
           name: userData.name,
+          date: this.selectedDate.toDate(), // Set date to current date
         });
       } else {
         this.closeDialog();
         this.dialogService.openLogin();
       }
+    }
+  }
+
+  // Handle date changes
+  onDateChange(event: any) {
+    const date = event.value ? moment(event.value) : moment();
+    this.selectedDate = date;
+
+    // Update the date in the form
+    this.activeSubForm.patchValue({ date: date.toDate(), time: '' }); // Clear time
+
+    // Fetch classes for the selected date
+    const allClasses = this.classes();
+    this.filterClassesForDate(date, allClasses);
+  }
+
+  // Filter classes for the selected date
+  filterClassesForDate(date: Moment, allClasses: Class[]) {
+    console.log('filterClassesForDate with', date, allClasses);
+    this.classesForSelectedDate = allClasses.filter(cls => {
+      const clsDate = moment(cls.startdate);
+      return clsDate.isSame(date, 'day');
+    });
+  }
+
+  onTimeSlotSelected(timeSlot: TimelineSlot) {
+    if (timeSlot.status === 'free') {
+      // Set time in the form (extract time from Moment object)
+      const timeString = timeSlot.startTime.format('HH:mm');
+      this.activeSubForm.patchValue({ time: timeString });
+      this.errorMessage = '';
+    } else {
+      // Show error message
+      this.showErrorMessage('Это время недоступно'); // "This slot is not available"
+      // Clear time input
+      this.activeSubForm.patchValue({ time: '' });
     }
   }
 

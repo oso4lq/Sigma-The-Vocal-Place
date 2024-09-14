@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Class, TimelineSlot } from '../../interfaces/data.interface';
 import { Moment } from 'moment';
 import moment from 'moment/moment';
@@ -14,8 +14,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './timeline.component.scss'
 })
 export class TimelineComponent implements OnInit, OnChanges {
+
   @Input() classes: Class[] = [];
   @Input() selectedDate: Moment = moment();
+  @Output() slotClicked = new EventEmitter<TimelineSlot>();
 
   timeSlots: TimelineSlot[] = [];
 
@@ -25,76 +27,57 @@ export class TimelineComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['classes'] || changes['selectedDate']) {
+      console.log('changed', changes['classes'], 'or', changes['selectedDate']);
       this.generateTimeline();
     }
   }
 
+  // Generate time slots for the selected date based on the received classes[]
   private generateTimeline() {
-    // Generate time slots for the selected date based on the classes
+    console.log('generating timeline with ', this.classes, this.selectedDate);
     this.timeSlots = this.createTimeSlots(this.classes, this.selectedDate);
   }
 
+  // Create separate time slots
   private createTimeSlots(classes: Class[], date: Moment): TimelineSlot[] {
-
-    // Define day start and end - working hours
-    const dayStart = date.clone().hour(8).minute(0);
-    const dayEnd = date.clone().hour(20).minute(0);
+    const dayStart = date.clone().hour(8).minute(0).second(0);
+    const dayEnd = date.clone().hour(20).minute(0).second(0);
     const slots: TimelineSlot[] = [];
 
-    // let currentTime = dayStart;
+    // Create a map of occupied times
+    const occupiedTimes: { [key: string]: boolean } = {};
+    classes.forEach(cls => {
+      const clsStartTime = moment(cls.startdate);
+      const clsEndTime = moment(cls.enddate);
+      let time = clsStartTime.clone();
+
+      while (time.isBefore(clsEndTime)) {
+        occupiedTimes[time.format('HH:mm')] = true;
+        time.add(1, 'hour');
+      }
+    });
+
+    // Generate 1-hour slots
     let currentTime = dayStart.clone();
+    while (currentTime.isBefore(dayEnd)) {
+      const slotEndTime = currentTime.clone().add(1, 'hour');
+      const slotKey = currentTime.format('HH:mm');
+      const status = occupiedTimes[slotKey] ? 'occupied' : 'free';
 
-    // Sort classes by start time
-    const sortedClasses = classes
-      .map(cls => ({
-        ...cls,
-        startMoment: moment(cls.startdate),
-        endMoment: moment(cls.enddate),
-      }))
-      .sort((a, b) => a.startMoment.valueOf() - b.startMoment.valueOf());
-
-    for (const cls of sortedClasses) {
-      const clsStartTime = cls.startMoment;
-      const clsEndTime = cls.endMoment;
-
-      // Ensure the class is on the selected date
-      if (!clsStartTime.isSame(date, 'day')) {
-        continue;
-      }
-
-      if (clsStartTime.isAfter(currentTime)) {
-        // Free slot before the class
-        slots.push({
-          startTime: currentTime.clone(),
-          endTime: clsStartTime.clone(),
-          status: 'free',
-        });
-      }
-
-      // Occupied slot for the class
-      slots.push({
-        startTime: clsStartTime.clone(),
-        endTime: clsEndTime.clone(),
-        status: 'occupied',
-      });
-
-      currentTime = clsEndTime.clone();
-    }
-
-    if (currentTime.isBefore(dayEnd)) {
-      // Free slot after the last class
       slots.push({
         startTime: currentTime.clone(),
-        endTime: dayEnd.clone(),
-        status: 'free',
+        endTime: slotEndTime.clone(),
+        status,
       });
+
+      currentTime = slotEndTime;
     }
 
     return slots;
   }
 
-  // method to be created in future
   onSlotClicked(timeSlot: TimelineSlot) {
-    console.log('slot clicked', timeSlot);
+    console.log('timeSlot clicked', timeSlot);
+    this.slotClicked.emit(timeSlot);
   }
 }

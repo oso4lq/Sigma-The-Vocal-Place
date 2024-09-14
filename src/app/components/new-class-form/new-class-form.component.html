@@ -76,7 +76,8 @@
                         ДД.ММ.ГГГГ
                         <!-- DD.MM.YYYY -->
                     </mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="date" readonly>
+                    <input matInput (dateChange)="onDateChange($event)" [matDatepicker]="picker" formControlName="date"
+                        readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker>
                         <mat-datepicker-actions>
@@ -93,8 +94,12 @@
                 </mat-form-field>
 
                 <!-- <label class="label" for="time">Time</label> -->
-                <input class="input input_time" type="time" formControlName="time" placeholder="Время" />
+                <input class="input input_time" type="time" formControlName="time" placeholder="Время" readonly />
             </div>
+
+            <!-- Timeline for visualizing the free & occupied slots -->
+            <app-timeline [classes]="classesForSelectedDate" [selectedDate]="selectedDate"
+                (slotClicked)="onTimeSlotSelected($event)"></app-timeline>
 
             <label class="label" for="message">
                 Комментарий
