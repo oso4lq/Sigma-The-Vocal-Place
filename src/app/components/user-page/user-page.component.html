@@ -64,9 +64,8 @@
             <!-- Classes signed up for -->
             <div class="flex-row my-classes">
                 <p><strong>Мои занятия:</strong></p>
-                <div class="flex-col center-all flex-grow my-classes__list">
-
-                    <!-- Loaded classes list - later add filter by user -->
+                <!-- Loaded classes list filtered by user and date -->
+                <div class="flex-col center-all flex-grow my-classes__list my-classes__list_desktop">
                     <div *ngFor="let class of filteredClasses()" class="w-100 my-classes__item">
                         <div class="utility-btn utility-btn_details" (click)="editClass()">
                             <mat-icon>edit</mat-icon>
@@ -76,7 +75,7 @@
                         'my-classes__status_cancelled': class.status === 'cancelled',
                         'my-classes__status_pending': class.status === 'pending',
                         'my-classes__status_executed': class.status === 'executed'
-                    }" class="my-classes__status">
+                        }" class="my-classes__status">
                             Status: {{ class.status }}
                         </p>
                         <mat-divider></mat-divider>
@@ -85,9 +84,29 @@
                             <p>Time: {{ class.startdate | date:'HH:mm' }} - {{ class.enddate | date:'HH:mm' }}</p>
                         </div>
                     </div>
-
                 </div>
                 <button mat-raised-button (click)="refreshClasses()">обновить</button>
+            </div>
+            <!-- Loaded classes list filtered by user and date -->
+            <div class="flex-col center-all flex-grow my-classes__list my-classes__list_mobile">
+                <div *ngFor="let class of filteredClasses()" class="w-100 my-classes__item">
+                    <div class="utility-btn utility-btn_details" (click)="editClass()">
+                        <mat-icon>edit</mat-icon>
+                    </div>
+                    <p [ngClass]="{
+                    'my-classes__status_confirmed': class.status === 'confirmed',
+                    'my-classes__status_cancelled': class.status === 'cancelled',
+                    'my-classes__status_pending': class.status === 'pending',
+                    'my-classes__status_executed': class.status === 'executed'
+                    }" class="my-classes__status">
+                        Status: {{ class.status }}
+                    </p>
+                    <mat-divider></mat-divider>
+                    <div class="flex-row my-classes__time">
+                        <p>Date: {{ class.startdate | date:'dd.MM.yyyy' }}</p>
+                        <p>Time: {{ class.startdate | date:'HH:mm' }} - {{ class.enddate | date:'HH:mm' }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </ng-container>

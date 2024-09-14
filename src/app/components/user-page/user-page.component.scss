@@ -131,6 +131,8 @@ p {
 }
 
 .seaspass {
+    gap: 10px;
+
     button {
         flex-grow: unset;
         width: 200px !important;
@@ -150,6 +152,10 @@ p {
 
     &__list {
         gap: 10px;
+
+        &_mobile {
+            display: none;
+        }
     }
 
     button {
@@ -191,5 +197,30 @@ p {
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
         background: var(--bright-alt-color);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .my-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .empty-sector {
+        display: none;
+    }
+
+    .my-classes {
+        &__list {
+            &_desktop {
+                display: none;
+            }
+
+            &_mobile {
+                display: flex;
+                flex-direction: column;
+            }
+        }
     }
 }

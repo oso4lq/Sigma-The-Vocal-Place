@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 export interface Card {
     id: number;
     title: string;
@@ -33,6 +35,12 @@ export interface User {
 export interface Class {
     id: string | number;
     status: 'confirmed' | "cancelled" | "pending" | "executed";
-    startdate: string;
-    enddate: string;
+    startdate: string; // ISO8601 string
+    enddate: string; // ISO8601 string
+}
+
+export interface TimelineSlot {
+    startTime: Moment;
+    endTime: Moment;
+    status: 'free' | 'occupied';
 }

@@ -151,15 +151,19 @@ export class HeaderComponent implements OnInit {
   }
 
   openForm() {
-    this.closeMenu();
+    if (this.mobileService.isMobile) {
+      this.closeMenu();
+    }
     this.dialogService.openForm();
   }
 
   handleLogin() {
+    if (this.mobileService.isMobile) {
+      this.closeMenu();
+    }
     if (this.currentUserData()) {
       this.router.navigate(['/user']);
     } else {
-      this.closeMenu();
       this.dialogService.openLogin();
     }
   }
