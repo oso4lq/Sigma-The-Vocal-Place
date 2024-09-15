@@ -14,6 +14,7 @@ import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { DialogService } from '../../services/dialog.service';
 import { User } from 'firebase/auth';
 import moment from 'moment';
+import { AdminTimelineComponent } from '../admin-timeline/admin-timeline.component';
 
 @Component({
   selector: 'app-user-page',
@@ -28,6 +29,7 @@ import moment from 'moment';
     MatIconModule,
     CommonModule,
     FormsModule,
+    AdminTimelineComponent,
   ],
   templateUrl: './user-page.component.html',
   styleUrl: './user-page.component.scss'

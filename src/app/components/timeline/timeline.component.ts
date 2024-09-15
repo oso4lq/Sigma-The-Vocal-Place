@@ -20,6 +20,7 @@ export class TimelineComponent implements OnInit, OnChanges {
   @Output() slotClicked = new EventEmitter<TimelineSlot>();
 
   timeSlots: TimelineSlot[] = [];
+  selectedTimeSlot: string | null = null;
 
   ngOnInit() {
     this.generateTimeline();
@@ -29,6 +30,8 @@ export class TimelineComponent implements OnInit, OnChanges {
     if (changes['classes'] || changes['selectedDate']) {
       this.generateTimeline();
     }
+    // Reset selected slot when date or classes change
+    this.selectedTimeSlot = null;
   }
 
   // Generate time slots for the selected date based on the received classes[]
@@ -75,6 +78,15 @@ export class TimelineComponent implements OnInit, OnChanges {
   }
 
   onSlotClicked(timeSlot: TimelineSlot) {
+    if (timeSlot.status === 'free') {
+      this.selectedTimeSlot = timeSlot.startTime.format('HH:mm');
+    }
+
     this.slotClicked.emit(timeSlot);
+  }
+
+  // Method to check if a time slot is selected
+  isSelected(timeSlot: TimelineSlot): boolean {
+    return this.selectedTimeSlot === timeSlot.startTime.format('HH:mm');
   }
 }

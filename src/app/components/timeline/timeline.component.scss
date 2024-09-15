@@ -44,6 +44,15 @@
             }
         }
 
+        &.selected {
+            --slot-color: #40a26a;
+
+            .timeline__circle {
+                background-color: #ffffff;
+                border-color: var(--slot-color);
+            }
+        }
+
         &.count-1 {
             width: 100%;
         }

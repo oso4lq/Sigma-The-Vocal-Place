@@ -139,7 +139,8 @@ p {
 
     button {
         flex-grow: unset;
-        width: 200px !important;
+        flex-shrink: 0;
+        width: 150px !important;
         background: linear-gradient(70deg, var(--light-brand-color), var(--light-alt-color) 110%);
         color: #fff !important;
         box-shadow: 0 0 8px var(--alt-color);
