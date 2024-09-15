@@ -1,1 +1,70 @@
-<p>admin-timeline works!</p>
+<div class="admin-timeline-container">
+
+    <!-- Range Picker -->
+    <form [formGroup]="rangeForm">
+        <mat-form-field appearance="outline" class="date-range-picker">
+            <mat-date-range-input [rangePicker]="picker" formGroupName="dateRange">
+                <input matStartDate formControlName="start" placeholder="Начальная дата">
+                <input matEndDate formControlName="end" placeholder="Конечная дата">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker>
+                <mat-date-range-picker-actions>
+                    <button mat-raised-button matDateRangePickerCancel>Отменить</button>
+                    <button mat-raised-button matDateRangePickerApply>Подтвердить</button>
+                </mat-date-range-picker-actions>
+            </mat-date-range-picker>
+        </mat-form-field>
+    </form>
+
+    <!-- Display Box -->
+    <div class="display-box">
+        <h3 class="display-box__title">Карточка занятия</h3>
+        <form [formGroup]="displayForm">
+            <div class="form-group form-group_relative">
+                <div class="utility-btn utility-btn_details" (click)="toggleStatusEdit()">
+                    <mat-icon>{{ isStatusEditing ? 'done_all' : 'edit' }}</mat-icon>
+                </div>
+                <label for="status">Статус:</label>
+                <mat-form-field appearance="outline">
+                    <mat-select formControlName="status" (selectionChange)="onStatusChange($event.value)">
+                        <mat-option *ngFor="let status of classStatuses" [value]="status">
+                            {{ status | titlecase }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label for="date">Дата:</label>
+                <input id="date" type="text" formControlName="date" readonly />
+            </div>
+            <div class="form-group">
+                <label for="time">Время:</label>
+                <input id="time" type="text" formControlName="time" readonly />
+            </div>
+            <div class="form-group">
+                <label for="userName">Имя пользователя:</label>
+                <input id="userName" type="text" formControlName="userName" readonly />
+            </div>
+            <div class="form-group">
+                <label for="membership">Использован абонемент:</label>
+                <input id="membership" type="text" formControlName="membership" readonly />
+            </div>
+            <div class="form-group">
+                <label for="message">Комментарий:</label>
+                <input id="message" type="text" formControlName="message" readonly />
+            </div>
+        </form>
+    </div>
+
+    <!-- Timeline Box with a timeline rows -->
+    <div class="timeline-box">
+        <!-- Repeat TimelineComponent for each day in the range -->
+        <div *ngFor="let day of daysInRange" class="daily-timeline">
+            <h3>{{ day.format('DD.MM.YYYY') }}</h3>
+            <app-timeline [classes]="getClassesForDay(day)" [selectedDate]="day"
+                (slotClicked)="onSlotClicked($event)"></app-timeline>
+        </div>
+    </div>
+
+</div>

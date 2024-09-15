@@ -46,14 +46,16 @@ export class TimelineComponent implements OnInit, OnChanges {
     const slots: TimelineSlot[] = [];
 
     // Create a map of occupied times
-    const occupiedTimes: { [key: string]: boolean } = {};
+    const occupiedTimes: { [key: string]: string | number } = {}; // Map time to classId
+
     classes.forEach(cls => {
       const clsStartTime = moment(cls.startdate);
       const clsEndTime = moment(cls.enddate);
       let time = clsStartTime.clone();
 
       while (time.isBefore(clsEndTime)) {
-        occupiedTimes[time.format('HH:mm')] = true;
+        const timeKey = time.format('HH:mm');
+        occupiedTimes[timeKey] = cls.id;
         time.add(1, 'hour');
       }
     });
@@ -63,12 +65,15 @@ export class TimelineComponent implements OnInit, OnChanges {
     while (currentTime.isBefore(dayEnd)) {
       const slotEndTime = currentTime.clone().add(1, 'hour');
       const slotKey = currentTime.format('HH:mm');
-      const status = occupiedTimes[slotKey] ? 'occupied' : 'free';
+      const isOccupied = occupiedTimes.hasOwnProperty(slotKey);
+      const classId = isOccupied ? occupiedTimes[slotKey] : undefined;
+      const status = isOccupied ? 'occupied' : 'free';
 
       slots.push({
         startTime: currentTime.clone(),
         endTime: slotEndTime.clone(),
         status,
+        classId,
       });
 
       currentTime = slotEndTime;
@@ -77,6 +82,7 @@ export class TimelineComponent implements OnInit, OnChanges {
     return slots;
   }
 
+  // TODO add a selected state for admin timeline
   onSlotClicked(timeSlot: TimelineSlot) {
     if (timeSlot.status === 'free') {
       this.selectedTimeSlot = timeSlot.startTime.format('HH:mm');

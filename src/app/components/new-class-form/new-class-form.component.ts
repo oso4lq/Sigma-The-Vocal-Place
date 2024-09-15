@@ -214,7 +214,7 @@ export class NewClassFormComponent implements OnInit {
   }
 
   async createNewClass() {
-    const { date, time } = this.activeSubForm.value;
+    const { date, time, message } = this.activeSubForm.value;
     try {
       this.prevFormState = this.currentFormState;
       this.currentFormState = FormClassState.Submit;
@@ -236,6 +236,7 @@ export class NewClassFormComponent implements OnInit {
         status: ClassStatus.Pending,
         startdate: this.generateISODateTime(date, time),
         enddate: this.generateISODateTime(date, time, 1), // Add 1 hour to the end date
+        message: message,
         isMembershipUsed: isMembershipUsed,
         userId: userData.id, // Link the class to the user
       };

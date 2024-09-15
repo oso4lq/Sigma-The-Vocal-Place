@@ -44,6 +44,7 @@ export interface Class {
     status: ClassStatus;
     startdate: string; // ISO8601 UTC string
     enddate: string; // ISO8601 UTC string
+    message: string;
     isMembershipUsed: boolean; // if this class was booked using a membership point
     userId: string | number; // link the class to the user
 }
@@ -52,4 +53,5 @@ export interface TimelineSlot {
     startTime: Moment;
     endTime: Moment;
     status: 'free' | 'occupied';
+    classId?: string | number; // Optional, present if the slot is occupied
 }

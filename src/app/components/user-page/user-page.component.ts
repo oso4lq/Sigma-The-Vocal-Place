@@ -44,6 +44,10 @@ export enum UserPageSections {
 })
 export class UserPageComponent implements OnInit {
 
+  currentUser: Signal<User | null | undefined> = computed(() => this.authService.currentUserSig()); // track the current user
+  currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
+  classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // track the classes array
+
   isEditing = false; // Track whether inputs are editable
   userData: UserData | null = null; // Store the fetched user data
   imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
@@ -57,17 +61,16 @@ export class UserPageComponent implements OnInit {
     private authService: AuthService,
   ) { }
 
-  currentUser: Signal<User | null | undefined> = computed(() => this.authService.currentUserSig()); // track the current user
-  currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
-  classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // track the classes array
-
   // Filtered and sorted classes that match the user's registered classes
   filteredClasses = computed(() => {
-    if (!this.userData || !this.userData.classes) return [];
+    const localUserData = this.currentUserData();
 
+    if (!localUserData || !localUserData.classes) return [];
+
+    // Update this.userData with fresh value
+    this.userData = localUserData;
     // Filter classes by user's class IDs
-    const userClassIds = this.userData.classes.map((id: string | number) => String(id));
-
+    const userClassIds = localUserData.classes.map((id: string | number) => String(id));
     // Match the available classes with the user's class IDs
     const matchedClasses = this.classes().filter((classItem: Class) =>
       userClassIds.includes(String(classItem.id))
@@ -103,13 +106,10 @@ export class UserPageComponent implements OnInit {
     this.authService.monitorAuthState();
 
     // Refresh the classes
-    const newUserData = this.authService.currentUserDataSig();
-    if (newUserData) {
-      this.userData = newUserData;
-      this.classesService.loadClasses();
-    }
+    this.classesService.loadClasses();
   }
 
+  // TODO create users service similar to classes
   toggleEdit() {
     this.isEditing = !this.isEditing;
 
@@ -127,7 +127,6 @@ export class UserPageComponent implements OnInit {
   }
 
   cancelClass(classItem: Class) {
-    console.log('Cancel class');
     this.dialogService.openCancelClassDialog(classItem);
   }
 

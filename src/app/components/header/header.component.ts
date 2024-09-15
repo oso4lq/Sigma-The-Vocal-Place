@@ -34,14 +34,7 @@ export class HeaderComponent implements OnInit {
   isMenuOpen = false;
   swiperSections!: Swiper;
   swiperSectionID: number = 0;
-  sections: MainSections[] = [
-    MainSections.Home,
-    MainSections.About,
-    MainSections.Classes,
-    MainSections.Tutor,
-    MainSections.Studio,
-    MainSections.Contacts,
-  ];
+  MainSections = MainSections;
 
   swiperSectionsConfig: SwiperOptions = {
     direction: 'vertical',
@@ -68,6 +61,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
+  imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
 
   ngOnInit() {
     if (this.mobileService.isMobile) {
@@ -83,8 +77,6 @@ export class HeaderComponent implements OnInit {
     this.scrollingService.sectionIndex$.subscribe(index => {
       this.updateSwiperSection(index);
     });
-
-    console.log('Header initialized, userData:', this.currentUserData());
   }
 
   ngAfterViewInit() {
