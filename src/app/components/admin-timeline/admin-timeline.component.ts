@@ -5,7 +5,6 @@ import moment from 'moment';
 import { TimelineComponent } from '../timeline/timeline.component';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { ClassesService } from '../../services/classes.service';
@@ -15,7 +14,6 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
 import { filter, map, Subject, takeUntil, tap } from 'rxjs';
 import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 
@@ -26,10 +24,8 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-mo
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatFormFieldModule,
     MatDividerModule,
     MatButtonModule,
-    MatSelectModule,
     MatInputModule,
     MatIconModule,
     CommonModule,
@@ -227,9 +223,14 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
   }
 
   // Handle status change in the form
-  onStatusChange(newStatus: ClassStatus) {
+  onStatusChange(newStatus: string): void {
     if (this.selectedClass) {
-      this.selectedClass.status = newStatus;
+      if (Object.values(ClassStatus).includes(newStatus as ClassStatus)) {
+        this.selectedClass.status = newStatus as ClassStatus;
+        console.log(`Status updated to: ${this.selectedClass.status}`);
+      } else {
+        console.warn(`Invalid status received: ${newStatus}`);
+      }
     }
   }
 

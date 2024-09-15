@@ -37,7 +37,7 @@ export enum ClassStatus {
     Confirmed = 'confirmed',
     Cancelled = 'cancelled',
     Executed = 'executed',
-  }
+}
 
 export interface Class {
     id: string | number;

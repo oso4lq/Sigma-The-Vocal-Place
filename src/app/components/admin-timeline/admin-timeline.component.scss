@@ -58,10 +58,18 @@ mat-form-field {
         }
 
         input {
+            font-family: "Didact Gothic", sans-serif;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
             background-color: #fff;
+            font-size: 16px;
+        }
+
+        select {
+            font-family: "Didact Gothic", sans-serif;
+            font-size: 16px;
+            flex-grow: 1;
         }
 
         &_relative {

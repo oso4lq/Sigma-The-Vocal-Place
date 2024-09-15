@@ -26,13 +26,13 @@
                     <mat-icon>{{ isStatusEditing ? 'done_all' : 'edit' }}</mat-icon>
                 </div>
                 <label for="status">Статус:</label>
-                <mat-form-field appearance="outline">
-                    <mat-select formControlName="status" (selectionChange)="onStatusChange($event.value)">
-                        <mat-option *ngFor="let status of classStatuses" [value]="status">
-                            {{ status | titlecase }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <select id="status" formControlName="status" [disabled]="!isStatusEditing" #statusSelect
+                    (change)="onStatusChange(statusSelect.value)">
+                    <option value="" disabled>-- Выберите статус --</option>
+                    <option *ngFor="let status of classStatuses" [value]="status">
+                        {{ status | titlecase }}
+                    </option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="date">Дата:</label>
