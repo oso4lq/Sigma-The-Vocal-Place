@@ -38,6 +38,7 @@ enum FormLoginState {
 export class LoginComponent {
 
   loginForm: FormGroup;
+  FormLoginState = FormLoginState;
   currentFormState: FormLoginState = FormLoginState.Login;
   errorMessage: string | null = null;
 

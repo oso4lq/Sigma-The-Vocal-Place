@@ -15,6 +15,13 @@ import { DialogService } from '../../services/dialog.service';
 import { User } from 'firebase/auth';
 import moment from 'moment';
 import { AdminTimelineComponent } from '../admin-timeline/admin-timeline.component';
+import { UserListComponent } from '../user-list/user-list.component';
+
+export enum UserPageSections {
+  User = 'UserSection',
+  Timeline = 'TimelineSection',
+  UserList = 'UserListSection',
+}
 
 @Component({
   selector: 'app-user-page',
@@ -30,6 +37,7 @@ import { AdminTimelineComponent } from '../admin-timeline/admin-timeline.compone
     CommonModule,
     FormsModule,
     AdminTimelineComponent,
+    UserListComponent,
   ],
   templateUrl: './user-page.component.html',
   styleUrl: './user-page.component.scss'
@@ -39,6 +47,8 @@ export class UserPageComponent implements OnInit {
   isEditing = false; // Track whether inputs are editable
   userData: UserData | null = null; // Store the fetched user data
   imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
+  UserPageSections = UserPageSections;
+  currentSection: UserPageSections = UserPageSections.User; // Default section
 
   constructor(
     private usersFirebaseService: UsersFirebaseService,
@@ -81,6 +91,11 @@ export class UserPageComponent implements OnInit {
   ngOnInit(): void {
     this.classesService.loadClasses();
     this.userData = this.currentUserData();
+  }
+
+  // Method to switch sections
+  switchSection(section: UserPageSections) {
+    this.currentSection = section;
   }
 
   refreshClasses() {

@@ -1,8 +1,34 @@
 <div class="flex-col internal-page-wrapper">
     <h1>Личный кабинет</h1>
 
-    <!-- Check if user exists before rendering the form -->
-    <ng-container *ngIf="currentUserData() as userData">
+    <!-- Section Buttons for Admin Users -->
+    <div *ngIf="currentUserData()?.isadmin" class="flex-row center-all section-buttons">
+        <button class="section-buttons__button" [ngClass]="{ selected: currentSection === UserPageSections.User }"
+            (click)="switchSection(UserPageSections.User)">
+            Профиль
+        </button>
+        <button class="section-buttons__button" [ngClass]="{ selected: currentSection === UserPageSections.Timeline }"
+            (click)="switchSection(UserPageSections.Timeline)">
+            Расписание
+        </button>
+        <button class="section-buttons__button" [ngClass]="{ selected: currentSection === UserPageSections.UserList }"
+            (click)="switchSection(UserPageSections.UserList)">
+            Пользователи
+        </button>
+    </div>
+
+    <!-- TimelineSection (Admin Only) -->
+    <ng-container *ngIf="currentUserData()?.isadmin && currentSection === UserPageSections.Timeline">
+        <app-admin-timeline></app-admin-timeline>
+    </ng-container>
+
+    <!-- UserListSection (Admin Only) -->
+    <ng-container *ngIf="currentUserData()?.isadmin && currentSection === UserPageSections.UserList">
+        <app-user-list></app-user-list>
+    </ng-container>
+
+    <!-- UserSection -->
+    <ng-container *ngIf="currentSection === UserPageSections.User && currentUserData() as userData">
 
         <!-- User info row: userpic and name -->
         <div class="flex-row center-row user-info">
@@ -17,9 +43,6 @@
 
         <!-- Divider -->
         <mat-divider class="user-info__divider"></mat-divider>
-
-        <!-- admin section -->
-        <!-- <app-admin-console *ngIf="user.isadmin"></app-admin-console> -->
 
         <!-- user section, available for admin too -->
         <div class="flex-col w-100 content-wrapper">

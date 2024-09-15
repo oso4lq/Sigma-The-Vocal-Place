@@ -60,6 +60,7 @@ export class NewClassFormComponent implements OnInit {
 
   newbieForm: FormGroup;
   activeSubForm: FormGroup;
+  FormClassState = FormClassState;
   currentFormState: FormClassState = FormClassState.Start;
   prevFormState: FormClassState | null = null;
   errorMessage = '';

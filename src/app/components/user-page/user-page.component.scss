@@ -10,6 +10,58 @@
     }
 }
 
+.section-buttons {
+    margin-bottom: 16px;
+
+    &__button {
+        height: 40px;
+        flex: 1;
+        padding: 10px 20px;
+        border: 1px solid var(--brand-color);
+        background-color: var(--bright-brand-color);
+        color: var(--brand-color);
+        cursor: pointer;
+        transition: background-color 0.3s;
+        border-radius: 0;
+        font-family: "Didact Gothic", sans-serif;
+        font-style: normal;
+        font-size: 16px;
+        line-height: 14px;
+
+        &:hover {
+            background-color: var(--light-brand-color);
+            color: var(--light-color);
+        }
+
+        &.selected {
+            background-color: var(--brand-color);
+            color: var(--light-color);
+
+            &:hover {
+                background-color: var(--brand-color);
+            }
+        }
+
+        &:first-child {
+            border-top-left-radius: 25px;
+            border-bottom-left-radius: 25px;
+        }
+
+        &:last-child {
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        &:not(:first-child):not(:last-child) {
+            border-left: none;
+        }
+    }
+}
+
+.section-button+.section-button {
+    margin-left: -1px;
+}
+
 .user-info {
     gap: 20px;
 

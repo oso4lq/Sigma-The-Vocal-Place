@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <ng-container *ngIf="currentFormState === 'LoginState'">
+    <ng-container *ngIf="currentFormState === FormLoginState.Login">
         <form class="flex-col flex-grow center-col" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <label class="label" for="login">Логин</label>
             <input class="input" type="text" formControlName="login" placeholder="Логин" />
@@ -23,15 +23,15 @@
 
     </ng-container>
 
-    <div class="flex-col center-all flex-grow submit" *ngIf="currentFormState !== 'LoginState'">
-        <mat-spinner *ngIf="currentFormState === 'SubmitState'"></mat-spinner>
+    <div class="flex-col center-all flex-grow submit" *ngIf="currentFormState !== FormLoginState.Login">
+        <mat-spinner *ngIf="currentFormState === FormLoginState.Submit"></mat-spinner>
 
-        <p class="submit__message" *ngIf="currentFormState === 'SuccessState'">Направляю на страницу личного кабинета.</p>
+        <p class="submit__message" *ngIf="currentFormState === FormLoginState.Success">Направляю на страницу личного кабинета.</p>
 
-        <p class="submit__message" *ngIf="currentFormState === 'ErrorState'">
+        <p class="submit__message" *ngIf="currentFormState === FormLoginState.Error">
             Произошла ошибка во время отправления запроса. Пожалуйста, попробуйте снова.
         </p>
 
-        <p class="submit__message" *ngIf="currentFormState === 'ErrorState'">{{ errorMessage }}</p>
+        <p class="submit__message" *ngIf="currentFormState === FormLoginState.Error">{{ errorMessage }}</p>
     </div>
 </div>

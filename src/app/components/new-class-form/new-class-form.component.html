@@ -7,7 +7,7 @@
     </div>
 
     <!-- StartState -->
-    <ng-container *ngIf="currentFormState === 'StartState'">
+    <ng-container *ngIf="currentFormState === FormClassState.Start">
         <div class="flex-row user-type-toggle">
             <button class="flex-col center-row toggle-btn toggle-btn_newbie" (click)="onUserTypeSelect('new')">
                 <img class="h-100 toggle-btn__img toggle-btn__img_newbie" alt="new user" loading="lazy"
@@ -24,7 +24,7 @@
     </ng-container>
 
     <!-- NewbieState -->
-    <ng-container *ngIf="currentFormState === 'NewbieState'">
+    <ng-container *ngIf="currentFormState === FormClassState.Newbie">
         <form class="flex-col center-col" [formGroup]="newbieForm" (ngSubmit)="onSubmit()">
 
             <div class="flex-row center-row back" (click)="goBackToStart()">
@@ -56,7 +56,7 @@
     </ng-container>
 
     <!-- ActiveSubState -->
-    <ng-container *ngIf="currentFormState === 'ActiveSubState'">
+    <ng-container *ngIf="currentFormState === FormClassState.ActiveSub">
         <form class="flex-col center-col" [formGroup]="activeSubForm" (ngSubmit)="onSubmit()">
 
             <div class="flex-row center-row back" (click)="goBackToStart()">
@@ -118,26 +118,26 @@
 
     <!-- Error Box *ngIf="errorMessage" -->
     <div class="flex-row center-all error-box"
-        *ngIf="currentFormState === 'NewbieState' || currentFormState === 'ActiveSubState'">
+        *ngIf="currentFormState === FormClassState.Newbie || currentFormState === FormClassState.ActiveSub">
         <span>{{ errorMessage }}</span>
     </div>
 
     <!-- SubmitState -->
     <div class="flex-col center-all flex-grow submit"
-        *ngIf="currentFormState !== 'StartState' && currentFormState !== 'NewbieState' && currentFormState !== 'ActiveSubState'">
-        <mat-spinner *ngIf="currentFormState === 'SubmitState'"></mat-spinner>
-        <p class="submit__message" *ngIf="currentFormState === 'SuccessState'">
+        *ngIf="currentFormState !== FormClassState.Start && currentFormState !== FormClassState.Newbie && currentFormState !== FormClassState.ActiveSub">
+        <mat-spinner *ngIf="currentFormState === FormClassState.Submit"></mat-spinner>
+        <p class="submit__message" *ngIf="currentFormState === FormClassState.Success">
             Ваше занятие зарегистрировано!
         </p>
-        <p class="submit__message" *ngIf="currentFormState === 'SuccessState' && prevFormState === 'NewbieState'">
+        <p class="submit__message" *ngIf="currentFormState === FormClassState.Success && prevFormState === FormClassState.Newbie">
             Пожалуйста, подождите, пока я свяжусь с вами.
             <!-- Please wait until I contact you. -->
         </p>
-        <p class="submit__message" *ngIf="currentFormState === 'SuccessState' && prevFormState === 'ActiveSubState'">
+        <p class="submit__message" *ngIf="currentFormState === FormClassState.Success && prevFormState === FormClassState.ActiveSub">
             Вы успешно записались на следующее занятие в <span class="sigma-font">ΣΙΓΜΑ</span>
             <!-- You've signed up for your next class with <span class="sigma-font">ΣΙΓΜΑ</span> -->
         </p>
-        <p class="submit__message" *ngIf="currentFormState === 'ErrorState'">
+        <p class="submit__message" *ngIf="currentFormState === FormClassState.Error">
             Произошла ошибка во время отправления запроса. Пожалуйста, попробуйте снова.
             <!-- Error while submitting the form. Please try again. -->
         </p>
@@ -145,7 +145,7 @@
 
     <!-- Telegram Bot -->
     <div class="flex-col center-all form-footer"
-        *ngIf="currentFormState !== 'SubmitState' && currentFormState !== 'SuccessState' && currentFormState !== 'ErrorState'">
+        *ngIf="currentFormState !== FormClassState.Submit && currentFormState !== FormClassState.Success && currentFormState !== FormClassState.Error">
         <span class="form-footer__text">
             Или запишитесь на занятие через
             <!-- Or sign up for a class via the -->
