@@ -58,7 +58,7 @@
                 <div class="flex-row center-row contact-info email">
                     <label class="label">e-mail:</label>
                     <input class="input" type="text" [(ngModel)]="userData.email" [readonly]="!isEditing"
-                        [ngClass]="{ 'editable': isEditing }" />
+                        [ngClass]="{ 'editable': isEditing }" (dblclick)="toggleEdit()"/>
                 </div>
                 <!-- Empty (Top-right sector) -->
                 <div class="empty-sector"></div>
@@ -66,13 +66,13 @@
                 <div class="flex-row center-row contact-info telegram">
                     <label class="label">telegram:</label>
                     <input class="input" type="text" [(ngModel)]="userData.telegram" [readonly]="!isEditing"
-                        [ngClass]="{ 'editable': isEditing }" />
+                        [ngClass]="{ 'editable': isEditing }" (dblclick)="toggleEdit()"/>
                 </div>
                 <!-- Phone (Bottom-right sector) -->
                 <div class="flex-row center-row contact-info phone">
                     <label class="label">телефон:</label>
                     <input class="input" type="text" [(ngModel)]="userData.phone" [readonly]="!isEditing"
-                        [ngClass]="{ 'editable': isEditing }" />
+                        [ngClass]="{ 'editable': isEditing }" (dblclick)="toggleEdit()"/>
                 </div>
             </div>
 
