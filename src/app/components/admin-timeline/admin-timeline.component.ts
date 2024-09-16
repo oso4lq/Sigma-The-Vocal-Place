@@ -62,7 +62,7 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
   // Forms
   displayForm: FormGroup; // Form for the Display Box
   rangeForm: FormGroup; // Form for the Date Range
-  
+
   // Signals
   currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
   users: Signal<UserData[]> = computed(() => this.usersService.userDatasSig()); // track the users array
@@ -187,19 +187,6 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
     this.generateUserMap();
   }
 
-  // Handle slot click from TimelineComponent
-  onSlotClicked(slot: TimelineSlot): void {
-    const foundSelectedClass: Class | undefined = this.classes()
-      .find(cls => cls.id === slot.classId);
-    this.selectedClass = foundSelectedClass;
-
-    if (foundSelectedClass) {
-      // problem when getting the user
-      const user = this.userMap.get(foundSelectedClass.userId);
-      this.populateDisplayBox(foundSelectedClass, user);
-    }
-  }
-
   // Populate the display form with class and user details
   private populateDisplayBox(cls: Class, user: UserData | undefined): void {
     if (!user) {
@@ -222,6 +209,19 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Handle slot click from TimelineComponent
+  onSlotClicked(slot: TimelineSlot): void {
+    const foundSelectedClass: Class | undefined = this.classes()
+      .find(cls => cls.id === slot.classId);
+    this.selectedClass = foundSelectedClass;
+
+    if (foundSelectedClass) {
+      // problem when getting the user
+      const user = this.userMap.get(foundSelectedClass.userId);
+      this.populateDisplayBox(foundSelectedClass, user);
+    }
+  }
+  
   // Handle editing the class status
   toggleStatusEdit() {
     this.isStatusEditing = !this.isStatusEditing;
@@ -238,7 +238,6 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
 
         // If the user is not in edit mode anymore, submit the data to Firebase
         if (this.selectedClass) {
-          console.log("Updating class data on the server:", this.selectedClass);
           this.classesService.updateClass(this.selectedClass);
         }
       }
@@ -250,7 +249,6 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
     if (this.selectedClass) {
       if (Object.values(ClassStatus).includes(newStatus as ClassStatus)) {
         this.selectedClass.status = newStatus as ClassStatus;
-        console.log(`Status updated to: ${this.selectedClass.status}`);
       } else {
         console.warn(`Invalid status received: ${newStatus}`);
       }

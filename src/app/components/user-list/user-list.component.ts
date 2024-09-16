@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import moment from 'moment';
 import { DialogService } from '../../services/dialog.service';
 
 @Component({
@@ -36,15 +35,16 @@ export class UserListComponent {
   searchForm: FormGroup;
   displayForm: FormGroup;
 
-  // State
-  selectedUser: UserData | null = null;
-  selectedUserClasses: Class[] = [];
-  isMembershipEditing: boolean = false; // Track editing the membership points
+  // State as Signals
+  selectedUser: WritableSignal<UserData | null> = signal(null);
+  isMembershipEditing: WritableSignal<boolean> = signal(false); // Track editing the membership points
 
-  // Signals
+  // Signals from Services
   userDatas: Signal<UserData[]> = computed(() => this.usersService.userDatasSig());
   classes: Signal<Class[]> = computed(() => this.classesService.classesSig());
-  searchInput: WritableSignal<string> = signal(''); // Search input as a signal to track changes
+
+  // Search input as a signal to track changes
+  searchInput: WritableSignal<string> = signal('');
 
   // Computed signal for filtered users
   filteredUsers: Signal<UserData[]> = computed(() => {
@@ -61,6 +61,29 @@ export class UserListComponent {
       (user.telegram && user.telegram.toLowerCase().includes(searchValue)) ||
       (user.phone && user.phone.toLowerCase().includes(searchValue))
     );
+  });
+
+  // Computed signal for selected user's classes - simplified filtering conditions from UserPageComponent (no past-filter)
+  selectedUserClasses: Signal<Class[]> = computed(() => {
+    const user = this.selectedUser();
+    if (!user || !user.classes || user.classes.length === 0) {
+      return [];
+    }
+
+    // Normalize class IDs to strings for comparison
+    const userClassIds = user.classes.map(id => String(id));
+
+    // Filter classes that belong to the user
+    const matchedClasses = this.classes().filter(classItem =>
+      userClassIds.includes(String(classItem.id))
+    );
+
+    // Sort the classes by the start date (nearest date first)
+    return matchedClasses.sort((a, b) => {
+      const dateA = new Date(a.startdate).getTime();
+      const dateB = new Date(b.startdate).getTime();
+      return dateA - dateB;
+    });
   });
 
   // Store the subscription so we can unsubscribe later
@@ -109,9 +132,8 @@ export class UserListComponent {
   }
 
   selectUser(user: UserData): void {
-    this.selectedUser = user;
+    this.selectedUser.set(user);
     this.populateDisplayForm(user);
-    this.populateSelectedUserClasses(user);
   }
 
   // Populates the display form with the user's data
@@ -125,45 +147,14 @@ export class UserListComponent {
     });
   }
 
-  // Filter classes by user and date (nearest first) 
-  // and set the selectedUserClasses array based on the user's class IDs
-  private populateSelectedUserClasses(user: UserData): void {
-    if (!user.classes || user.classes.length === 0) {
-      this.selectedUserClasses = [];
-      return;
-    }
-
-    // Normalize class IDs to strings for comparison
-    const userClassIds = user.classes.map(id => String(id));
-
-    // Filter classes that belong to the user
-    const matchedClasses = this.classes().filter(classItem =>
-      userClassIds.includes(String(classItem.id))
-    );
-
-    // Filter out classes that have already ended
-    const currentMoment = moment();
-    const upcomingClasses = matchedClasses.filter(classItem => {
-      const endDate = moment(classItem.enddate);
-      return endDate.isAfter(currentMoment);
-    });
-
-    // Sort the classes by the start date (nearest date first)
-    this.selectedUserClasses = upcomingClasses.sort((a, b) => {
-      const dateA = new Date(a.startdate).getTime();
-      const dateB = new Date(b.startdate).getTime();
-      return dateA - dateB;
-    });
-  }
-
   // Handle editing the membership points
   toggleMembershipEdit() {
-    this.isMembershipEditing = !this.isMembershipEditing;
+    this.isMembershipEditing.set(!this.isMembershipEditing());
 
     // Enable or disable the status field based on editing state
     const membershipControl = this.displayForm.get('membership');
     if (membershipControl) {
-      if (this.isMembershipEditing) {
+      if (this.isMembershipEditing()) {
         // Enable the membership field for editing
         membershipControl.enable();
       } else {
@@ -174,36 +165,26 @@ export class UserListComponent {
         const updatedMembership = this.displayForm.get('membership')?.value;
 
         // Update the selectedUser's membership points
-        if (this.selectedUser) {
+        const currentUser = this.selectedUser();
+        if (currentUser) {
           const updatedUser: UserData = {
-            ...this.selectedUser,
+            ...currentUser,
             membership: updatedMembership
           };
-          console.log("Updating user data on the server:", updatedUser);
-          this.usersService.updateUserData(updatedUser);
-          this.selectedUser = updatedUser;
+          this.usersService.updateUserData(updatedUser)
         }
       }
     }
   }
-  refreshClasses() {
-    // Refresh the currentUserData signal to check updates in classes[]
-    // this.authService.monitorAuthState();
 
-    // Refresh the classes
-    this.classesService.loadClasses();
-
-  }
   // Method to delete a class forever
   // IMPORTANT! Check for side effects related to membership points
   deleteClass(cls: Class) {
-    console.log('Class to be deleted:', cls);
     this.dialogService.openCancelClassDialog(cls);
   }
 
   // Method to edit the class status
   editClass(cls: Class) {
-    console.log('Class to be edited:', cls);
     this.dialogService.openEditClassDialog(cls);
   }
 

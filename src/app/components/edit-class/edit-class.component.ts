@@ -68,9 +68,7 @@ export class EditClassComponent {
       status: updatedStatus
     };
 
-    console.log("Updating class data on the server:", updatedClass);
     this.classesService.updateClass(updatedClass);
-
     this.closeDialog();
   }
 

@@ -13,7 +13,7 @@
                 <!-- User pic and name -->
                 <div class="flex-row user-group">
                     <!-- User Picture -->
-                    <img [src]="selectedUser?.img ? selectedUser?.img : imgDefault" alt="{{ selectedUser?.name }}"
+                    <img [src]="selectedUser()?.img ? selectedUser()?.img : imgDefault" alt="{{ selectedUser()?.name }}"
                         class="user-group__img">
                     <!-- Name -->
                     <div class="form-group user-group__name">
@@ -26,7 +26,7 @@
                     <!-- Membership Points - Editable -->
                     <div class="form-group membership-group">
                         <div class="utility-btn utility-btn_details" (click)="toggleMembershipEdit()">
-                            <mat-icon>{{ isMembershipEditing ? 'done_all' : 'edit' }}</mat-icon>
+                            <mat-icon>{{ isMembershipEditing() ? 'done_all' : 'edit' }}</mat-icon>
                         </div>
                         <label>абонемент:</label>
                         <input type="number" formControlName="membership" [readonly]="!isMembershipEditing">
@@ -57,7 +57,7 @@
                 <div class="flex-col classes-list">
 
                     <!-- Loaded classes list for the selected user -->
-                    <div *ngFor="let cls of selectedUserClasses; let last = last" class="w-100 my-classes__item">
+                    <div *ngFor="let cls of selectedUserClasses(); let last = last" class="w-100 my-classes__item">
 
                         <!-- Delete button -->
                         <div class="utility-btn utility-btn_class-edit" (click)="editClass(cls)">
@@ -102,7 +102,7 @@
         <!-- All users list -->
         <div class="users-list flex-grow">
             <div class="user-item" *ngFor="let user of filteredUsers()" (click)="selectUser(user)"
-                [class.selected]="user.id === selectedUser?.id">
+                [class.selected]="user.id === selectedUser()?.id">
                 <img [src]="user.img ? user.img : imgDefault" alt="{{ user.name }}" class="user-item__avatar">
                 <p class="user-item__name">{{ user.name }}</p>
             </div>

@@ -169,7 +169,7 @@ export class NewClassFormComponent implements OnInit {
   }
 
   // Filter classes for the selected date
-  filterClassesForDate(date: Moment, allClasses: Class[]) {
+  private filterClassesForDate(date: Moment, allClasses: Class[]) {
     this.classesForSelectedDate = allClasses.filter(cls => {
       const clsDate = moment(cls.startdate);
       return clsDate.isSame(date, 'day');

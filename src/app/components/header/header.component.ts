@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit {
   }
 
   // Display the current section name inside the #swiper-button
-  updateSwiperSection(index: number) {
+  private updateSwiperSection(index: number) {
     if (this.swiperSections) {
       this.swiperSections.slideTo(index - 1);
       this.swiperSectionID = index;
