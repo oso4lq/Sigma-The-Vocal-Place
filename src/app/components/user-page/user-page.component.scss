@@ -139,13 +139,14 @@ p {
         padding: 10px;
         border-radius: 4px;
         border: 1px solid var(--light-color);
-        background: var(--bright-brand-color);
+        background: var(--light-color);
         color: var(--dark-alt-color);
         font-size: 16px;
     }
 
     .editable {
         background: var(--light-color);
+        background: #fff;
         color: #000;
     }
 }

@@ -60,7 +60,7 @@
                     <div *ngFor="let cls of selectedUserClasses; let last = last" class="w-100 my-classes__item">
 
                         <!-- Delete button -->
-                        <div class="utility-btn utility-btn_details" (click)="deleteClass(cls)">
+                        <div class="utility-btn utility-btn_class" (click)="deleteClass(cls)">
                             <mat-icon>cancel</mat-icon>
                         </div>
 
@@ -99,14 +99,11 @@
         </form>
 
         <!-- All users list -->
-        <div class="users-list">
+        <div class="users-list flex-grow">
             <div class="user-item" *ngFor="let user of filteredUsers()" (click)="selectUser(user)"
                 [class.selected]="user.id === selectedUser?.id">
                 <img [src]="user.img ? user.img : imgDefault" alt="{{ user.name }}" class="user-item__avatar">
-                <div class="user-item__info">
                     <p class="user-item__name">{{ user.name }}</p>
-                    <p class="user-item__email">{{ user.email }}</p>
-                </div>
             </div>
         </div>
     </div>

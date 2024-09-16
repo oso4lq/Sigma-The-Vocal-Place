@@ -24,7 +24,6 @@ mat-divider {
 .selected-user {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 
     &__details {
         flex: 1;
@@ -34,7 +33,11 @@ mat-divider {
         display: flex;
         flex-direction: column;
         flex: 1;
-        gap: 10px;
+
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
     }
 }
 
@@ -115,13 +118,19 @@ mat-divider {
         position: absolute;
         right: 0px;
     }
+
+    &_class {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+    }
 }
 
 .classes-list {
     padding: 8px;
-    border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #f5f5f5;
+    background-color: var(--light-color);
+    gap: 10px;
 }
 
 .my-classes {
@@ -172,13 +181,14 @@ mat-divider {
 
 // USERS BOX
 .users-box {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     max-width: 300px;
-    border: 1px solid #e0e0e0;
+    background: var(--bright-alt-color);
     border-radius: 4px;
     padding: 10px;
     max-height: 600px;
-    overflow-y: auto;
 }
 
 .search-bar {
@@ -189,24 +199,48 @@ mat-divider {
 .users-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    border-radius: 4px;
     margin-top: 10px;
+    overflow-y: auto;
+    background: var(--light-color);
 }
 
 .user-item {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
 
     &.selected {
-        background-color: #f0f0f0;
+        background-color: var(--brand-color);
+        color: var(--light-color);
+
+        .user-item__name {
+            font-weight: 400;
+        }
+
+        &:hover {
+            background-color: var(--brand-color);
+        }
     }
 
     &:hover {
-        background-color: #f9f9f9;
+        background-color: var(--light-brand-color);
+
+        .user-item__name {
+            font-weight: 400;
+        }
+    }
+
+    &:first-child {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+    &:last-child {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
     }
 
     &__avatar {
@@ -219,12 +253,6 @@ mat-divider {
 
     &__name {
         font-weight: bold;
-        margin: 0;
-    }
-
-    &__email {
-        font-size: 0.9em;
-        color: #555;
         margin: 0;
     }
 }
