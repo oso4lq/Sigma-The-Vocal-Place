@@ -16,6 +16,7 @@ import { User } from 'firebase/auth';
 import moment from 'moment';
 import { AdminTimelineComponent } from '../admin-timeline/admin-timeline.component';
 import { UserListComponent } from '../user-list/user-list.component';
+import { UsersService } from '../../services/users.service';
 
 export enum UserPageSections {
   User = 'UserSection',
@@ -58,6 +59,7 @@ export class UserPageComponent implements OnInit {
     private usersFirebaseService: UsersFirebaseService,
     private classesService: ClassesService,
     private dialogService: DialogService,
+    private usersService: UsersService,
     private authService: AuthService,
   ) { }
 
@@ -109,20 +111,14 @@ export class UserPageComponent implements OnInit {
     this.classesService.loadClasses();
   }
 
-  // TODO create users service similar to classes
+  // Edit and update the userData
   toggleEdit() {
     this.isEditing = !this.isEditing;
 
-    // If the user is not in edit mode anymore, submit the data to Firebase
+    // If the user finished editing, submit the data to Firebase
     if (!this.isEditing && this.userData) {
       console.log("Updating user details on the server:", this.userData);
-
-      // Call the updateUser method from UsersFirebaseService
-      this.usersFirebaseService.updateUser(this.userData).then(() => {
-        console.log('User data successfully updated in Firestore');
-      }).catch(error => {
-        console.error('Error updating user data:', error);
-      });
+      this.usersService.updateUserData(this.userData);
     }
   }
 

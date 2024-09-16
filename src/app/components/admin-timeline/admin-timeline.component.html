@@ -26,10 +26,9 @@
                     <mat-icon>{{ isStatusEditing ? 'done_all' : 'edit' }}</mat-icon>
                 </div>
                 <label for="status">Статус:</label>
-                <!-- [disabled]="!isStatusEditing" -->
                 <select id="status" formControlName="status" #statusSelect
                     (change)="onStatusChange(statusSelect.value)">
-                    <option value="" disabled>-- Выберите статус --</option>
+                    <option value="" disabled>-- Изменить статус --</option>
                     <option *ngFor="let status of classStatuses" [value]="status">
                         {{ status | titlecase }}
                     </option>
@@ -62,7 +61,8 @@
     <div class="timeline-box">
         <!-- Repeat TimelineComponent for each day in the range -->
         <div *ngFor="let day of daysInRange" class="daily-timeline">
-            <h3>{{ day.format('DD.MM.YYYY') }}</h3>
+            <!-- Full date without time -->
+            <h3>{{ day.format('LLLL').slice(0, -7) }}</h3>
             <app-timeline [classes]="getClassesForDay(day)" [selectedDate]="day"
                 (slotClicked)="onSlotClicked($event)"></app-timeline>
         </div>

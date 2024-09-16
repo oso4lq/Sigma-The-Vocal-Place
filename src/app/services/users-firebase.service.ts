@@ -11,21 +11,12 @@ export class UsersFirebaseService {
 
   firestore = inject(Firestore);
   usersCollection = collection(this.firestore, 'users');
-  usersSig = signal<UserData[]>([]); // Signal to hold the users list
 
   // Get the list of users from Firebase
   getUsers(): Observable<UserData[]> {
     return collectionData(this.usersCollection, {
       idField: 'id',
     }) as Observable<UserData[]>;
-  }
-
-  // Fetch the userDatas from Firebase and set them in the signal
-  loadUsers(): void {
-    this.getUsers().subscribe((users: UserData[]) => {
-      console.log('getUsers ', users);
-      this.usersSig.set(users);
-    })
   }
 
   // Get a specific user by userId

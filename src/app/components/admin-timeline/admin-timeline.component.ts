@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import 'moment/locale/ru'; // Import Russian locale
+import { UsersService } from '../../services/users.service';
 
 export const MY_DATE_FORMATS: MatDateFormats = {
   parse: {
@@ -59,7 +60,7 @@ export const MY_DATE_FORMATS: MatDateFormats = {
 export class AdminTimelineComponent implements OnInit, OnDestroy {
 
   currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
-  users: Signal<UserData[]> = computed(() => this.usersFirebaseService.usersSig()); // track the users array
+  users: Signal<UserData[]> = computed(() => this.usersService.userDatasSig()); // track the users array
   classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // track the classes array
 
   private destroy$ = new Subject<void>();
@@ -76,6 +77,7 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
   constructor(
     private usersFirebaseService: UsersFirebaseService,
     private classesService: ClassesService,
+    private usersService: UsersService,
     private authService: AuthService,
     private fb: FormBuilder,
   ) {
@@ -146,7 +148,7 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
   refreshData(): void {
     // Load and refresh classes and users signals
     this.classesService.loadClasses();
-    this.usersFirebaseService.loadUsers();
+    this.usersService.loadUserDatas();
   }
 
   // Generate daysInRange based on selectedRange
