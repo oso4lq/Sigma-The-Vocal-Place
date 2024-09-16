@@ -1,7 +1,10 @@
 <div class="flex-row timeline">
-
     <div *ngFor='let timeSlot of timeSlots' (click)='onSlotClicked(timeSlot)'
-        class="flex-col center-row timeline__box w-100 {{ timeSlot.status }} {{ isSelected(timeSlot) ? 'selected' : '' }}">
+        class="flex-col center-row timeline__box w-100" [ngClass]="[
+            timeSlot.status, 
+            isSelected(timeSlot) ? 'selected' : '',
+            timeSlot.startTime.isBefore(currentTime) ? 'past' : ''
+        ]">
         <div class='timeline__circle'> </div>
         <div class='flex-col timeline__text-group'>
             <span class='timeline__status'>

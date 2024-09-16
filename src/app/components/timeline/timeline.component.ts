@@ -17,6 +17,7 @@ export class TimelineComponent implements OnInit, OnChanges {
 
   @Input() classes: Class[] = [];
   @Input() selectedDate: Moment = moment();
+  @Input() currentTime: Moment = moment();
   @Output() slotClicked = new EventEmitter<TimelineSlot>();
 
   timeSlots: TimelineSlot[] = [];
@@ -27,7 +28,7 @@ export class TimelineComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['classes'] || changes['selectedDate']) {
+    if (changes['classes'] || changes['selectedDate'] || changes['currentTime']) {
       this.generateTimeline();
     }
     // Reset selected slot when date or classes change
@@ -61,24 +62,24 @@ export class TimelineComponent implements OnInit, OnChanges {
     });
 
     // Generate 1-hour slots
-    let currentTime = dayStart.clone();
-    while (currentTime.isBefore(dayEnd)) {
-      const slotEndTime = currentTime.clone().add(1, 'hour');
-      const slotKey = currentTime.format('HH:mm');
+    let currentSlotTime = dayStart.clone();
+    while (currentSlotTime.isBefore(dayEnd)) {
+      const slotEndTime = currentSlotTime.clone().add(1, 'hour');
+      const slotKey = currentSlotTime.format('HH:mm');
       const isOccupied = occupiedTimes.hasOwnProperty(slotKey);
       const classId = isOccupied ? occupiedTimes[slotKey] : undefined;
       const status = isOccupied ? 'occupied' : 'free';
 
       slots.push({
-        startTime: currentTime.clone(),
+        startTime: currentSlotTime.clone(),
         endTime: slotEndTime.clone(),
         status,
         classId,
       });
 
-      currentTime = slotEndTime;
+      currentSlotTime = slotEndTime;
     }
-
+    
     return slots;
   }
 

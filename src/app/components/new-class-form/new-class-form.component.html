@@ -76,8 +76,8 @@
                         ДД.ММ.ГГГГ
                         <!-- DD.MM.YYYY -->
                     </mat-label>
-                    <input matInput [matDatepickerFilter]="weekendFilter" (dateChange)="onDateChange($event)" [matDatepicker]="picker" formControlName="date"
-                        readonly>
+                    <input matInput [matDatepickerFilter]="weekendFilter" (dateChange)="onDateChange($event)"
+                        [matDatepicker]="picker" formControlName="date" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker>
                         <mat-datepicker-actions>
@@ -98,7 +98,7 @@
             </div>
 
             <!-- Timeline for visualizing the free & occupied slots -->
-            <app-timeline [classes]="classesForSelectedDate" [selectedDate]="selectedDate"
+            <app-timeline [classes]="classesForSelectedDate" [selectedDate]="selectedDate" [currentTime]="currentTime"
                 (slotClicked)="onTimeSlotSelected($event)"></app-timeline>
 
             <label class="label" for="message">
@@ -129,11 +129,13 @@
         <p class="submit__message" *ngIf="currentFormState === FormClassState.Success">
             Ваше занятие зарегистрировано!
         </p>
-        <p class="submit__message" *ngIf="currentFormState === FormClassState.Success && prevFormState === FormClassState.Newbie">
+        <p class="submit__message"
+            *ngIf="currentFormState === FormClassState.Success && prevFormState === FormClassState.Newbie">
             Пожалуйста, подождите, пока я свяжусь с вами.
             <!-- Please wait until I contact you. -->
         </p>
-        <p class="submit__message" *ngIf="currentFormState === FormClassState.Success && prevFormState === FormClassState.ActiveSub">
+        <p class="submit__message"
+            *ngIf="currentFormState === FormClassState.Success && prevFormState === FormClassState.ActiveSub">
             Вы успешно записались на следующее занятие в <span class="sigma-font">ΣΙΓΜΑ</span>
             <!-- You've signed up for your next class with <span class="sigma-font">ΣΙΓΜΑ</span> -->
         </p>

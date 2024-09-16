@@ -74,6 +74,8 @@ export class NewClassFormComponent implements OnInit {
   prevFormState: FormClassState | null = null;
   errorMessage = '';
   selectedDate: Moment = moment(); // Initialize with current date
+  currentTime: Moment;
+
   weekendFilter = (d: Moment | null): boolean => {
     const day = d ? d.day() : moment().day();
     // Prevent Saturday (6) and Sunday (0) from being selected.
@@ -111,12 +113,15 @@ export class NewClassFormComponent implements OnInit {
 
     // Subscribe to classes changes
     effect(() => {
-      const allClasses = this.classes(); // Using computed signal
+      const allClasses = this.classes();
       this.filterClassesForDate(this.selectedDate, allClasses);
     });
+
+    this.currentTime = moment(); // Set current moment for comparison
   }
 
   ngOnInit(): void {
+    this.currentTime = moment();
     // Check if user is authenticated and optionally populate the form
     const userData = this.authService.currentUserDataSig();
     if (userData) {
@@ -177,14 +182,21 @@ export class NewClassFormComponent implements OnInit {
   }
 
   onTimeSlotSelected(timeSlot: TimelineSlot) {
-    if (timeSlot.status === 'free') {
-      // Set time in the form (extract time from Moment object)
-      const timeString = timeSlot.startTime.format('HH:mm');
-      this.activeSubForm.patchValue({ time: timeString });
-      this.errorMessage = '';
+    if (timeSlot.startTime.isAfter(this.currentTime)) {
+      if (timeSlot.status === 'free') {
+        // Set time in the form (extract time from Moment object)
+        const timeString = timeSlot.startTime.format('HH:mm');
+        this.activeSubForm.patchValue({ time: timeString });
+        this.errorMessage = '';
+      } else {
+        // Show error message for occupied slot
+        this.showErrorMessage('Это время недоступно');
+        // Clear time input
+        this.activeSubForm.patchValue({ time: '' });
+      }
     } else {
-      // Show error message
-      this.showErrorMessage('Это время недоступно');
+      // Show error message for past time slot
+      this.showErrorMessage('Это занятие уже завершено');
       // Clear time input
       this.activeSubForm.patchValue({ time: '' });
     }
