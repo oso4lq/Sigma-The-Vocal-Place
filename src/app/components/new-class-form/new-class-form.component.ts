@@ -21,6 +21,9 @@ import moment, { Moment } from 'moment';
 import { TimelineComponent } from '../timeline/timeline.component';
 import { ClassesFirebaseService } from '../../services/classes-firebase.service';
 import { collection, doc, writeBatch } from '@angular/fire/firestore';
+import { MY_DATE_FORMATS } from '../admin-timeline/admin-timeline.component';
+import 'moment/locale/ru'; // Import Russian locale
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 enum FormClassState {
   Start = 'StartState',
@@ -49,8 +52,11 @@ enum FormClassState {
     TimelineComponent,
   ],
   providers: [
-    { provide: DateAdapter, useClass: NativeDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+    // { provide: DateAdapter, useClass: NativeDateAdapter },
+    // { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+    // { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
   ],
   templateUrl: './new-class-form.component.html',
@@ -58,17 +64,21 @@ enum FormClassState {
 })
 export class NewClassFormComponent implements OnInit {
 
+  classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // Track the classes array
+  classesForSelectedDate: Class[] = []; // Contain the classes[] for the selected date
+
   newbieForm: FormGroup;
   activeSubForm: FormGroup;
   FormClassState = FormClassState;
   currentFormState: FormClassState = FormClassState.Start;
   prevFormState: FormClassState | null = null;
   errorMessage = '';
-
-  // New properties
   selectedDate: Moment = moment(); // Initialize with current date
-  classes: Signal<Class[]>  = computed(() => this.classesService.classesSig()); // Track the classes array
-  classesForSelectedDate: Class[] = []; // Contain the classes[] for the selected date
+  weekendFilter = (d: Moment | null): boolean => {
+    const day = d ? d.day() : moment().day();
+    // Prevent Saturday (6) and Sunday (0) from being selected.
+    return day !== 0 && day !== 6;
+  };
 
   constructor(
     private dialogRef: MatDialogRef<NewClassFormComponent>,

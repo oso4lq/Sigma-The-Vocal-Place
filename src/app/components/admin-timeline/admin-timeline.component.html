@@ -26,7 +26,8 @@
                     <mat-icon>{{ isStatusEditing ? 'done_all' : 'edit' }}</mat-icon>
                 </div>
                 <label for="status">Статус:</label>
-                <select id="status" formControlName="status" [disabled]="!isStatusEditing" #statusSelect
+                <!-- [disabled]="!isStatusEditing" -->
+                <select id="status" formControlName="status" #statusSelect
                     (change)="onStatusChange(statusSelect.value)">
                     <option value="" disabled>-- Выберите статус --</option>
                     <option *ngFor="let status of classStatuses" [value]="status">
@@ -43,12 +44,12 @@
                 <input id="time" type="text" formControlName="time" readonly />
             </div>
             <div class="form-group">
-                <label for="userName">Имя пользователя:</label>
-                <input id="userName" type="text" formControlName="userName" readonly />
-            </div>
-            <div class="form-group">
                 <label for="membership">Использован абонемент:</label>
                 <input id="membership" type="text" formControlName="membership" readonly />
+            </div>
+            <div class="form-group">
+                <label for="userName">Имя пользователя:</label>
+                <input id="userName" type="text" formControlName="userName" readonly />
             </div>
             <div class="form-group">
                 <label for="message">Комментарий:</label>

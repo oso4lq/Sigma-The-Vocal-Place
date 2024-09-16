@@ -76,7 +76,7 @@
                         ДД.ММ.ГГГГ
                         <!-- DD.MM.YYYY -->
                     </mat-label>
-                    <input matInput (dateChange)="onDateChange($event)" [matDatepicker]="picker" formControlName="date"
+                    <input matInput [matDatepickerFilter]="weekendFilter" (dateChange)="onDateChange($event)" [matDatepicker]="picker" formControlName="date"
                         readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker>
