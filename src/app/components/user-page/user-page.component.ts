@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { ClassesService } from '../../services/classes.service';
 import { AuthService } from '../../services/auth.service';
-import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { DialogService } from '../../services/dialog.service';
 import { User } from 'firebase/auth';
 import moment from 'moment';
@@ -45,15 +44,19 @@ export enum UserPageSections {
 })
 export class UserPageComponent implements OnInit {
 
+  // Constants  
+  readonly imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
+
+  // State
+  isEditing = false; // Track whether inputs are editable
+  userData: UserData | null = null; // Store the fetched user data
+  UserPageSections = UserPageSections;
+  currentSection: UserPageSections = UserPageSections.User; // Default section
+
+  // Signals
   currentUser: Signal<User | null | undefined> = computed(() => this.authService.currentUserSig()); // track the current user
   currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
   classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // track the classes array
-
-  isEditing = false; // Track whether inputs are editable
-  userData: UserData | null = null; // Store the fetched user data
-  imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
-  UserPageSections = UserPageSections;
-  currentSection: UserPageSections = UserPageSections.User; // Default section
 
   constructor(
     private classesService: ClassesService,

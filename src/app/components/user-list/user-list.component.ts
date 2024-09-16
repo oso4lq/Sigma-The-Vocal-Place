@@ -1,4 +1,4 @@
-import { Component, computed, Signal } from '@angular/core';
+import { Component, computed, signal, Signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Class, UserData } from '../../interfaces/data.interface';
@@ -31,10 +31,6 @@ export class UserListComponent {
   // Constants
   readonly imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
 
-  // Signals
-  userDatas: Signal<UserData[]> = computed(() => this.usersService.userDatasSig());
-  classes: Signal<Class[]> = computed(() => this.classesService.classesSig());
-
   // Forms
   searchForm: FormGroup;
   displayForm: FormGroup;
@@ -43,7 +39,31 @@ export class UserListComponent {
   selectedUser: UserData | null = null;
   selectedUserClasses: Class[] = [];
   isMembershipEditing: boolean = false; // Track editing the membership points
-  filteredUsers: Signal<UserData[]>; // Filtered users as a computed signal
+
+  // Signals
+  userDatas: Signal<UserData[]> = computed(() => this.usersService.userDatasSig());
+  classes: Signal<Class[]> = computed(() => this.classesService.classesSig());
+  searchInput: WritableSignal<string> = signal(''); // Search input as a signal to track changes
+
+  // Computed signal for filtered users
+  filteredUsers: Signal<UserData[]> = computed(() => {
+    const users = this.userDatas();
+    const searchValue = this.searchInput().trim().toLowerCase();
+
+    if (!searchValue) {
+      return users;
+    }
+
+    return users.filter(user =>
+      user.name.toLowerCase().includes(searchValue) ||
+      user.email.toLowerCase().includes(searchValue) ||
+      (user.telegram && user.telegram.toLowerCase().includes(searchValue)) ||
+      (user.phone && user.phone.toLowerCase().includes(searchValue))
+    );
+  });
+
+  // Store the subscription so we can unsubscribe later
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private classesService: ClassesService,
@@ -63,32 +83,28 @@ export class UserListComponent {
       phone: [{ value: '', disabled: true }],
       membership: [{ value: '', disabled: true }],
     });
-
-    // Initialize filteredUsers as a computed signal based on userDatas and search input
-    this.filteredUsers = computed(() => {
-      const users = this.userDatas();
-      const searchValue = this.searchForm.get('search')?.value?.trim().toLowerCase() || '';
-
-      if (!searchValue) {
-        return users;
-      }
-
-      return users.filter(user =>
-        user.name.toLowerCase().includes(searchValue) ||
-        user.email.toLowerCase().includes(searchValue) ||
-        (user.telegram && user.telegram.toLowerCase().includes(searchValue)) ||
-        (user.phone && user.phone.toLowerCase().includes(searchValue))
-      );
-    });
   }
 
   ngOnInit(): void {
     // Load initial data
     this.usersService.loadUserDatas();
     this.classesService.loadClasses();
+
+    // Subscribe to search input changes and update the searchInput signal
+    const searchSubscription = this.searchForm.get('search')?.valueChanges.subscribe(value => {
+      this.searchInput.set(value || '');
+    });
+
+    if (searchSubscription) {
+      this.subscription.add(searchSubscription);
+    }
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
   selectUser(user: UserData): void {
     this.selectedUser = user;
@@ -151,12 +167,6 @@ export class UserListComponent {
       } else {
         // Disable the membership field after editing
         membershipControl.disable();
-
-        // // If the user is not in edit mode anymore, submit the data to Firebase
-        // if (this.selectedUser) {
-        //   console.log("Updating class data on the server:", this.selectedUser);
-        //   this.usersService.updateUserData(this.selectedUser);
-        // }
 
         // Retrieve the updated value from the form
         const updatedMembership = this.displayForm.get('membership')?.value;

@@ -59,20 +59,25 @@ export const MY_DATE_FORMATS: MatDateFormats = {
 })
 export class AdminTimelineComponent implements OnInit, OnDestroy {
 
+  // Forms
+  displayForm: FormGroup; // Form for the Display Box
+  rangeForm: FormGroup; // Form for the Date Range
+  
+  // Signals
   currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
   users: Signal<UserData[]> = computed(() => this.usersService.userDatasSig()); // track the users array
   classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // track the classes array
 
-  private destroy$ = new Subject<void>();
-
+  // State
+  selectedClass: Class | undefined;
   ClassStatus = ClassStatus;
   classStatuses = Object.values(ClassStatus); // For options in <select>
-  userMap: Map<string | number, UserData> = new Map();
-  displayForm: FormGroup; // Form for the Display Box
-  rangeForm: FormGroup; // Form for the Date Range
-  daysInRange: moment.Moment[] = []; // Contain the range of dates for rendering timeline rows
-  selectedClass: Class | undefined; // Allow undefined
   isStatusEditing: boolean = false; // Track editing the status
+  userMap: Map<string | number, UserData> = new Map();
+  daysInRange: moment.Moment[] = []; // Contain the range of dates for rendering timeline rows
+
+  // Manage subscription
+  private destroy$ = new Subject<void>();
 
   constructor(
     private classesService: ClassesService,
@@ -170,7 +175,7 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
   }
 
   // Handle date range change
-  onDateRangeChange(range: { start: moment.Moment, end: moment.Moment }): void {
+  private onDateRangeChange(range: { start: moment.Moment, end: moment.Moment }): void {
 
     // Refresh data
     this.refreshData();
