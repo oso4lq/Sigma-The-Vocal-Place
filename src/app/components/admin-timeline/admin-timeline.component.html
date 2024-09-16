@@ -64,7 +64,7 @@
         <div *ngFor="let day of daysInRange" class="daily-timeline">
             <!-- Full date without time -->
             <h3>{{ day.format('LLLL').slice(0, -7) }}</h3>
-            <app-timeline [classes]="getClassesForDay(day)" [selectedDate]="day"
+            <app-timeline [classes]="getClassesForDay(day)" [selectedDate]="day" [mode]="'admin'"
                 (slotClicked)="onSlotClicked($event)"></app-timeline>
         </div>
     </div>

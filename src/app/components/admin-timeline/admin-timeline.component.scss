@@ -121,30 +121,4 @@ mat-form-field {
 
 ::ng-deep .timeline__box {
     width: 120px !important;
-
-    &.free {
-        cursor: default !important;
-
-        &:hover {
-            --slot-color: #50CB85 !important;
-        }
-    }
-
-    &.occupied {
-        cursor: pointer !important;
-
-        &:hover {
-            --slot-color: #d85a44 !important;
-        }
-    }
-
-    &.selected {
-        --slot-color: #40a26a;
-
-        .timeline__circle {
-            background-color: #ffffff;
-            border-color: var(--slot-color);
-        }
-    }
-
 }

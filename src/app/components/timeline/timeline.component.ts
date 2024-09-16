@@ -18,10 +18,12 @@ export class TimelineComponent implements OnInit, OnChanges {
   @Input() classes: Class[] = [];
   @Input() selectedDate: Moment = moment();
   @Input() currentTime: Moment = moment();
+  @Input() mode: 'user' | 'admin' = 'user';
+
   @Output() slotClicked = new EventEmitter<TimelineSlot>();
 
   timeSlots: TimelineSlot[] = [];
-  selectedTimeSlot: string | null = null;
+  selectedTimeSlot: TimelineSlot | null = null;
 
   ngOnInit() {
     this.generateTimeline();
@@ -79,21 +81,24 @@ export class TimelineComponent implements OnInit, OnChanges {
 
       currentSlotTime = slotEndTime;
     }
-    
+
     return slots;
   }
 
-  // TODO add a selected state for admin timeline
-  onSlotClicked(timeSlot: TimelineSlot) {
-    if (timeSlot.status === 'free') {
-      this.selectedTimeSlot = timeSlot.startTime.format('HH:mm');
+  // Handle slot click based on mode
+  onSlotClicked(timeSlot: TimelineSlot): void {
+    if (this.mode === 'user' && timeSlot.status === 'free') {
+      this.selectedTimeSlot = timeSlot;
+      this.slotClicked.emit(timeSlot);
+    } else if (this.mode === 'admin' && timeSlot.status === 'occupied') {
+      this.selectedTimeSlot = timeSlot;
+      this.slotClicked.emit(timeSlot);
     }
-
-    this.slotClicked.emit(timeSlot);
+    // Optionally, handle clicks on invalid slots (e.g., show a message)
   }
 
   // Method to check if a time slot is selected
   isSelected(timeSlot: TimelineSlot): boolean {
-    return this.selectedTimeSlot === timeSlot.startTime.format('HH:mm');
+    return this.selectedTimeSlot === timeSlot;
   }
 }

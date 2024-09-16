@@ -216,7 +216,6 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
     this.selectedClass = foundSelectedClass;
 
     if (foundSelectedClass) {
-      // problem when getting the user
       const user = this.userMap.get(foundSelectedClass.userId);
       this.populateDisplayBox(foundSelectedClass, user);
     }

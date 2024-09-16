@@ -22,11 +22,6 @@
 
         &.free {
             --slot-color: #50CB85;
-            cursor: pointer;
-
-            &:hover {
-                --slot-color: #40a26a;
-            }
 
             .timeline__circle {
                 background-color: #ffffff;
@@ -43,17 +38,46 @@
             }
         }
 
-        &.selected {
-            --slot-color: #40a26a;
+        &.past {
+            filter: brightness(0.8);
+        }
 
-            .timeline__circle {
-                background-color: #ffffff;
-                border-color: var(--slot-color);
+        &.positive {
+            &.free {
+                cursor: pointer;
+
+                &:hover {
+                    --slot-color: #40a26a;
+                }
+            }
+
+            &.selected {
+                --slot-color: #40a26a;
+
+                .timeline__circle {
+                    background-color: #ffffff;
+                    border-color: var(--slot-color);
+                }
             }
         }
 
-        &.past {
-            filter: brightness(0.8);
+        &.negative {
+            &.occupied {
+                cursor: pointer;
+
+                &:hover {
+                    --slot-color: #E94B32;
+                }
+            }
+
+            &.selected {
+                --slot-color: #E94B32;
+
+                .timeline__circle {
+                    background-color: #ffffff;
+                    border-color: var(--slot-color);
+                }
+            }
         }
 
         &.count-1 {

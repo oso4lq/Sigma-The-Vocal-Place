@@ -3,6 +3,7 @@
         class="flex-col center-row timeline__box w-100" [ngClass]="[
             timeSlot.status, 
             isSelected(timeSlot) ? 'selected' : '',
+            mode === 'user' ? 'positive' : 'negative',
             timeSlot.startTime.isBefore(currentTime) ? 'past' : ''
         ]">
         <div class='timeline__circle'> </div>
@@ -16,5 +17,4 @@
             </span>
         </div>
     </div>
-
 </div>
