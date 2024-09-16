@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import moment from 'moment';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-user-list',
@@ -67,6 +68,7 @@ export class UserListComponent {
 
   constructor(
     private classesService: ClassesService,
+    private dialogService: DialogService,
     private usersService: UsersService,
     private fb: FormBuilder,
   ) {
@@ -184,9 +186,25 @@ export class UserListComponent {
       }
     }
   }
+  refreshClasses() {
+    // Refresh the currentUserData signal to check updates in classes[]
+    // this.authService.monitorAuthState();
 
+    // Refresh the classes
+    this.classesService.loadClasses();
+
+  }
+  // Method to delete a class forever
+  // IMPORTANT! Check for side effects related to membership points
   deleteClass(cls: Class) {
     console.log('Class to be deleted:', cls);
+    this.dialogService.openCancelClassDialog(cls);
+  }
+
+  // Method to edit the class status
+  editClass(cls: Class) {
+    console.log('Class to be edited:', cls);
+    this.dialogService.openEditClassDialog(cls);
   }
 
 }

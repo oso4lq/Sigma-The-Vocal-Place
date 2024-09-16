@@ -6,6 +6,7 @@ import { GalleryComponent } from '../components/gallery/gallery.component';
 import { NewClassFormComponent } from '../components/new-class-form/new-class-form.component';
 import { LoginComponent } from '../components/login/login.component';
 import { CancelClassComponent } from '../components/cancel-class/cancel-class.component';
+import { EditClassComponent } from '../components/edit-class/edit-class.component';
 
 @Injectable({
   providedIn: 'root'
@@ -82,7 +83,7 @@ export class DialogService {
     });
   }
 
-  // Method to open the CancelClass dialog
+  // Cancel Class
   openCancelClassDialog(classItem: Class): void {
     this.initiateDialog();
 
@@ -96,9 +97,24 @@ export class DialogService {
 
     dialogRef.afterClosed().subscribe(result => {
       this.killDialog();
-      if (result && result.success) {
-        // Optionally refresh data or show a success message
-      }
     });
   }
+
+  // Edit Class
+  openEditClassDialog(classItem: Class): void {
+    this.initiateDialog();
+
+    const dialogRef = this.dialog.open(EditClassComponent, {
+      data: { classItem: classItem },
+      hasBackdrop: true,
+      backdropClass: 'custom-backdrop',
+      panelClass: 'new-class-form-dialog',
+      disableClose: false,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.killDialog();
+    });
+  }
+
 }

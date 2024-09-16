@@ -91,6 +91,10 @@ mat-divider {
     input {
         flex: 1;
         background: #fff !important;
+
+        &:disabled {
+            opacity: 0.7;
+        }
     }
 
     button {
@@ -117,12 +121,27 @@ mat-divider {
     &_details {
         position: absolute;
         right: 0px;
+        // background: var(--light-color);
+        // height: 24px;
+        // border-radius: 4px;
     }
 
-    &_class {
+    &_class-edit {
+        position: absolute;
+        top: 2px;
+        right: 42px;
+        background: var(--light-color);
+        height: 24px;
+        border-radius: 4px;
+    }
+
+    &_class-cancel {
         position: absolute;
         top: 2px;
         right: 2px;
+        background: var(--light-color);
+        height: 24px;
+        border-radius: 4px;
     }
 }
 
@@ -131,6 +150,7 @@ mat-divider {
     border-radius: 4px;
     background-color: var(--light-color);
     gap: 10px;
+    min-height: 40px;
 }
 
 .my-classes {
@@ -272,5 +292,17 @@ mat-divider {
 @media (max-width: 768px) {
     .user-list-container {
         flex-direction: column;
+    }
+
+    .users-box {
+        max-width: unset;
+    }
+
+    .special-group {
+        flex-direction: column;
+    }
+
+    .membership-group {
+        width: 100%;
     }
 }

@@ -2,7 +2,7 @@
 
     <!-- Display Box -->
     <div class="display-box">
-        <h3>Карточка ученика</h3>
+        <h3 class="w-100">Карточка ученика</h3>
         <mat-divider></mat-divider>
 
         <div class="selected-user">
@@ -54,13 +54,18 @@
             <!-- Classes -->
             <div class="selected-user__classes">
                 <label>занятия:</label>
-                <div class="classes-list">
+                <div class="flex-col classes-list">
 
                     <!-- Loaded classes list for the selected user -->
                     <div *ngFor="let cls of selectedUserClasses; let last = last" class="w-100 my-classes__item">
 
                         <!-- Delete button -->
-                        <div class="utility-btn utility-btn_class" (click)="deleteClass(cls)">
+                        <div class="utility-btn utility-btn_class-edit" (click)="editClass(cls)">
+                            <mat-icon>edit</mat-icon>
+                        </div>
+
+                        <!-- Delete button -->
+                        <div class="utility-btn utility-btn_class-cancel" (click)="deleteClass(cls)">
                             <mat-icon>cancel</mat-icon>
                         </div>
 
