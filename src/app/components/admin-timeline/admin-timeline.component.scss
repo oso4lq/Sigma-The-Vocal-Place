@@ -33,12 +33,12 @@ mat-form-field {
 }
 
 .display-box {
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 10px;
     background-color: var(--bright-alt-color);
 
-    &__title {
-        margin-bottom: 8px;
+    mat-divider {
+        margin: 8px 0;
     }
 
     form {
@@ -108,7 +108,7 @@ mat-form-field {
 
     .daily-timeline {
         border: 1px solid #ddd;
-        border-radius: 8px;
+        border-radius: 4px;
         padding: 10px;
         background-color: #fff;
 
