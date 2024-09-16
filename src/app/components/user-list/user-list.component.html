@@ -1,1 +1,121 @@
-<p>user-list works!</p>
+<div class="user-list-container">
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <form [formGroup]="searchForm" class="user-form">
+            <mat-form-field appearance="outline" class="search-input">
+                <mat-label>Search Users</mat-label>
+                <input matInput placeholder="Search by name, email, etc." formControlName="search">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </form>
+    </div>
+
+    <div class="content">
+
+        <!-- Display Box -->
+        <!-- *ngIf="selectedUser" removed -->
+        <div class="display-box" >
+            <h3>User Card</h3>
+            <mat-divider></mat-divider>
+            <div class="user-details">
+
+                <!-- User Picture -->
+                <div class="user-pic">
+                    <img [src]="selectedUser?.img ? selectedUser?.img : imgDefault" alt="{{ selectedUser?.name }}"
+                        class="user-avatar-large">
+                </div>
+
+                <!-- User Form populated by the selected user -->
+                <form [formGroup]="displayForm" class="user-form">
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" formControlName="name" readonly>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" formControlName="email" readonly>
+                    </div>
+
+                    <!-- Telegram -->
+                    <div class="form-group">
+                        <label>Telegram:</label>
+                        <input type="text" formControlName="telegram" readonly>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="form-group">
+                        <label>Phone:</label>
+                        <input type="text" formControlName="phone" readonly>
+                    </div>
+
+                    <!-- Membership Points - Editable -->
+                    <div class="form-group membership-group">
+                        <div class="utility-btn utility-btn_details" (click)="toggleMembershipEdit()">
+                            <mat-icon>{{ isMembershipEditing ? 'done_all' : 'edit' }}</mat-icon>
+                        </div>
+
+                        <label>Membership Points:</label>
+                        <input type="number" formControlName="membershipPoints" [readonly]="!isMembershipEditing">
+                    </div>
+                </form>
+
+                <!-- Classes -->
+                <div class="form-group">
+                    <label>Classes:</label>
+                    <div class="classes-list">
+
+                        <!-- Loaded classes list for the selected user -->
+                        <div class="flex-col center-all flex-grow my-classes__list my-classes__list_desktop">
+                            <div *ngFor="let cls of selectedUserClasses; let last = last"
+                                class="w-100 my-classes__item">
+
+                                <!-- Delete button -->
+                                <div class="utility-btn utility-btn_details" (click)="deleteClass(cls)">
+                                    <mat-icon>cancel</mat-icon>
+                                </div>
+
+                                <!-- Class Status -->
+                                <p [ngClass]="{
+                                    'my-classes__status_confirmed': cls.status === 'confirmed',
+                                    'my-classes__status_cancelled': cls.status === 'cancelled',
+                                    'my-classes__status_pending': cls.status === 'pending',
+                                    'my-classes__status_executed': cls.status === 'executed'
+                                    }" class="my-classes__status">
+                                    Статус: {{ cls.status }}
+                                </p>
+                                <mat-divider></mat-divider>
+                                <div class="flex-row my-classes__time">
+                                    <p>Дата: {{ cls.startdate | date:'dd.MM.yyyy' }}</p>
+                                    <p>Время: {{ cls.startdate | date:'HH:mm' }} - {{ cls.enddate | date:'HH:mm' }} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Users Box -->
+        <div class="users-box">
+            <h3>User List</h3>
+            <mat-divider></mat-divider>
+            <div class="users-list">
+                <div class="user-item" *ngFor="let user of filteredUsers()" (click)="selectUser(user)"
+                    [class.selected]="user.id === selectedUser?.id">
+                    <img [src]="user.img ? user.img : imgDefault" alt="{{ user.name }}" class="user-avatar">
+                    <div class="user-info">
+                        <p class="user-name">{{ user.name }}</p>
+                        <p class="user-email">{{ user.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

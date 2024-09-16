@@ -56,7 +56,6 @@ export class UserPageComponent implements OnInit {
   currentSection: UserPageSections = UserPageSections.User; // Default section
 
   constructor(
-    private usersFirebaseService: UsersFirebaseService,
     private classesService: ClassesService,
     private dialogService: DialogService,
     private usersService: UsersService,

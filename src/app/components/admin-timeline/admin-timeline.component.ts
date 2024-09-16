@@ -75,7 +75,6 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
   isStatusEditing: boolean = false; // Track editing the status
 
   constructor(
-    private usersFirebaseService: UsersFirebaseService,
     private classesService: ClassesService,
     private usersService: UsersService,
     private authService: AuthService,
