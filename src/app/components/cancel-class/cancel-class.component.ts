@@ -55,9 +55,10 @@ export class CancelClassComponent implements OnInit {
     // - the user spent his membership point
     // - the class was confirmed by the tutor
 
-    // Important!
+    // IMPORTANT!
     // If the class has not been confirmed by the tutor, the policy allows the user 
     // to cancel without penalty, even if it's less than 24 hours before the class.
+
     if (
       this.hoursDifference <= this.CANCELLATION_THRESHOLD_HOURS &&
       this.classItem.isMembershipUsed &&
@@ -86,6 +87,7 @@ export class CancelClassComponent implements OnInit {
         throw new Error('Class no longer exists.');
       }
       const latestClassData = classSnapshot.data() as Class;
+      console.log('latestClassData', latestClassData);
       this.classItem.status = latestClassData.status;
 
       // Create a batch for atomic updates
@@ -99,7 +101,7 @@ export class CancelClassComponent implements OnInit {
       }
 
       // Remove class ID from user's classes array
-      const updatedClasses = (this.userData.classes || []).filter(
+      const updatedUserDataClasses = (this.userData.classes || []).filter(
         (id: string | number) => id !== this.classItem.id
       );
 
@@ -109,17 +111,24 @@ export class CancelClassComponent implements OnInit {
         `users/${this.userData.id}`
       );
       const userUpdateData: Partial<UserData> = {
-        classes: updatedClasses,
+        classes: updatedUserDataClasses,
       };
+      console.log('userUpdateData', userUpdateData);
 
-      // Important!
-      // Refund membership point if cancellation is made more than 24 hours before the class starts
-      // and the user used a membership point. The class status does not affect the refund policy.
-      // Adjust membership points based on cancellation policy
+      // IMPORTANT! Adjust membership points based on cancellation policy.
+
+      // Refund membership point if cancellation of a CONFIRMED CLASS is made MORE THAN 24 HOURS
+      // before the class starts and the user USED A MEMBERSHIP POINT.
+      // OR 
+      // Refund membership point if cancellation of a PENDING CLASS is made at ANY TIME
+      // and the user USED A MEMBERSHIP POINT.
+
       if (
-        this.hoursDifference >= this.CANCELLATION_THRESHOLD_HOURS
-        && this.classItem.isMembershipUsed
-        // && this.classItem.status !== ClassStatus.Confirmed
+        (this.hoursDifference >= this.CANCELLATION_THRESHOLD_HOURS
+          && this.classItem.isMembershipUsed)
+        ||
+        (this.classItem.isMembershipUsed
+          && this.classItem.status === ClassStatus.Pending)
       ) {
         // Refund membership point
         userUpdateData.membership = (this.userData.membership || 0) + 1;
