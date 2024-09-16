@@ -194,6 +194,18 @@ mat-divider {
 .search-bar {
     display: flex;
     justify-content: center;
+
+    input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        background: #fff;
+        border-radius: 4px;
+        font-size: 1em;
+
+        &:read-only {
+            background: var(--light-color);
+        }
+    }
 }
 
 .users-list {

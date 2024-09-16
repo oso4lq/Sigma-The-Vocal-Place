@@ -29,7 +29,7 @@
                             <mat-icon>{{ isMembershipEditing ? 'done_all' : 'edit' }}</mat-icon>
                         </div>
                         <label>абонемент:</label>
-                        <input type="number" formControlName="membershipPoints" [readonly]="!isMembershipEditing">
+                        <input type="number" formControlName="membership" [readonly]="!isMembershipEditing">
                     </div>
                     <!-- Telegram -->
                     <div class="form-group flex-grow">
@@ -91,11 +91,7 @@
 
         <!-- Search Bar -->
         <form [formGroup]="searchForm" class="search-bar">
-            <mat-form-field appearance="outline" class="search-bar__input">
-                <mat-label>Search Users</mat-label>
-                <input matInput placeholder="Search by name, email, etc." formControlName="search">
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
+            <input class="w-100" id="search-input" type="text" placeholder="Поиск" formControlName="search">
         </form>
 
         <!-- All users list -->
@@ -103,7 +99,7 @@
             <div class="user-item" *ngFor="let user of filteredUsers()" (click)="selectUser(user)"
                 [class.selected]="user.id === selectedUser?.id">
                 <img [src]="user.img ? user.img : imgDefault" alt="{{ user.name }}" class="user-item__avatar">
-                    <p class="user-item__name">{{ user.name }}</p>
+                <p class="user-item__name">{{ user.name }}</p>
             </div>
         </div>
     </div>

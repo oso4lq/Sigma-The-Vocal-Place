@@ -42,13 +42,12 @@ export class UserListComponent {
   // State
   selectedUser: UserData | null = null;
   selectedUserClasses: Class[] = [];
-  isMembershipEditing: boolean = false; // Track editing the membershipPoints
-  // Filtered users as a computed signal
-  filteredUsers: Signal<UserData[]>;
+  isMembershipEditing: boolean = false; // Track editing the membership points
+  filteredUsers: Signal<UserData[]>; // Filtered users as a computed signal
 
   constructor(
-    private usersService: UsersService,
     private classesService: ClassesService,
+    private usersService: UsersService,
     private fb: FormBuilder,
   ) {
     // Initialize Search Form
@@ -62,13 +61,14 @@ export class UserListComponent {
       email: [{ value: '', disabled: true }],
       telegram: [{ value: '', disabled: true }],
       phone: [{ value: '', disabled: true }],
-      membershipPoints: [{ value: '', disabled: true }],
+      membership: [{ value: '', disabled: true }],
     });
 
     // Initialize filteredUsers as a computed signal based on userDatas and search input
     this.filteredUsers = computed(() => {
       const users = this.userDatas();
       const searchValue = this.searchForm.get('search')?.value?.trim().toLowerCase() || '';
+
       if (!searchValue) {
         return users;
       }
@@ -96,26 +96,20 @@ export class UserListComponent {
     this.populateSelectedUserClasses(user);
   }
 
-  /**
-   * Populates the display form with the user's data.
-   * @param user The user whose data is to be displayed.
-   */
-  populateDisplayForm(user: UserData): void {
+  // Populates the display form with the user's data
+  private populateDisplayForm(user: UserData): void {
     this.displayForm.patchValue({
       name: user.name,
       email: user.email,
       telegram: user.telegram,
       phone: user.phone,
-      membershipPoints: user.membership,
+      membership: user.membership,
     });
   }
 
-  /**
-   * Populates the selectedUserClasses array based on the user's class IDs.
-   * Filters classes by user and date (nearest date first).
-   * @param user The selected user.
-   */
-  populateSelectedUserClasses(user: UserData): void {
+  // Filter classes by user and date (nearest first) 
+  // and set the selectedUserClasses array based on the user's class IDs
+  private populateSelectedUserClasses(user: UserData): void {
     if (!user.classes || user.classes.length === 0) {
       this.selectedUserClasses = [];
       return;
@@ -144,24 +138,38 @@ export class UserListComponent {
     });
   }
 
-  // Handle editing the membershipPoints
+  // Handle editing the membership points
   toggleMembershipEdit() {
     this.isMembershipEditing = !this.isMembershipEditing;
 
     // Enable or disable the status field based on editing state
-    const statusControl = this.displayForm.get('membershipPoints');
-    if (statusControl) {
+    const membershipControl = this.displayForm.get('membership');
+    if (membershipControl) {
       if (this.isMembershipEditing) {
-        // Enable the membershipPoints field for editing
-        statusControl.enable();
+        // Enable the membership field for editing
+        membershipControl.enable();
       } else {
-        // Disable the membershipPoints field after editing
-        statusControl.disable();
+        // Disable the membership field after editing
+        membershipControl.disable();
 
-        // If the user is not in edit mode anymore, submit the data to Firebase
+        // // If the user is not in edit mode anymore, submit the data to Firebase
+        // if (this.selectedUser) {
+        //   console.log("Updating class data on the server:", this.selectedUser);
+        //   this.usersService.updateUserData(this.selectedUser);
+        // }
+
+        // Retrieve the updated value from the form
+        const updatedMembership = this.displayForm.get('membership')?.value;
+
+        // Update the selectedUser's membership points
         if (this.selectedUser) {
-          console.log("Updating class data on the server:", this.selectedUser);
-          this.usersService.updateUserData(this.selectedUser);
+          const updatedUser: UserData = {
+            ...this.selectedUser,
+            membership: updatedMembership
+          };
+          console.log("Updating user data on the server:", updatedUser);
+          this.usersService.updateUserData(updatedUser);
+          this.selectedUser = updatedUser;
         }
       }
     }
