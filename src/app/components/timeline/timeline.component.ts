@@ -87,18 +87,19 @@ export class TimelineComponent implements OnInit, OnChanges {
 
   // Handle slot click based on mode
   onSlotClicked(timeSlot: TimelineSlot): void {
+    this.slotClicked.emit(timeSlot);
+
+    // Optionally, handle clicks on invalid slots
     if (this.mode === 'user' && timeSlot.status === 'free') {
       this.selectedTimeSlot = timeSlot;
-      this.slotClicked.emit(timeSlot);
     } else if (this.mode === 'admin' && timeSlot.status === 'occupied') {
       this.selectedTimeSlot = timeSlot;
-      this.slotClicked.emit(timeSlot);
     }
-    // Optionally, handle clicks on invalid slots (e.g., show a message)
   }
 
   // Method to check if a time slot is selected
   isSelected(timeSlot: TimelineSlot): boolean {
     return this.selectedTimeSlot === timeSlot;
   }
+
 }

@@ -182,22 +182,19 @@ export class NewClassFormComponent implements OnInit {
   }
 
   onTimeSlotSelected(timeSlot: TimelineSlot) {
+    console.log('timeSlot.status', timeSlot.classId);
     if (timeSlot.startTime.isAfter(this.currentTime)) {
       if (timeSlot.status === 'free') {
-        // Set time in the form (extract time from Moment object)
         const timeString = timeSlot.startTime.format('HH:mm');
         this.activeSubForm.patchValue({ time: timeString });
         this.errorMessage = '';
-      } else {
-        // Show error message for occupied slot
+      }
+      if (timeSlot.status === 'occupied') {
         this.showErrorMessage('Это время недоступно');
-        // Clear time input
         this.activeSubForm.patchValue({ time: '' });
       }
     } else {
-      // Show error message for past time slot
       this.showErrorMessage('Это занятие уже завершено');
-      // Clear time input
       this.activeSubForm.patchValue({ time: '' });
     }
   }
