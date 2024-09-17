@@ -78,15 +78,15 @@ mat-form-field {
 
     &__delete {
         cursor: pointer;
-
-        &:hover {
-            text-decoration: underline;
-        }
     }
 }
 
 .selected {
     font-weight: 600;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .utility-btn {

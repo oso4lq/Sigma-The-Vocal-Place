@@ -1,8 +1,7 @@
 .timeline {
-    display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     margin: 4px 0;
+    gap: 1px;
 
     &__box {
         justify-content: flex-start;
