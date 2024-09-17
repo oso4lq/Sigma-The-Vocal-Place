@@ -64,18 +64,23 @@ enum FormClassState {
 })
 export class NewClassFormComponent implements OnInit {
 
-  classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // Track the classes array
-  classesForSelectedDate: Class[] = []; // Contain the classes[] for the selected date
-
+  // Forms
   newbieForm: FormGroup;
   activeSubForm: FormGroup;
+
+  // State
   FormClassState = FormClassState;
   currentFormState: FormClassState = FormClassState.Start;
   prevFormState: FormClassState | null = null;
   errorMessage = '';
-  selectedDate: Moment = moment(); // Initialize with current date
+  selectedDate: Moment = moment();
   currentTime: Moment;
 
+  // Signals from Services
+  classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // Track the classes array
+  classesForSelectedDate: Class[] = []; // Contain the classes[] for the selected date
+
+  // Set working days filter (may be made adjustable in the Admin's Account)
   weekendFilter = (d: Moment | null): boolean => {
     const day = d ? d.day() : moment().day();
     // Prevent Saturday (6) and Sunday (0) from being selected.

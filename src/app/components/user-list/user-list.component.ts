@@ -56,10 +56,10 @@ export class UserListComponent {
     }
 
     return users.filter(user =>
-      user.name.toLowerCase().includes(searchValue) ||
-      user.email.toLowerCase().includes(searchValue) ||
-      (user.telegram && user.telegram.toLowerCase().includes(searchValue)) ||
-      (user.phone && user.phone.toLowerCase().includes(searchValue))
+      user.name?.toLowerCase().includes(searchValue)
+      // || user.email?.toLowerCase().includes(searchValue)
+      // || user.telegram?.toLowerCase().includes(searchValue)
+      // || user.phone?.toLowerCase().includes(searchValue)
     );
   });
 
@@ -179,6 +179,7 @@ export class UserListComponent {
 
   // Method to delete a class forever
   // IMPORTANT! Check for side effects related to membership points
+  // seems to be ok
   deleteClass(cls: Class) {
     this.dialogService.openCancelClassDialog(cls);
   }

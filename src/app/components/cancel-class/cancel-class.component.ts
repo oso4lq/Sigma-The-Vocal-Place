@@ -24,11 +24,14 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class CancelClassComponent implements OnInit {
 
+  // Constants
+  readonly CANCELLATION_THRESHOLD_HOURS = 24; // Deadline to cancel the class without penalty
+
+  // State
   classItem: Class;
   userData: UserData | null;
   message: string = ''; // Extra field for alerts and errors
   hoursDifference: number = 0;
-  CANCELLATION_THRESHOLD_HOURS = 24; // Deadline to cancel the class without penalty
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { classItem: Class },
