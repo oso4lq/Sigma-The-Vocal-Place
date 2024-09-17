@@ -6,7 +6,6 @@ import { TimelineComponent } from '../timeline/timeline.component';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
-import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { ClassesService } from '../../services/classes.service';
 import { AuthService } from '../../services/auth.service';
 import { Class, ClassStatus, TimelineSlot, UserData } from '../../interfaces/data.interface';

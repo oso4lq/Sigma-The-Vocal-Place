@@ -66,7 +66,10 @@ export class CancelClassComponent implements OnInit {
     ) {
       this.message =
         'Преподаватель уже подтвердил это занятие, и до его начала остаётся менее 24 часов. Отменив это занятие, вы потеряете занятие из абонемента.';
-    } else if (this.classItem.isMembershipUsed) {
+    } else if (
+      this.classItem.isMembershipUsed &&
+      this.classItem.status !== ClassStatus.Executed
+    ) {
       this.message = 'Вы можете отменить урок без потери занятия из абонемента.';
     } else this.message = '';
   }
@@ -122,6 +125,9 @@ export class CancelClassComponent implements OnInit {
       // OR 
       // Refund membership point if cancellation of a PENDING CLASS is made at ANY TIME
       // and the user USED A MEMBERSHIP POINT.
+      // OR
+      // Refund membership point if cancellation of a CANCELLED CLASS is made at ANY TIME
+      // and the user USED A MEMBERSHIP POINT.
 
       if (
         (this.hoursDifference >= this.CANCELLATION_THRESHOLD_HOURS
@@ -129,6 +135,9 @@ export class CancelClassComponent implements OnInit {
         ||
         (this.classItem.isMembershipUsed
           && this.classItem.status === ClassStatus.Pending)
+        ||
+        (this.classItem.isMembershipUsed
+          && this.classItem.status === ClassStatus.Cancelled)
       ) {
         // Refund membership point
         userUpdateData.membership = (this.userData.membership || 0) + 1;

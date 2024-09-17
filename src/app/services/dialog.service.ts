@@ -95,7 +95,7 @@ export class DialogService {
       disableClose: false,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.killDialog();
     });
   }
@@ -112,7 +112,7 @@ export class DialogService {
       disableClose: false,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.killDialog();
     });
   }
