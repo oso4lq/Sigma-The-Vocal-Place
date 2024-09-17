@@ -84,7 +84,12 @@ export class DialogService {
   }
 
   // Cancel Class
-  openCancelClassDialog(classItem: Class): void {
+  openCancelClassDialog(classItem: Class | undefined): void {
+
+    if (!classItem) {
+      return
+    }
+
     this.initiateDialog();
 
     const dialogRef = this.dialog.open(CancelClassComponent, {
@@ -101,7 +106,12 @@ export class DialogService {
   }
 
   // Edit Class
-  openEditClassDialog(classItem: Class): void {
+  openEditClassDialog(classItem: Class | undefined): void {
+
+    if (!classItem) {
+      return
+    }
+
     this.initiateDialog();
 
     const dialogRef = this.dialog.open(EditClassComponent, {

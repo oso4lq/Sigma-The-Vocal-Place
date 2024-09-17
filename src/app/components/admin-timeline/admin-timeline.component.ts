@@ -17,6 +17,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
 import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import 'moment/locale/ru'; // Import Russian locale
 import { UsersService } from '../../services/users.service';
+import { DialogService } from '../../services/dialog.service';
 
 export const MY_DATE_FORMATS: MatDateFormats = {
   parse: {
@@ -80,6 +81,7 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
 
   constructor(
     private classesService: ClassesService,
+    private dialogService: DialogService,
     private usersService: UsersService,
     private authService: AuthService,
     private fb: FormBuilder,
@@ -219,7 +221,7 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
       this.populateDisplayBox(foundSelectedClass, user);
     }
   }
-  
+
   // Handle editing the class status
   toggleStatusEdit() {
     this.isStatusEditing = !this.isStatusEditing;
@@ -261,6 +263,13 @@ export class AdminTimelineComponent implements OnInit, OnDestroy {
       const classEnd = moment(cls.enddate);
       return classEnd.isAfter(dayStart) && classEnd.isBefore(dayEnd);
     });
+  }
+
+  // Method to delete a class forever
+  // IMPORTANT! Check for side effects related to membership points
+  // seems to be ok
+  deleteClass(cls: Class | undefined) {
+    this.dialogService.openCancelClassDialog(cls);
   }
 
 }

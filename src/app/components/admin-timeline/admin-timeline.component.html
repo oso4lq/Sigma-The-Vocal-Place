@@ -19,7 +19,11 @@
 
     <!-- Display Box -->
     <div class="display-box">
-        <h3 class="display-box__title">Карточка занятия</h3>
+        <div class="flex-row">
+            <h3>Карточка занятия</h3>
+            <p class="display-box__delete" [ngClass]="selectedClass ? 'selected' : ''"
+                (click)="deleteClass(selectedClass)">удалить занятие</p>
+        </div>
         <mat-divider></mat-divider>
         <form [formGroup]="displayForm" class="flex-row">
             <div class="flex-col flex-grow form-group relative">

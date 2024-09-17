@@ -75,6 +75,18 @@ mat-form-field {
     .relative {
         position: relative;
     }
+
+    &__delete {
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.selected {
+    font-weight: 600;
 }
 
 .utility-btn {
