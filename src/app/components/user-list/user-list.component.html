@@ -1,11 +1,11 @@
-<div class="user-list-container">
+<div class="flex-row user-list-container">
 
     <!-- Display Box -->
     <div class="display-box">
         <h3 class="w-100">Карточка ученика</h3>
         <mat-divider></mat-divider>
 
-        <div class="selected-user">
+        <div class="flex-col selected-user">
 
             <!-- User Form populated by the selected user -->
             <form [formGroup]="displayForm" class="flex-col selected-user__details">
@@ -16,7 +16,7 @@
                     <img [src]="selectedUser()?.img ? selectedUser()?.img : imgDefault" alt="{{ selectedUser()?.name }}"
                         class="user-group__img">
                     <!-- Name -->
-                    <div class="form-group user-group__name">
+                    <div class="flex-col center-col form-group user-group__name">
                         <label>имя:</label>
                         <input type="text" formControlName="name" readonly>
                     </div>
@@ -24,7 +24,7 @@
 
                 <div class="flex-row special-group">
                     <!-- Membership Points - Editable -->
-                    <div class="form-group membership-group">
+                    <div class="flex-col form-group membership-group">
                         <div class="utility-btn utility-btn_details" (click)="toggleMembershipEdit()">
                             <mat-icon>{{ isMembershipEditing() ? 'done_all' : 'edit' }}</mat-icon>
                         </div>
@@ -32,27 +32,27 @@
                         <input type="number" formControlName="membership" [readonly]="!isMembershipEditing">
                     </div>
                     <!-- Telegram -->
-                    <div class="form-group flex-grow">
+                    <div class="flex-col form-group flex-grow">
                         <label>telegram:</label>
                         <input type="text" formControlName="telegram" readonly>
                     </div>
                 </div>
 
                 <!-- Phone -->
-                <div class="form-group">
+                <div class="flex-col form-group">
                     <label>телефон:</label>
                     <input type="text" formControlName="phone" readonly>
                 </div>
 
                 <!-- Email -->
-                <div class="form-group">
+                <div class="flex-col form-group">
                     <label>email:</label>
                     <input type="email" formControlName="email" readonly>
                 </div>
             </form>
 
             <!-- Classes -->
-            <div class="selected-user__classes">
+            <div class="flex-col selected-user__classes">
                 <label>занятия:</label>
                 <div class="flex-col classes-list">
 
@@ -90,18 +90,18 @@
     </div>
 
     <!-- Users Box -->
-    <div class="users-box">
+    <div class="flex-col users-box">
         <h3>Список учеников</h3>
         <mat-divider></mat-divider>
 
         <!-- Search Bar -->
-        <form [formGroup]="searchForm" class="search-bar">
+        <form [formGroup]="searchForm" class="flex-row center-col search-bar">
             <input class="w-100" id="search-input" type="text" placeholder="Поиск" formControlName="search">
         </form>
 
         <!-- All users list -->
-        <div class="users-list flex-grow">
-            <div class="user-item" *ngFor="let user of filteredUsers()" (click)="selectUser(user)"
+        <div class="flex-col flex-grow users-list">
+            <div class="flex-row center-row user-item" *ngFor="let user of filteredUsers()" (click)="selectUser(user)"
                 [class.selected]="user.id === selectedUser()?.id">
                 <img [src]="user.img ? user.img : imgDefault" alt="{{ user.name }}" class="user-item__avatar">
                 <p class="user-item__name">{{ user.name }}</p>

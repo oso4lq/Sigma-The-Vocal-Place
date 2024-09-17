@@ -1,4 +1,4 @@
-<div class="admin-timeline-container">
+<div class="flex-col admin-timeline-container">
 
     <!-- Range Picker -->
     <form [formGroup]="rangeForm">
@@ -21,8 +21,8 @@
     <div class="display-box">
         <h3 class="display-box__title">Карточка занятия</h3>
         <mat-divider></mat-divider>
-        <form [formGroup]="displayForm">
-            <div class="form-group form-group_relative">
+        <form [formGroup]="displayForm" class="flex-row">
+            <div class="flex-col flex-grow form-group relative">
                 <div class="utility-btn utility-btn_details" (click)="toggleStatusEdit()">
                     <mat-icon>{{ isStatusEditing ? 'done_all' : 'edit' }}</mat-icon>
                 </div>
@@ -35,23 +35,23 @@
                     </option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="flex-col flex-grow form-group">
                 <label for="date">дата:</label>
                 <input id="date" type="text" formControlName="date" readonly />
             </div>
-            <div class="form-group">
+            <div class="flex-col flex-grow form-group">
                 <label for="time">время:</label>
                 <input id="time" type="text" formControlName="time" readonly />
             </div>
-            <div class="form-group">
+            <div class="flex-col flex-grow form-group">
                 <label for="membership">использован абонемент:</label>
                 <input id="membership" type="text" formControlName="membership" readonly />
             </div>
-            <div class="form-group">
+            <div class="flex-col flex-grow form-group">
                 <label for="userName">имя ученика:</label>
                 <input id="userName" type="text" formControlName="userName" readonly />
             </div>
-            <div class="form-group">
+            <div class="flex-col flex-grow form-group">
                 <label for="message">комментарий:</label>
                 <input id="message" type="text" formControlName="message" readonly />
             </div>
@@ -59,7 +59,7 @@
     </div>
 
     <!-- Timeline Box with a timeline rows -->
-    <div class="timeline-box">
+    <div class="flex-col flex-grow timeline-box">
         <!-- Repeat TimelineComponent for each day in the range -->
         <div *ngFor="let day of daysInRange" class="daily-timeline">
             <!-- Full date without time -->

@@ -6,6 +6,12 @@ h4 {
     margin: 0;
 }
 
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0;
+}
+
 ::ng-deep .mat-date-range-input-container {
     justify-content: center;
 }
@@ -19,8 +25,6 @@ h4 {
 }
 
 .admin-timeline-container {
-    display: flex;
-    flex-direction: column;
     gap: 20px;
 }
 
@@ -42,40 +46,34 @@ mat-form-field {
     }
 
     form {
-        display: flex;
         flex-wrap: wrap;
         gap: 10px;
     }
 
-    .form-group {
-        display: flex;
-        flex-direction: column;
+    label {
+        margin-bottom: 4px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    input {
+        font-family: "Didact Gothic", sans-serif;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: var(--light-color);
+        font-size: 16px;
+    }
+
+    select {
+        border-radius: 4px;
+        font-family: "Didact Gothic", sans-serif;
+        font-size: 16px;
         flex-grow: 1;
+    }
 
-        label {
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-
-        input {
-            font-family: "Didact Gothic", sans-serif;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: var(--light-color);
-            font-size: 16px;
-        }
-
-        select {
-            border-radius: 4px;
-            font-family: "Didact Gothic", sans-serif;
-            font-size: 16px;
-            flex-grow: 1;
-        }
-
-        &_relative {
-            position: relative;
-        }
+    .relative {
+        position: relative;
     }
 }
 
@@ -100,22 +98,19 @@ mat-form-field {
 }
 
 .timeline-box {
-    display: flex;
-    flex-direction: column;
     gap: 20px;
-    flex-grow: 1;
     overflow: auto;
+}
 
-    .daily-timeline {
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 10px;
-        background-color: #fff;
+.daily-timeline {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #fff;
 
-        h3 {
-            margin-bottom: 10px;
-            color: var(--brand-color);
-        }
+    h3 {
+        margin-bottom: 10px;
+        color: var(--brand-color);
     }
 }
 
