@@ -20,7 +20,7 @@ label {
 }
 
 mat-divider {
-    margin: 10px 0;
+    margin: 8px 0;
 }
 
 // DISPLAY BOX
@@ -42,6 +42,10 @@ mat-divider {
 }
 
 .form-group {
+    &:not(:first-child) {
+        margin-top: 8px;
+    }
+
     input {
         padding: 8px;
         border: 1px solid #ccc;
@@ -72,7 +76,6 @@ mat-divider {
 
 .special-group {
     gap: 10px;
-    margin-top: 10px;
 }
 
 .membership-group {

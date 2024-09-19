@@ -11,20 +11,20 @@
             <form [formGroup]="displayForm" class="flex-col selected-user__details">
 
                 <!-- User pic and name -->
-                <div class="flex-row user-group">
+                <div class="flex-row form-group user-group">
                     <!-- User Picture -->
                     <img [src]="selectedUser()?.img ? selectedUser()?.img : imgDefault" alt="{{ selectedUser()?.name }}"
                         class="user-group__img">
                     <!-- Name -->
-                    <div class="flex-col center-col form-group user-group__name">
+                    <div class="flex-col center-col user-group__name">
                         <label>имя:</label>
                         <input type="text" formControlName="name" readonly>
                     </div>
                 </div>
 
-                <div class="flex-row special-group">
+                <div class="flex-row form-group special-group">
                     <!-- Membership Points - Editable -->
-                    <div class="flex-col form-group membership-group">
+                    <div class="flex-col membership-group">
                         <div class="utility-btn utility-btn_details" (click)="toggleMembershipEdit()">
                             <mat-icon>{{ isMembershipEditing() ? 'done_all' : 'edit' }}</mat-icon>
                         </div>
@@ -32,7 +32,7 @@
                         <input type="number" formControlName="membership" [readonly]="!isMembershipEditing">
                     </div>
                     <!-- Telegram -->
-                    <div class="flex-col form-group flex-grow">
+                    <div class="flex-col flex-grow">
                         <label>telegram:</label>
                         <input type="text" formControlName="telegram" readonly>
                     </div>
@@ -52,7 +52,7 @@
             </form>
 
             <!-- Classes -->
-            <div class="flex-col selected-user__classes">
+            <div class="flex-col form-group selected-user__classes">
                 <label>занятия:</label>
                 <div class="flex-col classes-list">
 
