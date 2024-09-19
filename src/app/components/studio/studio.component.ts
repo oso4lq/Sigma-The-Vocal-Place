@@ -165,6 +165,10 @@ export class StudioComponent {
     centeredSlides: true,  // Disables centering of slides; they align to the left
     initialSlide: 1,  // Start from the second review
     resistanceRatio: 0.5,  // Controls the resistance ratio during swiping to avoid dragging too far
+    navigation: {
+      nextEl: '.swiper-button-next-thumbs',
+      prevEl: '.swiper-button-prev-thumbs',
+    },
   };
 
   // Swiper Reviews settings
@@ -178,6 +182,10 @@ export class StudioComponent {
     initialSlide: 1,
     slideToClickedSlide: true,
     resistanceRatio: 0.5,
+    navigation: {
+      nextEl: '.swiper-button-next-reviews',
+      prevEl: '.swiper-button-prev-reviews',
+    },
   };
 
   isMobile: boolean = false;

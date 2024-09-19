@@ -110,6 +110,7 @@ export class NewClassFormComponent implements OnInit {
       name: ['', Validators.required], // Will be updated with user's name if authenticated
       date: [this.selectedDate.toDate(), Validators.required], // Initialize with current date
       time: ['', Validators.required],
+      // time: [{ value: '', disabled: true }, Validators.required],
       message: [''],
     });
 
