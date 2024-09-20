@@ -18,14 +18,14 @@ export class ClassesService {
   // Fetch the classes from Firebase and set them in the signal
   loadClasses(): void {
     this.classesFirebaseService.getClasses().subscribe((classes: Class[]) => {
-      console.log('loadClasses ', classes);
+      // console.log('loadClasses ', classes);
       this.classesSig.set(classes);
     })
   }
 
   // Add a new class, update the signal, and return the document reference with the auto-generated ID
   addClass(newClass: Class): Promise<DocumentReference> {
-    console.log('addClass', newClass);
+    // console.log('addClass', newClass);
     return this.classesFirebaseService.addClass(newClass).then((docRef) => {
       // Set the generated ID in the newClass object
       newClass.id = docRef.id;
@@ -40,7 +40,7 @@ export class ClassesService {
 
   // Update a class (local and to Firebase)
   updateClass(updatedClass: Class): void {
-    console.log('updateClass', updatedClass);
+    // console.log('updateClass', updatedClass);
     this.classesFirebaseService.updateClass(updatedClass).then(() => {
       this.classesSig.update((classes) =>
         classes.map((cls) => (cls.id === updatedClass.id ? updatedClass : cls))
@@ -50,7 +50,7 @@ export class ClassesService {
 
   // Delete a class (local and from Firebase)
   deleteClass(classId: string | number): void {
-    console.log('deleteClass', classId);
+    // console.log('deleteClass', classId);
     this.classesFirebaseService.deleteClass(classId).then(() => {
       this.classesSig.update((classes) => classes.filter((cls) => cls.id !== classId));
     });

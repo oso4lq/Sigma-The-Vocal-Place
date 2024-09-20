@@ -50,29 +50,29 @@
             <!-- Personal details with edit button -->
             <div class="my-details">
                 <div class="utility-btn utility-btn_details" (click)="toggleEdit()">
-                    <mat-icon>{{ isEditing ? 'done_all' : 'edit' }}</mat-icon>
+                    <mat-icon>{{ isUserDataEditing ? 'done_all' : 'edit' }}</mat-icon>
                 </div>
                 <!-- Title for mobile -->
                 <p class="contacts-title">Контакты</p>
                 <!-- Email (Top-left sector) -->
                 <div class="flex-row center-row contact-info email">
                     <label class="label">e-mail:</label>
-                    <input class="input" type="text" [(ngModel)]="userData.email" [readonly]="!isEditing"
-                        [ngClass]="{ 'editable': isEditing }" (dblclick)="toggleEdit()"/>
+                    <input class="input" type="text" [(ngModel)]="userData.email" [readonly]="!isUserDataEditing"
+                        [ngClass]="{ 'editable': isUserDataEditing }" (dblclick)="toggleEdit()"/>
                 </div>
                 <!-- Empty (Top-right sector) -->
                 <div class="empty-sector"></div>
                 <!-- Telegram (Bottom-left sector) -->
                 <div class="flex-row center-row contact-info telegram">
                     <label class="label">telegram:</label>
-                    <input class="input" type="text" [(ngModel)]="userData.telegram" [readonly]="!isEditing"
-                        [ngClass]="{ 'editable': isEditing }" (dblclick)="toggleEdit()"/>
+                    <input class="input" type="text" [(ngModel)]="userData.telegram" [readonly]="!isUserDataEditing"
+                        [ngClass]="{ 'editable': isUserDataEditing }" (dblclick)="toggleEdit()"/>
                 </div>
                 <!-- Phone (Bottom-right sector) -->
                 <div class="flex-row center-row contact-info phone">
                     <label class="label">телефон:</label>
-                    <input class="input" type="text" [(ngModel)]="userData.phone" [readonly]="!isEditing"
-                        [ngClass]="{ 'editable': isEditing }" (dblclick)="toggleEdit()"/>
+                    <input class="input" type="text" [(ngModel)]="userData.phone" [readonly]="!isUserDataEditing"
+                        [ngClass]="{ 'editable': isUserDataEditing }" (dblclick)="toggleEdit()"/>
                 </div>
             </div>
 

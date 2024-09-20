@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, OnInit, Signal } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
@@ -41,14 +40,11 @@ enum FormClassState {
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
     MatDividerModule,
     MatButtonModule,
     MatInputModule,
     MatIconModule,
     CommonModule,
-    FormsModule,
     TimelineComponent,
   ],
   providers: [
@@ -188,7 +184,6 @@ export class NewClassFormComponent implements OnInit {
   }
 
   onTimeSlotSelected(timeSlot: TimelineSlot) {
-    console.log('timeSlot.status', timeSlot.classId);
     if (timeSlot.startTime.isAfter(this.currentTime)) {
       if (timeSlot.status === 'free') {
         const timeString = timeSlot.startTime.format('HH:mm');

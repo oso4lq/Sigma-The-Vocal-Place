@@ -1,12 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Class, ClassStatus } from '../../interfaces/data.interface';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ClassesService } from '../../services/classes.service';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import moment from 'moment';
 
 @Component({
@@ -16,7 +15,6 @@ import moment from 'moment';
     ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
-    MatInputModule,
     MatIconModule,
     CommonModule,
   ],

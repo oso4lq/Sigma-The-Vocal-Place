@@ -27,12 +27,8 @@ export enum UserPageSections {
   selector: 'app-user-page',
   standalone: true,
   imports: [
-    MatProgressSpinnerModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
     MatDividerModule,
     MatButtonModule,
-    MatInputModule,
     MatIconModule,
     CommonModule,
     FormsModule,
@@ -48,7 +44,7 @@ export class UserPageComponent implements OnInit {
   readonly imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
 
   // State
-  isEditing = false; // Track whether inputs are editable
+  isUserDataEditing: boolean = false; // Track whether inputs are editable
   userData: UserData | null = null; // Store the fetched user data
   UserPageSections = UserPageSections;
   currentSection: UserPageSections = UserPageSections.User; // Default section
@@ -115,11 +111,10 @@ export class UserPageComponent implements OnInit {
 
   // Edit and update the userData
   toggleEdit() {
-    this.isEditing = !this.isEditing;
+    this.isUserDataEditing = !this.isUserDataEditing;
 
     // If the user finished editing, submit the data to Firebase
-    if (!this.isEditing && this.userData) {
-      console.log("Updating user details on the server:", this.userData);
+    if (!this.isUserDataEditing && this.userData) {
       this.usersService.updateUserData(this.userData);
     }
   }

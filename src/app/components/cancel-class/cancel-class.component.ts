@@ -93,7 +93,6 @@ export class CancelClassComponent implements OnInit {
         throw new Error('Class no longer exists.');
       }
       const latestClassData = classSnapshot.data() as Class;
-      console.log('latestClassData', latestClassData);
       this.classItem.status = latestClassData.status;
 
       // Create a batch for atomic updates
@@ -119,7 +118,6 @@ export class CancelClassComponent implements OnInit {
       const userUpdateData: Partial<UserData> = {
         classes: updatedUserDataClasses,
       };
-      console.log('userUpdateData', userUpdateData);
 
       // IMPORTANT! Adjust membership points based on cancellation policy.
 

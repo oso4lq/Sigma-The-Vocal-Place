@@ -41,7 +41,7 @@ export class AuthService {
           // Subscribe to getUserById for the current user
           this.userDataSubscription = this.usersFirebaseService.getUserById(firebaseUser.uid).subscribe(userData => {
             this.currentUserDataSig.set(userData);
-            console.log('User data fetched: ', this.currentUserDataSig());
+            // console.log('User data fetched: ', this.currentUserDataSig());
           });
         }
         // If no authenticated user, set to null user and userData
@@ -63,7 +63,7 @@ export class AuthService {
   }
 
   register(email: string, name: string, password: string): Observable<void> {
-    console.log('register user');
+    // console.log('register user');
     const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password)
       .then(response =>
         updateProfile(response.user, { displayName: name })

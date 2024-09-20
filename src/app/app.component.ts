@@ -38,8 +38,8 @@ export class AppComponent implements OnInit {
       .subscribe((event: NavigationEnd) => {
         const urlWithoutParams = event.url.split('?')[0];
 
-        console.log('currentUser', this.currentUser());
-        console.log('currentUserData', this.currentUserData());
+        // console.log('currentUser', this.currentUser());
+        // console.log('currentUserData', this.currentUserData());
 
         if (urlWithoutParams !== '/') {
           // Disable jump-scrolling and reset header and buttons classes when outside the main page
