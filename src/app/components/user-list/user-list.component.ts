@@ -1,6 +1,6 @@
 import { Component, computed, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { Class, UserData } from '../../interfaces/data.interface';
 import { UsersService } from '../../services/users.service';
 import { ClassesService } from '../../services/classes.service';
@@ -12,6 +12,7 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { DialogService } from '../../services/dialog.service';
+import { MobileService } from '../../services/mobile.service';
 
 @Component({
   selector: 'app-user-list',
@@ -19,20 +20,20 @@ import { DialogService } from '../../services/dialog.service';
   imports: [
     ReactiveFormsModule,
     MatDividerModule,
+    MatSidenavModule,
     MatButtonModule,
+    MatTableModule,
     MatInputModule,
     MatIconModule,
     CommonModule,
     FormsModule,
-    MatSidenavModule, // Add this
-    MatTableModule, // Optional: If using Angular Material Table
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
 })
 export class UserListComponent {
 
-  @ViewChild('drawer') drawer!: MatSidenav;// Define the columns to be displayed in the table
+  @ViewChild('drawer') drawer!: MatSidenav;
   displayedColumns: string[] = ['user', 'membership', 'classes', 'telegram', 'phone', 'email'];
 
   // Constants
@@ -43,7 +44,7 @@ export class UserListComponent {
   displayForm: FormGroup;
 
   // State as Signals
-  selectedUser: WritableSignal<UserData | null> = signal(null);
+  selectedUser: WritableSignal<UserData | null> = signal(null); // Update selected user data
   isMembershipEditing: WritableSignal<boolean> = signal(false); // Track editing the membership points
 
   // Signals from Services
@@ -94,11 +95,12 @@ export class UserListComponent {
   });
 
   // Store the subscription so we can unsubscribe later
-  private subscription: Subscription = new Subscription();
+  private destroy$ = new Subject<void>();
 
   constructor(
     private classesService: ClassesService,
     private dialogService: DialogService,
+    private mobileService: MobileService,
     private usersService: UsersService,
     private fb: FormBuilder,
   ) {
@@ -123,19 +125,16 @@ export class UserListComponent {
     this.classesService.loadClasses();
 
     // Subscribe to search input changes and update the searchInput signal
-    const searchSubscription = this.searchForm.get('search')?.valueChanges.subscribe(value => {
-      this.searchInput.set(value || '');
-    });
-
-    if (searchSubscription) {
-      this.subscription.add(searchSubscription);
-    }
+    this.searchForm.get('search')?.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(value => {
+        this.searchInput.set(value || '');
+      });
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   selectUser(user: UserData): void {
@@ -195,9 +194,9 @@ export class UserListComponent {
   }
 
   // Method to open the drawer and select a user
-  openDrawer(user: UserData, drawer: MatSidenav): void {
+  openDrawer(user: UserData): void {
     this.selectUser(user);
-    drawer.open();
+    this.drawer.open();
   }
 
   // Optionally, close the drawer when needed

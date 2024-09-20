@@ -108,7 +108,7 @@
                 <td mat-cell *matCellDef="let user"
                     style="display: flex; gap: 4px; height: inherit; align-items: center; max-width: unset;">
                     <img [src]="user.img ? user.img : imgDefault" alt="{{ user.name }}" class="user-avatar">
-                    <span class="clickable" (click)="openDrawer(user, drawer)">{{ user.name }}</span>
+                    <span class="clickable" (click)="openDrawer(user)">{{ user.name }}</span>
                 </td>
             </ng-container>
 
