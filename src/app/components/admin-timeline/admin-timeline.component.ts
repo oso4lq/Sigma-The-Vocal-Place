@@ -1,5 +1,5 @@
 import { Component, computed, effect, OnDestroy, OnInit, Signal } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Moment } from 'moment';
 import moment from 'moment';
 import { TimelineComponent } from '../timeline/timeline.component';
@@ -9,15 +9,15 @@ import { MatInputModule } from '@angular/material/input';
 import { ClassesService } from '../../services/classes.service';
 import { AuthService } from '../../services/auth.service';
 import { Class, ClassStatus, TimelineSlot, UserData } from '../../interfaces/data.interface';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatDateFormats, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatDateFormats, NativeDateAdapter } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import 'moment/locale/ru'; // Import Russian locale
 import { UsersService } from '../../services/users.service';
 import { DialogService } from '../../services/dialog.service';
+import { MatButtonModule } from '@angular/material/button';
 
 export const MY_DATE_FORMATS: MatDateFormats = {
   parse: {
@@ -37,13 +37,11 @@ export const MY_DATE_FORMATS: MatDateFormats = {
   imports: [
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatDividerModule,
     MatButtonModule,
     MatInputModule,
     MatIconModule,
     CommonModule,
-    FormsModule,
     TimelineComponent,
   ],
   providers: [

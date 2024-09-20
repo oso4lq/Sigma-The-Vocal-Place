@@ -1,18 +1,17 @@
 import { Component, computed, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { Class, UserData } from '../../interfaces/data.interface';
 import { UsersService } from '../../services/users.service';
 import { ClassesService } from '../../services/classes.service';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { DialogService } from '../../services/dialog.service';
 import { MobileService } from '../../services/mobile.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-list',
@@ -23,10 +22,8 @@ import { MobileService } from '../../services/mobile.service';
     MatSidenavModule,
     MatButtonModule,
     MatTableModule,
-    MatInputModule,
     MatIconModule,
     CommonModule,
-    FormsModule,
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
@@ -204,4 +201,12 @@ export class UserListComponent {
     this.drawer.close();
   }
 
+  // Methods to handle table interaction events
+  onTableInteractionStart() {
+    this.mobileService.disableSwipeTracking();
+  }
+
+  onTableInteractionEnd() {
+    this.mobileService.enableSwipeTracking();
+  }
 }

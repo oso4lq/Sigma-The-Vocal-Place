@@ -100,7 +100,9 @@
     <mat-sidenav-content class="sidenav-content">
 
         <!-- Users Table -->
-        <table mat-table [dataSource]="filteredUsers()" class="mat-elevation-z8 w-100 user-list__table">
+        <table mat-table [dataSource]="filteredUsers()" class="mat-elevation-z8 w-100 user-list__table"
+            (mousedown)="onTableInteractionStart()" (mouseup)="onTableInteractionEnd()"
+            (touchstart)="onTableInteractionStart()" (touchend)="onTableInteractionEnd()">
 
             <!-- Image Column -->
             <ng-container matColumnDef="user">
