@@ -127,7 +127,7 @@
         *ngIf="currentFormState !== FormClassState.Start && currentFormState !== FormClassState.Newbie && currentFormState !== FormClassState.ActiveSub">
         <mat-spinner *ngIf="currentFormState === FormClassState.Submit"></mat-spinner>
         <p class="submit__message" *ngIf="currentFormState === FormClassState.Success">
-            Ваше занятие зарегистрировано!
+            Ваша заявка отправлена!
         </p>
         <p class="submit__message"
             *ngIf="currentFormState === FormClassState.Success && prevFormState === FormClassState.Newbie">

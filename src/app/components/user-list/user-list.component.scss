@@ -1,5 +1,43 @@
-.user-list-container {
-    gap: 20px;
+.searchbar {
+    input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        background: #fff;
+        font-size: 1em;
+        border: 3px solid #000;
+        margin-bottom: 20px;
+
+        &:read-only {
+            background: var(--light-color);
+        }
+    }
+}
+
+// USER CARD
+.sidenav-container {
+    height: 500px;
+    border: 2px solid var(--brand-color);
+}
+
+.student-drawer {
+    background: var(--bright-alt-color);
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.back {
+    padding: 4px;
+    font-size: 18px;
+    justify-content: flex-start;
+    width: fit-content;
+    gap: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.1);
+    }
 }
 
 h3 {
@@ -8,7 +46,7 @@ h3 {
 }
 
 p {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.6;
     margin: 0;
 }
@@ -23,13 +61,6 @@ mat-divider {
     margin: 8px 0;
 }
 
-// DISPLAY BOX
-.display-box {
-    flex: 2;
-    background: var(--bright-alt-color);
-    border-radius: 4px;
-    padding: 10px;
-}
 
 .selected-user {
     &__details {
@@ -135,10 +166,10 @@ mat-divider {
 }
 
 .classes-list {
-    padding: 8px;
+    padding: 4px;
     border-radius: 4px;
     background-color: var(--light-color);
-    gap: 10px;
+    gap: 4px;
     min-height: 40px;
 }
 
@@ -181,110 +212,88 @@ mat-divider {
     }
 
     &__time {
-        padding: 4px 20px;
+        padding: 4px 8px;
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
         background: var(--bright-alt-color);
     }
 }
 
-// USERS BOX
-.users-box {
-    flex: 1;
-    max-width: 300px;
-    background: var(--bright-alt-color);
+// MAIN CONTENT
+.sidenav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cdk-header-row {
+    background: var(--light-brand-color);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.mat-mdc-row,
+.mdc-data-table__content {
+    background: #fff !important;
+    overflow: auto;
+}
+
+th {
+    max-width: 150px;
+    text-align: center;
+    font-family: "Didact Gothic", sans-serif;
+}
+
+td {
+    max-width: 150px;
+    text-align: center;
+    font-family: "Didact Gothic", sans-serif;
+}
+
+td.mat-cell {
+    vertical-align: middle;
+}
+
+.mdc-data-table__cell {
+    padding: 0 8px !important;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
     border-radius: 4px;
-    padding: 10px;
-    max-height: 600px;
+    object-fit: cover;
 }
 
-.search-bar {
-    input {
-        padding: 8px;
-        border: 1px solid #ccc;
-        background: #fff;
-        border-radius: 4px;
-        font-size: 1em;
-
-        &:read-only {
-            background: var(--light-color);
-        }
-    }
-}
-
-.users-list {
-    justify-content: flex-start;
-    border-radius: 4px;
-    margin-top: 10px;
-    overflow-y: auto;
-    background: var(--light-color);
-}
-
-.user-item {
-    justify-content: flex-start;
-    padding: 10px;
+.clickable {
     cursor: pointer;
-    transition: background-color 0.3s;
-
-    &.selected {
-        background-color: var(--brand-color);
-        color: var(--light-color);
-
-        .user-item__name {
-            font-weight: 400;
-        }
-
-        &:hover {
-            background-color: var(--brand-color);
-        }
-    }
+    color: var(--brand-color);
+    text-decoration: underline;
+    font-size: 16px;
 
     &:hover {
-        background-color: var(--light-brand-color);
-
-        .user-item__name {
-            font-weight: 400;
-        }
+        text-decoration: none;
     }
+}
 
-    &:first-child {
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-    }
-
-    &:last-child {
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-    }
-
-    &__avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 4px;
-        object-fit: cover;
-        margin-right: 10px;
-    }
-
-    &__name {
-        font-weight: bold;
-        margin: 0;
-    }
+tr.selected {
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 @media (max-width: 768px) {
-    .user-list-container {
-        flex-direction: column;
-    }
-
-    .users-box {
-        max-width: unset;
-    }
-
     .special-group {
         flex-direction: column;
     }
 
     .membership-group {
         width: 100%;
+    }
+
+    .student-drawer {
+        width: 100%;
+    }
+
+    table {
+        min-width: 600px;
     }
 }

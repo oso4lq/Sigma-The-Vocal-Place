@@ -1,111 +1,152 @@
-<div class="flex-row user-list-container">
+<!-- Search Bar -->
+<form [formGroup]="searchForm" class="flex-row center-col searchbar">
+    <input class="w-100" id="search-input" type="text" placeholder="Поиск" formControlName="search">
+</form>
 
-    <!-- Display Box -->
-    <div class="display-box">
-        <h3 class="w-100">Карточка ученика</h3>
+<mat-sidenav-container class="sidenav-container">
+
+    <!-- Side Drawer for Student Details -->
+    <mat-sidenav #drawer mode="over" position="end" class="student-drawer">
+        <div class="flex-row center-row">
+            <div class="flex-row center-row back" (click)="closeDrawer()">
+                <mat-icon>arrow_back_ios_new</mat-icon>Назад
+            </div>
+            <h3>Карточка ученика</h3>
+        </div>
         <mat-divider></mat-divider>
 
-        <div class="flex-col selected-user">
+        <!-- User Form populated by the selected user -->
+        <form [formGroup]="displayForm" class="flex-col selected-user__details">
 
-            <!-- User Form populated by the selected user -->
-            <form [formGroup]="displayForm" class="flex-col selected-user__details">
-
-                <!-- User pic and name -->
-                <div class="flex-row form-group user-group">
-                    <!-- User Picture -->
-                    <img [src]="selectedUser()?.img ? selectedUser()?.img : imgDefault" alt="{{ selectedUser()?.name }}"
-                        class="user-group__img">
-                    <!-- Name -->
-                    <div class="flex-col center-col user-group__name">
-                        <label>имя:</label>
-                        <input type="text" formControlName="name" readonly>
-                    </div>
-                </div>
-
-                <div class="flex-row form-group special-group">
-                    <!-- Membership Points - Editable -->
-                    <div class="flex-col membership-group">
-                        <div class="utility-btn utility-btn_details" (click)="toggleMembershipEdit()">
-                            <mat-icon>{{ isMembershipEditing() ? 'done_all' : 'edit' }}</mat-icon>
-                        </div>
-                        <label>абонемент:</label>
-                        <input type="number" formControlName="membership" [readonly]="!isMembershipEditing">
-                    </div>
-                    <!-- Telegram -->
-                    <div class="flex-col flex-grow">
-                        <label>telegram:</label>
-                        <input type="text" formControlName="telegram" readonly>
-                    </div>
-                </div>
-
-                <!-- Phone -->
-                <div class="flex-col form-group">
-                    <label>телефон:</label>
-                    <input type="text" formControlName="phone" readonly>
-                </div>
-
-                <!-- Email -->
-                <div class="flex-col form-group">
-                    <label>email:</label>
-                    <input type="email" formControlName="email" readonly>
-                </div>
-            </form>
-
-            <!-- Classes -->
-            <div class="flex-col form-group selected-user__classes">
-                <label>занятия:</label>
-                <div class="flex-col classes-list">
-
-                    <!-- Loaded classes list for the selected user -->
-                    <div *ngFor="let cls of selectedUserClasses(); let last = last" class="w-100 my-classes__item">
-
-                        <!-- Delete button -->
-                        <div class="utility-btn utility-btn_class-edit" (click)="editClass(cls)">
-                            <mat-icon>edit</mat-icon>
-                        </div>
-
-                        <!-- Delete button -->
-                        <div class="utility-btn utility-btn_class-cancel" (click)="deleteClass(cls)">
-                            <mat-icon>cancel</mat-icon>
-                        </div>
-
-                        <!-- Class Status -->
-                        <p [ngClass]="{
-                                    'my-classes__status_confirmed': cls.status === 'confirmed',
-                                    'my-classes__status_cancelled': cls.status === 'cancelled',
-                                    'my-classes__status_pending': cls.status === 'pending',
-                                    'my-classes__status_executed': cls.status === 'executed'
-                                    }" class="my-classes__status">
-                            Статус: {{ cls.status }}
-                        </p>
-                        <mat-divider></mat-divider>
-                        <div class="flex-row my-classes__time">
-                            <p>Дата: {{ cls.startdate | date:'dd.MM.yyyy' }}</p>
-                            <p>Время: {{ cls.startdate | date:'HH:mm' }} - {{ cls.enddate | date:'HH:mm' }} </p>
-                        </div>
-                    </div>
+            <!-- User pic and name -->
+            <div class="flex-row form-group user-group">
+                <!-- User Picture -->
+                <img [src]="selectedUser()?.img ? selectedUser()?.img : imgDefault" alt="{{ selectedUser()?.name }}"
+                    class="user-group__img">
+                <!-- Name -->
+                <div class="flex-col center-col user-group__name">
+                    <label>имя:</label>
+                    <input type="text" formControlName="name" readonly>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Users Box -->
-    <div class="flex-col users-box">
-        <h3>Список учеников</h3>
-        <mat-divider></mat-divider>
+            <div class="flex-row form-group special-group">
+                <!-- Membership Points - Editable -->
+                <div class="flex-col membership-group">
+                    <div class="utility-btn utility-btn_details" (click)="toggleMembershipEdit()">
+                        <mat-icon>{{ isMembershipEditing() ? 'done_all' : 'edit' }}</mat-icon>
+                    </div>
+                    <label>абонемент:</label>
+                    <input type="number" formControlName="membership" [readonly]="!isMembershipEditing">
+                </div>
+                <!-- Telegram -->
+                <div class="flex-col flex-grow">
+                    <label>telegram:</label>
+                    <input type="text" formControlName="telegram" readonly>
+                </div>
+            </div>
 
-        <!-- Search Bar -->
-        <form [formGroup]="searchForm" class="flex-row center-col search-bar">
-            <input class="w-100" id="search-input" type="text" placeholder="Поиск" formControlName="search">
+            <!-- Phone -->
+            <div class="flex-col form-group">
+                <label>телефон:</label>
+                <input type="text" formControlName="phone" readonly>
+            </div>
+
+            <!-- Email -->
+            <div class="flex-col form-group">
+                <label>email:</label>
+                <input type="email" formControlName="email" readonly>
+            </div>
         </form>
 
-        <!-- All users list -->
-        <div class="flex-col flex-grow users-list">
-            <div class="flex-row center-row user-item" *ngFor="let user of filteredUsers()" (click)="selectUser(user)"
-                [class.selected]="user.id === selectedUser()?.id">
-                <img [src]="user.img ? user.img : imgDefault" alt="{{ user.name }}" class="user-item__avatar">
-                <p class="user-item__name">{{ user.name }}</p>
+        <!-- Classes -->
+        <div class="flex-col form-group selected-user__classes">
+            <label>занятия:</label>
+            <div class="flex-col classes-list">
+
+                <!-- Loaded classes list for the selected user -->
+                <div *ngFor="let cls of selectedUserClasses(); let last = last" class="w-100 my-classes__item">
+
+                    <!-- Edit button -->
+                    <div class="utility-btn utility-btn_class-edit" (click)="editClass(cls)">
+                        <mat-icon>edit</mat-icon>
+                    </div>
+
+                    <!-- Delete button -->
+                    <div class="utility-btn utility-btn_class-cancel" (click)="deleteClass(cls)">
+                        <mat-icon>cancel</mat-icon>
+                    </div>
+
+                    <!-- Class Status -->
+                    <p [ngClass]="{
+                            'my-classes__status_confirmed': cls.status === 'confirmed',
+                            'my-classes__status_cancelled': cls.status === 'cancelled',
+                            'my-classes__status_pending': cls.status === 'pending',
+                            'my-classes__status_executed': cls.status === 'executed'
+                            }" class="my-classes__status">
+                        Статус: {{ cls.status }}
+                    </p>
+                    <mat-divider></mat-divider>
+                    <div class="flex-row my-classes__time">
+                        <p>Дата: {{ cls.startdate | date:'dd.MM.yyyy' }}</p>
+                        <p>Время: {{ cls.startdate | date:'HH:mm' }} - {{ cls.enddate | date:'HH:mm' }} </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </mat-sidenav>
+
+    <!-- Main Content -->
+    <mat-sidenav-content class="sidenav-content">
+
+        <!-- Users Table -->
+        <table mat-table [dataSource]="filteredUsers()" class="mat-elevation-z8 w-100 user-list__table">
+
+            <!-- Image Column -->
+            <ng-container matColumnDef="user">
+                <th mat-header-cell *matHeaderCellDef>ученик</th>
+                <td mat-cell *matCellDef="let user"
+                    style="display: flex; gap: 4px; height: inherit; align-items: center; max-width: unset;">
+                    <img [src]="user.img ? user.img : imgDefault" alt="{{ user.name }}" class="user-avatar">
+                    <span class="clickable" (click)="openDrawer(user, drawer)">{{ user.name }}</span>
+                </td>
+            </ng-container>
+
+            <!-- Membership Points Column -->
+            <ng-container matColumnDef="membership">
+                <th mat-header-cell *matHeaderCellDef>абонемент</th>
+                <td mat-cell *matCellDef="let user">{{ user.membership }}</td>
+            </ng-container>
+
+            <!-- Classes Column -->
+            <ng-container matColumnDef="classes">
+                <th mat-header-cell *matHeaderCellDef>занятия</th>
+                <td mat-cell *matCellDef="let user">{{ user.classes?.length || 0 }}</td>
+            </ng-container>
+
+            <!-- Telegram Column -->
+            <ng-container matColumnDef="telegram">
+                <th mat-header-cell *matHeaderCellDef>telegram</th>
+                <td mat-cell *matCellDef="let user">{{ user.telegram }}</td>
+            </ng-container>
+
+            <!-- Phone Column -->
+            <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef>телефон</th>
+                <td mat-cell *matCellDef="let user">{{ user.phone }}</td>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>e-mail</th>
+                <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+            </ng-container>
+
+            <!-- Header and Row Declarations -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                [class.selected]="row.id === selectedUser()?.id"></tr>
+        </table>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,4 +1,4 @@
-import { Component, computed, signal, Signal, WritableSignal } from '@angular/core';
+import { Component, computed, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Class, UserData } from '../../interfaces/data.interface';
@@ -8,6 +8,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { DialogService } from '../../services/dialog.service';
 
@@ -22,11 +24,16 @@ import { DialogService } from '../../services/dialog.service';
     MatIconModule,
     CommonModule,
     FormsModule,
+    MatSidenavModule, // Add this
+    MatTableModule, // Optional: If using Angular Material Table
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
 })
 export class UserListComponent {
+
+  @ViewChild('drawer') drawer!: MatSidenav;// Define the columns to be displayed in the table
+  displayedColumns: string[] = ['user', 'membership', 'classes', 'telegram', 'phone', 'email'];
 
   // Constants
   readonly imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
@@ -178,8 +185,6 @@ export class UserListComponent {
   }
 
   // Method to delete a class forever
-  // IMPORTANT! Check for side effects related to membership points
-  // seems to be ok
   deleteClass(cls: Class) {
     this.dialogService.openCancelClassDialog(cls);
   }
@@ -187,6 +192,17 @@ export class UserListComponent {
   // Method to edit the class status
   editClass(cls: Class) {
     this.dialogService.openEditClassDialog(cls);
+  }
+
+  // Method to open the drawer and select a user
+  openDrawer(user: UserData, drawer: MatSidenav): void {
+    this.selectUser(user);
+    drawer.open();
+  }
+
+  // Optionally, close the drawer when needed
+  closeDrawer(): void {
+    this.drawer.close();
   }
 
 }
