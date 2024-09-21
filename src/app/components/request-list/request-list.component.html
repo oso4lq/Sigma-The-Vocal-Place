@@ -1,6 +1,6 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title> Заявки от новых учеников </mat-panel-title>
+        <mat-panel-title> Заявки от новых учеников - {{requests().length}}</mat-panel-title>
         <mat-panel-description> </mat-panel-description>
     </mat-expansion-panel-header>
 
@@ -56,17 +56,18 @@
             </form>
 
             <!-- Delete button -->
-            <button mat-raised-button (click)="deleteRequest(selectedRequest())" class="delete-btn">Удалить заявку</button>
+            <button mat-raised-button (click)="deleteRequest(selectedRequest())" class="delete-btn">Удалить
+                заявку</button>
 
         </mat-sidenav>
 
         <!-- Main Content -->
-        <mat-sidenav-content class="sidenav-content">
+        <mat-sidenav-content class="sidenav-content" (mousedown)="onTableInteractionStart()"
+            (mouseup)="onTableInteractionEnd()" (touchstart)="onTableInteractionStart()"
+            (touchend)="onTableInteractionEnd()">
 
             <!-- New Student Requests Table -->
-            <table mat-table [dataSource]="requests()" class="mat-elevation-z8 w-100 user-list__table"
-                (mousedown)="onTableInteractionStart()" (mouseup)="onTableInteractionEnd()"
-                (touchstart)="onTableInteractionStart()" (touchend)="onTableInteractionEnd()">
+            <table mat-table [dataSource]="requests()" class="mat-elevation-z8 w-100 user-list__table">
 
                 <!-- Date Column -->
                 <ng-container matColumnDef="date">

@@ -15,7 +15,6 @@
 // USER CARD
 .sidenav-container {
     height: 500px;
-    // height: 100vh;
     border: 2px solid var(--brand-color);
     background: #fff;
 }
@@ -237,6 +236,10 @@ mat-divider {
     background: var(--light-brand-color);
     font-size: 16px;
     font-weight: 600;
+
+    &:hover {
+        background: var(--light-brand-color) !important;
+    }
 }
 
 .mat-mdc-row,

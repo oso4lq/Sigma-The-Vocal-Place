@@ -4,6 +4,7 @@ mat-panel-title {
 
 mat-expansion-panel {
     margin-top: 20px;
+    border-radius: 4px;
     color: var(--light-color);
 }
 
@@ -23,7 +24,6 @@ mat-expansion-panel-header {
 // USER CARD
 .sidenav-container {
     height: 500px;
-    // height: 100vh;
     border: 2px solid var(--brand-color);
     background: #fff;
 }
@@ -73,10 +73,6 @@ mat-divider {
 
 .selected-user {
     &__details {
-        flex: 1;
-    }
-
-    &__classes {
         flex: 1;
     }
 }
@@ -137,6 +133,10 @@ mat-divider {
     background: var(--light-brand-color);
     font-size: 16px;
     font-weight: 600;
+
+    &:hover {
+        background: var(--light-brand-color) !important;
+    }
 }
 
 .mat-mdc-row,
@@ -194,14 +194,6 @@ tr.selected {
 }
 
 @media (max-width: 768px) {
-    .special-group {
-        flex-direction: column;
-    }
-
-    .membership-group {
-        width: 100%;
-    }
-
     .student-drawer {
         width: 100%;
     }

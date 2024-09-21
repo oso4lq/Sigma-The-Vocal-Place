@@ -97,12 +97,12 @@
     </mat-sidenav>
 
     <!-- Main Content -->
-    <mat-sidenav-content class="sidenav-content">
+    <mat-sidenav-content class="sidenav-content" (mousedown)="onTableInteractionStart()"
+        (mouseup)="onTableInteractionEnd()" (touchstart)="onTableInteractionStart()"
+        (touchend)="onTableInteractionEnd()">
 
         <!-- Users Table -->
-        <table mat-table [dataSource]="filteredUsers()" class="mat-elevation-z8 w-100 user-list__table"
-            (mousedown)="onTableInteractionStart()" (mouseup)="onTableInteractionEnd()"
-            (touchstart)="onTableInteractionStart()" (touchend)="onTableInteractionEnd()">
+        <table mat-table [dataSource]="filteredUsers()" class="mat-elevation-z8 w-100 user-list__table">
 
             <!-- Image Column -->
             <ng-container matColumnDef="user">
