@@ -213,7 +213,7 @@ export class ScrollingService {
 
       if (this.cumulativeDeltaY > 0) {
         this.scrollToNextSection();
-      } else {
+      } else if (this.cumulativeDeltaY < 0) {
         this.scrollToPreviousSection();
       }
 
