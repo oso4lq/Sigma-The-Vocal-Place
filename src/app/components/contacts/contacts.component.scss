@@ -66,6 +66,10 @@ app-mapycz {
     }
 }
 
+br {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .section {
         height: unset;
@@ -81,7 +85,6 @@ app-mapycz {
     .wrapper {
         padding: 0;
         gap: 20px;
-        margin-bottom: 40px;
     }
 
     .mapy-mobile {
@@ -94,6 +97,11 @@ app-mapycz {
     }
 
     .copyright {
-        margin-bottom: 16px;
+        text-align: center;
+        margin: 16px 0;
+    }
+
+    br {
+        display: block;
     }
 }

@@ -212,17 +212,30 @@ export class NewClassFormComponent implements OnInit {
 
   private validateForm(): boolean {
     if (this.currentFormState === FormClassState.Newbie) {
-      if (!this.newbieForm.get('name')?.value) {
+      const name = this.newbieForm.get('name')?.value;
+      const phone = this.newbieForm.get('phone')?.value;
+      const telegram = this.newbieForm.get('telegram')?.value;
+      const email = this.newbieForm.get('email')?.value;
+
+      // Validate 'name' field
+      if (!name) {
         this.showErrorMessage('Пожалуйста, укажите имя');
         return false;
       }
-      if (
-        !this.newbieForm.get('phone')?.value &&
-        !this.newbieForm.get('telegram')?.value &&
-        !this.newbieForm.get('email')?.value
-      ) {
+
+      // Ensure at least one contact method is provided
+      if (!phone && !telegram && !email) {
         this.showErrorMessage('Пожалуйста, укажите хотя бы один способ связи');
         return false;
+      }
+
+      // Validate 'telegram' field for spaces
+      if (telegram) {
+        const hasSpaces = /\s/.test(telegram);
+        if (hasSpaces) {
+          this.showErrorMessage('Имя Telegram не должно содержать пробелов');
+          return false;
+        }
       }
     }
 

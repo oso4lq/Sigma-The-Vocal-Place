@@ -212,4 +212,17 @@ export class UserListComponent {
     this.mobileService.enableSwipeTracking();
   }
 
+  getTelegramLink(username: string | undefined): string | null {
+    // Check if the username is undefined, empty, or contains any spaces
+    if (!username || username.trim() === '' || username.includes(' ')) {
+      return null;
+    }
+
+    // Trim the '@' symbol if it exists at the beginning
+    const trimmedUsername = username.startsWith('@') ? username.slice(1) : username;
+
+    // Construct and return the Telegram link
+    return `https://t.me/${trimmedUsername}`;
+  }
+
 }

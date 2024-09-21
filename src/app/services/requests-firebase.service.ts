@@ -29,12 +29,6 @@ export class RequestsFirebaseService {
     return updateDoc(requestDoc, { ...updatedRequest });
   }
 
-  // // Delete a Request from Firebase
-  // deleteRequest(requestId: string | number): Promise<void> {
-  //   const requestDoc = doc(this.firestore, `requests/${requestId}`);
-  //   return deleteDoc(requestDoc);
-  // }
-
   // Delete a Request from Firebase
   deleteRequest(requestToDelete: newUserRequest): Promise<void> {
     const requestDoc = doc(this.firestore, `requests/${requestToDelete.id}`);

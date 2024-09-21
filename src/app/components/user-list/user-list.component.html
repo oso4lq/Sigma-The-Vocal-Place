@@ -42,20 +42,26 @@
                 <!-- Telegram -->
                 <div class="flex-col flex-grow">
                     <label>telegram:</label>
-                    <input type="text" formControlName="telegram" readonly>
+                    <a target="_blank" href="{{ getTelegramLink(selectedUser()?.telegram) }}">
+                        <input class="no-pointer-events flex-grow" type="text" formControlName="telegram" readonly>
+                    </a>
                 </div>
             </div>
 
             <!-- Phone -->
             <div class="flex-col form-group">
                 <label>телефон:</label>
-                <input type="text" formControlName="phone" readonly>
+                <a href="tel:{{selectedUser()?.phone}}">
+                    <input class="no-pointer-events flex-grow" type="text" formControlName="phone" readonly>
+                </a>
             </div>
 
             <!-- Email -->
             <div class="flex-col form-group">
                 <label>email:</label>
-                <input type="email" formControlName="email" readonly>
+                <a href="mailto:{{selectedUser()?.email}}">
+                    <input class="no-pointer-events flex-grow" type="email" formControlName="email" readonly>
+                </a>
             </div>
         </form>
 
