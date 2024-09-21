@@ -27,7 +27,7 @@
         <mat-divider></mat-divider>
         <form [formGroup]="displayForm" class="flex-row">
             <div class="flex-col flex-grow form-group relative">
-                <div class="utility-btn utility-btn_details" (click)="toggleStatusEdit()">
+                <div class="utility-btn" (click)="toggleStatusEdit()">
                     <mat-icon>{{ isStatusEditing ? 'done_all' : 'edit' }}</mat-icon>
                 </div>
                 <label for="status">статус:</label>

@@ -1,13 +1,7 @@
-.internal-page-wrapper {
-    padding: 80px 5% 40px 5%;
-    max-width: 800px;
-    margin: 0 auto;
-
-    h1 {
-        margin-top: 20px;
-        font-size: 36px;
-        margin-bottom: 16px;
-    }
+h1 {
+    margin-top: 20px;
+    font-size: 36px;
+    margin-bottom: 16px;
 }
 
 .section-buttons {
@@ -152,32 +146,17 @@ p {
 }
 
 .utility-btn {
-    cursor: pointer;
-
-    mat-icon {
-        font-size: 24px;
-        opacity: 0.8;
-        transition:
-            transform 0.3s,
-            opacity 0.3s;
-
-        &:hover {
-            transform: scale(1.1);
-            opacity: 1;
-        }
-    }
-
     &_details {
         position: absolute;
         top: 8px;
         right: 8px;
-    }
+        height: 24px !important;
+        width: 24px !important;
 
-    &_logout {
         mat-icon {
-            font-size: 40px;
-            height: 40px;
-            width: 40px;
+            font-size: 24px;
+            height: 24px;
+            width: 24px;
         }
     }
 }
@@ -201,60 +180,6 @@ p {
         &:hover {
             transform: scale(1.05);
         }
-    }
-}
-
-.my-classes {
-    gap: 20px;
-    align-items: flex-start;
-
-    &__list {
-        gap: 10px;
-
-        &_mobile {
-            display: none;
-        }
-    }
-
-    button {
-        flex-grow: unset;
-        width: 100px !important;
-    }
-
-    &__item {
-        border-radius: 4px;
-        position: relative;
-    }
-
-    &__status {
-        padding: 4px 20px;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-        background: var(--bright-alt-color);
-        color: var(--light-color);
-
-        &_confirmed {
-            background-image: linear-gradient(to right, var(--light-brand-color), transparent);
-        }
-
-        &_cancelled {
-            background-image: linear-gradient(to right, var(--warn-color), transparent);
-        }
-
-        &_pending {
-            background-image: linear-gradient(to right, var(--alt-color), transparent);
-        }
-
-        &_executed {
-            background-image: linear-gradient(to right, var(--gray-color), transparent);
-        }
-    }
-
-    &__time {
-        padding: 4px 20px;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-        background: var(--bright-alt-color);
     }
 }
 

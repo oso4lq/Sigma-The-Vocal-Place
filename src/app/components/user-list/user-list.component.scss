@@ -12,34 +12,6 @@
     }
 }
 
-// USER CARD
-.sidenav-container {
-    height: 500px;
-    border: 2px solid var(--brand-color);
-    background: #fff;
-}
-
-.student-drawer {
-    background: var(--bright-alt-color);
-    box-sizing: border-box;
-    padding: 20px;
-}
-
-.back {
-    padding: 4px;
-    font-size: 18px;
-    justify-content: flex-start;
-    width: fit-content;
-    gap: 10px;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-
-    &:hover {
-        transform: scale(1.1);
-    }
-}
-
 h3 {
     margin: 0;
     text-align: center;
@@ -60,7 +32,6 @@ label {
 mat-divider {
     margin: 8px 0;
 }
-
 
 .selected-user {
     &__details {
@@ -134,20 +105,14 @@ mat-divider {
 }
 
 .utility-btn {
-    cursor: pointer;
     position: absolute;
+    height: 24px;
+    width: 24px;
 
     mat-icon {
         font-size: 24px;
-        opacity: 0.8;
-        transition:
-            transform 0.3s,
-            opacity 0.3s;
-
-        &:hover {
-            transform: scale(1.1);
-            opacity: 1;
-        }
+        height: 24px;
+        width: 24px;
     }
 
     &_details {
@@ -158,7 +123,6 @@ mat-divider {
         top: 2px;
         right: 42px;
         background: var(--light-color);
-        height: 24px;
         border-radius: 4px;
     }
 
@@ -166,7 +130,6 @@ mat-divider {
         top: 2px;
         right: 2px;
         background: var(--light-color);
-        height: 24px;
         border-radius: 4px;
     }
 }
@@ -181,9 +144,6 @@ mat-divider {
 
 .my-classes {
     &__item {
-        border-radius: 4px;
-        position: relative;
-
         p {
             margin: 0;
         }
@@ -191,125 +151,5 @@ mat-divider {
         mat-divider {
             margin: 0;
         }
-    }
-
-    &__status {
-        padding: 4px 20px;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-        background: var(--bright-alt-color);
-        color: var(--light-color);
-
-        &_confirmed {
-            background-image: linear-gradient(to right, var(--light-brand-color), transparent);
-        }
-
-        &_cancelled {
-            background-image: linear-gradient(to right, var(--warn-color), transparent);
-        }
-
-        &_pending {
-            background-image: linear-gradient(to right, var(--alt-color), transparent);
-        }
-
-        &_executed {
-            background-image: linear-gradient(to right, var(--gray-color), transparent);
-        }
-    }
-
-    &__time {
-        padding: 4px 8px;
-        border-bottom-left-radius: 4px;
-        border-bottom-right-radius: 4px;
-        background: var(--bright-alt-color);
-    }
-}
-
-// MAIN CONTENT
-.sidenav-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.cdk-header-row {
-    background: var(--light-brand-color);
-    font-size: 16px;
-    font-weight: 600;
-
-    &:hover {
-        background: var(--light-brand-color) !important;
-    }
-}
-
-.mat-mdc-row,
-.mdc-data-table__content {
-    background: #fff !important;
-    overflow: auto;
-}
-
-th {
-    max-width: 150px;
-    text-align: center;
-    font-family: "Didact Gothic", sans-serif;
-}
-
-td {
-    max-width: 150px;
-    text-align: center;
-    font-family: "Didact Gothic", sans-serif;
-}
-
-td.mat-cell {
-    vertical-align: middle;
-}
-
-.mdc-data-table__cell {
-    padding: 0 8px !important;
-}
-
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
-    object-fit: cover;
-}
-
-.clickable {
-    cursor: pointer;
-    color: var(--brand-color);
-    text-decoration: underline;
-    font-size: 16px;
-
-    &:hover {
-        text-decoration: none;
-    }
-}
-
-tr {
-    &:hover {
-        background-color: var(--light-color) !important;
-    }
-}
-
-tr.selected {
-    background-color: var(--light-color) !important;
-}
-
-@media (max-width: 768px) {
-    .special-group {
-        flex-direction: column;
-    }
-
-    .membership-group {
-        width: 100%;
-    }
-
-    .student-drawer {
-        width: 100%;
-    }
-
-    table {
-        min-width: 600px;
     }
 }
