@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { DialogService } from '../../services/dialog.service';
 import { MobileService } from '../../services/mobile.service';
 import { MatButtonModule } from '@angular/material/button';
+import { RequestListComponent } from '../request-list/request-list.component';
 
 @Component({
   selector: 'app-user-list',
@@ -24,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatTableModule,
     MatIconModule,
     CommonModule,
+    RequestListComponent,
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
@@ -151,7 +153,7 @@ export class UserListComponent {
   }
 
   // Handle editing the membership points
-  toggleMembershipEdit() {
+  toggleMembershipEdit(): void {
     this.isMembershipEditing.set(!this.isMembershipEditing());
 
     // Enable or disable the status field based on editing state
@@ -181,12 +183,12 @@ export class UserListComponent {
   }
 
   // Method to delete a class forever
-  deleteClass(cls: Class) {
+  deleteClass(cls: Class): void {
     this.dialogService.openCancelClassDialog(cls);
   }
 
   // Method to edit the class status
-  editClass(cls: Class) {
+  editClass(cls: Class): void {
     this.dialogService.openEditClassDialog(cls);
   }
 
@@ -202,11 +204,12 @@ export class UserListComponent {
   }
 
   // Methods to handle table interaction events
-  onTableInteractionStart() {
+  onTableInteractionStart(): void {
     this.mobileService.disableSwipeTracking();
   }
 
-  onTableInteractionEnd() {
+  onTableInteractionEnd(): void {
     this.mobileService.enableSwipeTracking();
   }
+
 }

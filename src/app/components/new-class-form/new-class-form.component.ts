@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { DialogService } from '../../services/dialog.service';
-import { Class, ClassStatus, Request, TimelineSlot, UserData } from '../../interfaces/data.interface';
+import { Class, ClassStatus, newUserRequest, TimelineSlot, UserData } from '../../interfaces/data.interface';
 import { ClassesService } from '../../services/classes.service';
 import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -103,6 +103,7 @@ export class NewClassFormComponent implements OnInit {
       telegram: [''],
       email: [''],
       message: [''],
+      date: [''],
     });
 
     // ActiveSub form
@@ -250,18 +251,19 @@ export class NewClassFormComponent implements OnInit {
       if (this.currentUserData()) throw new Error('Авторизированный пользователь не может отправить эту форму.');
 
       // Create new Request object
-      const newRequest: Request = {
+      const newRequest: newUserRequest = {
         id: '', // Firestore will auto-generate the ID
         name: name,
         phone: phone,
         telegram: telegram,
         email: email,
         message: message,
+        date: this.currentTime.toISOString(),
       };
 
       // Update the Firebase requests array with a new Request
       await this.requestsService.addRequest(newRequest);
-      
+
       // Switch state to successful and close the dialog
       this.currentFormState = FormClassState.Success;
       setTimeout(() => this.closeDialog(), 5000);
