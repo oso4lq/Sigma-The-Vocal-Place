@@ -195,7 +195,7 @@ export class ScrollingService {
 
     event.preventDefault();
 
-    // if (this.isScrolling) return;
+    if (this.isScrolling) return;
     // this.isScrolling = true;
 
     // if (event.deltaY > 0) {
@@ -209,7 +209,6 @@ export class ScrollingService {
 
     // Check if accumulated deltaY exceeds the threshold
     if (Math.abs(this.cumulativeDeltaY) >= this.deltaThreshold) {
-      if (this.isScrolling) return;
       this.isScrolling = true;
 
       if (this.cumulativeDeltaY > 0) {
@@ -218,7 +217,6 @@ export class ScrollingService {
         this.scrollToPreviousSection();
       }
 
-      // Reset cumulative deltaY
       this.cumulativeDeltaY = 0;
     }
 
