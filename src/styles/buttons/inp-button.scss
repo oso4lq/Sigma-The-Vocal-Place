@@ -8,7 +8,6 @@
     padding: 5px 8px;
     line-height: 100%;
 
-    min-width: 75px;
     font-weight: 500;
     font-size: 13px;
     text-align: center;
@@ -22,41 +21,36 @@
     }
 }
 
-.mat-mdc-stroked-button {
-    border: 1px solid #cad7ed;
-    color: #8098bf;
-    background-color: transparent;
+// .mat-mdc-stroked-button {
+//     border: 1px solid #cad7ed;
+//     color: #8098bf;
+//     background-color: transparent;
 
-    &.mat-button-disabled {
-        border-color: rgba(0, 0, 0, 0.26);
-    }
+//     &.mat-button-disabled {
+//         border-color: rgba(0, 0, 0, 0.26);
+//     }
 
-    &:hover:not(.mat-button-disabled) {
-        background-color: #f8fafe;
-        color: var(--primary-color);
-    }
-}
+//     &:hover:not(.mat-button-disabled) {
+//         background-color: #f8fafe;
+//         color: var(--primary-color);
+//     }
+// }
 
-.mat-mdc-stroked-button.mat-primary:not(.mat-button-disabled) {
-    border-color: #cad7ed;
-    color: #8098bf;
-}
+// .mat-mdc-stroked-button.mat-primary:not(.mat-button-disabled) {
+//     border-color: #cad7ed;
+//     color: #8098bf;
+// }
 
 .mat-mdc-icon-button {
-    border: 1px solid #cad7ed;
-    color: #8098bf;
-    background-color: transparent;
-
-    padding: 4px;
-    height: 40px;
-    min-width: unset;
-    width: auto;
+    height: inherit;
+    background-color: var(--brand-color);
+    color: var(--light-color);
 
     .mat-icon {
-        font-size: 21px;
-        width: 21px;
-        height: 21px;
-        line-height: 21px;
+        font-size: 36px;
+        width: 36px;
+        height: 34px;
+        line-height: 36px;
         color: var(--primary-color);
     }
 
@@ -65,8 +59,7 @@
     }
 
     &:hover:not(.mat-button-disabled) {
-        background-color: #f8fafe;
-        color: var(--primary-color);
+        background-color: var(--shaded-brand-color) !important;
     }
 }
 
@@ -95,17 +88,6 @@
 
     &:not([class*=mat-elevation-z]) {
         box-shadow: none;
-    }
-
-    &.secondary {
-        background-color: #fff;
-        border: 1px solid #CAD7ED;
-        color: #8098BF;
-
-        &:hover {
-            background: #2771ee;
-            color: #fff;
-        }
     }
 
     &.active {

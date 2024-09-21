@@ -1,13 +1,13 @@
-<div class="flex-col newclass-form">
+<div class="flex-col dialog-form-wrapper">
     <div class="flex-row center-row form-header">
         <h2>Новое занятие</h2>
-        <div class="close" (click)="closeDialog()">
+        <div class="utility-btn" (click)="closeDialog()">
             <mat-icon>close</mat-icon>
         </div>
     </div>
 
     <!-- StartState -->
-    <ng-container *ngIf="currentFormState === 'StartState'">
+    <ng-container *ngIf="currentFormState === FormClassState.Start">
         <div class="flex-row user-type-toggle">
             <button class="flex-col center-row toggle-btn toggle-btn_newbie" (click)="onUserTypeSelect('new')">
                 <img class="h-100 toggle-btn__img toggle-btn__img_newbie" alt="new user" loading="lazy"
@@ -24,7 +24,7 @@
     </ng-container>
 
     <!-- NewbieState -->
-    <ng-container *ngIf="currentFormState === 'NewbieState'">
+    <ng-container *ngIf="currentFormState === FormClassState.Newbie">
         <form class="flex-col center-col" [formGroup]="newbieForm" (ngSubmit)="onSubmit()">
 
             <div class="flex-row center-row back" (click)="goBackToStart()">
@@ -35,10 +35,13 @@
             <input class="input" type="text" formControlName="name" placeholder="Ваше имя" />
 
             <label class="label" for="phone">Телефон</label>
-            <input class="input" type="text" formControlName="phone" placeholder="Ваш телефон" />
-
+            <input class="input" type="text" formControlName="phone" placeholder="Укажите один или несколько способов связи" />
+            
             <label class="label" for="telegram">Telegram</label>
-            <input class="input" type="text" formControlName="telegram" placeholder="Ваш Telegram" />
+            <input class="input" type="text" formControlName="telegram" placeholder="Укажите один или несколько способов связи" />
+
+            <label class="label" for="telegram">e-mail</label>
+            <input class="input" type="text" formControlName="email" placeholder="Укажите один или несколько способов связи" />
 
             <label class="label" for="message">Комментарий</label>
             <textarea class="textarea" type="message" formControlName="message"
@@ -56,7 +59,7 @@
     </ng-container>
 
     <!-- ActiveSubState -->
-    <ng-container *ngIf="currentFormState === 'ActiveSubState'">
+    <ng-container *ngIf="currentFormState === FormClassState.ActiveSub">
         <form class="flex-col center-col" [formGroup]="activeSubForm" (ngSubmit)="onSubmit()">
 
             <div class="flex-row center-row back" (click)="goBackToStart()">
@@ -64,7 +67,7 @@
             </div>
 
             <label class="label" for="name">Имя</label>
-            <input class="input" type="text" formControlName="name" placeholder="Ваше имя" readonly />
+            <input class="input input_name" type="text" formControlName="name" placeholder="Ваше имя" readonly />
 
             <label class="label">
                 Дата и время
@@ -76,16 +79,17 @@
                         ДД.ММ.ГГГГ
                         <!-- DD.MM.YYYY -->
                     </mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="date" readonly>
+                    <input matInput [matDatepickerFilter]="weekendFilter" (dateChange)="onDateChange($event)"
+                        [matDatepicker]="picker" formControlName="date" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker>
                         <mat-datepicker-actions>
                             <button mat-raised-button matDatepickerCancel>
-                                Отменить
+                                отменить
                                 <!-- Cancel -->
                             </button>
                             <button mat-raised-button matDatepickerApply>
-                                Подтвердить
+                                подтвердить
                                 <!-- Apply -->
                             </button>
                         </mat-datepicker-actions>
@@ -93,8 +97,12 @@
                 </mat-form-field>
 
                 <!-- <label class="label" for="time">Time</label> -->
-                <input class="input input_time" type="time" formControlName="time" placeholder="Время" />
+                <input class="input input_time" type="time" formControlName="time" placeholder="Время" readonly />
             </div>
+
+            <!-- Timeline for visualizing the free & occupied slots -->
+            <app-timeline [classes]="classesForSelectedDate" [selectedDate]="selectedDate" [currentTime]="currentTime"
+                (slotClicked)="onTimeSlotSelected($event)"></app-timeline>
 
             <label class="label" for="message">
                 Комментарий
@@ -113,32 +121,36 @@
 
     <!-- Error Box *ngIf="errorMessage" -->
     <div class="flex-row center-all error-box"
-        *ngIf="currentFormState === 'NewbieState' || currentFormState === 'ActiveSubState'">
+        *ngIf="currentFormState === FormClassState.Newbie || currentFormState === FormClassState.ActiveSub">
         <span>{{ errorMessage }}</span>
     </div>
 
     <!-- SubmitState -->
-    <div class="flex-col center-all flex-grow submit" *ngIf="currentFormState === 'SubmitState'">
-        <p class="submit__message" *ngIf="submitSuccess">
-            Ваш запрос был отправлен!
-            <!-- Your request was successful! -->
+    <div class="flex-col center-all flex-grow submit"
+        *ngIf="currentFormState !== FormClassState.Start && currentFormState !== FormClassState.Newbie && currentFormState !== FormClassState.ActiveSub">
+        <mat-spinner *ngIf="currentFormState === FormClassState.Submit"></mat-spinner>
+        <p class="submit__message" *ngIf="currentFormState === FormClassState.Success">
+            Ваша заявка отправлена!
         </p>
-        <p class="submit__message" *ngIf="submitSuccess && prevFormState === 'NewbieState'">
+        <p class="submit__message"
+            *ngIf="currentFormState === FormClassState.Success && prevFormState === FormClassState.Newbie">
             Пожалуйста, подождите, пока я свяжусь с вами.
             <!-- Please wait until I contact you. -->
         </p>
-        <p class="submit__message" *ngIf="submitSuccess && prevFormState === 'ActiveSubState'">
+        <p class="submit__message"
+            *ngIf="currentFormState === FormClassState.Success && prevFormState === FormClassState.ActiveSub">
             Вы успешно записались на следующее занятие в <span class="sigma-font">ΣΙΓΜΑ</span>
             <!-- You've signed up for your next class with <span class="sigma-font">ΣΙΓΜΑ</span> -->
         </p>
-        <p class="submit__message" *ngIf="!submitSuccess">
+        <p class="submit__message" *ngIf="currentFormState === FormClassState.Error">
             Произошла ошибка во время отправления запроса. Пожалуйста, попробуйте снова.
-            <!-- There was an error submitting your request. Please try again. -->
+            <!-- Error while submitting the form. Please try again. -->
         </p>
     </div>
 
     <!-- Telegram Bot -->
-    <div class="flex-col center-all form-footer" *ngIf="currentFormState !== 'SubmitState'">
+    <div class="flex-col center-all form-footer"
+        *ngIf="currentFormState !== FormClassState.Submit && currentFormState !== FormClassState.Success && currentFormState !== FormClassState.Error">
         <span class="form-footer__text">
             Или запишитесь на занятие через
             <!-- Or sign up for a class via the -->

@@ -1,0 +1,76 @@
+<div class="flex-col admin-timeline-container">
+
+    <!-- Range Picker -->
+    <form [formGroup]="rangeForm">
+        <mat-form-field appearance="outline" class="date-range-picker">
+            <mat-date-range-input [rangePicker]="picker" formGroupName="dateRange">
+                <input matStartDate formControlName="start" placeholder="Начальная дата">
+                <input matEndDate formControlName="end" placeholder="Конечная дата">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker>
+                <mat-date-range-picker-actions>
+                    <button mat-raised-button matDateRangePickerCancel>отменить</button>
+                    <button mat-raised-button matDateRangePickerApply>подтвердить</button>
+                </mat-date-range-picker-actions>
+            </mat-date-range-picker>
+        </mat-form-field>
+    </form>
+
+    <!-- Display Box -->
+    <div class="display-box">
+        <div class="flex-row center-row">
+            <h3>Карточка занятия</h3>
+            <p class="display-box__delete" [ngClass]="selectedClass ? 'selected' : ''"
+                (click)="deleteClass(selectedClass)">удалить занятие</p>
+        </div>
+        <mat-divider></mat-divider>
+        <form [formGroup]="displayForm" class="flex-row">
+            <div class="flex-col flex-grow form-group relative">
+                <div class="utility-btn" (click)="toggleStatusEdit()">
+                    <mat-icon>{{ isStatusEditing ? 'done_all' : 'edit' }}</mat-icon>
+                </div>
+                <label for="status">статус:</label>
+                <select id="status" formControlName="status" #statusSelect
+                    (change)="onStatusChange(statusSelect.value)">
+                    <option value="" disabled>-- Изменить статус --</option>
+                    <option *ngFor="let status of classStatuses" [value]="status">
+                        {{ status | titlecase }}
+                    </option>
+                </select>
+            </div>
+            <div class="flex-col flex-grow form-group">
+                <label for="date">дата:</label>
+                <input id="date" type="text" formControlName="date" readonly />
+            </div>
+            <div class="flex-col flex-grow form-group">
+                <label for="time">время:</label>
+                <input id="time" type="text" formControlName="time" readonly />
+            </div>
+            <div class="flex-col flex-grow form-group">
+                <label for="membership">использован абонемент:</label>
+                <input id="membership" type="text" formControlName="membership" readonly />
+            </div>
+            <div class="flex-col flex-grow form-group">
+                <label for="userName">имя ученика:</label>
+                <input id="userName" type="text" formControlName="userName" readonly />
+            </div>
+            <div class="flex-col flex-grow form-group">
+                <label for="message">комментарий:</label>
+                <input id="message" type="text" formControlName="message" readonly />
+            </div>
+        </form>
+    </div>
+
+    <!-- Timeline Box with a timeline rows -->
+    <div class="flex-col flex-grow timeline-box">
+        <!-- Repeat TimelineComponent for each day in the range -->
+        <div *ngFor="let day of daysInRange" class="daily-timeline">
+            <!-- Full date without time -->
+            <h3>{{ day.format('LLLL').slice(0, -7) }}</h3>
+            <app-timeline [classes]="getClassesForDay(day)" [selectedDate]="day" [mode]="'admin'"
+                (slotClicked)="onSlotClicked($event)"></app-timeline>
+        </div>
+    </div>
+
+</div>

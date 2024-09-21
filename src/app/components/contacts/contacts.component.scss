@@ -1,13 +1,13 @@
 .content {
     display: grid;
-    grid-template-columns: 4fr 6fr;
-    grid-template-rows: 1fr;
-    gap: 5%;
     padding: 2vh 5%;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 1fr auto;
 }
 
 .wrapper {
     gap: 40px;
+    grid-column: span 4;
 
     h3 {
         margin: 0;
@@ -41,13 +41,29 @@
     }
 }
 
+.mapy-desktop {
+    grid-column: span 6;
+    margin-bottom: 2vh;
+}
+
 .mapy-mobile {
     display: none;
 }
 
 app-mapycz {
-    // border: 1px solid blue;
     border-radius: 8px;
+}
+
+.copyright {
+    grid-column: span 10;
+
+    a {
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
 }
 
 @media (max-width: 768px) {
@@ -75,5 +91,9 @@ app-mapycz {
 
     .mapy-desktop {
         display: none;
+    }
+
+    .copyright {
+        margin-bottom: 16px;
     }
 }

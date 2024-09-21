@@ -1,54 +1,5 @@
-.newclass-form {
-    min-width: 400px;
-    max-width: 400px;
-    min-height: 400px;
-    padding: 20px;
-    background-color: var(--light-color);
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    height: unset;
-    font-size: 24px;
-    margin: 12px 0;
-}
-
-.close {
-    color: #000;
-    z-index: 30;
-    cursor: pointer;
-
-    mat-icon {
-        font-size: 40px;
-        height: 40px;
-        width: 40px;
-        opacity: 0.8;
-        transition:
-            transform 0.3s,
-            opacity 0.3s;
-
-        &:hover {
-            transform: scale(1.1);
-            opacity: 1;
-        }
-    }
-}
-
 .back {
-    padding: 4px;
     margin-bottom: 8px;
-    font-size: 18px;
-    justify-content: flex-start;
-    width: fit-content;
-    gap: 10px;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-
-    &:hover {
-        transform: scale(1.1);
-    }
 }
 
 .user-type-toggle {
@@ -60,7 +11,7 @@ h2 {
     flex: 1;
     border: none;
     padding: 0;
-    background: #d7d695;
+    background: var(--bright-alt-color);
     transition: background 0.3s ease;
 
     &__img {
@@ -107,19 +58,30 @@ form {
     }
 
     input {
+        background: #fff;
         height: 20px;
+        color: #000;
     }
 
     .input {
         padding: 10px;
         margin-top: 4px;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
         border-radius: 4px;
         border: 1px solid #ccc;
 
+        &_name {
+            font-size: 16px;
+        }
+
         &_time {
             margin: 0;
+            font-size: 16px;
         }
+    }
+
+    app-timeline {
+        margin-bottom: 8px;
     }
 
     .textarea {
@@ -133,8 +95,7 @@ form {
 }
 
 .date-time {
-    margin-top: 4px;
-    margin-bottom: 12px;
+    margin: 4px 0;
 }
 
 mat-label {
@@ -157,7 +118,6 @@ mat-label {
     }
 }
 
-
 .error-box {
     height: 24px;
     color: var(--warn-color);
@@ -165,6 +125,12 @@ mat-label {
 
 .submit {
     padding: 0 20px;
+
+    mat-spinner {
+        width: 100px;
+        height: 100px;
+        stroke: var(--brand-color);
+    }
 
     &__button {
         margin-top: 10px;
@@ -174,6 +140,7 @@ mat-label {
 
     &__message {
         font-size: 22px;
+        text-align: center;
     }
 }
 
@@ -205,18 +172,6 @@ mat-label {
 }
 
 @media (max-width: 600px) {
-    .newclass-form {
-        min-width: unset;
-        max-width: unset;
-        height: 100%;
-        border-radius: 0;
-        padding: 40px 0;
-    }
-
-    .form-header {
-        padding: 0 40px;
-    }
-
     .toggle-btn {
         &__img {
             &_newbie {
@@ -237,9 +192,5 @@ mat-label {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
         }
-    }
-
-    form {
-        padding: 0 20px;
     }
 }

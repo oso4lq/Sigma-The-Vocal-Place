@@ -1,0 +1,37 @@
+<div class="flex-col dialog-form-wrapper">
+    <div class="flex-row center-row form-header">
+        <h2>Войти</h2>
+        <div class="utility-btn" (click)="closeDialog()">
+            <mat-icon>close</mat-icon>
+        </div>
+    </div>
+
+    <ng-container *ngIf="currentFormState === FormLoginState.Login">
+        <form class="flex-col flex-grow center-col" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <label class="label" for="login">Логин</label>
+            <input class="input" type="text" formControlName="login" placeholder="Логин" />
+
+            <label class="label" for="password">Пароль</label>
+            <input class="input" type="password" formControlName="password" placeholder="Пароль" />
+
+            <button mat-button mat-raised-button type="submit" class="submit__button">Отправить</button>
+
+            <div class="flex-row center-all error-box">
+                <span>{{ errorMessage }}</span>
+            </div>
+        </form>
+
+    </ng-container>
+
+    <div class="flex-col center-all flex-grow submit" *ngIf="currentFormState !== FormLoginState.Login">
+        <mat-spinner *ngIf="currentFormState === FormLoginState.Submit"></mat-spinner>
+
+        <p class="submit__message" *ngIf="currentFormState === FormLoginState.Success">Направляю на страницу личного кабинета.</p>
+
+        <p class="submit__message" *ngIf="currentFormState === FormLoginState.Error">
+            Произошла ошибка во время отправления запроса. Пожалуйста, попробуйте снова.
+        </p>
+
+        <p class="submit__message" *ngIf="currentFormState === FormLoginState.Error">{{ errorMessage }}</p>
+    </div>
+</div>

@@ -13,9 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-gallery',
   standalone: true,
   imports: [
-    CommonModule,
     MatCardModule,
     MatIconModule,
+    CommonModule,
   ],
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.scss'

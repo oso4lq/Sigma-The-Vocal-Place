@@ -1,0 +1,20 @@
+<div class="flex-row timeline">
+    <div *ngFor='let timeSlot of timeSlots' (click)='onSlotClicked(timeSlot)'
+        class="flex-col center-row timeline__box w-100" [ngClass]="[
+            timeSlot.status, 
+            isSelected(timeSlot) ? 'selected' : '',
+            mode === 'user' ? 'positive' : 'negative',
+            timeSlot.startTime.isBefore(currentTime) ? 'past' : ''
+        ]">
+        <div class='timeline__circle'> </div>
+        <div class='flex-col timeline__text-group'>
+            <span class='timeline__status'>
+                {{ timeSlot.status === 'free' ? 'Свободно' : 'Занято' }}
+            </span>
+            <span class='timeline__time'>
+                {{ timeSlot.startTime.format('HH:mm') }} &minus;
+                {{ timeSlot.endTime.format('HH:mm') }}
+            </span>
+        </div>
+    </div>
+</div>

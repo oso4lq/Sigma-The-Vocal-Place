@@ -8,16 +8,16 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MobileService } from '../../services/mobile.service';
 import { Card, Review, Source } from '../../interfaces/data.interface';
-import { AppComponent } from '../../app.component';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-studio',
   standalone: true,
   imports: [
-    GalleryComponent,
     MatDividerModule,
     MatIconModule,
     CommonModule,
+    GalleryComponent,
   ],
   templateUrl: './studio.component.html',
   styleUrl: './studio.component.scss'
@@ -165,6 +165,10 @@ export class StudioComponent {
     centeredSlides: true,  // Disables centering of slides; they align to the left
     initialSlide: 1,  // Start from the second review
     resistanceRatio: 0.5,  // Controls the resistance ratio during swiping to avoid dragging too far
+    navigation: {
+      nextEl: '.swiper-button-next-thumbs',
+      prevEl: '.swiper-button-prev-thumbs',
+    },
   };
 
   // Swiper Reviews settings
@@ -178,13 +182,17 @@ export class StudioComponent {
     initialSlide: 1,
     slideToClickedSlide: true,
     resistanceRatio: 0.5,
+    navigation: {
+      nextEl: '.swiper-button-next-reviews',
+      prevEl: '.swiper-button-prev-reviews',
+    },
   };
 
   isMobile: boolean = false;
 
   constructor(
     private mobileService: MobileService,
-    private parent: AppComponent,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit() {
@@ -220,6 +228,6 @@ export class StudioComponent {
   }
 
   openGallery(index: number) {
-    this.parent.openImage(this.images, index);
+    this.dialogService.openImage(this.images, index);
   }
 }

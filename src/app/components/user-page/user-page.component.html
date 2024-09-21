@@ -1,0 +1,140 @@
+<div class="flex-col internal-page-wrapper">
+    <h1>Личный кабинет</h1>
+
+    <!-- Section Buttons for Admin Users -->
+    <div *ngIf="currentUserData()?.isadmin" class="flex-row center-all section-buttons">
+        <button class="section-buttons__button" [ngClass]="{ selected: currentSection === UserPageSections.User }"
+            (click)="switchSection(UserPageSections.User)">
+            Профиль
+        </button>
+        <button class="section-buttons__button" [ngClass]="{ selected: currentSection === UserPageSections.Timeline }"
+            (click)="switchSection(UserPageSections.Timeline)">
+            Расписание
+        </button>
+        <button class="section-buttons__button" [ngClass]="{ selected: currentSection === UserPageSections.UserList }"
+            (click)="switchSection(UserPageSections.UserList)">
+            Пользователи
+        </button>
+    </div>
+
+    <!-- TimelineSection (Admin Only) -->
+    <ng-container *ngIf="currentUserData()?.isadmin && currentSection === UserPageSections.Timeline">
+        <app-admin-timeline></app-admin-timeline>
+    </ng-container>
+
+    <!-- UserListSection (Admin Only) -->
+    <ng-container *ngIf="currentUserData()?.isadmin && currentSection === UserPageSections.UserList">
+        <app-user-list></app-user-list>
+    </ng-container>
+
+    <!-- UserSection -->
+    <ng-container *ngIf="currentSection === UserPageSections.User && currentUserData() as userData">
+
+        <!-- User info row: userpic and name -->
+        <div class="flex-row center-row user-info">
+            <div class="flex-row center-row contact-info">
+                <img [src]="userData.img || imgDefault" alt="Userpic" class="userpic" />
+                <h2>{{ userData.name }}</h2>
+            </div>
+            <div class="flex-row utility-btn utility-btn_logout" (click)="logout()">
+                <mat-icon>logout</mat-icon>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <mat-divider class="user-info__divider"></mat-divider>
+
+        <!-- user section, available for admin too -->
+        <div class="flex-col w-100 content-wrapper">
+
+            <!-- Personal details with edit button -->
+            <div class="my-details">
+                <div class="utility-btn utility-btn_details" (click)="toggleEdit()">
+                    <mat-icon>{{ isUserDataEditing ? 'done_all' : 'edit' }}</mat-icon>
+                </div>
+                <!-- Title for mobile -->
+                <p class="contacts-title">Контакты</p>
+                <!-- Email (Top-left sector) -->
+                <div class="flex-row center-row contact-info email">
+                    <label class="label">e-mail:</label>
+                    <input class="input" type="text" [(ngModel)]="userData.email" [readonly]="!isUserDataEditing"
+                        [ngClass]="{ 'editable': isUserDataEditing }" (dblclick)="toggleEdit()"/>
+                </div>
+                <!-- Empty (Top-right sector) -->
+                <div class="empty-sector"></div>
+                <!-- Telegram (Bottom-left sector) -->
+                <div class="flex-row center-row contact-info telegram">
+                    <label class="label">telegram:</label>
+                    <input class="input" type="text" [(ngModel)]="userData.telegram" [readonly]="!isUserDataEditing"
+                        [ngClass]="{ 'editable': isUserDataEditing }" (dblclick)="toggleEdit()"/>
+                </div>
+                <!-- Phone (Bottom-right sector) -->
+                <div class="flex-row center-row contact-info phone">
+                    <label class="label">телефон:</label>
+                    <input class="input" type="text" [(ngModel)]="userData.phone" [readonly]="!isUserDataEditing"
+                        [ngClass]="{ 'editable': isUserDataEditing }" (dblclick)="toggleEdit()"/>
+                </div>
+            </div>
+
+            <!-- Membership info and make a new class -->
+            <div class="flex-row center-row membership">
+                <!-- Membership points -->
+                <p>
+                    <strong>Абонемент:</strong>
+                    {{ userData.membership > 0 ? getMembershipText(userData.membership)
+                    : 'Чтобы приобрести абонемент, свяжитесь с преподавателем.' }}
+                </p>
+                <!-- Sign up for a new class button -->
+                <button mat-raised-button (click)="openForm()">новое занятие</button>
+            </div>
+
+            <!-- Classes signed up for -->
+            <div class="flex-row my-classes">
+                <p><strong>Мои занятия:</strong></p>
+                <!-- Loaded classes list filtered by user and date -->
+                <div class="flex-col center-all flex-grow my-classes__list my-classes__list_desktop">
+                    <div *ngFor="let class of filteredClasses()" class="w-100 my-classes__item">
+                        <div class="utility-btn utility-btn_details" (click)="cancelClass(class)">
+                            <mat-icon>cancel</mat-icon>
+                        </div>
+                        <p [ngClass]="{
+                        'my-classes__status_confirmed': class.status === 'confirmed',
+                        'my-classes__status_cancelled': class.status === 'cancelled',
+                        'my-classes__status_pending': class.status === 'pending',
+                        'my-classes__status_executed': class.status === 'executed'
+                        }" class="my-classes__status">
+                            Статус: {{ class.status }}
+                        </p>
+                        <mat-divider></mat-divider>
+                        <div class="flex-row my-classes__time">
+                            <p>Дата: {{ class.startdate | date:'dd.MM.yyyy' }}</p>
+                            <p>Время: {{ class.startdate | date:'HH:mm' }} - {{ class.enddate | date:'HH:mm' }}</p>
+                        </div>
+                    </div>
+                </div>
+                <button mat-raised-button (click)="refreshClasses()">обновить</button>
+            </div>
+            <!-- Loaded classes list filtered by user and date -->
+            <div class="flex-col center-all flex-grow my-classes__list my-classes__list_mobile">
+                <div *ngFor="let class of filteredClasses()" class="w-100 my-classes__item">
+                    <div class="utility-btn utility-btn_details" (click)="cancelClass(class)">
+                        <mat-icon>cancel</mat-icon>
+                    </div>
+                    <p [ngClass]="{
+                    'my-classes__status_confirmed': class.status === 'confirmed',
+                    'my-classes__status_cancelled': class.status === 'cancelled',
+                    'my-classes__status_pending': class.status === 'pending',
+                    'my-classes__status_executed': class.status === 'executed'
+                    }" class="my-classes__status">
+                        Status: {{ class.status }}
+                    </p>
+                    <mat-divider></mat-divider>
+                    <div class="flex-row my-classes__time">
+                        <p>Date: {{ class.startdate | date:'dd.MM.yyyy' }}</p>
+                        <p>Time: {{ class.startdate | date:'HH:mm' }} - {{ class.enddate | date:'HH:mm' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

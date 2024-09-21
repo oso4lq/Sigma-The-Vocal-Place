@@ -1,0 +1,115 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title> Заявки от новых учеников - {{requests().length}}</mat-panel-title>
+        <mat-panel-description> </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-sidenav-container class="sidenav-container">
+
+        <!-- Side Drawer for Student Details -->
+        <mat-sidenav #drawer mode="over" position="end" class="student-drawer">
+            <div class="flex-row center-row">
+                <div class="flex-row center-row back" (click)="closeDrawer()">
+                    <mat-icon>arrow_back_ios_new</mat-icon>Назад
+                </div>
+                <h3>Новый ученик</h3>
+            </div>
+            <mat-divider></mat-divider>
+
+            <!-- User Form populated by the selected user -->
+            <form [formGroup]="requestForm" class="flex-col selected-user__details">
+
+                <!-- User pic and name -->
+                <div class="flex-row form-group user-group">
+                    <!-- User Picture -->
+                    <img [src]="imgDefault" alt="{{ selectedRequest()?.name }}" class="user-group__img">
+                    <!-- Name -->
+                    <div class="flex-col center-col user-group__name">
+                        <label>имя:</label>
+                        <input type="text" formControlName="name" readonly>
+                    </div>
+                </div>
+
+                <!-- Telegram -->
+                <div class="flex-col form-group" *ngIf="selectedRequest()?.telegram">
+                    <label>telegram:</label>
+                    <input type="text" formControlName="telegram" readonly>
+                </div>
+
+                <!-- Phone -->
+                <div class="flex-col form-group" *ngIf="selectedRequest()?.phone">
+                    <label>телефон:</label>
+                    <input type="text" formControlName="phone" readonly>
+                </div>
+
+                <!-- Email -->
+                <div class="flex-col form-group" *ngIf="selectedRequest()?.email">
+                    <label>email:</label>
+                    <input type="email" formControlName="email" readonly>
+                </div>
+
+                <!-- Message -->
+                <div class="flex-col form-group" *ngIf="selectedRequest()?.message">
+                    <label>сообщение:</label>
+                    <textarea type="message" formControlName="message" readonly></textarea>
+                </div>
+            </form>
+
+            <!-- Delete button -->
+            <button mat-raised-button (click)="deleteRequest(selectedRequest())" class="delete-btn">Удалить
+                заявку</button>
+
+        </mat-sidenav>
+
+        <!-- Main Content -->
+        <mat-sidenav-content class="sidenav-content" (mousedown)="onTableInteractionStart()"
+            (mouseup)="onTableInteractionEnd()" (touchstart)="onTableInteractionStart()"
+            (touchend)="onTableInteractionEnd()">
+
+            <!-- New Student Requests Table -->
+            <table mat-table [dataSource]="requests()" class="mat-elevation-z8 w-100 user-list__table">
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef>дата</th>
+                    <td mat-cell *matCellDef="let req">{{ req.date | date:'dd.MM.yyyy' }}</td>
+                </ng-container>
+
+                <!-- Image Column -->
+                <ng-container matColumnDef="user">
+                    <th mat-header-cell *matHeaderCellDef>ученик</th>
+                    <td mat-cell *matCellDef="let req"
+                        style="display: flex; gap: 4px; height: inherit; align-items: center; max-width: unset;">
+                        <img [src]="imgDefault" alt="{{ req.name }}" class="user-avatar">
+                        <span class="clickable" (click)="openDrawer(req)">{{ req.name }}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Telegram Column -->
+                <ng-container matColumnDef="telegram">
+                    <th mat-header-cell *matHeaderCellDef>telegram</th>
+                    <td mat-cell *matCellDef="let req">{{ req.telegram }}</td>
+                </ng-container>
+
+                <!-- Phone Column -->
+                <ng-container matColumnDef="phone">
+                    <th mat-header-cell *matHeaderCellDef>телефон</th>
+                    <td mat-cell *matCellDef="let req">{{ req.phone }}</td>
+                </ng-container>
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef>e-mail</th>
+                    <td mat-cell *matCellDef="let req">{{ req.email }}</td>
+                </ng-container>
+
+                <!-- Header and Row Declarations -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                    [class.selected]="row.id === selectedRequest()?.id"></tr>
+            </table>
+
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
+</mat-expansion-panel>

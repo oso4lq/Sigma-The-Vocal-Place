@@ -1,0 +1,155 @@
+.searchbar {
+    input {
+        padding: 8px;
+        background: #fff;
+        font-size: 1em;
+        border: 3px solid #000;
+        margin-bottom: 20px;
+
+        &:read-only {
+            background: var(--light-color);
+        }
+    }
+}
+
+h3 {
+    margin: 0;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+mat-divider {
+    margin: 8px 0;
+}
+
+.selected-user {
+    &__details {
+        flex: 1;
+    }
+
+    &__classes {
+        flex: 1;
+    }
+}
+
+.form-group {
+    &:not(:first-child) {
+        margin-top: 8px;
+    }
+
+    input,
+    textarea {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        padding: 8px;
+        border: 1px solid #ccc;
+        background: var(--light-color);
+        border-radius: 4px;
+        font-size: 1em;
+
+        &:read-only {
+            background: var(--light-color);
+        }
+    }
+
+    textarea {
+        font-size: 14px;
+    }
+}
+
+.user-group {
+    gap: 10px;
+
+    &__img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    &__name {
+        flex-grow: 1;
+    }
+}
+
+.special-group {
+    gap: 10px;
+}
+
+.membership-group {
+    width: 150px;
+    position: relative;
+
+    input {
+        flex: 1;
+        background: #fff !important;
+
+        &:disabled {
+            opacity: 0.7;
+        }
+    }
+
+    button {
+        padding: 6px;
+    }
+}
+
+.utility-btn {
+    position: absolute;
+    height: 24px;
+    width: 24px;
+
+    mat-icon {
+        font-size: 24px;
+        height: 24px;
+        width: 24px;
+    }
+
+    &_details {
+        right: 0px;
+    }
+
+    &_class-edit {
+        top: 2px;
+        right: 42px;
+        background: var(--light-color);
+        border-radius: 4px;
+    }
+
+    &_class-cancel {
+        top: 2px;
+        right: 2px;
+        background: var(--light-color);
+        border-radius: 4px;
+    }
+}
+
+.classes-list {
+    padding: 4px;
+    border-radius: 4px;
+    background-color: var(--light-color);
+    gap: 4px;
+    min-height: 40px;
+}
+
+.my-classes {
+    &__item {
+        p {
+            margin: 0;
+        }
+
+        mat-divider {
+            margin: 0;
+        }
+    }
+}

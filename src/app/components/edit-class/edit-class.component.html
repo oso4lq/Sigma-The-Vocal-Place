@@ -1,0 +1,46 @@
+<div class="flex-col dialog-form-wrapper">
+    <div class="flex-row center-row form-header">
+        <h2>Редактирование занятия</h2>
+        <div class="utility-btn" (click)="closeDialog()">
+            <mat-icon>close</mat-icon>
+        </div>
+    </div>
+
+    <mat-dialog-content>
+        <form [formGroup]="editForm" class="edit-class-form">
+            <!-- Status Field -->
+            <div class="form-group">
+                <label for="status">Статус:</label>
+                <select id="status" formControlName="status">
+                    <option value="" disabled>-- Выберите статус --</option>
+                    <option *ngFor="let status of classStatuses" [value]="status">
+                        {{ status | titlecase }}
+                    </option>
+                </select>
+            </div>
+
+            <!-- Date Field -->
+            <div class="form-group">
+                <label for="date">Дата:</label>
+                <input id="date" type="text" formControlName="date" readonly />
+            </div>
+
+            <!-- Membership Field -->
+            <div class="form-group">
+                <label for="membership">Использован абонемент:</label>
+                <input id="membership" type="text" formControlName="membership" readonly />
+            </div>
+
+            <!-- Message Field -->
+            <div class="form-group">
+                <label for="message">Комментарий:</label>
+                <input id="message" type="text" formControlName="message" readonly />
+            </div>
+        </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-raised-button (click)="closeDialog()">Закрыть</button>
+        <button mat-raised-button color="warn" (click)="confirmEdit()">Подтвердить</button>
+    </mat-dialog-actions>
+</div>

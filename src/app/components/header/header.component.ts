@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, computed, OnInit, Renderer2, Signal } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { SocialMediaComponent } from '../social-media/social-media.component';
@@ -11,18 +11,20 @@ import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { SwiperOptions } from 'swiper/types';
 import { AppComponent } from '../../app.component';
-import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { DialogService } from '../../services/dialog.service';
+import { UserData } from '../../interfaces/data.interface';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
-    SocialMediaComponent,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     CommonModule,
-    RouterModule,
+    SocialMediaComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -32,14 +34,7 @@ export class HeaderComponent implements OnInit {
   isMenuOpen = false;
   swiperSections!: Swiper;
   swiperSectionID: number = 0;
-  sections: MainSections[] = [
-    MainSections.Home,
-    MainSections.About,
-    MainSections.Classes,
-    MainSections.Tutor,
-    MainSections.Studio,
-    MainSections.Contacts,
-  ];
+  MainSections = MainSections;
 
   swiperSectionsConfig: SwiperOptions = {
     direction: 'vertical',
@@ -58,9 +53,15 @@ export class HeaderComponent implements OnInit {
   constructor(
     private scrollingService: ScrollingService,
     private mobileService: MobileService,
+    private dialogService: DialogService,
+    private authService: AuthService,
     private parent: AppComponent,
     private renderer: Renderer2,
+    private router: Router,
   ) { }
+
+  currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
+  imgDefault = "https://res.cloudinary.com/dxunxtt1u/image/upload/userAvatarPlaceholder_ox0tj4.png";
 
   ngOnInit() {
     if (this.mobileService.isMobile) {
@@ -84,7 +85,7 @@ export class HeaderComponent implements OnInit {
   }
 
   // Display the current section name inside the #swiper-button
-  updateSwiperSection(index: number) {
+  private updateSwiperSection(index: number) {
     if (this.swiperSections) {
       this.swiperSections.slideTo(index - 1);
       this.swiperSectionID = index;
@@ -106,7 +107,7 @@ export class HeaderComponent implements OnInit {
 
   toggleMenu() {
     // Prevent opening the menu if the image viewer is open
-    if (this.parent.isDialogOpen) {
+    if (this.dialogService.isDialogOpen) {
       return;
     }
 
@@ -143,8 +144,21 @@ export class HeaderComponent implements OnInit {
   }
 
   openForm() {
-    this.closeMenu();
-    this.parent.openForm();
+    if (this.mobileService.isMobile) {
+      this.closeMenu();
+    }
+    this.dialogService.openForm();
+  }
+
+  handleLogin() {
+    if (this.mobileService.isMobile) {
+      this.closeMenu();
+    }
+    if (this.currentUserData()) {
+      this.router.navigate(['/user']);
+    } else {
+      this.dialogService.openLogin();
+    }
   }
 
 }

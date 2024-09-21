@@ -5,15 +5,53 @@
     row-gap: 2vh;
 }
 
+.swiper-button-next,
+.swiper-button-prev {
+    position: absolute;
+    margin: 0;
+    padding: 10px;
+    flex-grow: 1;
+    z-index: 5;
+    transform: translate(0%, -50%);
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+
+    mat-icon {
+        color: var(--light-color);
+        opacity: 0.8;
+        transition: transform 0.3s, opacity 0.3s;
+        font-size: 24px;
+        height: 24px;
+        width: 24px;
+    }
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.5);
+
+        mat-icon {
+            transform: scale(1.2);
+            opacity: 1;
+        }
+    }
+
+    &:after {
+        content: none;
+    }
+}
+
 .gallery-thumbs {
     grid-column: span 5;
     justify-content: flex-start;
     overflow: hidden;
 
     .swiper-thumbs {
+        position: relative;
         overflow: hidden;
         margin-top: 2vh;
-        background-image: linear-gradient(to left, rgba(191, 173, 81, 0.5), transparent);
+        background-image: linear-gradient(to left, var(--bright-alt-color), transparent);
         border-bottom-right-radius: 4px;
     }
 
@@ -45,9 +83,9 @@
         align-self: flex-start;
         padding: 10px 0;
         padding-top: 8px;
-        width: calc(100% - 80px);
+        max-width: 640px;
         margin-top: 2vh;
-        background: rgb(191, 173, 81, 0.5);
+        background: var(--bright-alt-color);
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
 
@@ -64,16 +102,16 @@
 
     &__description {
         max-width: 600px;
-        margin: 10px 20px;
+        padding: 0 20px;
+        margin: 10px 0 5px 0;
         font-size: calc(16px + 0.2vw);
         text-align: justify;
     }
 
     &__list {
         max-width: 600px;
-        margin: 0 20px;
-        margin-bottom: 10px;
-        padding: 0;
+        padding: 0 20px;
+        margin: 5px 0 10px 0;
     }
 
     &__item {
@@ -106,10 +144,10 @@
     padding-left: 5%;
 
     &__title {
+        max-width: 500px;
         align-self: flex-end;
         padding: 10px 0;
-        width: calc(100% - 80px);
-        background: rgb(191, 173, 81, 0.5);
+        background: var(--bright-alt-color);
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
 
@@ -126,6 +164,7 @@
         flex-grow: 1;
         margin: 0;
         padding: 10px 20px 0 20px;
+        max-width: 440px;
     }
 
     &__item {
@@ -147,7 +186,7 @@
         }
 
         &:hover {
-            background: rgba(191, 173, 81, 0.4);
+            background: rgba(191, 173, 81, 0.3);
             cursor: pointer;
         }
     }
@@ -169,7 +208,7 @@
 .swiper-reviews {
     flex-grow: 1;
     overflow: hidden;
-    background-image: linear-gradient(to right, rgba(191, 173, 81, 0.5), transparent);
+    background-image: linear-gradient(to right, var(--bright-alt-color), transparent);
     border-bottom-left-radius: 4px;
 
     .reviews-wrapper {

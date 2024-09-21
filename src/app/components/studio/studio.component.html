@@ -14,18 +14,25 @@
                         <img [src]="image.image" [alt]="image.title" loading="lazy" class="w-h-100 thumbnail-image">
                     </div>
                 </div>
+
+                <div class="flex-row center-all swiper-button-prev swiper-button-prev-thumbs">
+                    <mat-icon>arrow_back_ios_new</mat-icon>
+                </div>
+                <div class="flex-row center-all swiper-button-next swiper-button-next-thumbs">
+                    <mat-icon>arrow_forward_ios_new</mat-icon>
+                </div>
             </div>
         </div>
 
         <div class="flex-col gallery-text">
-            <div class="flex-col gallery-text__title andika-bold">
-                <h3>Студия <span class="sigma-font">ΣΙΓΜΑ</span></h3>
+            <div class="flex-col w-100 gallery-text__title">
+                <h3>Студия ΣΙΓΜΑ</h3>
             </div>
-            <span class="w-100 gallery-text__description">
+            <span class="gallery-text__description">
                 Настрой и творческая атмосфера играют ключевую роль в обучении. Я уделяю особое внимание тому, чтобы
                 создавать в студии комфортную среду для продуктивных занятий и вашего удовольствия.
             </span>
-            <ul class="flex-col w-100 gallery-text__list">
+            <ul class="flex-col gallery-text__list">
                 <li class="gallery-text__item">новое профессиональное оборудование</li>
                 <li class="gallery-text__item">пространство с разделением на учебную зону и уголок для отдыха</li>
                 <li class="gallery-text__item">интерьер, создающий уют и стимулирующий творческую активность</li>
@@ -36,11 +43,11 @@
         </div>
 
         <div class="flex-col reviews-text">
-            <div class="flex-row center-row reviews-text__title">
-                <h3 class="flex-row center-row w-100 andika-bold">Что говорят студенты:</h3>
+            <div class="flex-row center-row w-100 reviews-text__title">
+                <h3 class="flex-row center-row w-100">Что говорят студенты:</h3>
             </div>
             <!-- [Abstracts from real reviews] -->
-            <ul class="flex-col reviews-text__list">
+            <ul class="flex-col w-100 reviews-text__list">
                 <li class="reviews-text__item">Индивидуальный подход, разнообразие техник</li>
                 <li class="reviews-text__item">Возможность развить вокальные способности</li>
                 <li class="reviews-text__item">Реализация творческого потенциала</li>
@@ -52,7 +59,7 @@
             <div class="flex-row center-row h-100 swiper-container swiper-reviews">
                 <div class="swiper-wrapper reviews-wrapper">
                     <div class="flex-col swiper-slide reviews-slide" *ngFor="let slide of reviews">
-                        <div class="flex-row center-row reviews-header andika-bold" [ngClass]="{
+                        <div class="flex-row center-row reviews-header" [ngClass]="{
                             'avito': slide.source.id === 0,
                             'google': slide.source.id === 1,
                             'yandex': slide.source.id === 2,
@@ -76,6 +83,13 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="flex-row center-all swiper-button-prev swiper-button-prev-reviews">
+                    <mat-icon>arrow_back_ios_new</mat-icon>
+                </div>
+                <div class="flex-row center-all swiper-button-next swiper-button-next-reviews">
+                    <mat-icon>arrow_forward_ios_new</mat-icon>
+                </div>
             </div>
         </div>
     </div>
@@ -84,8 +98,8 @@
     <div class="flex-col center-row w-100 content-mobile" *ngIf="isMobile">
 
         <div class="flex-col w-100">
-            <div class="flex-col gallery-text__title andika-bold">
-                <h3>Студия <span class="sigma-font">ΣΙΓΜΑ</span></h3>
+            <div class="flex-col gallery-text__title">
+                <h3>Студия ΣΙΓΜΑ</h3>
             </div>
             <div class="gallery-thumbs">
                 <div class="swiper-container swiper-thumbs">
@@ -114,7 +128,7 @@
         </ul>
 
         <div class="flex-col w-100">
-            <div class="flex-col reviews-text__title andika-bold">
+            <div class="flex-col reviews-text__title">
                 <h3>Что говорят студенты:</h3>
             </div>
             <div class="reviews-slides">

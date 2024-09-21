@@ -1,0 +1,27 @@
+<div class="flex-col dialog-form-wrapper">
+    <div class="flex-row center-row form-header">
+        <h2>Удалить заявку</h2>
+        <div class="utility-btn" (click)="closeDialog()">
+            <mat-icon>close</mat-icon>
+        </div>
+    </div>
+
+    <mat-dialog-content>
+
+        <p>Вы уверены, что хотите отменить заявку?</p>
+
+        <div class="flex-row flex-grow item-to-delete">
+            Создана: {{ requestItem.date | date:'dd.MM.yyyy HH:mm' }}
+        </div>
+
+        <div class="flex-row flex-grow item-to-delete">
+            Имя: {{ requestItem.name }}
+        </div>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-raised-button (click)="closeDialog()">Закрыть</button>
+        <button mat-raised-button color="warn" (click)="confirmDelete()">Подтвердить</button>
+    </mat-dialog-actions>
+</div>

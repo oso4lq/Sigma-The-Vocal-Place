@@ -32,7 +32,7 @@ mat-toolbar {
 }
 
 .logo {
-    width: 200px;
+    width: 180px;
     background: var(--brand-color) !important;
     color: var(--light-color);
     cursor: pointer;
@@ -224,12 +224,33 @@ mat-toolbar {
             background-color: var(--dark-brand-color) !important;
         }
     }
+
+    #account-button {
+        width: 80px !important;
+        flex-grow: unset;
+        padding: 8px;
+
+        img {
+            border-radius: 50%;
+            height: inherit;
+            aspect-ratio: 1 / 1;
+            transition: filter 0.3s ease;
+        }
+
+        &:hover {
+            background-color: var(--brand-color) !important;
+
+            img {
+                filter: brightness(0.75);
+            }
+        }
+    }
 }
 
 // Desktop menu classes end
 
 app-social-media {
-    width: 200px;
+    width: 180px;
     background: var(--brand-color) !important;
 
     ::ng-deep .social {
@@ -375,6 +396,23 @@ app-social-media {
 
             &:hover {
                 background-color: var(--dark-brand-color) !important;
+            }
+        }
+
+        #account-button {
+            width: 33%;
+            min-width: 150px;
+            background-color: var(--bright-alt-color) !important;
+            color: var(--dark-alt-color) !important;
+
+            mat-icon {
+                font-size: 32px;
+                width: 32px;
+                height: inherit;
+            }
+
+            &:hover {
+                background-color: var(--light-alt-color) !important;
             }
         }
     }

@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Card } from '../../interfaces/data.interface';
-import { AppComponent } from '../../app.component';
 import { MatButtonModule } from '@angular/material/button';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-classes',
@@ -50,11 +50,11 @@ export class ClassesComponent {
   ];
 
   constructor(
-    private parent: AppComponent,
+    private dialogService: DialogService,
   ) { }
 
   openForm() {
-    this.parent.openForm();
+    this.dialogService.openForm();
   }
 
 }

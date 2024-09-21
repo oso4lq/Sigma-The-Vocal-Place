@@ -8,25 +8,11 @@
 @import './styles/datepicker.scss';
 @import '../node_modules/swiper/swiper-bundle.min.css';
 
+// @import '@angular/material/prebuilt-themes/magenta-violet.css';
+
 @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
 @import url('https://fonts.cdnfonts.com/css/blacker-sans-display-trial');
 @import url('https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-// @font-face {
-//     font-family: 'BlackerSansDisplayTrial';
-//     src: '/src/assets/fonts/blacker-sans-display-trial-bold.ttf' format('truetype');
-//     // src: url('https://fonts.cdnfonts.com/css/blacker-sans-display-trial') format('truetype');
-//     font-weight: bold;
-//     font-style: normal;
-// }
-
-// @font-face {
-//     font-family: "Didact Gothic", sans-serif;
-//     src: '/src/assets/fonts/DidactGothic-Regular.ttf' format('truetype');
-//     // src: url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap') format('truetype');
-//     font-weight: 400;
-//     font-style: normal;
-// }
 
 html,
 body {
@@ -40,6 +26,7 @@ body {
     font-family: "Didact Gothic", sans-serif;
 }
 
+// Fonts
 .sigma-font {
     font-family: 'Blacker Sans Display Trial', sans-serif;
     font-weight: 600;
@@ -79,10 +66,7 @@ body {
     font-style: italic;
 }
 
-// app-main {
-//     max-width: 1600px;
-// }
-
+// Reusable styles - Fully global
 .section {
     height: 100vh;
 }
@@ -100,6 +84,292 @@ h2 {
     justify-content: center;
 }
 
+// Reusable styles - Expansion panel
+mat-panel-title {
+    white-space: nowrap;
+}
+
+mat-expansion-panel {
+    margin-top: 20px !important;
+    border-radius: 4px !important;
+    color: var(--light-color) !important;
+}
+
+mat-expansion-panel-header {
+    background: var(--light-brand-color) !important;
+    height: 40px !important;
+    font-size: 18px !important;
+    border-radius: 0 !important;
+}
+
+.mat-expansion-panel-body {
+    background: var(--light-color) !important;
+    color: #000 !important;
+}
+
+// Reusable styles - Sidenav and tables
+.sidenav-container {
+    height: 500px;
+    border: 2px solid var(--brand-color);
+    background: #fff !important;
+}
+
+.student-drawer {
+    background: var(--bright-alt-color) !important;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.back {
+    padding: 4px;
+    font-size: 18px;
+    justify-content: flex-start;
+    width: fit-content;
+    gap: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.cdk-header-row {
+    background: var(--light-brand-color) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+
+    &:hover {
+        background: var(--light-brand-color) !important;
+    }
+}
+
+.mat-mdc-row,
+.mdc-data-table__content {
+    background: #fff !important;
+    overflow: auto;
+}
+
+th {
+    max-width: 150px;
+    text-align: center !important;
+    font-family: "Didact Gothic", sans-serif;
+}
+
+td {
+    max-width: 150px;
+    text-align: center !important;
+    font-family: "Didact Gothic", sans-serif;
+}
+
+td.mat-cell {
+    vertical-align: middle;
+}
+
+.mdc-data-table__cell {
+    padding: 0 8px !important;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.clickable {
+    cursor: pointer;
+    color: var(--brand-color);
+    text-decoration: underline;
+    font-size: 16px;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+tr {
+    &:hover {
+        background-color: var(--light-color) !important;
+    }
+}
+
+tr.selected {
+    background-color: var(--light-color) !important;
+}
+
+@media (max-width: 768px) {
+    .student-drawer {
+        width: 100%;
+    }
+
+    table {
+        min-width: 600px;
+    }
+}
+
+// Reusable styles - Classes list
+.my-classes {
+    gap: 20px;
+    align-items: flex-start;
+
+    &__list {
+        gap: 10px;
+
+        &_mobile {
+            display: none;
+        }
+    }
+
+    button {
+        flex-grow: unset;
+        width: 100px !important;
+    }
+
+    &__item {
+        border-radius: 4px;
+        position: relative;
+    }
+
+    &__status {
+        padding: 4px 20px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        background: var(--bright-alt-color);
+        color: var(--light-color);
+
+        &_confirmed {
+            background-image: linear-gradient(to right, var(--light-brand-color), transparent);
+        }
+
+        &_cancelled {
+            background-image: linear-gradient(to right, var(--warn-color), transparent);
+        }
+
+        &_pending {
+            background-image: linear-gradient(to right, var(--alt-color), transparent);
+        }
+
+        &_executed {
+            background-image: linear-gradient(to right, var(--gray-color), transparent);
+        }
+    }
+
+    &__time {
+        padding: 4px 20px;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        background: var(--bright-alt-color);
+    }
+}
+
+// Reusable styles - Utility buttons
+.utility-btn {
+    color: #000;
+    cursor: pointer;
+    height: 40px;
+
+    mat-icon {
+        font-size: 40px;
+        height: 40px;
+        width: 40px;
+        opacity: 0.8;
+        transition:
+            transform 0.3s,
+            opacity 0.3s;
+
+        &:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+    }
+}
+
+.back {
+    padding: 4px;
+    font-size: 18px;
+    justify-content: flex-start;
+    width: fit-content;
+    gap: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+// Reusable styles - Wrappers
+.internal-page-wrapper {
+    padding: 80px 5% 40px 5%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.dialog-form-wrapper {
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 400px;
+    padding: 20px;
+    background-color: var(--light-color);
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        height: unset;
+        font-size: 24px;
+        margin: 12px 0;
+    }
+}
+
+.item-to-delete {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 18px;
+    color: #000;
+    background: var(--bright-alt-color);
+}
+
+@media (max-width: 600px) {
+    .dialog-form-wrapper {
+        min-width: unset;
+        max-width: unset;
+        height: 100%;
+        border-radius: 0;
+        padding: 40px 0;
+    }
+
+    .form-header {
+        padding: 0 40px;
+    }
+
+    form {
+        padding: 0 20px;
+    }
+}
+
+// Class to disable scroll when smth in mobile is opened
+.no-scroll {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+// Backdrop for mobile header
+.custom-backdrop {
+    display: flex;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
+
+// Open layers - Mapy.cz
 .ol-viewport {
     border-radius: 8px;
 }
@@ -160,22 +430,7 @@ h2 {
     margin: 2px;
 }
 
-.no-scroll {
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-}
-
-.custom-backdrop {
-    display: flex;
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.7);
-    height: 100%;
-    width: 100%;
-    top: 0;
-    z-index: 10;
-}
-
+// Angular Material adjustments
 .cdk-global-overlay-wrapper {
     display: flex;
     position: fixed;
@@ -194,21 +449,16 @@ h2 {
     height: 80vh;
     aspect-ratio: 3 / 2;
     pointer-events: auto;
-    // width: 100%;
 }
 
 .new-class-form-dialog {
     pointer-events: auto;
 }
 
-// datepicker
+// Angular Material adjustments - Datepicker
 .cdk-overlay-connected-position-bounding-box {
     position: fixed;
     pointer-events: none;
-    // top: -150px !important;
-    // left: 250px !important;
-    // top: 120px !important;
-    // left: 240px !important;
     width: unset !important;
 }
 
@@ -255,6 +505,7 @@ h2 {
     left: 10px !important;
 }
 
+// Mobile version
 @media (max-width: 768px) {
     app-header {
         height: auto;

@@ -17,8 +17,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-mapycz',
   standalone: true,
   imports: [
-    CommonModule,
     MatIconModule,
+    CommonModule,
   ],
   templateUrl: './mapycz.component.html',
   styleUrl: './mapycz.component.scss'
