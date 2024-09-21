@@ -55,4 +55,5 @@ export class ClassesService {
       this.classesSig.update((classes) => classes.filter((cls) => cls.id !== classId));
     });
   }
+  
 }

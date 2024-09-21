@@ -49,6 +49,15 @@ export interface Class {
     userId: string | number; // link the class to the user
 }
 
+export interface Request {
+    id: string | number;
+    name: string;
+    phone: string;
+    telegram: string;
+    email: string;
+    message: string;
+}
+
 export interface TimelineSlot {
     startTime: Moment;
     endTime: Moment;

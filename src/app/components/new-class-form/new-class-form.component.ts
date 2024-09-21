@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { DialogService } from '../../services/dialog.service';
-import { Class, ClassStatus, TimelineSlot } from '../../interfaces/data.interface';
+import { Class, ClassStatus, Request, TimelineSlot, UserData } from '../../interfaces/data.interface';
 import { ClassesService } from '../../services/classes.service';
 import { UsersFirebaseService } from '../../services/users-firebase.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -23,6 +23,7 @@ import { collection, doc, writeBatch } from '@angular/fire/firestore';
 import { MY_DATE_FORMATS } from '../admin-timeline/admin-timeline.component';
 import 'moment/locale/ru'; // Import Russian locale
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { RequestsService } from '../../services/requests.service';
 
 enum FormClassState {
   Start = 'StartState',
@@ -75,6 +76,7 @@ export class NewClassFormComponent implements OnInit {
   // Signals from Services
   classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // Track the classes array
   classesForSelectedDate: Class[] = []; // Contain the classes[] for the selected date
+  currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
 
   // Set working days filter (may be made adjustable in the Admin's Account)
   weekendFilter = (d: Moment | null): boolean => {
@@ -87,6 +89,7 @@ export class NewClassFormComponent implements OnInit {
     private dialogRef: MatDialogRef<NewClassFormComponent>,
     private classesFirebaseService: ClassesFirebaseService,
     private usersFirebaseService: UsersFirebaseService,
+    private requestsService: RequestsService,
     private classesService: ClassesService,
     private dialogService: DialogService,
     private authService: AuthService,
@@ -98,6 +101,7 @@ export class NewClassFormComponent implements OnInit {
       name: ['', Validators.required],
       phone: [''],
       telegram: [''],
+      email: [''],
       message: [''],
     });
 
@@ -125,11 +129,10 @@ export class NewClassFormComponent implements OnInit {
   ngOnInit(): void {
     this.currentTime = moment();
     // Check if user is authenticated and optionally populate the form
-    const userData = this.authService.currentUserDataSig();
-    if (userData) {
+    if (this.currentUserData()) {
       this.currentFormState = FormClassState.ActiveSub;
       this.activeSubForm.patchValue({
-        name: userData.name,
+        name: this.currentUserData()?.name,
       });
     } else {
       this.currentFormState = FormClassState.Start;
@@ -147,12 +150,11 @@ export class NewClassFormComponent implements OnInit {
       this.prevFormState = this.currentFormState;
       this.currentFormState = FormClassState.Newbie;
     } else if (userType === 'signed') {
-      const userData = this.authService.currentUserDataSig();
-      if (userData) {
+      if (this.currentUserData()) {
         this.prevFormState = this.currentFormState;
         this.currentFormState = FormClassState.ActiveSub;
         this.activeSubForm.patchValue({
-          name: userData.name,
+          name: this.currentUserData()?.name,
           date: this.selectedDate.toDate(), // Set date to current date
         });
       } else {
@@ -202,7 +204,8 @@ export class NewClassFormComponent implements OnInit {
 
   async onSubmit() {
     if (this.validateForm()) {
-      await this.createNewClass();
+      if (this.currentFormState === FormClassState.Newbie) await this.createNewRequest();
+      if (this.currentFormState === FormClassState.ActiveSub) await this.createNewClass();
     }
   }
 
@@ -212,7 +215,11 @@ export class NewClassFormComponent implements OnInit {
         this.showErrorMessage('Пожалуйста, укажите имя');
         return false;
       }
-      if (!this.newbieForm.get('phone')?.value && !this.newbieForm.get('telegram')?.value) {
+      if (
+        !this.newbieForm.get('phone')?.value &&
+        !this.newbieForm.get('telegram')?.value &&
+        !this.newbieForm.get('email')?.value
+      ) {
         this.showErrorMessage('Пожалуйста, укажите хотя бы один способ связи');
         return false;
       }
@@ -233,13 +240,45 @@ export class NewClassFormComponent implements OnInit {
     return true;
   }
 
+  async createNewRequest() {
+    const { name, phone, telegram, email, message } = this.newbieForm.value;
+
+    try {
+      this.prevFormState = this.currentFormState;
+      this.currentFormState = FormClassState.Submit;
+
+      if (this.currentUserData()) throw new Error('Авторизированный пользователь не может отправить эту форму.');
+
+      // Create new Request object
+      const newRequest: Request = {
+        id: '', // Firestore will auto-generate the ID
+        name: name,
+        phone: phone,
+        telegram: telegram,
+        email: email,
+        message: message,
+      };
+
+      // Update the Firebase requests array with a new Request
+      await this.requestsService.addRequest(newRequest);
+      
+      // Switch state to successful and close the dialog
+      this.currentFormState = FormClassState.Success;
+      setTimeout(() => this.closeDialog(), 5000);
+    } catch (error) {
+      this.currentFormState = FormClassState.Error;
+      this.showErrorMessage('Произошла ошибка во время отправления запроса. Пожалуйста, попробуйте снова.');
+      setTimeout(() => this.closeDialog(), 5000);
+    }
+  }
+
   async createNewClass() {
     const { date, time, message } = this.activeSubForm.value;
     try {
       this.prevFormState = this.currentFormState;
       this.currentFormState = FormClassState.Submit;
 
-      const userData = this.authService.currentUserDataSig();
+      const userData = this.currentUserData();
       if (!userData) throw new Error('User not authenticated');
 
       // Check if the user has membership points
@@ -313,6 +352,14 @@ export class NewClassFormComponent implements OnInit {
 
   // Go back to the start state
   goBackToStart() {
+
+    // Close the dialog when the user is logged in to prevent him sending a Newbie form
+    if (this.currentUserData() && this.currentFormState === FormClassState.ActiveSub) {
+      this.closeDialog();
+      return
+    }
+
+    // Otherwise, follow the standard scenario and return to the Start State
     this.currentFormState = FormClassState.Start;
     this.errorMessage = '';
 

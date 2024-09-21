@@ -35,4 +35,5 @@ export class ClassesFirebaseService {
     const classDoc = doc(this.firestore, `classes/${classId}`);
     return deleteDoc(classDoc);
   }
+
 }
