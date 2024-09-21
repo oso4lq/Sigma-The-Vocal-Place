@@ -26,11 +26,16 @@ export class ScrollingService {
     MainSections.Contacts,
   ];
 
-  private currentSectionIndex: number = 0;
   isMainPage: boolean = true;
+
   private isScrolling: boolean = false;
   private isScrollingRestricted: boolean = false;
+  private cumulativeDeltaY = 0;
+  private debounceTimer: any;
+  private deltaThreshold = 100; // Adjust this value based on testing
+  private isScrollEventBlocked: boolean = false;
 
+  private currentSectionIndex: number = 0;
   private sectionIndexSubject = new BehaviorSubject<number>(0);
   sectionIndex$ = this.sectionIndexSubject.asObservable();
 
@@ -189,14 +194,39 @@ export class ScrollingService {
     }
 
     event.preventDefault();
-    if (this.isScrolling) return;
-    this.isScrolling = true;
 
-    if (event.deltaY > 0) {
-      this.scrollToNextSection();
-    } else if (event.deltaY < 0) {
-      this.scrollToPreviousSection();
+    // if (this.isScrolling) return;
+    // this.isScrolling = true;
+
+    // if (event.deltaY > 0) {
+    //   this.scrollToNextSection();
+    // } else if (event.deltaY < 0) {
+    //   this.scrollToPreviousSection();
+    // }
+
+    // Accumulate deltaY values
+    this.cumulativeDeltaY += event.deltaY;
+
+    // Check if accumulated deltaY exceeds the threshold
+    if (Math.abs(this.cumulativeDeltaY) >= this.deltaThreshold) {
+      if (this.isScrolling) return;
+      this.isScrolling = true;
+
+      if (this.cumulativeDeltaY > 0) {
+        this.scrollToNextSection();
+      } else {
+        this.scrollToPreviousSection();
+      }
+
+      // Reset cumulative deltaY
+      this.cumulativeDeltaY = 0;
     }
+
+    // Debounce to reset cumulativeDeltaY if no scroll events occur for a short period
+    clearTimeout(this.debounceTimer);
+    this.debounceTimer = setTimeout(() => {
+      this.cumulativeDeltaY = 0;
+    }, 8);
   }
 
   // Listen arrow up/down keys
