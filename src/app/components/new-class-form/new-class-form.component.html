@@ -35,13 +35,16 @@
             <input class="input" type="text" formControlName="name" placeholder="Ваше имя" />
 
             <label class="label" for="phone">Телефон</label>
-            <input class="input" type="text" formControlName="phone" placeholder="Укажите один или несколько способов связи" />
-            
+            <input class="input" type="text" formControlName="phone"
+                placeholder="Укажите один или несколько способов связи" />
+
             <label class="label" for="telegram">Telegram</label>
-            <input class="input" type="text" formControlName="telegram" placeholder="Укажите один или несколько способов связи" />
+            <input class="input" type="text" formControlName="telegram"
+                placeholder="Укажите один или несколько способов связи" />
 
             <label class="label" for="telegram">e-mail</label>
-            <input class="input" type="email" formControlName="email" placeholder="Укажите один или несколько способов связи" />
+            <input class="input" type="email" formControlName="email"
+                placeholder="Укажите один или несколько способов связи" />
 
             <label class="label" for="message">Комментарий</label>
             <textarea class="textarea" type="message" formControlName="message"
@@ -75,10 +78,10 @@
             </label>
             <div class="flex-row date-time">
                 <mat-form-field>
-                    <mat-label>
-                        ДД.ММ.ГГГГ
-                        <!-- DD.MM.YYYY -->
-                    </mat-label>
+                    <!-- <mat-label> -->
+                    <!-- ДД.ММ.ГГГГ -->
+                    <!-- DD.MM.YYYY -->
+                    <!-- </mat-label> -->
                     <input matInput [matDatepickerFilter]="weekendFilter" (dateChange)="onDateChange($event)"
                         [matDatepicker]="picker" formControlName="date" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
