@@ -8,7 +8,8 @@
 
     <ng-container *ngIf="currentFormState === FormLoginState.Login">
         <form class="flex-col flex-grow center-col" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <label class="label" for="login">Логин</label>
+            
+            <label class="label" for="login">Электронная почта</label>
             <input class="input" type="text" formControlName="login" placeholder="Логин" />
 
             <label class="label" for="password">Пароль</label>
