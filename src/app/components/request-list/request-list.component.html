@@ -7,7 +7,9 @@
     <mat-sidenav-container class="sidenav-container">
 
         <!-- Side Drawer for Student Details -->
-        <mat-sidenav #drawer mode="over" position="end" class="student-drawer">
+        <mat-sidenav #drawer mode="over" position="end" class="student-drawer" (mousedown)="onDrawerInteractionStart()"
+        (mouseup)="onDrawerInteractionEnd()" (touchstart)="onDrawerInteractionStart()"
+        (touchend)="onDrawerInteractionEnd()">
             <div class="flex-row center-row">
                 <div class="flex-row center-row back" (click)="closeDrawer()">
                     <mat-icon>arrow_back_ios_new</mat-icon>Назад

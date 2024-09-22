@@ -88,10 +88,14 @@ mat-divider {
 
 .special-group {
     gap: 10px;
+
+    .smol {
+        width: 100px;
+    }
 }
 
 .membership-group {
-    width: 150px;
+    width: 120px;
     position: relative;
 
     input {

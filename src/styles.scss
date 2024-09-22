@@ -201,7 +201,7 @@ tr.selected {
 
 @media (max-width: 768px) {
     .student-drawer {
-        width: 100%;
+        width: 100% !important;
     }
 
     .user-list__table {
@@ -340,14 +340,14 @@ tr.selected {
         height: 100%;
         border-radius: 0;
         padding: 40px 0;
-    }
 
-    .form-header {
-        padding: 0 40px;
-    }
+        .form-header {
+            padding: 0 40px;
+        }
 
-    form {
-        padding: 0 20px;
+        form {
+            padding: 0 20px;
+        }
     }
 }
 

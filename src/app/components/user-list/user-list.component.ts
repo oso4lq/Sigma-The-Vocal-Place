@@ -53,6 +53,17 @@ export class UserListComponent {
   // Search input as a signal to track changes
   searchInput: WritableSignal<string> = signal('');
 
+  // For tracking swipe gestures
+  private swipeDrawerTrackingEnabled: boolean = true;
+  private touchStartX: number = 0;
+  private touchEndX: number = 0;
+  private touchStartY: number = 0;
+  private touchEndY: number = 0;
+  // Minimum distance for a valid horizontal swipe
+  private readonly minSwipeDeltaX = 50;
+  // Maximum Y-axis movement allowed for a valid horizontal swipe
+  private readonly maxSwipeDeltaY = 30;
+
   // Computed signal for filtered users
   filteredUsers: Signal<UserData[]> = computed(() => {
     const users = this.userDatas();
@@ -129,6 +140,9 @@ export class UserListComponent {
       .subscribe(value => {
         this.searchInput.set(value || '');
       });
+
+    // Track swipe gestures to close the drawer
+    this.initSwipeListeners();
   }
 
   ngOnDestroy(): void {
@@ -195,6 +209,7 @@ export class UserListComponent {
   // Method to open the drawer and select a user
   openDrawer(user: UserData): void {
     this.selectUser(user);
+    this.swipeDrawerTrackingEnabled = true;
     this.drawer.open();
   }
 
@@ -210,6 +225,45 @@ export class UserListComponent {
 
   onTableInteractionEnd(): void {
     this.mobileService.enableSwipeTracking();
+  }
+
+  // Methods to handle drawer interaction events
+  onDrawerInteractionStart(): void {
+    this.mobileService.disableSwipeTracking();
+  }
+
+  onDrawerInteractionEnd(): void {
+    this.mobileService.enableSwipeTracking();
+  }
+
+  private initSwipeListeners(): void {
+    window.addEventListener('touchstart', (event) => {
+      if (!this.swipeDrawerTrackingEnabled) return;
+      this.touchStartX = event.changedTouches[0].screenX;
+      this.touchStartY = event.changedTouches[0].screenY;
+    });
+
+    window.addEventListener('touchend', (event) => {
+      if (!this.swipeDrawerTrackingEnabled) return;
+      this.touchEndX = event.changedTouches[0].screenX;
+      this.touchEndY = event.changedTouches[0].screenY;
+      this.handleSwipeGesture();
+    });
+  }
+
+  private handleSwipeGesture(): void {
+    // Calculate absolute X-axis and Y-axis distances
+    const swipeDistanceX = this.touchEndX - this.touchStartX;
+    const swipeDistanceY = Math.abs(this.touchEndY - this.touchStartY);
+
+    // If the Y-axis movement is greater than maxSwipeDeltaY, it's not a valid horizontal swipe
+    if (swipeDistanceY > this.maxSwipeDeltaY) {
+      return;
+    }
+
+    if (swipeDistanceX > this.minSwipeDeltaX) {
+      this.closeDrawer();
+    }
   }
 
   getTelegramLink(username: string | undefined): string | null {
