@@ -56,12 +56,15 @@ app-mapycz {
 
 .copyright {
     grid-column: span 10;
+    font-size: 16px;
 
     a {
-        text-decoration: underline;
+        color: #7195A9;
+        font-weight: bold;
+        transition: color 1s ease-in-out;
 
         &:hover {
-            text-decoration: none;
+            color: #F03691;
         }
     }
 }
@@ -99,6 +102,10 @@ br {
     .copyright {
         text-align: center;
         margin: 16px 0;
+
+        a {
+            font-size: 18px;
+        }
     }
 
     br {
