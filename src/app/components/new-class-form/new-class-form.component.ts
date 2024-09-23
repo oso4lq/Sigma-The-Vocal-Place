@@ -400,4 +400,9 @@ export class NewClassFormComponent implements OnInit {
     this.dialogRef.close();
     this.router.navigate(['/privacy-policy']);
   }
+
+  telegramBotStart(): void {
+    this.showErrorMessage('Бот ещё не готов. Воспользуйтесь формой на сайте.')
+  }
+
 }
