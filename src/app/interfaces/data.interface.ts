@@ -33,10 +33,10 @@ export interface UserData {
 }
 
 export enum ClassStatus {
-    Pending = 'pending',
-    Confirmed = 'confirmed',
-    Cancelled = 'cancelled',
-    Executed = 'executed',
+    Pending = 'в ожидании',
+    Confirmed = 'подтверждено',
+    Cancelled = 'отменено',
+    Executed = 'выполнено',
 }
 
 export interface Class {

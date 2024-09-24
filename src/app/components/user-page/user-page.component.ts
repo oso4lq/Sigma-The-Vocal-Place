@@ -1,5 +1,5 @@
 import { Component, computed, OnInit, Signal } from '@angular/core';
-import { Class, UserData } from '../../interfaces/data.interface';
+import { Class, ClassStatus, UserData } from '../../interfaces/data.interface';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -47,6 +47,7 @@ export class UserPageComponent implements OnInit {
   isUserDataEditing: boolean = false; // Track whether inputs are editable
   userData: UserData | null = null; // Store the fetched user data
   UserPageSections = UserPageSections;
+  ClassStatus = ClassStatus;
   currentSection: UserPageSections = UserPageSections.User; // Default section
 
   // Signals

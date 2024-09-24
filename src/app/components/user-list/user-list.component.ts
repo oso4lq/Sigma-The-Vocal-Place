@@ -1,7 +1,7 @@
 import { Component, computed, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { Class, UserData } from '../../interfaces/data.interface';
+import { Class, ClassStatus, UserData } from '../../interfaces/data.interface';
 import { UsersService } from '../../services/users.service';
 import { ClassesService } from '../../services/classes.service';
 import { MatDividerModule } from '@angular/material/divider';
@@ -41,6 +41,9 @@ export class UserListComponent {
   // Forms
   searchForm: FormGroup;
   displayForm: FormGroup;
+
+  // State
+  ClassStatus = ClassStatus;
 
   // State as Signals
   selectedUser: WritableSignal<UserData | null> = signal(null); // Update selected user data

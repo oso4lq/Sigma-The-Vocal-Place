@@ -87,10 +87,10 @@
 
                     <!-- Class Status -->
                     <p [ngClass]="{
-                            'my-classes__status_confirmed': cls.status === 'confirmed',
-                            'my-classes__status_cancelled': cls.status === 'cancelled',
-                            'my-classes__status_pending': cls.status === 'pending',
-                            'my-classes__status_executed': cls.status === 'executed'
+                        'my-classes__status_confirmed': cls.status === ClassStatus.Confirmed,
+                        'my-classes__status_cancelled': cls.status === ClassStatus.Cancelled,
+                        'my-classes__status_pending': cls.status === ClassStatus.Pending,
+                        'my-classes__status_executed': cls.status === ClassStatus.Executed,
                             }" class="my-classes__status">
                         Статус: {{ cls.status }}
                     </p>
