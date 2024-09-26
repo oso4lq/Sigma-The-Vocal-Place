@@ -98,10 +98,10 @@
                             <mat-icon>cancel</mat-icon>
                         </div>
                         <p [ngClass]="{
-                        'my-classes__status_confirmed': class.status === 'confirmed',
-                        'my-classes__status_cancelled': class.status === 'cancelled',
-                        'my-classes__status_pending': class.status === 'pending',
-                        'my-classes__status_executed': class.status === 'executed'
+                        'my-classes__status_confirmed': class.status === ClassStatus.Confirmed,
+                        'my-classes__status_cancelled': class.status === ClassStatus.Cancelled,
+                        'my-classes__status_pending': class.status === ClassStatus.Pending,
+                        'my-classes__status_executed': class.status === ClassStatus.Executed,
                         }" class="my-classes__status">
                             Статус: {{ class.status }}
                         </p>
@@ -121,17 +121,17 @@
                         <mat-icon>cancel</mat-icon>
                     </div>
                     <p [ngClass]="{
-                    'my-classes__status_confirmed': class.status === 'confirmed',
-                    'my-classes__status_cancelled': class.status === 'cancelled',
-                    'my-classes__status_pending': class.status === 'pending',
-                    'my-classes__status_executed': class.status === 'executed'
+                        'my-classes__status_confirmed': class.status === ClassStatus.Confirmed,
+                        'my-classes__status_cancelled': class.status === ClassStatus.Cancelled,
+                        'my-classes__status_pending': class.status === ClassStatus.Pending,
+                        'my-classes__status_executed': class.status === ClassStatus.Executed,
                     }" class="my-classes__status">
                         Status: {{ class.status }}
                     </p>
                     <mat-divider></mat-divider>
                     <div class="flex-row my-classes__time">
-                        <p>Date: {{ class.startdate | date:'dd.MM.yyyy' }}</p>
-                        <p>Time: {{ class.startdate | date:'HH:mm' }} - {{ class.enddate | date:'HH:mm' }}</p>
+                        <p>Дата: {{ class.startdate | date:'dd.MM.yyyy' }}</p>
+                        <p>Время: {{ class.startdate | date:'HH:mm' }} - {{ class.enddate | date:'HH:mm' }}</p>
                     </div>
                 </div>
             </div>

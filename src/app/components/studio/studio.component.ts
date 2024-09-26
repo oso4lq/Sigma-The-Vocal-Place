@@ -61,20 +61,20 @@ export class StudioComponent {
       contentShort: '',
       contentLong: '',
     },
-    {
-      id: 5,
-      title: 'cat in front of the chimney M',
-      image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/catav2_dhihzp.png',
-      contentShort: '',
-      contentLong: '',
-    },
-    {
-      id: 6,
-      title: 'cat in front of the chimney F',
-      image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/catav3_k54mfm.png',
-      contentShort: '',
-      contentLong: '',
-    },
+    // {
+    //   id: 5,
+    //   title: 'cat in front of the chimney M',
+    //   image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/catav2_dhihzp.png',
+    //   contentShort: '',
+    //   contentLong: '',
+    // },
+    // {
+    //   id: 6,
+    //   title: 'cat in front of the chimney F',
+    //   image: 'https://res.cloudinary.com/dxunxtt1u/image/upload/catav3_k54mfm.png',
+    //   contentShort: '',
+    //   contentLong: '',
+    // },
   ]
 
   // Define reviews data as an array of Source objects
