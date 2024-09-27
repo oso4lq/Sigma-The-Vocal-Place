@@ -78,3 +78,18 @@ mat-divider {
     width: 100%;
     margin-top: 10px;
 }
+
+.mobile {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+
+    .mobile {
+        display: flex !important;
+    }
+
+    .desktop {
+        display: none;
+    }
+}
