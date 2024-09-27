@@ -8,8 +8,8 @@
 
         <!-- Side Drawer for Student Details -->
         <mat-sidenav #drawer mode="over" position="end" class="student-drawer" (mousedown)="onDrawerInteractionStart()"
-        (mouseup)="onDrawerInteractionEnd()" (touchstart)="onDrawerInteractionStart()"
-        (touchend)="onDrawerInteractionEnd()">
+            (mouseup)="onDrawerInteractionEnd()" (touchstart)="onDrawerInteractionStart()"
+            (touchend)="onDrawerInteractionEnd()">
             <div class="flex-row center-row">
                 <div class="flex-row center-row back" (click)="closeDrawer()">
                     <mat-icon>arrow_back_ios_new</mat-icon>Назад
@@ -35,25 +35,28 @@
                 <!-- Telegram -->
                 <div class="flex-col form-group" *ngIf="selectedRequest()?.telegram">
                     <label>telegram:</label>
-                    <a target="_blank" href="{{ getTelegramLink(selectedRequest()?.telegram) }}">
+                    <a class="mobile" target="_blank" href="{{ getTelegramLink(selectedRequest()?.telegram) }}">
                         <input class="no-pointer-events flex-grow" type="text" formControlName="telegram" readonly>
                     </a>
+                    <input class="flex-grow desktop" type="text" formControlName="telegram" readonly>
                 </div>
 
                 <!-- Phone -->
                 <div class="flex-col form-group" *ngIf="selectedRequest()?.phone">
                     <label>телефон:</label>
-                    <a href="tel:{{selectedRequest()?.phone}}">
+                    <a class="mobile" href="tel:{{selectedRequest()?.phone}}">
                         <input class="no-pointer-events flex-grow" type="text" formControlName="phone" readonly>
                     </a>
+                    <input class="flex-grow desktop" type="text" formControlName="phone" readonly>
                 </div>
 
                 <!-- Email -->
                 <div class="flex-col form-group" *ngIf="selectedRequest()?.email">
                     <label>email:</label>
-                    <a href="mailto:{{selectedRequest()?.email}}">
+                    <a class="mobile" href="mailto:{{selectedRequest()?.email}}">
                         <input class="no-pointer-events flex-grow" type="email" formControlName="email" readonly>
                     </a>
+                    <input class="flex-grow desktop" type="email" formControlName="email" readonly>
                 </div>
 
                 <!-- Message -->

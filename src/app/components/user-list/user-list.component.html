@@ -44,26 +44,29 @@
                 <!-- Telegram -->
                 <div class="flex-col flex-grow">
                     <label>telegram:</label>
-                    <a target="_blank" href="{{ getTelegramLink(selectedUser()?.telegram) }}">
+                    <a class="mobile" target="_blank" href="{{ getTelegramLink(selectedUser()?.telegram) }}">
                         <input class="no-pointer-events flex-grow smol" type="text" formControlName="telegram" readonly>
                     </a>
+                    <input class="flex-grow desktop" type="text" formControlName="telegram" readonly>
                 </div>
             </div>
 
             <!-- Phone -->
             <div class="flex-col form-group">
                 <label>телефон:</label>
-                <a href="tel:{{selectedUser()?.phone}}">
+                <a class="mobile" href="tel:{{selectedUser()?.phone}}">
                     <input class="no-pointer-events flex-grow" type="text" formControlName="phone" readonly>
                 </a>
+                <input class="flex-grow desktop" type="text" formControlName="phone" readonly>
             </div>
 
             <!-- Email -->
             <div class="flex-col form-group">
                 <label>email:</label>
-                <a href="mailto:{{selectedUser()?.email}}">
+                <a class="mobile" href="mailto:{{selectedUser()?.email}}">
                     <input class="no-pointer-events flex-grow" type="email" formControlName="email" readonly>
                 </a>
+                <input class="flex-grow desktop" type="email" formControlName="email" readonly>
             </div>
         </form>
 

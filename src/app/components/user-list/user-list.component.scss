@@ -161,3 +161,18 @@ mat-divider {
         }
     }
 }
+
+.mobile {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+
+    .mobile {
+        display: flex !important;
+    }
+
+    .desktop {
+        display: none;
+    }
+}
