@@ -24,6 +24,9 @@ User-friendly pop-ups enhance the user experience, incorporating custom componen
 **Backend:**
 The project’s backend is hosted on Google Firebase.
 
+**Telegram Bot**
+A Telegram bot was created as an alternative to the website interface to sign up for or cancel a class or to make a request as a new student. The bot uses the same Backend as the Frontend project. The classes/requests are visible in the tutor/admin's interface.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.2.
 
 =========================================
