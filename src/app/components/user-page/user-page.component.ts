@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, Signal } from '@angular/core';
+import { Component, computed, effect, OnInit, Signal } from '@angular/core';
 import { Class, ClassStatus, UserData } from '../../interfaces/data.interface';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
@@ -55,12 +55,28 @@ export class UserPageComponent implements OnInit {
   currentUserData: Signal<UserData | null> = computed(() => this.authService.currentUserDataSig()); // track the current user data
   classes: Signal<Class[]> = computed(() => this.classesService.classesSig()); // track the classes array
 
+  // Telegram data
+  displayedTelegram: string = '';
+  telegramError: string = ''; // For validation errors
+
   constructor(
     private classesService: ClassesService,
     private dialogService: DialogService,
     private usersService: UsersService,
     private authService: AuthService,
-  ) { }
+  ) {
+    // Use effect to watch for changes in currentUserData
+    effect(() => {
+      const data = this.currentUserData();
+      if (data) {
+        this.userData = data;
+        this.initializeDisplayedTelegram();
+      } else {
+        this.userData = null;
+        this.displayedTelegram = '';
+      }
+    });
+  }
 
   // Filtered and sorted classes that match the user's registered classes
   filteredClasses = computed(() => {
@@ -110,14 +126,53 @@ export class UserPageComponent implements OnInit {
     this.classesService.loadClasses();
   }
 
+  // Method to initialize displayedTelegram
+  private initializeDisplayedTelegram(): void {
+    if (this.userData && this.userData.telegram) {
+      // Add "@" prefix if not already present
+      this.displayedTelegram = this.userData.telegram.startsWith('@')
+        ? this.userData.telegram
+        : `@${this.userData.telegram}`;
+    } else {
+      this.displayedTelegram = '';
+    }
+  }
+
   // Edit and update the userData
   toggleEdit() {
     this.isUserDataEditing = !this.isUserDataEditing;
 
-    // If the user finished editing, submit the data to Firebase
+    // If the user finished editing, process and submit the data to Firebase
     if (!this.isUserDataEditing && this.userData) {
-      this.usersService.updateUserData(this.userData);
+      // Validate Telegram username before saving
+      if (this.isValidTelegram(this.displayedTelegram)) {
+        this.telegramError = '';
+        this.processAndSaveTelegram();
+        this.usersService.updateUserData(this.userData);
+      } else {
+        // Set error message and keep editing mode open
+        this.telegramError = 'Invalid Telegram username. Please enter a valid username.';
+        this.isUserDataEditing = true;
+      }
     }
+  }
+
+  // Method to process displayedTelegram and update userData.telegram
+  private processAndSaveTelegram(): void {
+    if (this.displayedTelegram.startsWith('@')) {
+      // Remove "@" symbol before saving
+      this.userData!.telegram = this.displayedTelegram.substring(1);
+    } else {
+      // Save as is
+      this.userData!.telegram = this.displayedTelegram;
+    }
+  }
+
+  // Method to validate Telegram username
+  private isValidTelegram(username: string): boolean {
+    // Example: Telegram usernames can have letters, numbers, and underscores, and must be 5-32 characters
+    const telegramRegex = /^@?[A-Za-z0-9_]{5,32}$/;
+    return telegramRegex.test(username);
   }
 
   cancelClass(classItem: Class) {
