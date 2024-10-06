@@ -37,7 +37,7 @@ export class MapyczComponent implements OnInit, AfterViewInit {
   // Mapy.cz API key
   private readonly apiKey = 'f1Y41Hii6PjydSj-pb72qQeh7CeGorKmmZkiPmStogI';
   // Viewport and marker coordinates
-  readonly centerCoordinates = [30.3310239, 59.8739211];
+  readonly centerCoordinates = [30.318051, 59.924145];
 
   constructor(
     private mobileService: MobileService,
